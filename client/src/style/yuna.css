@@ -1,5 +1,6 @@
 /****************************
 * Header
+* yuna
 *****************************/
 .header-wrap {
     width: 100%;
@@ -53,4 +54,200 @@
 .header-bottom-right-icons > li > a {
     font-size: 23px;
     color: rgb(85, 85, 85);
+}
+
+/****************************
+* Main(Home)
+* yuna
+*****************************/
+/** 공통 **/
+.maincontents-title-block-title,
+.main-contents-category-title {
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0;
+    /* border: 1px solid blue; */
+}
+.main-contents-best-products-ul > a,
+.main-contents-suncare-ul > a {
+    text-decoration: none;
+    color: #000;
+}
+
+
+.main-contents-best-top {
+    text-align: center;
+    padding: 30px 0;
+}
+.maincontents-title-block-des {
+    margin: 0;
+    margin-top: 10px;
+    font-size: 20px;
+    color: gray;
+}
+.main-contents-best-products-ul {
+    list-style-type: none;
+    margin: 0;
+}
+.main-contents-best-products-li {
+    width: 320px;
+    position: relative;
+}
+.main-contents-best-products-img {
+    width: 100%;
+}
+.main-contents-best-products-detail {
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 0;
+    height: 100px;
+}
+.main-contents-best-products-detail > p {
+    margin: 0;
+    line-height: 30px;
+}
+.main-contents-best-products-like {
+    position: absolute;
+    bottom: 150px;
+    left: 280px;
+    z-index: 1;
+    font-size: 27px;
+    cursor: pointer;
+}
+.main-contents-category-top {
+    text-align: center;
+    padding: 30px 0;
+    margin: 60px 0;
+}
+.main-contents-category-des {
+    margin: 20px 0;
+}
+.main-contents-category-des > p {
+    margin: 0;
+    line-height: 30px;
+}
+.main-contents-category-top > button {
+    border: 1px solid #000;
+    font-size: 16px;
+    padding: 15px 25px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.main-contents-category-container > p {
+    color: gray;
+    text-align: center;
+    font-size: 24px;
+}
+.main-contents-category-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+.main-contents-category-list > a {
+    text-decoration: none;
+    color: #000;
+}
+.main-contents-category-list > a > li > img {
+    width: 100%;
+}
+.main-contents-category-list > a > li > p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+.main-contents-suncare-top {
+    margin: 80px 0;
+    display: flex;
+    justify-content: center;
+    /* gap: 150px; */
+    align-items: center;
+}
+.main-contents-suncare-top-img {
+    width: 700px;
+}
+.main-contents-suncare-info {
+    margin: 0;
+    width: 700px;
+}
+.main-contents-suncare-info > p {
+    margin: 0;
+}
+.main-contents-suncare-info > p:first-child {
+    color: gray;
+    font-size: 18px;
+}
+.main-contents-suncare-info > p:nth-child(2) {
+    margin: 20px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+.main-contents-suncare-info > p:last-child > p {
+    margin: 0;
+    line-height: 25px;
+    font-size: 17px;
+}
+
+.main-contents-suncare-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+.main-contents-suncare-li {
+    width: 320px;
+    position: relative;
+}
+.main-contents-suncare-img {
+    width: 100%;
+}
+.main-contents-suncare-detail {
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 0;
+    height: 100px;
+}
+.main-contents-suncare-detail > p {
+    margin: 0;
+    line-height: 30px;
+}
+.main-contents-suncare-like {
+    position: absolute;
+    bottom: 150px;
+    left: 280px;
+    z-index: 1;
+    font-size: 27px;
+    cursor: pointer;
+}
+.suncare-title {
+    text-align: center;
+    padding: 30px 0;
+}
+.main-bottom-wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 50px;
+    margin-bottom: 60px;
+}
+.main-bottom-img {
+    width: 700px;
+}
+/* border: 1px solid blue; */
+/* border: 1px solid green; */
+
+/****************************
+* 상품 상세 페이지
+* yuna
+*****************************/
+.product-detail-wrap {
+    border: 1px solid red;
+}
+.product-detail-contents {
+    display: flex;
+    
 }

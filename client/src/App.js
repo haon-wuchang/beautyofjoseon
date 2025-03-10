@@ -8,6 +8,7 @@ import Login from './page/Login.jsx';
 import Signup from './page/Signup.jsx';
 import Mypage from './page/Mypage.jsx';
 import Products from './page/Products.jsx';
+import ProductDetail from './page/ProductDetail.jsx';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path='/signup' element = {<Signup />} />
           <Route path='/mypage' element = {<Mypage />} />
           <Route path='/product' element = {<Products />} />
+          <Route path='/product/detail' element = {<ProductDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

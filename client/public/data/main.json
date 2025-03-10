@@ -1,0 +1,24 @@
+{
+    "mainCategory": [
+        {
+            "img": "images/cate_all.jpg",
+            "title": "전체"
+        },
+        {
+            "img": "images/cate_skincare.jpg",
+            "title": "스킨케어"
+        },
+        {
+            "img": "images/cate_bodycare.jpg",
+            "title": "바디케어"
+        },
+        {
+            "img": "images/cate_lifestyle.jpg",
+            "title": "라이프스타일"
+        },
+        {
+            "img": "images/cate_set.jpg",
+            "title": "세트"
+        }
+    ]
+}
