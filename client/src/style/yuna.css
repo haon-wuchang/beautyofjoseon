@@ -1,0 +1,56 @@
+/****************************
+* Header
+*****************************/
+.header-wrap {
+    width: 100%;
+    border-bottom: 1px solid silver;
+    position: fixed;
+}
+.header-top-notice > p {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 13px;
+    padding: 8px 0;
+    background-color: rgb(240, 238, 232);
+}
+.header-bottom {
+    height: 130px;
+    background-color: #fff;
+}
+.header-bottom-container {
+    display: flex;
+    justify-content: space-between;
+    height: 90px;
+    align-items: center;
+}
+.header-bottom-left {
+    margin-left: 50px;
+}
+.header-bottom-left-main-logo {
+    width: 90px;
+}
+.header-bottom-right {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+.header-bottom-right-nav > a {
+    margin: 0;
+    text-decoration: none;
+    margin-left: 20px;
+    color: #000;
+    font-weight: 500;
+    font-size: 15px;
+}
+.header-bottom-right-icons {
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+}
+.header-bottom-right-icons > li:not(:first-child) {
+    margin-left: 20px;
+}
+.header-bottom-right-icons > li > a {
+    font-size: 23px;
+    color: rgb(85, 85, 85);
+}
