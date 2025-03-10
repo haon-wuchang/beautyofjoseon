@@ -1,0 +1,72 @@
+.footer-box{
+    /* border: 1px solid red; */
+    height: 300px;
+    padding: 0 20px 30px;
+}
+.footer-top-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-top-left>img{
+    width: 100px;
+}
+.footer-top-right{
+    display: flex;
+}
+.footer-top-right-boxs >ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+}
+.footer-top-right-boxs{
+    /* border: 1px solid blue; */
+    padding-left: 40px;
+}
+.footer-top-right-boxs >ul>li:first-child{
+    font-size: 13px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+.footer-top-right-boxs >ul>li:not(.footer-top-right-boxs >ul>li:first-child){
+    color: gray;
+    padding-bottom: 4px;
+}
+.footer-middle-line1 >ul{
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+    font-size: 12px;
+    padding: 0;
+}
+.footer-middle-line1 >ul>li>a{
+    text-decoration: none;
+    color: gray;
+}
+.footer-middle-line2 > ul{
+    display: flex;
+    gap: 15px;
+    list-style-type: none;
+    font-size: 12px;
+    color: gray;
+    padding: 0;
+}
+.footer-middle-line2 > ul>li>span:first-child{
+    font-weight: 600;
+    /* border: 1px solid red; */
+    padding-right: 5px;
+}
+.footer-bottom-logo{
+    /* border: 1px solid red; */
+    padding-top: 40px;    
+}
+.footer-bottom-logo >span{
+    padding-right: 13px;
+}
+.footer-bottom-last{
+    /* border: 1px solid red; */
+    padding-top: 20px;
+    font-size: 12px;
+    color: gray;
+}
