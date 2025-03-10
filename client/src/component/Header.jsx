@@ -24,13 +24,16 @@ export default function Header() {
                     <div className='header-bottom-right'>
                         <nav className='header-bottom-right-nav'>
                             <Link to="/">HOME</Link>
-                            <Link to="/">PRODUCT</Link>
+                            <Link to="/product">PRODUCT</Link>
                             <Link to="/">BRAND STORY</Link>
                             <Link to="/">MEMBERSHIP</Link>
                             <Link to="/">PRESS</Link>
                         </nav>
                         <ul className='header-bottom-right-icons'>
-                            <li><Link to="/"><GoPerson /></Link></li>
+                            {/* 로그인안했을때 누르면 로그인페이지로
+                            로그인햇을때는 마이페이지로 이동되게해야함 */}
+                            {/* <li><Link to="/login"><GoPerson /></Link></li> */}
+                            <li><Link to="/mypage"><GoPerson /></Link></li>
                             <li><Link to="/"><PiShoppingBag /></Link></li>
                             <li><Link to="/"><IoSearchOutline /></Link></li>
                             <li><Link to="/"><BsList /></Link></li>
