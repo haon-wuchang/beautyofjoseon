@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './style/haon.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './page/Layout.jsx';
 import Home from './page/Home.jsx';
