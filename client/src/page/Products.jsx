@@ -2,6 +2,9 @@ import React from 'react';
 import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { BiSquare } from "react-icons/bi";
+import { CgDice2 } from "react-icons/cg";
+import { CgDice3 } from "react-icons/cg";
+import { CgDice4 } from "react-icons/cg";
 
 export default function Products() {
     return (
@@ -22,9 +25,9 @@ export default function Products() {
                     <span>Products</span>
                 </div>
                 <div>
-                    <BiSquare className='product-all-top-flex-square' />
-                    <BiSquare className='product-all-top-flex-square' />
-                    <BiSquare className='product-all-top-flex-square' />
+                    <CgDice2 className='product-all-top-flex-square' />
+                    <CgDice3 className='product-all-top-flex-square' />
+                    <CgDice4 className='product-all-top-flex-square' />
                     <select name="" id="">
                         <option value="default">Sort</option>
                         <option value="new">신상품</option>
