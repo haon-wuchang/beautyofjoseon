@@ -11,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.footer-top-left>img{
+.footer-top-left-img{
     width: 100px;
 }
 .footer-top-right{
@@ -82,7 +82,7 @@
     justify-content: space-between;
     /* align-items: center; */
    margin-bottom: 30px;
-    height: 1200px;
+    height: 1000px;
     /* border: 1px solid red; */
     overflow: hidden;
     
@@ -95,41 +95,59 @@
 }
 .login-box-right{
     margin: 0 auto;
-    margin-top: 400px;
+    margin-top: 200px;
     /* border: 1px solid red; */
     height: 500px;
-    width: 370px;
+    width: 400px;
 }
 .login-box-right >h3{
-    font-size: 22px;
+    font-size: 26px;
 }
 
 .login-box-right-top >input {
     display: block;
-    width: 363px;
+    width: 380px;
     margin-bottom: 8px;
-    height: 35px;
+    height: 45px;
+    padding: 0 10px;
     font-size: 12px;
+    border: 1px solid gainsboro;
 }
 .login-box-right-top >input:last-child{
     margin-bottom: 30px;
 }
+.login-btn:hover{
+    cursor: pointer;
+}
 .login-btn{
     /* width: 370px; */
     width: 100%;
-    height: 40px;
+    height: 45px;
 }
-.login-box-right-middle > button{
-    display: block;
+.login-box-right-middle > div:first-child{
+    margin-bottom: 13px;
 }
-.login-box-right-middle > button:first-child{
-    margin-bottom: 8px;
+.login-btn2, .login-btn3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.login-box-right-middle-logo1{
+    font-size: 16px;
+}
+.login-box-right-middle-logo2{
+    font-size: 22px;
+}
+.login-btn2>span:last-child, .login-btn3>span:last-child{
+    margin-left: 5px;
 }
 .login-btn1{
     background-color: black;
     color: white;
     font-weight: 600;
     border: 1px solid black;
+    font-size: 16px;
 }
 .login-btn2{
     background-color: rgb(25, 206, 96);
@@ -145,14 +163,14 @@
 .login-btn4{
     background-color: white;
     color: gray;
-    border: 1px solid gray;
+    border: 1px solid gainsboro;
     font-weight: 600;
 }
 .login-cut{
     text-align: center;
-    padding: 7px 0;
+    padding: 15px 0;
     font-size: 13px;
-    color: gray;
+    color: rgb(180, 180, 180);
 }
 .login-cut> span{
     padding: 0 10px;
@@ -295,12 +313,16 @@
 /*****************************************/
 .product-all-box{
     padding: 0 60px;
+    margin-top: 30px;
 }
 .product-all-top>h5{
     font-size: 19px;
     font-weight: 500;
     margin: 0;
     padding: 0;
+}
+.product-all-top>h5:hover{
+    cursor: pointer;
 }
 .product-all-top>ul{
     list-style-type: none;
@@ -309,6 +331,9 @@
     margin: 0;
     padding: 10px 0 30px ;
     border-bottom: 1px solid gainsboro;
+}
+.product-all-top>ul>li:hover{
+    cursor: pointer;
 }
 .product-all-top>ul>li{
     border: 1px solid rgb(238, 238, 238);
@@ -342,8 +367,12 @@
     margin: 0;
     padding: 0;
 }
+.product-all-top-flex-square:hover{
+    cursor: pointer;
+}
 .product-all-top-flex-square{
     font-size: 23px;
+    padding: 3px;
 }
 .product-all-top-flex>div:last-child>select{
     margin-left: 10px;
@@ -360,19 +389,22 @@
     text-align: center;
     padding-bottom: 50px;
 }
+.square9:hover{
+    cursor: pointer;
+}
 .square9{
     /* border: 1px solid red; */
-    width: 410px;
+    width: 410px;     
 }
 .square9>img{
     width: 100%;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 20px; 
 }
 .square9-heart{
     /* border: 1px solid red; */
     position: absolute;
-    bottom: 40px;
+    bottom: 10px;
     font-size: 25px;
     left: 435px;
 }
@@ -411,6 +443,9 @@
     border-bottom: 1px solid gray;
 
 }
+.square4:hover{
+    cursor: pointer;
+}
 .square4{
     /* border: 1px solid red; */
     width: 560px;
@@ -436,6 +471,9 @@
     border-bottom: 1px solid gray;
 
 }
+.square2:hover{
+    cursor: pointer;
+}
 .square2{
     width: 860px;
     margin-bottom: 80px;
@@ -449,9 +487,10 @@
 /*********     Mypage           *********/
 /*****************************************/
 .mypage-box{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     margin: 0 auto;
     width: 1200px;
+    padding-bottom: 70px;
 }
 .mypage-top{
     display: flex;
@@ -459,9 +498,15 @@
     align-items: center;
     padding: 20px 0;
 }
+.mypage-top:hover{
+    cursor: pointer;
+}
 .mypage-top>div:first-child{
     font-size: 20px;
     font-weight: 700;
+}
+.mypage-top>div:last-child>button:hover{
+    cursor: pointer;
 }
 .mypage-top>div:last-child > button{
     background-color: white;
@@ -474,7 +519,8 @@
     margin-right: 5px;
 }
 .mypage-top2{
-    border: 1px solid red;
+    border: 1px solid gainsboro;
+    background-color: rgb(245, 245, 245);
 }
 .mypage-top2>ul{
     list-style-type: none;
@@ -482,11 +528,882 @@
     justify-content: space-between;
     /* padding: 0; */
     margin: 0;
-    padding: 20px 0;
+    padding: 30px 0;
+}
+.mypage-top2>ul>li>span:hover{
+    cursor: pointer;
 }
 .mypage-top2>ul>li{
     /* border: 1px solid blue; */
     width: 300px;
-    border-right: 1px solid gray;
+    border-right: 1px solid gainsboro;
+    padding: 0 30px;
+}
+.mypage-top2>ul>li:first-child>h4, .mypage-top2>ul>li:first-child>h5, 
+.mypage-top2>ul>li:first-child>span{
+    margin: 0;
+    padding: 0;
+}
+.mypage-top2>ul>li:first-child>h4:hover{
+    cursor: pointer;
+}
+.mypage-top2>ul>li:first-child>h4{
+    font-size: 20px;
+}
+.mypage-top2>ul>li:first-child>h5{
+   margin-top: 8px;
+   color: gray;
+   font-weight: 400;
+   margin-bottom: 40px;
+}
+.mypage-top2>ul>li:first-child>span{
+    border: 1px solid gainsboro;
+    background: gainsboro;
+    font-size: 14px;
+}
+.mypage-top2>ul>li:nth-child(2)>p,
+.mypage-top2>ul>li:nth-child(3)>p,
+.mypage-top2>ul>li:nth-child(4)>p{
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 60px;
+}
+.mypage-top2>ul>li>p:hover{
+    cursor: pointer;
+}
+.mypage-top2>ul>li:nth-child(2)>span,
+.mypage-top2>ul>li:nth-child(3)>span,
+.mypage-top2>ul>li:nth-child(4)>span{
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: right;
+    padding-left: 190px;
+    /* border: 1px solid red; */
+}
+.mypage-cate{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.mypage-cate>ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    font-size: 15px;
+    
+}
+.mypage-cate>ul>li:hover{
+    cursor: pointer;
+}
+.mypage-cate>ul>li{
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+}
+.mypage-desc{
+    border: 1px solid gainsboro;
+    margin-bottom: 30px;
+    padding: 20px 20px;
+    font-size: 15px;
+}
+.mypage-desc>p{
+    margin: 0;
+    padding-bottom: 5px;
+}
+.mypage-desc>p>span{
+    font-weight: 700;
+}
+.mypage-middle-box{
+    border: 4px solid gainsboro;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.mypage-middle-box>div{
+    width: 600px;
+    padding: 15px 20px;
+}
+.mypage-middle-box>div:first-child{
+    border-right: 1px solid gainsboro;
+}
+.mypage-middle-box>div>ul{
+    list-style-type: none;
+}
+.mypage-middle-box>div>ul>li{
+    display: flex;
+    /* justify-content: space-between; */
+    font-size: 14px;
+    align-items: center;
+}
+.mypage-middle-box>div>ul>li:not(:last-child){
+    padding-bottom: 10px;
+}
+.mypage-middle-box>div>ul>li>span{
+    margin: 0;
+    padding: 0;
+}
+.mypage-middle-box>div>ul>li>button{
+    margin: 0;
+    padding: 0;
+}
+.mypage-middle-box>div>ul>li>span:first-child{
+    /* border: 1px solid red; */
+    width: 360px;
+    color: rgb(51, 51, 51);
+}
+.mypage-middle-box>div>ul>li>span:nth-child(2){
+    /* border: 1px solid blue; */
+    width: 60px;
+    font-weight: 600;
+    text-align: right;
+    margin-right: 20px;
+}
+.mypage-middle-box>div>ul>li>button{
+    border: 1px solid gainsboro;
+    background-color: white;
+    padding: 3px 8px;
+}
+.mypage-bottom-box{
+    border: 1px solid gainsboro;
+}
+.mypage-bottom-box>div:first-child{
+    border-bottom: 1px solid gainsboro;
+    padding: 13px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: rgb(245,245,245);
+}
+.mypage-bottom-box>div:first-child>span:last-child{
+    font-weight: 100;
+    font-size: 13px;
+    margin-left: 5px;
+}
+.mypage-bottom-box>div:last-child>ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    align-items: center;
+    padding: 35px 0;
+}
+.mypage-bottom-box>div:last-child>ul>li{
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    width: 240px;
+}
+.mypage-bottom-box>div:last-child>ul>li:not(:last-child){
+
+    border-right: 1px solid gainsboro;
+}
+.mypage-bottom-box>div:last-child>ul>li>p{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+.mypage-bottom-box>div:last-child>ul>li>span{
+    margin: 0;
+    font-size: 25px;
+}
+.mypage-bottom-box>div:last-child>ul>li:last-child>li{
+    /* border: 1px solid red; */
+    padding-bottom: 5px;
+    font-size: 15px;
+    font-weight: 300;
+}
+.mypage-bottom-box>div:last-child>ul>li:last-child>li>span{
+    font-weight: 500;
+}
+
+/*****************************************/
+/*********    Mypage 회원정보수정          *********/
+/*****************************************/
+.mypage-update-info-all{
+    /* border: 1px solid red; */
+}
+.mypage-update-info-title{
+    /* border: 1px solid red; */
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+.mypage-update-info-table, .mypage-update-info-table2{
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    border: 1px solid gainsboro;
+    margin-bottom: 30px;
+}
+.mypage-update-info-table>tr, .mypage-update-info-table2>tr{
+    border-bottom: 1px solid gainsboro;
+}
+ .mypage-update-info-table2>tr>td:first-child{
+    padding: 10px 20px;
+ }
+.mypage-update-info-table>tr>td {
+    /* border: 1px solid rgb(19, 19, 19); */
+    padding: 10px 20px;
+}
+.mypage-update-info-table2>tr>td:first-child{
+    background-color: rgb(245,245,245);
+    width: 150px;
+    border-right: 1px solid gainsboro;
+    font-size: 14px;
+}
+.mypage-update-info-table>tr>td:first-child
+{
+    background-color: rgb(245,245,245);
+    width: 150px;
+    border-right: 1px solid gainsboro;
+    font-size: 14px;
+    
+}
+.mypage-update-info-table>tr>td:last-child,
+.mypage-update-info-table2>tr>td:last-child{
+    width: 1000px;
+    padding: 10px;
+    
+}
+.mypage-update-info-table>tr>td>input{
+    border: 1px solid gainsboro;
+    height: 20px;
+    width: 200px;
+}
+.mypage-update-info-table>tr>td>li{
+    list-style-type: none;
+}
+.mypage-update-info-table>tr>td>li:not(:last-child){
+    padding-bottom: 10px;
+}
+.mypage-update-info-table>tr>td>li>input{
+    border: 1px solid gainsboro;
+    height: 20px;
+    width: 150px;
+}
+.mypage-update-info-table>tr>td>li>button{
+    margin-left: 10px;
+    background-color: white;
+    border: 1px solid gainsboro;    
+
+}
+.mypage-update-info-table>tr>td>li:nth-child(2)>input,
+.mypage-update-info-table>tr>td>li:nth-child(3)>input{
+    width: 500px;
+}
+.mypage-update-info-add-tablebox > div:first-child{
+    font-weight: 600;
+    font-size: 18px;
+    padding: 15px 0;
+}
+.mypage-update-info-table2>tr:nth-child(2)>td:last-child>input{
+    width: 70px;
+}
+.mypage-update-info-table2>tr:nth-child(2)>td:last-child>span{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.mypage-update-info-btns{
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+}
+.mypage-update-info-btns>div>button{
+    padding: 10px 7px;
+    border: 1px solid gainsboro;
+    background-color: white;
+}
+.mypage-update-info-btns>div:last-child>button:last-child{
+    margin-left: 10px;
+}
+
+/*****************************************/
+/*********   주문내역  - 모든탭 내용 다 똑같고 타이틀이름만 바꾸셈     *********/
+/*****************************************/
+.mypage-title{
+    border-bottom: 1px solid gainsboro;
+}
+.mypage-order-top-tab{
+    /* border: 1px solid red; */
+    margin-top: 40px;
+}
+.mypage-order-top-tab>ul{
+    list-style-type: none;
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+    padding: 0; 
+    font-size: 15px;
+    font-weight: 600;
+}
+.mypage-order-top-tab>ul>li:hover{
+    cursor: pointer;
+}
+.mypage-order-top-tab>ul>li:first-child{
+    border-bottom: 2px solid black;
+    color: black;
+
+}
+.mypage-order-top-tab>ul>li{
+    padding: 0;
+    border-bottom: 2px solid gray;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    color: gray;
+}
+.mypage-order-top-tab>ul>li>span:last-child{
+    margin-left: 5px;
+    letter-spacing: 1px;
+}
+.mypage-order-select-box{
+    border: 4px solid gainsboro;
+    padding: 15px 20px;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.mypage-order-select-box>select{
+    border: 1px solid gainsboro;
+    padding: 5px 3px;
+}
+.mypage-order-select-box>ul{
+    list-style-type: none;
+    display: flex;
+    margin-right: 40px;
+}
+.mypage-order-select-box>ul>li:hover{
+    cursor: pointer;
+}
+.mypage-order-select-box>ul>li{
+    border: 1px solid gainsboro;
+    padding: 5px 7px;
+    font-size: 14px;
+}
+.mypage-order-select-box>div{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+.mypage-order-select-box>div>input{
+    border: 1px solid gainsboro;
+    padding: 5px 3px;
+}
+.mypage-order-select-box>div>span:nth-child(2),
+.mypage-order-select-box>div>span:nth-child(5){
+    border: 1px solid gainsboro;
+    padding: 2px 3px;
+
+}
+.mypage-order-select-box>div>span:nth-child(3){
+    padding: 0 60px;
+}
+.mypage-order-select-box>div>span:last-child{
+    padding-left: 100px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.mypage-order-select-desc{
+    list-style-type: none;
+    padding: 0;
+    font-size: 13px;
+    color: gray;
+}
+.mypage-order-select-desc>li{
+    padding-bottom: 3px;
+}
+.mypage-order-bottom-all>div:first-child{
+    margin-top: 50px;
+    
+}
+.mypage-order-bottom-all>div>table{
+    border-collapse: collapse;
+    border: 1px solid gainsboro;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+}
+.mypage-order-bottom-all>div>table>tr{
+    border: 1px solid gainsboro;
+    
+}
+.mypage-order-bottom-all>div>table>tr:first-child{
+    background-color: rgb(245, 245, 245);
+    color: gray;
+    
+}
+.mypage-order-bottom-all>div>table>tr:first-child>td{
+    border-right: 1px solid gainsboro;
+}
+.mypage-order-bottom-all>div>table>tr>td{
+    padding: 10px 20px;
+
+}
+.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2){
+    padding :10px 0;
+    display: flex;
+    align-items: center;
+}
+.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2)>img{
+    height: 130px;
+}
+.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2)>span{
+    margin-left: 5px;
+}
+.mypage-order-page{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/*****************************************/
+/*********    Mypage 관심상품탭         *********/
+/*****************************************/
+.mypage-wish-table{
+    margin-top: 30px;
+    width: 100%;
+}
+.mypage-wish-table >table{
+    border-collapse: collapse;
+    border: 1px solid gainsboro;
+    width: 100%;
+    text-align: center;
+}
+.mypage-wish-table >table>tr:first-child{
+    border: 1px solid gainsboro;
+    background-color: rgb(245 ,  245 ,245);
+    
+}
+.mypage-wish-table >table>tr>td{
+    padding: 10px 0;
+    
+}
+.mypage-wish-table >table>tr>td{
+    border-right: 1px solid gainsboro;
+}
+.mypage-wish-table >table>tr:first-child>td:first-child{
+    width: 50px;
+}
+.mypage-wish-table >table>tr:first-child>td:nth-child(2){
+    width: 700px;
+
+}
+.mypage-wish-table >table>tr>td>img{
+    height: 130px;
+}
+.mypage-wish-table >table>tr:last-child>td:nth-child(2){
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.mypage-wish-table >table>tr>td>span{
+    margin-left: 10px;
+}
+.mypage-wish-table >table>tr:first-child>td:nth-child(3),
+.mypage-wish-table >table>tr:first-child>td:nth-child(4){
+    width: 150px;
+}
+.mypage-wish-table >table>tr:last-child>td:nth-child(4){
     padding: 0 20px;
+    text-align: center;
+    /* background-color: red; */
+}
+.mypage-wish-table >table>tr:last-child>td:nth-child(4)>button{
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 5px;
+}
+.mypage-wish-table >table>tr:last-child>td:nth-child(4)>button:not(:last-child){
+    margin-bottom: 5px;
+}
+.mypage-wish-btns{
+    margin-top: 30px;
+    text-align: right;
+}
+.mypage-wish-btns>button{
+    background-color: white;
+    border: 1px solid gray;
+    padding: 10px 20px;
+}
+.mypage-wish-btns>button:first-child{
+    margin-right: 10px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+.mypage-wish-page{
+    text-align: center;
+    margin-top: 30px;
+}
+
+/*****************************************/
+/*********    Mypage 게시물관리탭         *********/
+/*****************************************/
+.mypage-review-write{
+    margin-top: 30px;
+}
+.mypage-review-write > table{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+}
+.mypage-review-write > table>tr>td>img{
+    height: 130px;
+}
+.mypage-review-write > table>tr{
+    border: 1px solid gainsboro;
+}
+.mypage-review-write > table>tr:first-child{
+    background-color: rgb(245, 245, 245);
+}
+.mypage-review-write > table>tr>td{
+    padding: 10px 0;
+    border-right: 1px solid gainsboro;
+    
+}
+.mypage-review-write > table>tr>td:nth-child(2){
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.mypage-review-write > table>tr>td>button{
+    padding: 10px 20px;
+    border: 1px solid rgb(240, 238, 232);
+    background-color: rgb(240, 238, 232);
+}
+.mypage-review-write-page{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+.mypage-review-writed-select{
+    padding: 10px 0;
+}
+.mypage-review-writed-select>select{
+    border: 1px solid gainsboro;
+
+}
+.mypage-review-writed{
+    /* border: 1px solid red; */
+}
+.mypage-review-writed>table{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+}
+.mypage-review-writed>table>tr{
+    border: 1px solid gainsboro;
+
+}
+.mypage-review-writed>table>tr:first-child{
+    background-color: rgb(245 ,  245 ,245);
+    
+}
+.mypage-review-writed>table>tr>td{
+    padding: 10px 0;
+    border-right: 1px solid gainsboro;
+}
+.mypage-review-writed-page{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/*****************************************/
+/*********    Mypage 배송지관리         *********/
+/*****************************************/
+.mypage-delivery-table{
+ margin-top: 30px;
+}
+.mypage-delivery-table>table{
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+.mypage-delivery-table>table>tr{
+    border: 1px solid gainsboro;
+}
+.mypage-delivery-table>table>tr:first-child{
+    background-color: rgb(245, 245, 245);
+}
+.mypage-delivery-table>table>tr>td{
+    border-right: 1px solid gainsboro;
+    padding: 10px 0;
+}
+.mypage-delivery-btns{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+.mypage-delivery-btns>button{
+    padding: 10px 15px;
+    background-color: white;
+    border: 1px solid gainsboro;
+
+}
+.mypage-delivery-btns>button:first-child{
+    margin-right: 10px;
+    background-color: rgb(240 , 238, 232);
+    border: 1px solid rgb(240 , 238, 232);
+}
+.mypage-delivery-desc{
+    border: 1px solid gainsboro;
+    margin-top: 60px;
+    /* padding: 0 10px; */
+    width: 100%;
+}
+.mypage-delivery-desc>div{
+    margin: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid gainsboro;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: rgb(245 ,  245 ,245);
+    padding-left: 10px;
+}
+.mypage-delivery-desc>ul{
+    list-style-type: none;
+    font-size: 14px;
+    padding: 0 20px;
+    color: gray;
+}
+.delivery-write-form{
+    border: 1px solid gray;
+    width: 500px;
+    margin: 0 auto;
+    height: 600px;
+    padding-top: 20px;
+    height: 400px;
+}
+.delivery-write-form>ul{
+    list-style-type: none;
+    padding: 10px 0 10px 30px;
+    margin: 0;
+}
+.delivery-write-form>ul>li{
+    display: flex;
+    align-items: center;
+    /* border-bottom: 1px solid gainsboro; */
+    padding: 5px;
+}
+.delivery-write-form>ul>li>label{
+    /* border: 1px solid red; */
+    width: 100px;
+    display: inline-block;
+    margin-right: 20px;
+}
+.delivery-write-form>ul>li>input,.delivery-write-form>ul>li>div>input{
+    border: 1px solid gray;
+    height: 20px;
+    width: 300px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.delivery-write-form>ul>li>div>div>button{
+    background-color: rgb(240 , 238, 232);
+    border: 1px solid rgb(240 , 238, 232);
+}
+.delivery-write-form>ul>li>div>div{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid red; */
+    margin-bottom: 5px;
+}
+.delivery-write-form>ul>li>div>div>input{
+    border: 1px solid gray;
+    height: 20px;
+    width: 100px;
+    display: block;
+    margin-right: 10px;
+}
+.mypage-delivery-form-check{
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 10px;
+}
+.mypage-delivery-write-btns{
+    width: 100%;
+    text-align: center;
+    margin-top: 90px;
+}
+.mypage-delivery-write-btns>button{
+    padding: 10px 30px;
+    background-color: white;
+    border: 1px solid gainsboro;
+}
+.mypage-delivery-write-btns>button:first-child{
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    margin-right: 10px;
+}
+/*****************************************/
+/*********    Mypage 적립금         *********/
+/*****************************************/
+.mypage-money-all-top{
+    display: flex;
+    border: 4px solid gainsboro;
+    margin-top: 30px;
+}
+.mypage-money-all-top>div{
+    width: 600px;
+    padding: 20px 40px;
+}
+.mypage-money-all-top>div:first-child{
+    border-right: 1px solid gainsboro;
+}
+.mypage-money-all-top>div>ul{
+    list-style-type: none;
+    font-size: 14px;
+    padding: 0;
+}
+.mypage-money-all-top>div>ul>li{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+.mypage-money-tab{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    font-size: 14px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.mypage-money-tab>li:first-child{
+    font-weight: 600;
+    border-bottom: 2px solid black;
+    padding-bottom: 15px;
+}
+.mypage-money-table{
+    margin-top: 30px;
+}
+.mypage-money-table>table, .mypage-coupon-table>table{
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+}
+.mypage-money-table>table>tr:first-child,
+ .mypage-coupon-table>table>tr:first-child{
+    background-color: rgb(245 ,  245 ,245);
+}
+.mypage-money-table>table>tr , .mypage-coupon-table>table>tr{
+    border: 1px solid gainsboro;
+}
+.mypage-money-table>table>tr>td, .mypage-coupon-table>table>tr>td{
+    border-right: 1px solid gainsboro;
+    padding: 10px 0;
+}
+.mypage-money-table>table>tr>td:first-child{
+    width: 200px;
+}
+.mypage-money-table>table>tr>td:nth-child(2){
+    width: 200px;
+}
+.mypage-money-table>table>tr>td:nth-child(3){
+    width: 600px;
+}
+.mypage-money-page{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.mypage-money-desc{
+    border: 1px solid gainsboro;
+}
+.mypage-money-desc>h5{
+    margin: 0;
+    padding: 10px 20px;
+    border-bottom: 1px solid gainsboro;
+    background-color: rgb(245 ,  245 ,245);
+}
+.mypage-money-desc>ul{
+    padding: 0 20px;
+}
+.mypage-money-desc>ul>li{
+    list-style-type: none;
+    font-size: 13px;
+    margin-bottom: 3px;
+    color: gray;
+}
+/*****************************************/
+/*********    Mypage 쿠폰        *********/
+/*****************************************/
+.mypage-coupon-top{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+.mypage-coupon-top>span:first-child{
+    font-weight: 600;
+    font-size: 17px;
+}
+.mypage-coupon-top>span:last-child{
+    font-size: 14px;
+    color: gray;
+}
+.mypage-coupon-middle>h5{
+    margin: 0;
+    padding: 0;
+}
+.mypage-coupon-middle>div{
+    border: 1px solid gainsboro;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.mypage-coupon-middle>div>div{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    /* border: 1px solid red; */
+    /* margin: 0 auto; */
+    padding: 0 300px;
+    margin-bottom: 10px;
+}
+.mypage-coupon-middle>div>div>input{
+    width: 550px;
+    text-align: center;
+    margin-right: 10px;
+    height: 34px;
+    border: 1px solid gainsboro;
+}
+.mypage-coupon-middle>div>div>button{
+    text-align: center;
+    width: 200px;
+    height: 40px;
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+}
+.mypage-coupon-table>table>tr>td>div>span{
+    border: 1px solid gainsboro;
+    background-color: rgb(240 , 238, 232);
+    padding: 3px 5px;
+    font-size: 13px;
+}
+.mypage-coupon-table>table>tr>td>div>span:hover{
+    cursor: pointer;
 }

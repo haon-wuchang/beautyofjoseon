@@ -3,13 +3,17 @@ import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaTiktok } from "react-icons/fa";
+import {Link} from 'react-router-dom';
 
 export default function Footer() {
     return (
         <div className='footer-box'>
             <div className='footer-top-box'>
                 <div className='footer-top-left'>
-                    <img src="https://beautyofjoseon.co.kr/web/upload/category/editor/2023/10/06/eb41d532709809ce6016bed1b1d649ca.png" alt="" />
+                    <Link to="/">
+                    <img  className='footer-top-left-img'
+                        src="https://beautyofjoseon.co.kr/web/upload/category/editor/2023/10/06/eb41d532709809ce6016bed1b1d649ca.png" alt="" />
+                    </Link>
                 </div>
                 <div className='footer-top-right'>
                     <div className='footer-top-right-boxs'>
