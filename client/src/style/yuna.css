@@ -114,6 +114,9 @@
     font-size: 27px;
     cursor: pointer;
 }
+.main-contents-category-wrap {
+    padding: 80px 0;
+}
 .main-contents-category-top {
     text-align: center;
     padding: 30px 0;
@@ -133,22 +136,27 @@
     background-color: #fff;
     cursor: pointer;
 }
+.main-contents-category-container {
+    width: 100%;
+}
 .main-contents-category-container > p {
     color: gray;
     text-align: center;
     font-size: 24px;
 }
 .main-contents-category-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0 30px;
     display: flex;
+    width: 1440px;
+    margin: 0 auto;
     justify-content: space-between;
     gap: 30px;
+    list-style-type: none;
+    padding: 0;
+
 }
 .main-contents-category-list > a {
+    width: 20%;
     text-decoration: none;
-    color: #000;
 }
 .main-contents-category-list > a > li > img {
     width: 100%;
@@ -157,16 +165,17 @@
     text-align: center;
     font-weight: bold;
     font-size: 17px;
+    color: #000;
 }
 .main-contents-suncare-top {
     margin: 80px 0;
     display: flex;
-    justify-content: center;
-    /* gap: 150px; */
+    justify-content: left;
     align-items: center;
 }
 .main-contents-suncare-top-img {
-    width: 700px;
+    width: 50%;
+    margin-left: 50px;
 }
 .main-contents-suncare-info {
     margin: 0;
@@ -189,11 +198,11 @@
     line-height: 25px;
     font-size: 17px;
 }
-
 .main-contents-suncare-ul {
+    width: 1440px;
+    margin: 0 auto;
     list-style-type: none;
-    margin: 0;
-    padding: 0 30px;
+    padding: 0;
     display: flex;
     justify-content: space-between;
     gap: 30px;
@@ -228,17 +237,16 @@
     padding: 30px 0;
 }
 .main-bottom-wrap {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
     padding: 0 50px;
     margin-bottom: 60px;
+    text-align: center;
+}
+.main-bottom-wrap > img:first-child {
+    margin-right: 60px;
 }
 .main-bottom-img {
-    width: 700px;
+    width: 35%;
 }
-/* border: 1px solid blue; */
-/* border: 1px solid green; */
 
 /****************************
 * 상품 상세 페이지
@@ -249,5 +257,663 @@
 }
 .product-detail-contents {
     display: flex;
+    justify-content: space-between;
+}
+.product-detail-main {
+    width: 70%;
+    text-align: center;
+}
+.product-detail-main > img {
+    width: 80%;
+}
+.product-detail-main-bottom {
+    padding: 20px 30px;
+}
+.product-detail-main-bottom-name {
+    margin: 0;
+    padding: 10px 0;
+    text-align: left;
+    font-weight: 600;
+    color: rgb(64, 64, 64);
+}
+.product-detail-main-bottom > table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+.product-detail-main-bottom > table > tbody > tr {
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    height: 30px;
+}
+.product-detail-main-bottom > table > tbody > tr > td:not(:nth-child(2)) {
+    width: 10%;
+}
+.product-detail-main-bottom > table > tbody > tr > td:nth-child(2) {
+    text-align: left;
+}
+
+.product-detail-right {
+    /* border: 1px solid blue; */
+    width: 25%;
+    margin-right: 50px;
+    display: block;
+    /* position: fixed;
+    right: 0;
+    top: 86px; */
+}
+.product-detail-info > p:not(:first-child) {
+    margin: 0;
+    line-height: 30px;
+}
+.product-detail-info-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+.product-detail-info-oprice {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 15px;
+}
+.product-detail-dprice {
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.product-detail-dprice > span:first-child {
+    display: flex;
+    align-items: center;
+    width: 35px;
+    height: 20px;
+    text-align: center;
+    color: rgb(255, 187, 0);
+    background-color: #000;
+    font-size: 15px;
+    margin-right: 5px;
+}
+.product-detail-info-delivery {
+    list-style-type: none;
+    padding: 0;
+    color: gray;
+    font-size: 13px;
+}
+.product-detail-info-delivery > li {
+    display: flex;
+    line-height: 20px;
+}
+.product-detail-info-delivery > li > p {
+    margin: 0;
+}
+.product-detail-info-delivery > li > p:first-child {
+    width: 80px;
+}
+.product-detail-qty {
+    padding: 10px;
+    font-size: 13px;
+    background-color: rgb(247, 247, 247);
+}
+.product-detail-qty-name {
+    margin: 0;
+    margin-bottom: 5px;
+}
+.product-detail-qty-box {
+    display: flex;
+    justify-content: space-between;
+}
+.product-detail-qty-box > div {
+    border: 1px solid gray;
+    display: flex;
+}
+.product-detail-qty-box > div > button {
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    color: gray;
+    border: none;
+}
+.product-detail-qty-box > div > span {
+    display: inline-block;
+    width: 30px;
+    line-height: 24px;
+    text-align: center;
+    align-items: center;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+    background-color: #fff;
+}
+.product-detail-total-price {
+    display: flex;
+    justify-content: space-between;
+}
+.product-detail-total-price > p {
+    margin: 0;
+    padding: 15px 0;
+    font-size: 17px;
+    font-weight: 500;
+}
+.product-detail-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+.product-detail-buttons > button {
+    height: 50px;
+    font-weight: bold;
+    color: gray;
+}
+.product-detail-buttons > button:not(:last-child) {
+    width: 25%;
+    border: 1px solid silver;
+    background-color: #fff;
+}
+.product-detail-buttons > button:last-child {
+    width: 50%;
+    border: 1px solid #000;
+    background-color: #000;
+    color: #fff;
+}
+.product-detail-pay {
+    list-style-type: none;
+    padding: 0;
+    width: 310px;
+}
+.product-detail-pay > li {
+    border-top: 2px solid #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 3px;
+    margin-bottom: 10px;
+}
+.product-detail-pay > li > div:first-child > p {
+    margin: 0;
+    font-size: 12px;
+}
+.product-detail-pay-naver > div:last-child > button,
+.product-detail-pay-kakao > div:last-child > button {
+    height: 35px;
+}
+.product-detail-pay-naver > div:last-child > button:first-child {
+    border: 1px solid green;
+    width: 145px;
+    margin-right: 5px;
+    background-color: rgb(92, 222, 80);
+}
+.product-detail-pay-naver > div:last-child > button:last-child,
+.product-detail-pay-kakao > div:last-child > button:last-child {
+    width: 35px;
+    background-color: #fff;
+    border: 1px solid silver;
+}
+.product-detail-pay-kakao > div:last-child > button:not(:last-child) {
+    margin-right: 5px;
+    background-color: rgb(244, 222, 77);
+    border: none;
+}
+.product-detail-pay-kakao > div:last-child > button:first-child {
+    width: 120px;
+}
+.product-detail-notice {
+    list-style-type: none;
+    padding: 0;
+}
+.product-detail-notice > li {
+    border-bottom: 1px solid silver;
+    padding: 15px 0;
+    font-size: 12px;
+    color: rgb(164, 164, 164);
+}
+.product-detail-notice > li > div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+.product-detail-notice > li > div:first-child > span:last-child {
+    cursor: pointer;
+}
+.product-detail-bottom-notice {
+    padding: 0 20px;
+    font-size: 12px;
+    color: rgb(164, 164, 164);
+}
+.product-detail-bottom-notice > li {
+    line-height: 18px;
+}
+/* border: 1px solid red;
+border: 1px solid blue; */
+.product-detail-notice-toggle {
+    display: none;
+    /* max-height: 0;
+    overflow: hidden; */
+}
+.product-detail-notice-toggle-open {
+    /* max-height: 150px;
+    transition: max-height 0.3s ease-in-out; */
+    display: block;
+}
+
+/****************************
+* 장바구니 페이지
+* yuna
+*****************************/
+.cart-page-wrap {
+    padding: 0 50px;
+}
+/* 상단 */
+.cart-page-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+.cart-item-status {
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    /* padding: 15px 0; */
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.cart-item-status > span {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.cart-item-status > span:first-child {
+    margin-right: 15px;
+}
+.cart-item-select-tab {
+    border-bottom: 3px solid #000;
+}
+.cart-item-status-tab {
+    color: silver;
+}
+/* 장바구니 상품목록 테이블 */
+.cart-main-table {
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+.cart-main-table > thead,
+.cart-main-table > tfoot {
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    background-color: rgb(247, 247, 247);
+}
+.cart-main-table > thead {
+    text-align: center;
+    color: gray;
+    height: 45px;
+}
+.cart-main-table > tbody {
+    color: rgb(99, 99, 99);
+}
+.cart-main-table-list {
+    height: 130px;
+} 
+.cart-main-table-title > td:first-child,
+.cart-main-table-list > td:first-child {
+    width: 40px;
+}
+.cart-main-table-title > td:first-child > button,
+.cart-main-table-list > td:first-child > button {
+    border: 1px solid silver;
+    background-color: #fff;
+    color: gray;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+}
+.cart-main-table-title > td:nth-child(2),
+.cart-main-table-list > td:nth-child(2) {
+    width: 80px;
+}
+.cart-main-table-list > td:nth-child(2) > img {
+    width: 100%;
+}
+.cart-main-table-list > td:nth-child(3) {
+    text-align: left;
+    color: #000;
+}
+.cart-main-table-title > td:nth-child(4),
+.cart-main-table-list > td:nth-child(4) {
+    width: 100px;
+    padding: 0 10px;
+}
+.cart-main-table-list > td:nth-child(4) > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid silver;
+    height: 25px;
+    align-items: center;
+    position: relative;
+}
+.cart-main-table-list > td:nth-child(4) > div:first-child > button {
+    border: none;
+    background-color: #fff;
+}
+.cart-main-table-list > td:nth-child(4) > div:first-child > span {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+}
+.cart-main-table-list > td:nth-child(4) > div:last-child > button {
+    border: 1px solid silver;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 11px;
+    color: rgb(99, 99, 99);
+    background-color: #fff;
+    font-size: 12px;
+}
+.cart-main-table-title > td:nth-child(5),
+.cart-main-table-list > td:nth-child(5) {
+    width: 100px;
+}
+.cart-main-table-list > td:nth-child(5) {
+    font-weight: bold;
+    color: #000;
+}
+.cart-main-table-title > td:nth-child(6),
+.cart-main-table-list > td:nth-child(6) {
+    width: 70px;
+}
+.cart-main-table-title > td:nth-child(7),
+.cart-main-table-list > td:nth-child(7) {
+    width: 70px;
+}
+.cart-main-table-title > td:nth-child(8),
+.cart-main-table-list > td:nth-child(8) {
+    width: 70px;
+}
+.cart-main-table-title > td:last-child,
+.cart-main-table-list > td:last-child {
+    width: 110px;
+}
+.cart-main-table-list > td:last-child > button {
+    width: 100px;
+    padding: 2px 0;
+    font-size: 12px;
+    background-color: #fff;
+}
+.cart-main-table-list > td:last-child > button:first-child {
+    background-color: #000;
+    color: #fff;
+}
+.cart-main-table-list > td:last-child > button:not(:first-child) {
+    border: 1px solid silver;
+    color: rgb(99, 99, 99);
+    margin-top: 2px;
+}
+.cart-main-table > tfoot {
+    text-align: left;
+    height: 50px;
+}
+.cart-main-table > tfoot > tr > td {
+    padding-left: 15px;
+    color: rgb(99, 99, 99);
+}
+.cart-main-table-notice {
+    font-size: 10px;
+    color: gray;
+}
+.cart-main-table-option-btns {
+    /* border-bottom: 1px solid silver; */
+    padding-bottom: 15px
+}
+.cart-main-table-option-btns > button {
+    margin-right: 5px;
+    padding: 2px 3px;
+    font-size: 12px;
+    border: 1px solid silver;
+    background-color: #fff;
+    color: rgb(99, 99, 99);
+    cursor: pointer;
+}
+/* 장바구니 결제 금액 총 합계(영수증) */
+.cart-bill-block {
+    display: flex;
+    justify-content: space-between;
+}
+.cart-bill-block-left {
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    margin-right: 20px;
+    width: 80%;
+    height: 90px;
+    display: flex;
+    gap: 5%;
+}
+.cart-bill-block-left > p > span:first-child {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(99, 99, 99);
+}
+.cart-bill-block-left > p > span:last-child {
+    font-size: 22px;
+    font-weight: bold;
+}
+.cart-bill-block-right {
+    width: 300px;
+}
+.cart-bill-block-right > div > button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.cart-bill-block-right > div > button:first-child {
+    color: #fff;
+    background-color: #000;
+}
+.cart-bill-block-right > div > button:last-child {
+    color: rgb(99, 99, 99);
+    background-color: #fff;
+    border: 1px solid silver;
+}
+.cart-bill-pay {
+    list-style-type: none;
+    padding: 0;
+    font-size: 10px;
+}
+.cart-bill-pay > li {
+    border-top: 2px solid #000;
+    border-bottom: 1px solid silver;
+    height: 50px;
+}
+.cart-bill-pay-naver > div:last-child > button:last-child,
+.cart-bill-pay-kakao > div:last-child > button:nth-child(2),
+.cart-bill-pay-kakao > div:last-child > button:last-child {
+    display: none;
+}
+.cart-bill-pay-naver,
+.cart-bill-pay-kakao {
+    display: flex;
+    align-items: center;
+}
+.cart-bill-pay-naver {
+    width: 80%;
+}
+.cart-bill-pay-naver > div:first-child > p,
+.cart-bill-pay-kakao > div:first-child > p {
+    margin: 0;
+}
+.cart-bill-pay-naver > div:last-child > button {
+    margin-left: 5px;
+    width: 100px;
+    height: 30px;
+    border: 1px solid green;
+    background-color: rgb(92, 222, 80);
+}
+/* .cart-bill-pay-kakao {
+    border: 1px solid green;
+} */
+.cart-bill-pay-kakao > div:last-child > button {
+    border: none;
+    margin-left: 10px;
+    width: 185px;
+    height: 30px;
+    background-color: rgb(244, 222, 77);
+
+}
+/* 장바구니 페이지 하단 이용안내 */
+.cart-page-bottom-notice {
+    color: silver;
+    font-size: 11px;
+}
+.cart-page-bottom-notice > p {
+    font-size: 13px;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.cart-page-bottom-notice > div > p {
+    margin-bottom: 0;
+}
+.cart-page-bottom-notice > div > ul {
+    padding-left: 20px;
+    margin-top: 3px;
+}
+
+/****************************
+* 결제 페이지
+* yuna
+*****************************/
+/*공통*/
+.payment-destination-form,
+.payment-order-list > div:last-child,
+.payment-discount > div:last-child,
+.payment-block-title {
+    /* border: 1px solid blue; */
+    padding: 15px;
+}
+
+.payment-page-wrap {
+    border: 1px solid red;
+    width: 900px;
+    margin: 0 auto;
+    background-color: rgb(237, 237, 237);
+}
+.payment-page-wrap > div:not(:last-child) {
+    /* border: 1px solid blue; */
+    margin-bottom: 10px;
+}
+.payment-page-wrap > div {
+    background-color: #fff;
+}
+/* 페이지 상단 */
+.payment-page-top {
+    text-align: center;
+    
+}
+.payment-page-top > div {
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.payment-page-top > div:first-child {
+    position: relative;
+}
+.payment-page-top > div:first-child > span:first-child {
+    position: absolute;
+    left: 10px;
+    cursor: pointer;
+}
+.payment-page-top > div:last-child {
+    background-color: rgb(89, 89, 89);
+    color: #fff;
+}
+/* 공통 */
+.payment-block-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px 10px;
+}
+.payment-block-title > span:last-child {
+    cursor: pointer;
+    color: gray;
+}
+.payment-destination-tab {
+    display: flex;
+    text-align: center;
+    height: 50px;
+    align-items: center;
+}
+.payment-destination-tab > span {
+    width: 50%;
+    line-height: 50px;
+}
+.payment-destination-tab > span:first-child {
+    border-right: none;
+}
+.payment-destination-select-tab {
+    border: 1px solid silver;
+    border-bottom: 1px solid rgb(192, 192, 192, 0);
+}
+.payment-destination-normal-tab {
+    border: 1px solid silver;
+    background-color: rgb(248, 249, 250);
+}
+.payment-destination-form {
+    border: 1px solid blue;
+    padding: 15px;
+}
+.payment-destination-form-select > span {
+    margin-right: 15px;
+}
+.payment-destination-form > form > ul {
+    list-style-type: none;
+    padding: 0;
+}
+.payment-destination-form > form > ul > li {
+    /* border: 1px solid green; */
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+.payment-destination-form > form > ul > li:not(:last-child) {
+    margin-bottom: 15px;
+}
+.payment-destination-form > form > ul > li > label {
+    width: 100px;
+}
+.payment-destination-form > form > ul > li > label > span {
+    color: rgb(1, 121, 168);
+    font-weight: 500;
+}
+.payment-destination-form > form > ul > li > input,
+.payment-destination-form > form > ul > li > select {
+    border: 1px solid silver;
+    height: 100%;
+}
+.payment-destination-form-name > input,
+.payment-destination-form-address > input {
+    width: 760px;
+}
+.payment-destination-form-tel {
+    display: flex;
+    justify-content: space-between;
+}
+.payment-destination-form-tel > select,
+.payment-destination-form-tel > input  {
+    width: 240px;
+}
+.payment-destination-form-tel > span,
+.payment-destination-form-email > span {
+    display: inline-block;
+    padding: 0 5px;
+}
+.payment-destination-form-email > input,
+.payment-destination-form-email > select {
+    width: 370px;
+}
+.paymnet-destination-plus {
+    border: 1px solid red;
     
 }

@@ -34,7 +34,7 @@ export default function Header() {
                             로그인햇을때는 마이페이지로 이동되게해야함 */}
                             {/* <li><Link to="/login"><GoPerson /></Link></li> */}
                             <li><Link to="/mypage"><GoPerson /></Link></li>
-                            <li><Link to="/"><PiShoppingBag /></Link></li>
+                            <li><Link to="/cart"><PiShoppingBag /></Link></li>
                             <li><Link to="/"><IoSearchOutline /></Link></li>
                             <li><Link to="/"><BsList /></Link></li>
                         </ul>

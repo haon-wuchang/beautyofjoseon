@@ -9,6 +9,8 @@ import Signup from './page/Signup.jsx';
 import Mypage from './page/Mypage.jsx';
 import Products from './page/Products.jsx';
 import ProductDetail from './page/ProductDetail.jsx';
+import Cart from './page/Cart.jsx';
+import Payment from './page/Payment.jsx';
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Route path='/mypage' element = {<Mypage />} />
           <Route path='/product' element = {<Products />} />
           <Route path='/product/detail' element = {<ProductDetail />} />
+          <Route path='/cart' element = {<Cart />} />
+          <Route path='/payment' element = {<Payment />} />
         </Route>
       </Routes>
     </BrowserRouter>

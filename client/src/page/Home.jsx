@@ -1,8 +1,8 @@
 import React from 'react';
-import MainTopSlide from './main/MainTopSlide';
-import MainBestProducts from './main/MainBestProducts';
-import MainCategory from './main/MainCategory';
-import MainSunCare from './main/MainSunCare';
+import MainTopSlide from '../component/main/MainTopSlide.jsx';
+import MainBestProducts from '../component/main/MainBestProducts.jsx';
+import MainCategory from '../component/main/MainCategory.jsx';
+import MainSunCare from '../component/main/MainSunCare.jsx';
 
 export default function Home() {
     return (
