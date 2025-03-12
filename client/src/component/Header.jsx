@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { GoPerson } from "react-icons/go";
 import { PiShoppingBag } from "react-icons/pi";
-import { CiSearch } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsList } from "react-icons/bs";
+import { GoLock } from "react-icons/go";
+import { GoUnlock } from "react-icons/go";
 
 export default function Header() {
     return (
@@ -33,6 +34,7 @@ export default function Header() {
                             {/* 로그인안했을때 누르면 로그인페이지로
                             로그인햇을때는 마이페이지로 이동되게해야함 */}
                             {/* <li><Link to="/login"><GoPerson /></Link></li> */}
+                            <li><Link to="/login"><GoLock /></Link></li>
                             <li><Link to="/mypage"><GoPerson /></Link></li>
                             <li><Link to="/cart"><PiShoppingBag /></Link></li>
                             <li><Link to="/"><IoSearchOutline /></Link></li>
