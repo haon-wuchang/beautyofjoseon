@@ -4,7 +4,7 @@
 *****************************/
 .header-wrap {
     width: 100%;
-    border-bottom: 1px solid silver;
+    /* border-bottom: 1px solid silver; */
     /* position: fixed; */
 }
 .header-top-notice > p {
@@ -783,16 +783,8 @@ border: 1px solid blue; */
 * yuna
 *****************************/
 /*공통*/
-.payment-destination-form,
-.payment-order-list > div:last-child,
-.payment-discount > div:last-child,
-.payment-block-title {
-    /* border: 1px solid blue; */
-    padding: 15px;
-}
 
 .payment-page-wrap {
-    border: 1px solid red;
     width: 900px;
     margin: 0 auto;
     background-color: rgb(237, 237, 237);
@@ -861,7 +853,6 @@ border: 1px solid blue; */
     background-color: rgb(248, 249, 250);
 }
 .payment-destination-form {
-    border: 1px solid blue;
     padding: 15px;
 }
 .payment-destination-form-select > span {
@@ -871,8 +862,7 @@ border: 1px solid blue; */
     list-style-type: none;
     padding: 0;
 }
-.payment-destination-form > form > ul > li {
-    /* border: 1px solid green; */
+.payment-destination-form > form > ul > li:not(:nth-child(2)) {
     height: 40px;
     display: flex;
     align-items: center;
@@ -892,9 +882,34 @@ border: 1px solid blue; */
     border: 1px solid silver;
     height: 100%;
 }
-.payment-destination-form-name > input,
-.payment-destination-form-address > input {
+.payment-destination-form-name > input {
     width: 760px;
+}
+
+.payment-destination-form-address {
+    display: flex;
+}
+.payment-destination-form-address > div > div,
+.payment-destination-form-address > div > input {
+    display: block;
+    height: 40px;
+}
+.payment-destination-form-address > div > div > input, 
+.payment-destination-form-address > div > div > button {
+    border: 1px solid silver;
+    height: 100%;
+}
+.payment-destination-form-address > div > div > button {
+    border: 1px solid gray;
+    background-color: #fff;
+    height: 42px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+.payment-destination-form-address > div > input {
+    margin-top: 15px;
+    width: 760px;
+    border: 1px solid silver;
 }
 .payment-destination-form-tel {
     display: flex;
@@ -913,7 +928,166 @@ border: 1px solid blue; */
 .payment-destination-form-email > select {
     width: 370px;
 }
-.paymnet-destination-plus {
-    border: 1px solid red;
-    
+.paymnet-destination-plus > select {
+    border: 1px solid gray;
+    width: 867px;
+    height: 40px;
+    margin: 15px 0;
 }
+/* 주문상품 리스트 */
+.payment-order-list-products {
+    display: flex;
+    margin-bottom: 25px;
+    padding: 15px;
+}
+.payment-order-list-products-img {
+    width: 90px;
+    height: 90px;
+    margin-right: 15px;
+}
+.payment-order-list-products-img > img {
+    width: 100%;
+    height: 100%;
+}
+.payment-order-list-products-detail > p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 30px;
+}
+.payment-order-list-products-detail > p:not(:nth-child(2)) {
+    font-weight: 500;
+}
+.payment-order-list-main > div:last-child {
+    background-color: rgb(248, 249, 250);
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 0 10px;
+}
+.payment-discount-code {
+    border-bottom: 1px solid silver;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    padding: 15px;
+}
+.payment-discount-code > label {
+    margin-right: 10px;
+}
+.payment-discount-code > div {
+    height: 40px;
+    width: 755px;
+}
+.payment-discount-code > div > input {
+    height: 35px;
+    position: relative;
+    border: 1px solid silver;
+    width: 700px;
+}
+.payment-discount-code > div > span {
+    display: inline-block;
+    position: absolute;
+    height: 38px;
+    width: 50px;
+    border: 1px solid gray;
+    line-height: 38px;
+    text-align: center;
+}
+.payment-discount-coupon {
+    text-align: right;
+}
+.payment-discount-coupon > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+.payment-discount-coupon > p {
+    margin: 0;
+    padding-right: 15px;
+    font-size: 14px;
+}
+.payment-discount-coupon > p > span {
+    color: rgb(88, 114, 245);
+    font-weight: bold;
+}
+.payment-discount-bottom {
+    height: 45px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(248, 249, 250);
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.payment-discount-bottom > span:last-child {
+    color: rgb(88, 114, 245);
+}
+.payment-detail-list {
+    margin-bottom: 15px;
+}
+.payment-detail-list > ul {
+    list-style-type: none;
+    padding: 0 15px;
+    margin: 0;
+}
+.payment-detail-list > ul > li {
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+.payment-detail-list > ul > li:last-child > span:last-child > span:first-child {
+    color: red;
+}
+.payment-detail-bottom {
+    height: 50px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(245, 247, 254);
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.payment-detail-bottom > span:last-child {
+    font-size: 20px;
+    color: rgb(88, 114, 245);
+}
+.payment-benefit {
+    height: 70px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+.payment-benefit > span {
+    font-size: 18px;
+}
+.payment-benefit > div > span:first-child {
+    color: rgb(88, 114, 245);
+}
+.payment-benefit > div > span:last-child {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 5px;
+    color: gray;
+}
+.payment-button {
+    width: 900px;
+    height: 50px;
+    font-size: 18px;
+    color: #fff;
+    background-color: rgb(88, 114, 245);
+    border: none;
+    cursor: pointer;
+}
+/* border: 1px solid red; */
+/* border: 1px solid green; */
+/* border: 1px solid blue; */

@@ -34,7 +34,14 @@ export default function PaymentDestination() {
                         </li>
                         <li className='payment-destination-form-address'>
                             <label>주소<span> *</span></label>
-                            <input type="text" />
+                            <div>
+                                <div>
+                                    <input type="text" placeholder='우편번호' />
+                                    <button>주소검색</button>
+                                </div>
+                                <input type="text" placeholder='기본주소' />
+                                <input type="text" placeholder='나머지 주소(선택 입력 가능)' />
+                            </div>
                         </li>
                         <li className='payment-destination-form-tel'>
                             <label>휴대전화<span> *</span></label>
