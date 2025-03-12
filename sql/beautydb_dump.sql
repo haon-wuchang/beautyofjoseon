@@ -86,8 +86,8 @@ CREATE TABLE `sub_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `sub_category` (`sub_category_id`, `sub_category_name`) 
-VALUES ('001','선케어'),('002','세럼'),('003','젤/크림'),('004','토너/에센스'),('005','클렌저'),('006','각질제거'),('007','마스크팩');
+INSERT INTO `sub_category` (`category_id`,`sub_category_id`, `sub_category_name`) 
+VALUES ('100','001','선케어'),('100','002','세럼'),('100','003','젤/크림'),('100','004','토너/에센스'),('100','005','클렌저'),('100','006','각질제거'),('100','007','마스크팩');
  
 --
 -- Dumping data for table `sub_category`
