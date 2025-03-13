@@ -23,8 +23,8 @@ export default function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/mypage' element={<Mypage />} />
-            <Route path='/product' element={<Products />} />
-            <Route path='/product/detail' element={<ProductDetail />} />
+            <Route path='/product/list' element={<Products />} />  
+            <Route path='/product/detail/:pid' element={<ProductDetail />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/payment' element={<Payment />} />
           </Route>

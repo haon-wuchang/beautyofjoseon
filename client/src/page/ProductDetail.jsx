@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import OtherPay from '../component/OtherPay';
+import axios from 'axios';
 
 export default function ProductDetail() {
+
+    const { pid } = useParams();
+
+    useEffect(() => {
+        axios
+            .post("http://localhost:9000/product/detail", { "pid": pid }) // 
+            .then((res) => {
+                console.log('res.data -> ', res.data)
+                // setProduct(res.data);
+                // setImgList(res.data.imgList);
+                // setDetailImgList(res.data.detailImgList);
+            })
+
+            .catch((error) => console.log(error));
+    }, []);
+
+
     // const [ showDetails, setShowDetails ] = useState([false, false, false]);
-    const [ showDetails, setShowDetails ] = useState(null);
+    const [showDetails, setShowDetails] = useState(null);
 
     const clickDetailToggle = (index) => {
         // setShowDetails(prevState => {
@@ -103,13 +121,13 @@ export default function ProductDetail() {
                             <button>Buy now</button>
                         </div>
                     </div>
-                    <OtherPay  className='product-detail-pay'/>
+                    <OtherPay className='product-detail-pay' />
                     <ul className='product-detail-notice'>
                         <li>
                             <div>
                                 <span>Payment</span>
                                 <span onClick={() => clickDetailToggle(0)}>
-                                    { showDetails === 0 ? <IoIosArrowUp /> : <IoIosArrowDown /> }
+                                    {showDetails === 0 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                                 </span>
                             </div>
                             <div className={showDetails === 0 ? 'product-detail-notice-toggle-open' : 'product-detail-notice-toggle'}>
@@ -121,16 +139,16 @@ export default function ProductDetail() {
                             <div>
                                 <span>Delivery</span>
                                 <span onClick={() => clickDetailToggle(1)}>
-                                    { showDetails === 1 ? <IoIosArrowUp /> : <IoIosArrowDown /> }
+                                    {showDetails === 1 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                                 </span>
                             </div>
                             <div className={showDetails === 1 ? 'product-detail-notice-toggle-open' : 'product-detail-notice-toggle'}>
                                 <p>
-                                배송 방법 : 택배 <br />
-                                배송 지역 : 전국지역 <br />
-                                배송 비용 : 3,000원 <br />
-                                배송 기간 : 3일 ~ 7일 <br />
-                                배송 안내 : - 고객님께서 주문하신 상품은 입금 확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
+                                    배송 방법 : 택배 <br />
+                                    배송 지역 : 전국지역 <br />
+                                    배송 비용 : 3,000원 <br />
+                                    배송 기간 : 3일 ~ 7일 <br />
+                                    배송 안내 : - 고객님께서 주문하신 상품은 입금 확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
                                 </p>
                             </div>
                         </li>
@@ -138,7 +156,7 @@ export default function ProductDetail() {
                             <div>
                                 <span>Refund & Exchange</span>
                                 <span onClick={() => clickDetailToggle(2)}>
-                                    { showDetails === 2 ? <IoIosArrowUp /> : <IoIosArrowDown /> }
+                                    {showDetails === 2 ? <IoIosArrowUp /> : <IoIosArrowDown />}
                                 </span>
                             </div>
                             <div className={showDetails === 2 ? 'product-detail-notice-toggle-open' : 'product-detail-notice-toggle'}>
@@ -151,13 +169,13 @@ export default function ProductDetail() {
                                     <span>반품</span>
                                     <br />
                                     <span>상품 수령 후 7일 이내에 반품 요청이 가능합니다. 수령 후 7일이 지나면 환불이나 교환이 불가능합니다.
-                                    미개봉 상품에 한하여 가능하며, 상품은 받아보셨던 상태와 동일하게 패킹되어야 합니다. 반송시 반품 지정된 창고로 보내야 하며, 반품비는 고객 부담으로 왕복 배송비 5,000원이 부담됩니다.</span>
+                                        미개봉 상품에 한하여 가능하며, 상품은 받아보셨던 상태와 동일하게 패킹되어야 합니다. 반송시 반품 지정된 창고로 보내야 하며, 반품비는 고객 부담으로 왕복 배송비 5,000원이 부담됩니다.</span>
                                 </p>
                                 <p>
                                     <span>제품 파손 또는 오배송</span>
                                     <br />
                                     <span>배송된 상품이 파손되었거나 주문하신 상품과 다른 경우 고객 서비스팀(cs@beautyofjoseon.com)로 이메일을 보내주시면 최대한 빠른 시일 내에 처리하여 드리겠습니다. <br />
-                                    반품 및 교환비는 조선미녀에서 부담합니다. 상품의 파손이나 오배송된 사실을 확인하기 위해 사진을 요청할 수 있으니 참고 부탁드립니다. </span>
+                                        반품 및 교환비는 조선미녀에서 부담합니다. 상품의 파손이나 오배송된 사실을 확인하기 위해 사진을 요청할 수 있으니 참고 부탁드립니다. </span>
                                 </p>
                             </div>
                         </li>
