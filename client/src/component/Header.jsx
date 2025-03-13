@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../auth/AuthContext.js';
+import { Link } from 'react-router-dom';
 import { GoPerson } from "react-icons/go";
 import { PiShoppingBag } from "react-icons/pi";
 import { IoSearchOutline } from "react-icons/io5";
@@ -8,6 +9,10 @@ import { GoLock } from "react-icons/go";
 import { GoUnlock } from "react-icons/go";
 import { AuthContext } from '../auth/AuthContext.js';
 import { useContext } from 'react';
+import { IoCloseOutline } from "react-icons/io5";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Header() {
     const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext);
@@ -28,12 +33,38 @@ export default function Header() {
             (handleLog) ? navigate('/login') : navigate('/');            
     }
 
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const [toggleOpen, setToggleOpen] = useState(false);
+
+    /* 로그아웃 클릭 이벤트 */
+    const clickLogOut = () => {
+        alert("!!!");
+    }
+
+    /* 토글 버튼 클릭 이벤트 */
+    console.log("토글 --> ", toggleOpen);
+
+    /* 슬라이더 세팅 */
+    const settings = {
+        dots: false,
+        infinite: true,
+        vertical: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        pauseOnHover: true,
+    };
+
     return (
         <div className='header-wrap'>
             <div className='header-top-notice'>
-                <p>회원가입시 <b>가입별 혜택 제공</b></p>
-                {/* <p>모든 구매고객 <b>샘플 3종 랜덤 증정</b></p>
-                <p>조선미녀 카톡 친구추가 시 <b>5,000원 할인쿠폰 증정</b></p> */}
+                <Slider {...settings}>
+                    <p className='header-top-notice-text'>회원가입시 <b>가입별 혜택 제공</b></p>
+                    <p className='header-top-notice-text'>모든 구매고객 <b>샘플 3종 랜덤 증정</b></p>
+                    <p className='header-top-notice-text'>조선미녀 카톡 친구추가 시 <b>5,000원 할인쿠폰 증정</b></p>
+                </Slider>
             </div>
             <div className='header-bottom'>
                 <div className='header-bottom-container'>
@@ -55,12 +86,59 @@ export default function Header() {
                             (<li onClick={logout}><Link to="/login"><GoUnlock /></Link></li>) :
                             (<li><Link to="/login"><GoLock /></Link></li>) }                            
                             <li onClick={!isLoggedIn ? handleMypage : null} ><Link to="/mypage"><GoPerson /></Link></li>
+                        <ul className='header-bottom-right-icons'>
+                            {/* 로그인안했을때 누르면 로그인페이지로
+                            로그인햇을때는 마이페이지로 이동되게해야함 */}
+                            {
+                                isLoggedIn
+                                ? <li><Link to="/login"><GoUnlock /></Link></li>
+                                : <li><Link to="/login"><GoLock /></Link></li>
+                            }
+                            {/* <li><Link to="/login"><GoLock /></Link></li> */}
+                            <li><Link to="/mypage"><GoPerson /></Link></li>
                             <li><Link to="/cart"><PiShoppingBag /></Link></li>
                             <li><Link to="/"><IoSearchOutline /></Link></li>
-                            <li><Link to="/"><BsList /></Link></li>
+                            {
+                                toggleOpen
+                                ? <li><Link onClick={() => setToggleOpen(!toggleOpen)}><IoCloseOutline /></Link></li>
+                                : <li><Link onClick={() => setToggleOpen(!toggleOpen)}><BsList /></Link></li>
+                            }
                         </ul>
                     </div>
                 </div>
+                {
+                    toggleOpen &&
+                        <div className='header-bottom-menu'>
+                            <div className='header-bottom-menu-left'>
+                                <div className='header-bottom-menu-category'>
+                                    <span>Shop All</span>
+                                    <ul className='header-bottom-menu-category-list'>
+                                        <li><Link to="/">전 제품</Link></li>
+                                        <li><Link to="/">스킨케어</Link></li>
+                                        <li><Link to="/">바디케어</Link></li>
+                                        <li><Link to="/">라이프스타일</Link></li>
+                                        <li><Link to="/">세트</Link></li>
+                                    </ul>
+                                </div>
+                                <div className='header-bottom-menu-sub-category'>
+                                    <span>유형별</span>
+                                    <ul className='header-bottom-menu-sub-category-list'>
+                                        <li><Link to="/">선케어</Link></li>
+                                        <li><Link to="/">세럼</Link></li>
+                                        <li><Link to="/">젤/크림</Link></li>
+                                        <li><Link to="/">토너/에센스</Link></li>
+                                        <li><Link to="/">클렌저</Link></li>
+                                        <li><Link to="/">각질제거</Link></li>
+                                        <li><Link to="/">마스크팩</Link></li>
+                                        <li><Link to="/">기타</Link></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className='header-bottom-menu-right'>
+                                <img src="images/header_menu_image.jpg" alt="" />
+                            </div>
+                        </div>
+                }
             </div>
         </div>
     );

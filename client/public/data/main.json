@@ -1,4 +1,11 @@
 {
+    "mainTopSlide": [
+        { "image": "images/ad1.jpeg" },
+        { "image": "images/ad2.jpeg" },
+        { "image": "images/ad3.jpeg" },
+        { "image": "images/ad4.jpeg" },
+        { "image": "images/ad5.jpeg" }
+    ],
     "mainCategory": [
         {
             "img": "images/cate_all.jpg",
