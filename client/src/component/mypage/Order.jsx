@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CiSearch } from "react-icons/ci";
-import { IoCalendarClearOutline } from "react-icons/io5";
 
-export default function Order() {
+export default function Order() {  
+    const [orderDate, setOrderDate] = useState({});
+    
+    const checkOrderDate = (e) =>{
+        // console.log(e.target.value);
+        const {name ,value} = e.target;
+        setOrderDate({...orderDate, [name]:value});
+    }
+    // console.log(orderDate);
+    
+
+
     return (
         <div className='mypage-order-all'>
         <div className='mypage-update-info-title mypage-title'>주문조회</div>
@@ -46,11 +56,9 @@ export default function Order() {
                 <li>6개월</li>
             </ul>
             <div>
-                <input type="text" />
-                <span><IoCalendarClearOutline /></span>
+                <input type="date" onChange={checkOrderDate} name='start_date'/>
                 <span>~</span>
-                <input type="text" />
-                <span><IoCalendarClearOutline /></span>
+                <input type="date" onChange={checkOrderDate} name='end_date'/>
                 <span><CiSearch /></span>
             </div>
         </div>
