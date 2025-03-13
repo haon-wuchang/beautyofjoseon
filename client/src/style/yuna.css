@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 /****************************
 * Header
 * yuna
@@ -7,22 +11,26 @@
     /* border-bottom: 1px solid silver; */
     /* position: fixed; */
 }
-.header-top-notice > p {
+.header-top-notice {
+    background-color: rgb(240, 238, 232);
+}
+.header-top-notice-text {
     margin: 0 auto;
     text-align: center;
     font-size: 13px;
     padding: 8px 0;
-    background-color: rgb(240, 238, 232);
 }
-.header-bottom {
-    height: 130px;
+.header-bottom { /*수정 필*/
+    /* height: 130px; */
     background-color: #fff;
 }
 .header-bottom-container {
+    border: 1px solid red;
     display: flex;
     justify-content: space-between;
     height: 90px;
     align-items: center;
+    padding-bottom: 40px;
 }
 .header-bottom-left {
     margin-left: 50px;
@@ -55,6 +63,61 @@
     font-size: 23px;
     color: rgb(85, 85, 85);
 }
+.header-bottom-menu {
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+.header-bottom-menu-left {
+    display: flex;
+    gap: 30px;
+}
+.header-bottom-menu-category,
+.header-bottom-menu-sub-category {
+    padding: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+.header-bottom-menu-sub-category {
+    margin-top: 20px;
+}
+.header-bottom-menu-category > span,
+.header-bottom-menu-sub-category > span {
+    font-weight: 600;
+    font-size: 15px;
+}
+.header-bottom-menu-category > ul,
+.header-bottom-menu-sub-category > ul {
+    list-style-type: none;
+    padding: 0;
+}
+.header-bottom-menu-category-list > li >  a,
+.header-bottom-menu-sub-category-list > li > a {
+    text-decoration: none;
+    color: #2f2f2f;
+    /* border: 1px solid green; */
+    display: inline-block;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.header-bottom-menu-right {
+    width: 600px;
+    display: flex;
+    align-items: center;
+}
+.header-bottom-menu-right > img {
+    width: 100%;
+}
+
+/* .header-bottom-menu-sub-category > ul {
+    display: flex;
+    padding: 0;
+    gap: 10px;
+    font-size: 14px;
+    margin-top: 0;
+} */
 
 /****************************
 * Main(Home)
@@ -75,6 +138,17 @@
 }
 
 
+.main-top-slide-section {
+    width: 100%;
+}
+.main-top-slide-section > div {
+    height: 100%;
+    position: relative;
+}
+.main-top-slide-section .slick-dots {
+    position: absolute;
+    bottom: 10px;
+}
 .main-contents-best-top {
     text-align: center;
     padding: 30px 0;
@@ -87,10 +161,38 @@
 }
 .main-contents-best-products-ul {
     list-style-type: none;
-    margin: 0;
+    padding: 0;
+}
+.main-contents-best-products-ul > .slick-slider {
+    position: relative;
+    width: 100%;
+    
+}
+.main-contents-best-products-ul .slick-arrow > img {
+    /* border: 1px solid blue; */
+    width: 30px;
+    height: 60px;
+}
+.main-contents-best-products-ul .slick-prev {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+.main-contents-best-products-ul .slick-next {
+    position: absolute;
+    right: 5px;
+    z-index: 1;
+}
+.main-contents-best-products-block {
+    text-decoration: none;
+    color: #000;
+    width: 200px;
+    text-align: right;
+    padding: 0;
 }
 .main-contents-best-products-li {
-    width: 320px;
+    margin-right: 10px;
+    width: 90%;
     position: relative;
 }
 .main-contents-best-products-img {
@@ -102,14 +204,35 @@
     padding: 20px 0;
     height: 100px;
 }
-.main-contents-best-products-detail > p {
+.main-contents-best-products-detail-title {
+    margin: 0;
+    font-size: 15px;
+    line-height: 30px;
+}
+.main-contents-best-products-detail-price,
+.main-contents-best-products-detail-oprice,
+.main-contents-best-products-detail-dprice {
     margin: 0;
     line-height: 30px;
+    font-size: 13px;
+}
+.main-contents-best-products-detail-oprice {
+    text-decoration: line-through;
+    color: silver;
+}
+.main-contents-best-products-detail-dprice > span:first-child {
+    display: inline-block;
+    line-height: 12px;
+    padding: 1px 3px;
+    margin-right: 5px;
+    color: #e8b035;
+    background-color: #000;
 }
 .main-contents-best-products-like {
     position: absolute;
     bottom: 150px;
-    left: 280px;
+    right: 15px;
+    bottom: 145px;
     z-index: 1;
     font-size: 27px;
     cursor: pointer;
@@ -199,18 +322,19 @@
     font-size: 17px;
 }
 .main-contents-suncare-ul {
-    width: 1440px;
+    width: 92%;
     margin: 0 auto;
     list-style-type: none;
     padding: 0;
     display: flex;
     justify-content: space-between;
-    gap: 30px;
+    gap: 35px;
+    margin-bottom: 60px;
 }
 .main-contents-suncare-li {
-    width: 320px;
     position: relative;
 }
+
 .main-contents-suncare-img {
     width: 100%;
 }
@@ -223,11 +347,32 @@
 .main-contents-suncare-detail > p {
     margin: 0;
     line-height: 30px;
+} 
+.main-contents-suncare-detail-price,
+.main-contents-suncare-detail-oprice,
+.main-contents-suncare-detail-dprice {
+    margin: 0;
+    line-height: 30px;
+    font-size: 13px;
 }
+.main-contents-suncare-detail-oprice {
+    text-decoration: line-through;
+    color: silver;
+}
+.main-contents-suncare-detail-dprice > span:first-child {
+    display: inline-block;
+    line-height: 12px;
+    padding: 1px 3px;
+    margin-right: 5px;
+    color: #e8b035;
+    background-color: #000;
+}
+
 .main-contents-suncare-like {
     position: absolute;
     bottom: 150px;
-    left: 280px;
+    /* left: 280px; */
+    right: 15px;
     z-index: 1;
     font-size: 27px;
     cursor: pointer;

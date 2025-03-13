@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import './style/common.css';
 import './style/haon.css';
 import './style/yuna.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

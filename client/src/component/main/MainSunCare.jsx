@@ -1,6 +1,6 @@
 import React from 'react';
-import MainProductBlock from '../../component/MainProductBlock';
 import MainTitleBlock from '../../component/MainTitleBlock';
+import MainSunCareProducts from './MainSunCareProducts';
 
 export default function MainSunCare() {
     return (
@@ -23,7 +23,7 @@ export default function MainSunCare() {
                     divClassName="suncare-title"
                     title="Suncare Product"
                 />
-                <MainProductBlock className="main-contents-suncare" />
+                <MainSunCareProducts className="main-contents-suncare" />
             </div>
         </div>
     );
