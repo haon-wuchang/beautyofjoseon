@@ -7,12 +7,32 @@ import { IoSearchOutline } from "react-icons/io5";
 import { BsList } from "react-icons/bs";
 import { GoLock } from "react-icons/go";
 import { GoUnlock } from "react-icons/go";
+import { AuthContext } from '../auth/AuthContext.js';
+import { useContext } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
 export default function Header() {
+    const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const logout = () => {
+        const handleLog = window.confirm("로그아웃 하시겠습니까?");
+            if(handleLog){
+                localStorage.removeItem('token');
+                localStorage.removeItem('user_id');
+                setIsLoggedIn(false);
+            } else{
+                setIsLoggedIn(true);
+                navigate('/');
+            }
+    }
+    const handleMypage = () => {
+        const handleLog = window.confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?");
+            (handleLog) ? navigate('/login') : navigate('/');            
+    }
+
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const [toggleOpen, setToggleOpen] = useState(false);
 
@@ -61,6 +81,11 @@ export default function Header() {
                             <Link to="/">MEMBERSHIP</Link>
                             <Link to="/">PRESS</Link>
                         </nav>
+                        <ul className='header-bottom-right-icons'>                            
+                            {isLoggedIn ?
+                            (<li onClick={logout}><Link to="/login"><GoUnlock /></Link></li>) :
+                            (<li><Link to="/login"><GoLock /></Link></li>) }                            
+                            <li onClick={!isLoggedIn ? handleMypage : null} ><Link to="/mypage"><GoPerson /></Link></li>
                         <ul className='header-bottom-right-icons'>
                             {/* 로그인안했을때 누르면 로그인페이지로
                             로그인햇을때는 마이페이지로 이동되게해야함 */}

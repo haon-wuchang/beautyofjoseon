@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Delivery() {
+export default function Delivery({myinfo}) {
     return (
         <div className='mypage-delivery-all'>
         <div className='mypage-update-info-title mypage-title'>배송지 관리</div>
@@ -14,12 +14,12 @@ export default function Delivery() {
                 </tr>
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>김민지</td>
-                    <td>010-5555-5555</td>
+                    <td>{myinfo.name}</td>
+                    <td>{myinfo.phone}</td>
                     <td>
-                        <span>우편번호 </span>
-                        <span>주소 </span>
-                        <span>상세주소</span>
+                        <span>{myinfo.zipcode} </span>
+                        <span>{myinfo.address} </span>
+                        <span>{myinfo.extra_address}</span>
                     </td>
                 </tr>
             </table>
