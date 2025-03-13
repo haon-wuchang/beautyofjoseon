@@ -7,11 +7,6 @@
   
 ```bash
 npm i
-npm i react-bootstrap
-npm i react-slick --save
-npm i slick-carousel --save
-npm i antd
-npm i react-daum-postcode
 ```
 
 ### server
