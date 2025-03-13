@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import Delivery from '../component/mypage/Delivery.jsx';
 import Review from '../component/mypage/Review.jsx';
 import Wish from '../component/mypage/Wish.jsx';
@@ -7,9 +6,28 @@ import Order from '../component/mypage/Order.jsx';
 import UpdateMypage from '../component/mypage/UpdateMypage.jsx';
 import Money from '../component/mypage/Money.jsx';
 import Coupon from '../component/mypage/Coupon.jsx';
+import {AuthContext} from '../auth/AuthContext.js';
+import { useContext } from 'react';
+import { MypageContext } from '../context/MypageContext.js';
+import {useMypage} from '../hooks/useMypage.js';
 
 export default function Mypage() {
+    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
+    const {myinfo,year,month,date,gender} = useContext(MypageContext);
+    setIsLoggedIn(true);
     const [tab, setTab] = useState('main');
+    const {getMyinfo} = useMypage();
+
+
+    useEffect(()=>{
+        getMyinfo(); 
+    },[isLoggedIn]);
+
+    console.log('회원정보',myinfo);
+
+
+    
+
 
     return (
         <div className='mypage-box'>
@@ -26,9 +44,9 @@ export default function Mypage() {
                 <div className='mypage-top2'>
                     <ul>
                         <li>
-                            <h4 onClick={() => { setTab('my') }}>홍길동님</h4>
+                            <h4 onClick={() => { setTab('my') }}>{myinfo.name}님</h4>
                             <h5>반가워요 :)</h5>
-                            <span>FAMILY</span>
+                            <span>{myinfo.membership}</span>
                         </li>
                         <li>
                             <p>주문</p>
@@ -59,13 +77,16 @@ export default function Mypage() {
             {tab === 'money' && <Money />}
             {tab === 'coupon' && <Coupon />}
             {tab === 'review' && <Review />}
-            {tab === 'delivery' && <Delivery />}
-            {tab === 'my' && <UpdateMypage />}
+            {tab === 'delivery' && <Delivery myinfo={myinfo} births={{year,month,date}}/>}
+            {tab === 'my' && <UpdateMypage myinfo={myinfo} births={{year,month,date,gender}}/>}
             {tab === 'main' &&
                 <>
                     <div className='mypage-desc'>
-                        <p>	저희 쇼핑몰을 이용해 주셔서 감사합니다. <span>이하온님</span>은 <span>[FAMILY]</span> 회원이십니다.</p>
-                        <p><span>10,000원 이상</span>구매시 <span>1%</span>를 추가적립 받으실 수 있습니다.</p>
+                        <p>	저희 쇼핑몰을 이용해 주셔서 감사합니다. 
+                            <span>{myinfo.name}님</span>은 
+                            <span>[{myinfo.membership}]</span> 회원이십니다.</p>
+                        <p><span>10,000원 이상</span>구매시 
+                        <span>1%</span>를 추가적립 받으실 수 있습니다.</p>
                     </div>
                     <div className='mypage-middle-box'>
                         <div>

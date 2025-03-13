@@ -79,7 +79,7 @@
 /*****************************************/
 .login-box{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     /* align-items: center; */
    margin-bottom: 30px;
     height: 1000px;
@@ -99,15 +99,21 @@
     /* border: 1px solid red; */
     height: 500px;
     width: 400px;
+    margin-left: 270px;
 }
 .login-box-right >h3{
     font-size: 26px;
 }
-
+.login-box-right-top>span{
+    font-size: 13px;
+    padding: 0;
+    /* margin: 0; */
+    padding: 0 10px;
+    color: white;
+}
 .login-box-right-top >input {
     display: block;
     width: 380px;
-    margin-bottom: 8px;
     height: 45px;
     padding: 0 10px;
     font-size: 12px;
@@ -148,6 +154,7 @@
     font-weight: 600;
     border: 1px solid black;
     font-size: 16px;
+    
 }
 .login-btn2{
     background-color: rgb(25, 206, 96);
@@ -751,6 +758,11 @@
     /* border: 1px solid rgb(19, 19, 19); */
     padding: 10px 20px;
 }
+.mypage-update-info-table>tr>td>span{
+    font-size: 14px;
+    margin-left: 5px;
+    color: white;
+}
 .mypage-update-info-table2>tr>td:first-child{
     background-color: rgb(245,245,245);
     width: 150px;
@@ -790,8 +802,39 @@
 .mypage-update-info-table>tr>td>li>button{
     margin-left: 10px;
     background-color: white;
-    border: 1px solid gainsboro;    
+    border: 1px solid gainsboro; 
 
+}
+.update-info-success{
+    background-color: gainsboro;
+    color: gray;
+}
+.update-info-active{
+    background-color: white;
+}
+.mypage-update-info-table>tr:nth-child(4)>td>li>button:nth-child(3),
+.mypage-update-info-table>tr:nth-child(4)>td>li>button:nth-child(4){
+    border: 1px solid rgb(209, 205, 194);
+    background-color: rgb(240, 238, 232);
+    margin-left: 5px;
+}
+.mypage-update-info-table>tr:nth-child(1)>td:nth-child(2),
+.mypage-update-info-table>tr:nth-child(3)>td:nth-child(2){
+    display: flex;
+    align-items: center;
+}
+.mypage-update-info-table2>tr>td>button{
+    border: 1px solid rgb(209, 205, 194);
+    background-color: rgb(240, 238, 232);
+    margin-left: 5px;
+}
+.mypage-update-info-table>tr>td>button{
+    border: 1px solid rgb(209, 205, 194);
+    background-color: rgb(240, 238, 232);
+}
+.mypage-update-info-table>tr>td:nth-child(2)>button{
+    /* background-color: red; */
+    margin-left: 5px;
 }
 .mypage-update-info-table>tr>td>li:nth-child(2)>input,
 .mypage-update-info-table>tr>td>li:nth-child(3)>input{
@@ -802,12 +845,23 @@
     font-size: 18px;
     padding: 15px 0;
 }
+.mypage-update-info-table2>tr:first-child>td:nth-child(2)>span{
+    color: rgb(61, 61, 61);
+    /* background-color: red; */
+
+}
+.mypage-update-info-table2>tr:first-child>td:nth-child(2)>input{
+    border: 1px solid gainsboro;
+
+}
 .mypage-update-info-table2>tr:nth-child(2)>td:last-child>input{
     width: 70px;
+    border: 1px solid gainsboro;
 }
 .mypage-update-info-table2>tr:nth-child(2)>td:last-child>span{
     margin-left: 10px;
     margin-right: 10px;
+    color: rgb(61, 61, 61);
 }
 .mypage-update-info-btns{
     display: flex;
@@ -862,7 +916,7 @@
 }
 .mypage-order-select-box{
     border: 4px solid gainsboro;
-    padding: 15px 20px;
+    padding: 15px 50px;
     display: flex;
     /* justify-content: space-between; */
     align-items: center;
@@ -890,22 +944,19 @@
     display: flex;
     align-items: center;
     /* border: 1px solid red; */
+    margin-left: 40px;
 }
 .mypage-order-select-box>div>input{
     border: 1px solid gainsboro;
-    padding: 5px 3px;
+    padding: 5px 10px;
+    width: 150px;
 }
-.mypage-order-select-box>div>span:nth-child(2),
-.mypage-order-select-box>div>span:nth-child(5){
-    border: 1px solid gainsboro;
-    padding: 2px 3px;
 
-}
-.mypage-order-select-box>div>span:nth-child(3){
-    padding: 0 60px;
+.mypage-order-select-box>div>span:nth-child(2){
+    padding: 0 30px;
 }
 .mypage-order-select-box>div>span:last-child{
-    padding-left: 100px;
+    padding-left: 120px;
     font-size: 20px;
     font-weight: 700;
 }
