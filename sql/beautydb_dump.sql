@@ -87,7 +87,7 @@ CREATE TABLE `sub_category` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `sub_category` (`category_id`,`sub_category_id`, `sub_category_name`) 
-VALUES ('100','001','선케어'),('100','002','세럼'),('100','003','젤/크림'),('100','004','토너/에센스'),('100','005','클렌저'),('100','006','각질제거'),('100','007','마스크팩');
+VALUES ('100','001','선케어'),('100','002','세럼'),('100','003','젤/크림'),('100','004','토너/에센스'),('100','005','클렌저'),('100','006','각질제거'),('100','007','마스크팩'),('300', '008','기타');
  
 --
 -- Dumping data for table `sub_category`
@@ -104,7 +104,7 @@ CREATE TABLE `product` (
   `pid` int auto_increment,
   `category_id` char(3) NOT NULL,
   `sub_category_id` char(3) NOT NULL,
-  `pname` varchar(30) NOT NULL,
+  `pname` varchar(100) NOT NULL,
   `price` int not null,
   `discount_rate` int not null,
   `main_image` json not null,
