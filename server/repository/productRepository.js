@@ -1,3 +1,5 @@
+import { db } from './db.js';
+
 export const getProduct = async(pid) => {
 
     const sql = `
