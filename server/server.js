@@ -1,9 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import productRouter from './router/productRouter.js'
-import LoginRouter from './router/LoginRouter.js';
 import productRouter from './router/productRouter.js';
+import LoginRouter from './router/LoginRouter.js';
 import mypageRouter from './router/mypageRouter.js';
 
 
@@ -21,7 +20,6 @@ server.use(cors());
 
 /* 서버의 요청처리를 위한 미들웨어 정의 */
 server.use('/product', productRouter)
-server.use('/product', productRouter);
 server.use('/login',LoginRouter);
 server.use('/mypage',mypageRouter);
 

@@ -83,15 +83,12 @@ export default function Header() {
                                 (<li onClick={logout}><Link to="/login"><GoUnlock /></Link></li>) :
                                 (<li><Link to="/login"><GoLock /></Link></li>)}
                             <li onClick={!isLoggedIn ? handleMypage : null} ><Link to="/mypage"><GoPerson /></Link></li>
-                                {/* 로그인안했을때 누르면 로그인페이지로
-                            로그인햇을때는 마이페이지로 이동되게해야함 */}
-                                {
+                                {/* {
                                     isLoggedIn
                                         ? <li><Link to="/login"><GoUnlock /></Link></li>
                                         : <li><Link to="/login"><GoLock /></Link></li>
-                                }
-                                {/* <li><Link to="/login"><GoLock /></Link></li> */}
-                                <li><Link to="/mypage"><GoPerson /></Link></li>
+                                } */}
+                                {/* <li><Link to="/mypage"><GoPerson /></Link></li> */}
                                 <li><Link to="/cart"><PiShoppingBag /></Link></li>
                                 <li><Link to="/"><IoSearchOutline /></Link></li>
                                 {
