@@ -4,7 +4,7 @@ import path from 'path';
 import productRouter from './router/productRouter.js';
 import LoginRouter from './router/LoginRouter.js';
 import mypageRouter from './router/mypageRouter.js';
-
+import mainRouter from './router/mainRouter.js';
 
 
 /* 서버 생성 및 포트 정의 */
@@ -22,6 +22,7 @@ server.use(cors());
 server.use('/product', productRouter)
 server.use('/login',LoginRouter);
 server.use('/mypage',mypageRouter);
+server.use('/main', mainRouter);
 
 
 

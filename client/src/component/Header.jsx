@@ -32,12 +32,6 @@ export default function Header() {
         (handleLog) ? navigate('/login') : navigate('/');
     }
 
-
-    /* 로그아웃 클릭 이벤트 */
-    const clickLogOut = () => {
-        alert("!!!");
-    }
-
     /* 토글 버튼 클릭 이벤트 */
     console.log("토글 --> ", toggleOpen);
 
