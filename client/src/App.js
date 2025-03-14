@@ -14,6 +14,7 @@ import Cart from './page/Cart.jsx';
 import Payment from './page/Payment.jsx';
 import { AuthProvider } from './auth/AuthContext.js';
 import { MypageProvider } from './context/MypageContext.js';
+import Search from './page/Search.jsx';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
               <Route path='/product/detail/:pid' element={<ProductDetail />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/payment' element={<Payment />} />
+              <Route path='/search' element={<Search />} />
             </Route>
           </Routes>
         </BrowserRouter>
