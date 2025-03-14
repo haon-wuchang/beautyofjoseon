@@ -1,16 +1,29 @@
-import React from 'react';
-import { useState, useRef } from 'react';
+import React, { useContext } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import axios from 'axios';
+import { useMypage } from '../../hooks/useMypage.js';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../auth/AuthContext.js';
+import { useLogin } from '../../hooks/useLogin.js';
 
-export default function UpdateMypage({ myinfo, births }) {
+export default function UpdateMypage({ myinfo, births, Checked }) {
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const { getMyinfo } = useMypage();    
+    const navigate = useNavigate();
+        const {handleLogin} = useLogin();
+
+    useEffect(() => {
+        console.log(" 마이페이지 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
+    }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행
+
     const [updateData, setUpdateData] = useState({});   // 회원정보 변경 되면 여기 저장됨
-        /** 주소검색 버튼Toggle */
-        const [isOpen, setIsOpen] = useState(false);
-        /** 주소 검색 버튼 */
-        const handleToggle = () => {
-            setIsOpen(!isOpen);
-        };
+    /** 주소검색 버튼Toggle */
+    const [isOpen, setIsOpen] = useState(false);
+    /** 주소 검색 버튼 */
+    const handleToggle = () => {
+        setIsOpen(!isOpen);
+    };
     const [btnChangeClick, setBtnChangeClick] = useState({
         // 수정을 누르면 true 가 되고 완료를 누르면 false 가 된다
         'pwd': false,
@@ -48,46 +61,11 @@ export default function UpdateMypage({ myinfo, births }) {
             ...prev,
             [type]: !prev[type]  // 클릭한 타입만 토글
         }));
-
     };
     const handleChangeInputData = (e) => {
         const { name, value } = e.target;
         setUpdateData({ ...updateData, [name]: value });
     }
-    const pwdValidate = () =>{
-        if(refs.pwdRef.current.value !== refs.cpwdRef.current.value){
-            pwdMsgRef.current.style.setProperty('color', 'red');
-            refs.cpwdRef.current.value='';
-            return false;
-        }else {
-            refs.cpwdRef.current.value='';
-            pwdMsgRef.current.style.setProperty('color', 'white');
-            alert('good');
-            return true;
-        }
-    }
-    const handleUpdateInfo = (colName, value) => {
-        console.log('colName', colName);
-        console.log('value', value);
-        const id = localStorage.getItem('user_id');
-        if(colName === 'pwd'){
-            // pwd일때는 비번체크 후에 디비로 전송해야하고 다른애들은 비번여부 상관없이 걍 디비로 넘어가면 된다
-            pwdValidate();
-            axios.post('http://localhost:9000//mypage/updateInfo',{'id':id,'colName':colName,'value':value})
-                .then(res => {
-                    console.log(res.data);
-                    
-                })
-                .catch(error => console.log(error));
-        }else{
-            axios.post('http://localhost:9000//mypage/updateInfo',{'id':id,'colName':colName,'value':value})
-            .then(res => {
-                console.log(res.data);                
-            })
-            .catch(error => console.log(error));
-        }
-    }
-
     //---- DaumPostcode 관련 디자인 및 이벤트 시작 ----//
     const themeObj = {
         bgColor: "#FFFFFF",
@@ -101,12 +79,8 @@ export default function UpdateMypage({ myinfo, births }) {
     };
 
     const completeHandler = (data) => {
-        // console.log(data.zonecode);
-        // console.log('주소',data.address);     
-        // setAdata({ ...adata, zipcode: data.zonecode, address: data.address});
-        setUpdateData({ ...updateData, zipcode: data.zonecode, address: data.address })
+        setUpdateData({ ...updateData, zipcode: data.zonecode, address: data.address });
     };
-    // console.log('주소',adata);
 
     const closeHandler = (state) => {
         if (state === "FORCE_CLOSE") {
@@ -116,6 +90,98 @@ export default function UpdateMypage({ myinfo, births }) {
         }
     };
     //---- DaumPostcode 관련 디자인 및 이벤트 종료 ----//
+
+    const pwdValidate = () => {
+        if (refs.pwdRef.current.value !== refs.cpwdRef.current.value) {
+            pwdMsgRef.current.style.setProperty('color', 'red');
+            refs.cpwdRef.current.value = '';
+            return false;
+        } else {
+            refs.cpwdRef.current.value = '';
+            pwdMsgRef.current.style.setProperty('color', 'white');
+            alert('good');
+            return true;
+        }
+    }
+    const handleUpdateInfo = (colName, value) => {
+        const id = localStorage.getItem('user_id');
+        if (colName === 'pwd') {
+            if (pwdValidate()) {
+                axios.post('http://localhost:9000/mypage/updateInfo', { 'id': id, 'colName': colName, 'value': value })
+                    .then(res => {
+                        // console.log('ddd', res.data.result);
+                        if (res.data.result === 1) {
+                            getMyinfo();
+                        } else {
+                            alert('11회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert('22회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                    });
+            }
+        } else {
+            axios.post('http://localhost:9000/mypage/updateInfo', { 'id': id, 'colName': colName, 'value': value })
+                .then(res => {
+                    // console.log(res.data);
+                    if (res.data.result === 1) {
+                        getMyinfo();
+                    } else {
+                        alert('33회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.')
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert('44회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                });
+        }
+    }
+    const handleUpdateInfoAdd = () => {
+        const id = localStorage.getItem('user_id');
+        const est = refs.yearRef.current.value.concat('-', refs.monthRef.current.value, '-', refs.dateRef.current.value);
+        axios.post('http://localhost:9000/mypage/updateInfo', { 'id': id, 'colName': 'birth', 'value': est })
+            .then(res => {
+                // console.log(res.data);
+                if (res.data.result === 1) {
+                    getMyinfo();
+                } else {
+                    alert('55회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.')
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert('66회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+            });
+    }
+    const handleChecked = (e, type) => {
+        // console.log(type);
+        if (type === 'M') {
+            Checked.setIsChecked1(e.target.checked);
+            Checked.setIsChecked2(false);
+        } else if (type === 'F') {
+            Checked.setIsChecked2(e.target.checked);
+            Checked.setIsChecked1(false);
+        }
+    }
+
+    const deleteMyAllInfo = () => {
+        const handleDeleteInfo = window.confirm("회원탈퇴를 하시겠습니까?");
+        if (handleDeleteInfo) {
+            const id = localStorage.getItem('user_id');
+             axios.post('http://localhost:9000/mypage/deleteUser', { 'id': id })
+                .then(res => {                    
+                    res.data.result === 1 && handleLogin(false,'delete');                        
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert('77회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                });
+        } else {
+            navigate('/mypage');
+        }
+    }
+
 
     return (
         <div className='mypage-update-info-all'>
@@ -130,18 +196,17 @@ export default function UpdateMypage({ myinfo, births }) {
                     <tr>
                         <td>비밀번호</td>
                         <td><input type="password"
-                        //바뀐 값이 value로 안들어감  수정해 
+                            //바뀐 값이 value로 안들어감  수정해 
                             value={btnChangeClick.pwd ? null : (
                                 updateData.pwd === undefined ? myinfo.password : updateData.pwd
                             )}
                             onChange={btnChangeClick.pwd === true ? handleChangeInputData : null}
                             ref={refs.pwdRef}
                             className={btnChangeClick.pwd ? 'update-info-active' : 'update-info-success'} />
-
                             {btnChangeClick.pwd ?
                                 <button type='button' onClick={() => {
                                     handle('pwd')
-                                    handleUpdateInfo("pwd", refs.pwdRef.current.value)
+                                    handleUpdateInfo("password", refs.pwdRef.current.value)
                                 }}>완료</button> :
                                 <button type='button' onClick={() => {
                                     handle('pwd')
@@ -153,8 +218,8 @@ export default function UpdateMypage({ myinfo, births }) {
                     <tr>
                         <td>비밀번호확인</td>
                         <td><input type="password" ref={refs.cpwdRef}
-                        className={btnChangeClick.pwd ? 'update-info-active' : 'update-info-success'}
-                         /><span ref={pwdMsgRef}>비밀번호가 일치하지 않습니다. 다시 입력해주세요</span>
+                            className={btnChangeClick.pwd ? 'update-info-active' : 'update-info-success'}
+                        /><span ref={pwdMsgRef}>비밀번호가 일치하지 않습니다. 다시 입력해주세요</span>
                         </td>
                     </tr>
                     <tr>
@@ -180,60 +245,62 @@ export default function UpdateMypage({ myinfo, births }) {
                         </td>
                     </tr>
                     <tr>
-                            <td>주소</td>
-                            <td>
-                                <li>
-                                    <input  type="text"
-                                value={btnChangeClick.zipcode ? null : (
-                                    updateData.zipcode === undefined ? myinfo.zipcode : updateData.zipcode
-                                )}
-                                onChange={btnChangeClick.address === true ? handleChangeInputData : null}
-                                ref={refs.zipcodeRef}
-                                className={btnChangeClick.address ? 'update-info-active' : 'update-info-success'} />
-                                    <button onClick={()=>{setIsOpen(true)}}>주소검색</button>
-                                    {btnChangeClick.address ?
-                                <button type='button' onClick={() => {
-                                    handle('address')
-                                    handleUpdateInfo('zipcode',refs.zipcodeRef.current.value)
-                                    handleUpdateInfo('address',refs.addressRef.current.value)
-                                    handleUpdateInfo('extra',refs.extra_addressRef.current.value)
-                                }}>완료</button> :
-                                <button type='button' onClick={() => {
-                                    handle('address')
-                                }}
-                                > 수정</button>
+                        <td>주소</td>
+                        <td>
+                            <li>
+                                <input type="text" name='zipcode'
+                                    value={
+                                        updateData.zipcode === undefined ? myinfo.zipcode : updateData.zipcode
+                                    }
+                                    onChange={btnChangeClick.address ? handleChangeInputData : null}
+                                    ref={refs.zipcodeRef}
+                                    className={btnChangeClick.address ? 'update-info-active' : 'update-info-success'} />
+                                <button onClick={() => handleToggle()}>주소검색</button>
+                                {btnChangeClick.address ?
+                                    <button type='button' onClick={() => {
+                                        handle('address')
+                                        handleUpdateInfo('zipcode', refs.zipcodeRef.current.value)
+                                        handleUpdateInfo('address', refs.addressRef.current.value)
+                                        handleUpdateInfo('extra_address', refs.extra_addressRef.current.value)
+                                    }}>완료</button> :
+                                    <button type='button' onClick={() => {
+                                        handle('address')
+                                    }}> 수정</button>}
+                            </li>
+                            <li>
+                                <input type="text" name='address'
+                                    value={
+                                        updateData.address === undefined ? myinfo.address : updateData.address
+                                    }
+                                    onChange={btnChangeClick.address ? handleChangeInputData : null}
+                                    ref={refs.addressRef}
+                                    className={btnChangeClick.address ? 'update-info-active' : 'update-info-success'} />
+                            </li>
+                            <li>
+                                <input type="text" name='extra'
+                                    value={btnChangeClick.extra ? null : (
+                                        updateData.extra === undefined ? myinfo.extra_address : updateData.extra
+                                    )}
+                                    onChange={btnChangeClick.address ? handleChangeInputData : null}
+                                    ref={refs.extra_addressRef}
+                                    className={btnChangeClick.address ? 'update-info-active' : 'update-info-success'} />
+                            </li>
+                            {isOpen &&
+                                <div>
+                                    <DaumPostcode
+                                        className="postmodal"
+                                        theme={themeObj}
+                                        style={postCodeStyle}
+                                        onComplete={completeHandler}
+                                        onClose={closeHandler}
+                                    />
+                                </div>
                             }
-                                </li>
-                                <li><input  type="text"
-                                value={btnChangeClick.address ? null : (
-                                    updateData.address === undefined ? myinfo.address : updateData.address
-                                )}
-                                onChange={btnChangeClick.address === true ? handleChangeInputData : null}
-                                ref={refs.addressRef}
-                                className={btnChangeClick.address ? 'update-info-active' : 'update-info-success'} /></li>
-                                <li><input type="text"
-                                value={btnChangeClick.address ? null : (
-                                    updateData.extra === undefined ? myinfo.extra_address : updateData.extra
-                                )}
-                                onChange={btnChangeClick.address === true ? handleChangeInputData : null}
-                                ref={refs.extra_addressRef}
-                                className={btnChangeClick.address ? 'update-info-active' : 'update-info-success'} /></li>
-                                    {isOpen &&
-                                    <div>
-                                        <DaumPostcode
-                                            className="postmodal"
-                                            theme={themeObj}
-                                            style={postCodeStyle}
-                                            onComplete={completeHandler}
-                                            onClose={closeHandler}
-                                        />
-                                    </div>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>휴대전화</td>
-                            <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>휴대전화</td>
+                        <td>
                             <input type="tel"
                                 value={btnChangeClick.phone ? null : (
                                     updateData.phone === undefined ? myinfo.phone : updateData.phone
@@ -251,11 +318,11 @@ export default function UpdateMypage({ myinfo, births }) {
                                 }}
                                 > 수정</button>
                             }
-                                </td>
-                        </tr>
-                        <tr>
-                            <td>이메일</td>
-                            <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>이메일</td>
+                        <td>
                             <input type="text"
                                 value={btnChangeClick.email ? null : (
                                     updateData.email === undefined ? myinfo.email : updateData.email
@@ -273,8 +340,8 @@ export default function UpdateMypage({ myinfo, births }) {
                                 }}
                                 > 수정</button>
                             }
-                                </td>
-                        </tr>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div className='mypage-update-info-add-tablebox'>
@@ -284,33 +351,55 @@ export default function UpdateMypage({ myinfo, births }) {
                         <tr>
                             <td>성별</td>
                             <td>
-                                <input type="checkbox" checked={births.gender === 'M' ? true : false}
+                                <input type="checkbox"
+                                    checked={births.gender && births.gender === 'M' ? true : (
+                                        !births.gender && false)}
                                     ref={refs.maleRef}
-                                    onChange={handleUpdateInfo} />
+                                    onChange={(e) => { handleChecked(e, 'M') }}
+                                    onClick={() => { handleUpdateInfo('gender', 'M') }}
+                                />
                                 <span>남자</span>
-                                <input type="checkbox" checked={births.gender === 'F' ? true : false}
+                                <input type="checkbox"
+                                    checked={births.gender && births.gender === 'F' ? true : (
+                                        !births.gender && false)}
                                     ref={refs.femaleRef}
-                                    onChange={handleUpdateInfo} />
+                                    onChange={(e) => { handleChecked(e, 'F') }}
+                                    onClick={() => { handleUpdateInfo('gender', 'F') }}
+                                />
                                 <span>여자</span>
                             </td>
                         </tr>
                         <tr>
                             <td>생년월일</td>
                             <td>
-                                <input type="text" name="" id="" value={births.year}
+                                <input type="number" name="year"
+                                    value={births.year !== '' ? births.year : updateData.year}
                                     ref={refs.yearRef}
-                                    onChange={handleUpdateInfo} />
+                                    className={btnChangeClick.year ? 'update-info-active' : 'update-info-success'}
+                                    onChange={btnChangeClick.year === true ? handleChangeInputData : null} />
                                 <span>년</span>
-                                <input type="text" value={births.month}
-                                    onChange={handleUpdateInfo}
+                                <input type="number" name='month'
+                                    value={births.month !== '' ? births.month : updateData.month}
+                                    onChange={btnChangeClick.year === true ? handleChangeInputData : null}
+                                    className={btnChangeClick.year ? 'update-info-active' : 'update-info-success'}
                                     ref={refs.monthRef} />
                                 <span>월</span>
-                                <input type="text" value={births.date}
-                                    onChange={handleUpdateInfo}
+                                <input type="number" name='date'
+                                    value={births.date !== '' ? births.date : updateData.date}
+                                    onChange={btnChangeClick.year === true ? handleChangeInputData : null}
+                                    className={btnChangeClick.year ? 'update-info-active' : 'update-info-success'}
                                     ref={refs.dateRef} />
                                 <span>일</span>
-                                {/* <button>수정</button>
-                                <button>완료</button> */}
+                                {btnChangeClick.year ?
+                                    <button type='button' onClick={() => {
+                                        handle('year')
+                                        handleUpdateInfoAdd()
+                                    }}>완료</button> :
+                                    <button type='button' onClick={() => {
+                                        handle('year')
+                                    }}
+                                    > 수정</button>
+                                }
                             </td>
                         </tr>
                     </table>
@@ -318,11 +407,7 @@ export default function UpdateMypage({ myinfo, births }) {
             </div>
             <div className='mypage-update-info-btns'>
                 <div>
-                    <button>회원탈퇴</button>
-                </div>
-                <div>
-                    {/* <button>취소</button> */}
-                    <button>추가정보수정</button>
+                    <button type='button' onClick={deleteMyAllInfo}>회원탈퇴</button>
                 </div>
             </div>
         </div>
