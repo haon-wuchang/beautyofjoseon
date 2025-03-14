@@ -5,6 +5,8 @@
 
 .p-common {
 
+
+    /* p-common reset */
     box-sizing: border-box;
 
     scroll-behavior: smooth;
@@ -82,34 +84,10 @@
         margin: 0;
         padding: 0;
         border: 0;
-        font-size: 14px;
         vertical-align: baseline;
-        background: transparent;
-        font-family: 'Nanum Gothic';
-        font-weight: 400;
-        color: #222;
-        font-style: normal;
-        line-height: 1.35em;
     }
 
-    body {
-        line-height: 1;
-        -webkit-text-size-adjust: none;
-        -webkit-font-smoothing: antialiased;
-        min-width: 320px;
-    }
 
-    /*html5 부터은 기본적으로 해당 요소들 블록요소로 처리*/
-    article,
-    aside,
-    details,
-    figcaption,
-    figure,
-    footer,
-    header,
-    hgroup,
-    menu,
-    nav,
     section {
         display: block;
     }
@@ -214,21 +192,6 @@
         cursor: pointer;
     }
 
-    // input { -webkit-appearance: none; -moz-appearance: none; border-radius: 0; }
-    // input:disabled { -webkit-appearance: none; -moz-appearance: none; appearance: none; color: #555555; -webkit-text-fill-color: #555555; opacity: 1; }
-
-    /* input-placeholder */
-    ::-webkit-input-placeholder,
-    ::-moz-placeholder,
-    :-ms-input-placeholder,
-    :-moz-placeholder {
-        color: #767676;
-        font-family: 'Nanum Gothic';
-    }
-
-    // :focus-visible {outline: 3px dotted red;}
-
-
 
 
 
@@ -245,6 +208,7 @@
         font-style: normal;
     }
 
+
     li,
     p,
     button,
@@ -254,6 +218,14 @@
         font-family: 'Pretendard-Regular';
         letter-spacing: -0.5px;
     }
+
+    :root {
+        --dark-gray: #69696980;
+        /* CSS 전역 변수 선언 */
+        --light-gray: rgba(0, 0, 0, 0.55)
+            /* CSS 전역 변수 선언 */
+    }
+
 
     .f12 {
         font-size: 12px !important;
@@ -327,7 +299,7 @@
         justify-content: flex-start;
         row-gap: 1.5rem;
         column-gap: 0rem;
-        margin-bottom: 30px ;
+        margin: 30px 0;
 
         ul {
             position: relative;
@@ -368,16 +340,74 @@
         border-top: 1px solid gray;
         padding: 20px 0;
 
-    div:first-child span{
-        // gap: 5px;
-        color: #00000080;
+        div:first-child span {
+            // gap: 5px;
+            color: #00000080;
+        }
+
+    }
+
+    .grid-icon {
+        padding: 0;
+        margin-right: 5px;
+        display: flex;
+        gap: 5px;
+
+        li {
+            color: gray;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+
+        }
+    }
+
+    .sort {
+        cursor: pointer;
+
+        div:first-child {
+            display: flex;
+            width: 75px;
+            height: 22px;
+            line-height: 1;
+            font-size: 11px;
+            position: relative;
+            padding: 0px 5px 0px 9px;
+            border: #e5e5e5 1px solid;
+            align-items: center;
+            color: gray;
+            justify-content: space-between;
+        }
+
+    }
+
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .product-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .product-item img {
+        max-width: 100%;
+        max-height: 100%;
+        // max-height: 300px;
+        // object-fit: cover;
     }
 
 
+    .square9-heart{
+        position: absolute;
     }
-
-
-
-
 
 }

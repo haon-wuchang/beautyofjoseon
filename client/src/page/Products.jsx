@@ -6,10 +6,8 @@ import { TbLayoutListFilled } from "react-icons/tb";
 import { BsGrid3X3GapFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
-import { BiSquare } from "react-icons/bi";
-import { CgDice2 } from "react-icons/cg";
-import { CgDice3 } from "react-icons/cg";
-import { CgDice4 } from "react-icons/cg";
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
+
 import '../style/product.scss';
 
 export default function Products() {
@@ -23,21 +21,17 @@ export default function Products() {
             .catch((error) => console.log(error))
     }, [])
 
-    const rows = [];
-    for (let i = 0; i < list.length; i += 3) {
-        rows.push(list.slice(i, i + 3));
-    }
+    console.log('list' , list);
+    
 
-
-    console.log('list', list);
 
 
 
     return (
         <div className='p-common products-content'>
             <div className='product-all-top'>
-                <h5 className='f18 w600'>SHOP ALL</h5>
-                <ul className='flex list-none'>
+                <h5 className='f18'>SHOP ALL</h5>
+                <ul className='flex list-none w500'>
                     <li>전 제품</li>
                     <li>스킨케어</li>
                     <li>바디케어</li>
@@ -51,58 +45,46 @@ export default function Products() {
                     <span>Products</span>
                 </div>
                 <div className='flex'>
-                    <ul className='flex'>
-                        <li>
-                            <TbLayoutListFilled />
-                        </li>
-                        <li>
-                            <IoGrid />
-                        </li>
-                        <li>
-                            <BsGrid3X3GapFill />
-
-                        </li>
+                    {/* grid 아이콘들 */}
+                    <ul className='grid-icon'>
+                        <li><TbLayoutListFilled /></li>
+                        <li><IoGrid /></li>
+                        <li><BsGrid3X3GapFill /></li>
                     </ul>
-
-                    {/* 
-                    <CgDice2 className='product-all-top-flex-square' />
-                    <CgDice3 className='product-all-top-flex-square' />
-                    <CgDice4 className='product-all-top-flex-square' /> */}
-                    <select name="" id="">
-                        <option value="default">Sort</option>
-                        <option value="new">신상품</option>
-                        <option value="pname">상품명</option>
-                        <option value="lowPrice">낮은가격</option>
-                        <option value="highPrice">높은가격</option>
-                        <option value="best">인기상품</option>
-                        <option value="review">사용후기</option>
-                    </select>
+                    <div className='sort'>
+                        <div className='flex'>
+                            <span>sort</span>
+                            <div><GoTriangleDown /> </div>
+                            <div style={{ display: "none" }}><GoTriangleUp /></div>
+                        </div>
+                        <ul style={{ display: "none" }}>
+                            <li>신상품</li>
+                            <li>상품명</li>
+                            <li>낮은가격</li>
+                            <li>높은가격</li>
+                            <li>인기상품</li>
+                            <li>사용후기</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             {/* 상품 행당 3개일 때 */}
-            <div className='product-list-wrap'>
-                {rows.map((rowArray, index) => (
-                    <div className='product-box9' key={index}>
-                        {rowArray.map((product) => (
-                            <Link
-                                key={product.pid}
-                                to={`/product/list${product.pid}`}
-                            >
-                                <div className='square9'>
-                                    <img src={product.image} alt="" />
+            <div className='product-list'>
+                {list.map((item) => (
+                            <Link key={item.pid} to={`/product/list${item.pid}`}>
+                                <div className='product-item'>
+                                    <img src={item.image} alt="" />
                                     <span className='square9-heart'><FaRegHeart /></span>
-                                    <span className='product-title'>{product.name}</span>
+                                    <span className='product-title'>{item.pname}</span>
                                     <p className='product-price'>18,000원</p>
                                     <span className='product-sale'>10%</span>
                                     <span className='product-sale-price'>16,200원</span>
                                 </div>
                             </Link>
                         ))}
-                    </div>
-                ))}
-
             </div>
+
 
 
 
