@@ -1,5 +1,30 @@
 import { db } from './db.js';
 
+
+/************************ 
+    전체상품 리스트 조회
+**************************/
+
+export const getList = async () => {
+    const sql = `
+        select pid,
+                pname, 
+                price,
+                concat('http://localhost:9000/',main_image->>'$[0]') as image, 
+                main_image, 
+                pdate
+        from product;
+    `;
+    const [result] = await db.execute(sql);
+    return result; 
+}
+
+
+/************************ 
+    상품 상세 정보 조회
+**************************/
+
+
 export const getProduct = async(pid) => {
 
     const sql = `

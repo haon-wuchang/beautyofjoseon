@@ -67,7 +67,7 @@ export default function Header() {
                     <div className='header-bottom-right'>
                         <nav className='header-bottom-right-nav'>
                             <Link to="/">HOME</Link>
-                            <Link to="/product">PRODUCT</Link>
+                            <Link to="/product/list">PRODUCT</Link>
                             <Link to="/">BRAND STORY</Link>
                             <Link to="/">MEMBERSHIP</Link>
                             <Link to="/">PRESS</Link>

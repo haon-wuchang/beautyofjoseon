@@ -9,6 +9,13 @@ import axios from 'axios';
 
 export default function ProductDetail() {
 
+
+    const [product, setProduct] = useState({});
+    const [imgList, setImgList] = useState([]);
+    const [detailImgList, setDetailImgList] = useState([]);
+
+
+
     const { pid } = useParams();
 
     useEffect(() => {
@@ -16,9 +23,9 @@ export default function ProductDetail() {
             .post("http://localhost:9000/product/detail", { "pid": pid }) // 
             .then((res) => {
                 console.log('res.data -> ', res.data)
-                // setProduct(res.data);
-                // setImgList(res.data.imgList);
-                // setDetailImgList(res.data.detailImgList);
+                setProduct(res.data);
+                setImgList(res.data.imgList);
+                setDetailImgList(res.data.detailImgList);
             })
 
             .catch((error) => console.log(error));
