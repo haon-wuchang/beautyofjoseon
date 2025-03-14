@@ -318,7 +318,7 @@
 /*****************************************/
 /*********     Products           *********/
 /*****************************************/
-.product-all-box{
+/* .product-all-box{
     padding: 0 60px;
     margin-top: 30px;
 }
@@ -369,7 +369,7 @@
 }
 .product-all-top-flex>div:last-child{
     display: flex;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     align-items: center;
     margin: 0;
     padding: 0;
@@ -400,7 +400,7 @@
     cursor: pointer;
 }
 .square9{
-    /* border: 1px solid red; */
+    border: 1px solid red;
     width: 410px;     
 }
 .square9>img{
@@ -409,14 +409,14 @@
     margin-bottom: 20px; 
 }
 .square9-heart{
-    /* border: 1px solid red; */
+    border: 1px solid red;
     position: absolute;
     bottom: 10px;
     font-size: 25px;
     left: 435px;
 }
 .product-title{
-    /* background-color: red; */
+    background-color: red;
     font-size: 15px;
     font-weight: 700;
 }
@@ -444,7 +444,7 @@
     display: flex;
     flex-wrap: wrap;
     border: 1px solid blue;
-    /* gap: 10px; */
+    gap: 10px;
     justify-content: space-between;
     text-align: center;   
     border-bottom: 1px solid gray;
@@ -454,7 +454,7 @@
     cursor: pointer;
 }
 .square4{
-    /* border: 1px solid red; */
+    border: 1px solid red;
     width: 560px;
     margin-bottom: 80px;
 }
@@ -472,7 +472,7 @@
     display: flex;
     flex-wrap: wrap;
     border: 1px solid blue;
-    /* gap: 10px; */
+    gap: 10px;
     justify-content: space-between;
     text-align: center;  
     border-bottom: 1px solid gray;
@@ -484,12 +484,12 @@
 .square2{
     width: 860px;
     margin-bottom: 80px;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     padding-bottom: 70px;
 }
 .square2>img{
     width: 100%;
-}
+} */
 /*****************************************/
 /*********     Mypage           *********/
 /*****************************************/
