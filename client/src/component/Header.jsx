@@ -15,26 +15,24 @@ import HeaderToggle from './header/HeaderToggle.jsx';
 import Modal from 'react-modal';
 import SearchModal from './header/SearchModal.jsx';
 import { useMypage } from '../hooks/useMypage.js';
+import { useLogin } from '../hooks/useLogin.js';
 
 export default function Header() {
     const { getMyinfo } = useMypage();
 
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const [toggleOpen, setToggleOpen] = useState(false); // 토글 버튼 클릭시 상태 관리
-    const [searchModalOpen, setSearchModalOpen] = useState(false); // 검색 버튼 클릭시 상태 관리
+    const [toggleOpen, setToggleOpen] = useState(false); // 메뉴 토글 버튼 클릭시 상태 관리
+    const [searchModalOpen, setSearchModalOpen] = useState(false);  // 검색 모달창 상태 관리
 
-    /* 로그인, 로그아웃 버튼 클릭 이벤트 */
+    const {handleLogin} = useLogin();
+    useEffect(() => {
+        console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
+    }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행  
+
+    /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
-        const handleLog = window.confirm("로그아웃 하시겠습니까?");
-        if (handleLog) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user_id');
-            setIsLoggedIn(false);
-        } else {
-            setIsLoggedIn(true);
-            navigate('/');
-        }
+        handleLogin(false,'logout');
     }
 
     /* 마이페이지 버튼 클릭 이벤트 */
@@ -57,7 +55,6 @@ export default function Header() {
     };
 
     /* 모달 */
-    console.log("모달 상태 --> ", searchModalOpen);
     const customModalStyles = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
@@ -124,7 +121,7 @@ export default function Header() {
                                     contentLabel="Search Modal"
                                     // className={searchModalOpen ? "search-modal-opne" : "search-modal-exit"}
                                 >
-                                    <SearchModal />
+                                    <SearchModal setSearchModalOpen={setSearchModalOpen} />
                                 </Modal>
 
                             {
