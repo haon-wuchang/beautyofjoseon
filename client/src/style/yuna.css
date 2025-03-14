@@ -25,7 +25,6 @@ body {
     background-color: #fff;
 }
 .header-bottom-container {
-    border: 1px solid red;
     display: flex;
     justify-content: space-between;
     height: 90px;
@@ -76,9 +75,10 @@ body {
     opacity: 1;
 }
 .header-bottom-menu {
+    /* border: 1px solid red; */
     display: flex;
     justify-content: space-between;
-    padding: 10px 30px;
+    padding: 10px 80px;
 }
 /* end of 헤더 메뉴 애니메이션*/
 .header-bottom-menu-left {
@@ -123,6 +123,8 @@ body {
     width: 100%;
 }
 /* 헤더 검색 모달 */
+
+
 .search-modal-wrap {
     padding: 0 10px;
 }
@@ -148,6 +150,9 @@ body {
     border: none;
     outline: none;
     height: 35px;
+}
+.search-modal-input > span {
+    cursor: pointer;
 }
 .search-modal-desc {
     font-size: 14px;
@@ -1294,6 +1299,108 @@ border: 1px solid blue; */
     border: none;
     cursor: pointer;
 }
-/* border: 1px solid red; */
-/* border: 1px solid green; */
-/* border: 1px solid blue; */
+
+/****************************
+* 검색 결과 출력 페이지(Search.jsx)
+* yuna
+*****************************/
+.search-page-wrap {
+    width: 95%;
+    margin: 0 auto;
+}
+.search-page-title {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+.search-page-input {
+    border-bottom: 1px solid silver;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+.search-page-input > input {
+    width: 90%;
+    height: 30px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
+.search-page-input > span {
+    font-size: 20px;
+    cursor: pointer;
+}
+.search-page-desc {
+    font-size: 13px;
+}
+.search-page-desc > span {
+    font-weight: bold;
+}
+
+
+
+
+.search-page-products {
+    /* border: 1px solid red; */
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+}
+.search-page-products > a {
+    text-decoration: none;
+    color: #000;
+}
+.search-page-product-image-container {
+    position: relative;
+}
+.search-page-product-image-container > img {
+    width: 100%;
+}
+.search-page-product-detail {
+    font-weight: bold;
+    text-align: center;
+}
+.search-page-product-detail > p {
+    margin: 0;
+    line-height: 30px;
+}
+.search-page-product-detail-title {
+    font-size: 15px;
+}
+.search-page-product-detail-price,
+.search-page-product-detail-oprice,
+.search-page-product-detail-dprice {
+    font-size: 13px;
+}
+.search-page-product-detail-oprice {
+    color: #999;
+    text-decoration: line-through;
+}
+.search-page-product-detail-dprice > span:first-child {
+    display: inline-block;
+    line-height: 12px;
+    padding: 1px 3px;
+    margin-right: 5px;
+    color: #e8b035;
+    background-color: #000;
+}
+.search-page-product-like {
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    z-index: 1;
+    font-size: 27px;
+    cursor: pointer;
+}
+.search-page-result-nothing {
+    width: 100%;
+    text-align: center;
+    padding: 40px 0;
+    color: silver;
+    font-size: 13px;
+}

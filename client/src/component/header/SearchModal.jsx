@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IoCloseOutline } from "react-icons/io5";
 import { IoSearchOutline } from "react-icons/io5";
+import { SearchContext } from '../../context/SearchContext.js';
 
-export default function SearchModal() {
+export default function SearchModal({setSearchModalOpen}) {
+    const navigate = useNavigate();
+    const { searchKeyword, setSearchKeyword } = useContext(SearchContext); // 전역에서 관리하는 검색 키워드
+    const [ search, setSearch ] = useState(""); // 로컬에서 관리하는 검색 키워드
+
+    /* 검색창 검색 버튼 클릭 이벤트 */
+    const clickSearch = () => {
+        setSearchKeyword(search);
+        setSearchModalOpen(false);
+        navigate("/search");
+    }
+
     return (
         <div className='search-modal-wrap'>
-            <p className='search-modal-close-btn'><IoCloseOutline /></p>
+            <p className='search-modal-close-btn' onClick={() => setSearchModalOpen(false)}><IoCloseOutline /></p>
             <p className='search-modal-title'>Search</p>
             <div className='search-modal-input'>
-                <input type="text" placeholder='검색어를 입력해주세요.' />
-                <span><IoSearchOutline/></span>
+                <input 
+                    type="text" 
+                    placeholder='검색어를 입력해주세요.'
+                    onChange={(event) => setSearch(event.target.value)}
+                />
+                <span onClick={clickSearch}><IoSearchOutline/></span>
             </div>
             <p className='search-modal-desc'>Trend Search</p>
             <ul className='search-modal-trend-list'>

@@ -38,13 +38,13 @@ export default function Search() {
             <p className='search-page-desc'>
                 총 <span>{pnameFilter.length > 0 ? pnameFilter.length : SubCateFilter.length}개</span>의 상품이 검색되었습니다.
             </p>
-            <div>
+            <div className='search-page-products'>
                 {
                     pnameFilter.length !== 0
                     ? (
                         pnameFilter.length > 0
                         ? (
-                            <ul className='search-page-products'>
+                            <ul>
                                 { pnameFilter.map((item) => 
                                     <Link to={`/product/detail/${item.pid}`} className="search-page-product-block">
                                         <li className="search-page-product-list">
@@ -79,8 +79,8 @@ export default function Search() {
                     : (
                         SubCateFilter.length > 0
                         ? (
-                            <ul className='search-page-products'>
-                                {SubCateFilter.map((item) => 
+                            <ul>
+                                { SubCateFilter.map((item) => 
                                     <Link to={`/product/detail/${item.pid}`} className="search-page-product-block">
                                         <li className="search-page-product-list">
                                             <div className="search-page-product-image-container">
@@ -104,7 +104,7 @@ export default function Search() {
                                             </div>
                                         </li>
                                     </Link>
-                                )}
+                                ) }
                             </ul>
                         )
                         : (

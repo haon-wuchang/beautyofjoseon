@@ -13,8 +13,6 @@ export default function MainTopSlide() {
             .catch(err => console.log(err));
     }, []);
 
-    console.log("imgList ==> ", imgList);
-
     const settings = {
         dots: true,
         infinite: true,
