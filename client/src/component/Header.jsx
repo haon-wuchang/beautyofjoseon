@@ -122,7 +122,7 @@ export default function Header() {
                             </div>
                         </div>
                         <div className='header-bottom-menu-right'>
-                            <img src="images/header_menu_image.jpg" alt="" />
+                            <img src="/images/header_menu_image.jpg" alt="" />
                         </div>
                     </div>
                 }
