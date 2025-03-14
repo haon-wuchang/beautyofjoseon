@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MainTitleBlock from '../../component/MainTitleBlock';
-import MainProductSlide from './MainProductSlide.jsx';
+import MainProductBlock from './MainProductBlock.jsx';
 import axios from 'axios';
 
 export default function MainBestProducts() {
@@ -20,7 +20,7 @@ export default function MainBestProducts() {
                 des="조선미녀의 베스트상품을 만나보세요"
             />
             <div className='main-contents-best-products'>
-                <MainProductSlide
+                <MainProductBlock
                     bestList={bestList}
                     className="main-contents-best-products" 
                 />
