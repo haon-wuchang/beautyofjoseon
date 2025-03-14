@@ -15,10 +15,13 @@ import Payment from './page/Payment.jsx';
 import { AuthProvider } from './auth/AuthContext.js';
 import { MypageProvider } from './context/MypageContext.js';
 import { SearchProvider } from './context/SearchContext.js';
+import {CartProvider} from './context/cartContext.js';
 import Search from './page/Search.jsx';
 
 export default function App() {
   return (
+    
+    <CartProvider>
     <AuthProvider>
       <SearchProvider>
       <MypageProvider>
@@ -40,6 +43,7 @@ export default function App() {
       </MypageProvider>
       </SearchProvider>
     </AuthProvider>
+    </CartProvider>
   );
 }
 

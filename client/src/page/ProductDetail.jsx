@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AuthContext } from "../auth/AuthContext.js";
+import { CartContext } from "../context/cartContext.js";
+import { useCart } from "../hooks/useCart.js"
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
@@ -9,14 +12,19 @@ import axios from 'axios';
 
 export default function ProductDetail() {
 
+    /* 전역 등 import 된 것 */
+    const { isLoggedIn } = useContext(AuthContext);
+    const { pid } = useParams();
+    const { cartList, setCartCount, cartCount } = useContext(CartContext);
+    const { updateCartList, saveToCartList, getCartList } = useCart();
+    const navigate = useNavigate();
 
+    /* 디테일 페이지 상태관리 */
     const [product, setProduct] = useState({});
     const [imgList, setImgList] = useState([]);
     const [detailImgList, setDetailImgList] = useState([]);
+    const [qty, setQty] = useState(1); // detail 페이지 수량 증가
 
-
-
-    const { pid } = useParams();
 
     useEffect(() => {
         axios
@@ -24,13 +32,65 @@ export default function ProductDetail() {
             .then((res) => {
                 console.log('res.data -> ', res.data)
                 setProduct(res.data);
-                setImgList(res.data.imgList);
-                setDetailImgList(res.data.detailImgList);
+                setImgList(res.data.SlideImgList);
+                setDetailImgList(res.data.descImgList);
+                getCartList();
             })
 
             .catch((error) => console.log(error));
     }, []);
 
+    /* 장바구니 추가 이벤트 */
+    const addCartItem = () => {
+        if (isLoggedIn) {
+
+            const cartItem = {
+                pid: product.pid,
+                qty: qty,
+            };
+
+            console.log('cartItem', cartItem);
+
+            const findItem = cartList && cartList.find(item => item.pid === product.pid);
+
+
+            if (findItem) {
+                const result = updateCartList(findItem.cid, "increase", qty);
+                result && alert("장바구니가 업데이트 되었습니다.")
+            } else {
+
+                const id = localStorage.getItem("user_id");
+                const formData = { id: id, cartList: [cartItem] }
+                const result = saveToCartList(formData);
+                result && alert("장바구니에 추가되었습니다.")
+
+            }
+
+        } else {
+            const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
+            if (select) {
+                navigate('/login');
+            }
+        }
+    };
+
+
+    /* 아이템 수량 증감 */
+
+
+    const handleQtyChange = (type) => {
+        const updatedQty = type === "increase" ? qty + 1 : qty - 1;
+        if (updatedQty < 1) return; 
+
+        setQty(updatedQty);
+        setCartCount(updatedQty);
+        updateCartList(pid, type, 1);
+    }; 
+
+
+
+
+    /* style 관련 */
 
     // const [ showDetails, setShowDetails ] = useState([false, false, false]);
     const [showDetails, setShowDetails] = useState(null);
@@ -43,6 +103,9 @@ export default function ProductDetail() {
         // })
         setShowDetails(prevIndex => (prevIndex === index ? null : index));
     }
+
+
+    
 
     return (
         <div className='product-detail-wrap'>
@@ -91,7 +154,7 @@ export default function ProductDetail() {
                     <div className='product-detail-buy'>
                         <div className='product-detail-info'>
                             <p className='product-detail-info-name'>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
-                            <p className='product-detail-info-oprice'>18,0000원</p>
+                            <p className='product-detail-info-oprice'>18,000원</p>
                             <p className='product-detail-dprice'>
                                 <span>10%</span>
                                 <span>16,200원</span>
@@ -111,9 +174,9 @@ export default function ProductDetail() {
                             <p className='product-detail-qty-name'>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
                             <div className='product-detail-qty-box'>
                                 <div>
-                                    <button><FiMinus /></button>
-                                    <span>1</span>
-                                    <button><FiPlus /></button>
+                                    <button className='decrease' onClick={()=>{handleQtyChange("decrease")}}><FiMinus /></button>
+                                    <span>{qty}</span>
+                                    <button className='increase' onClick={()=>{handleQtyChange("increase")}}><FiPlus /></button>
                                 </div>
                                 <span>16,200원</span>
                             </div>
@@ -125,7 +188,7 @@ export default function ProductDetail() {
                         <div className='product-detail-buttons'>
                             <button>Wish</button>
                             <button>Add to Cart</button>
-                            <button>Buy now</button>
+                            <button onClick={addCartItem}>Buy now</button>
                         </div>
                     </div>
                     <OtherPay className='product-detail-pay' />

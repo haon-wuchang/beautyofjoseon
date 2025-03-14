@@ -6,6 +6,7 @@ import LoginRouter from './router/LoginRouter.js';
 import mypageRouter from './router/mypageRouter.js';
 import mainRouter from './router/mainRouter.js';
 import searchRouter from './router/searchRouter.js';
+import cartRouter from './router/cartRouter.js';
 
 
 /* 서버 생성 및 포트 정의 */
@@ -25,7 +26,7 @@ server.use('/login',LoginRouter);
 server.use('/mypage',mypageRouter);
 server.use('/main', mainRouter);
 server.use('/search', searchRouter);
-
+server.use('/cart', cartRouter);
 
 
 

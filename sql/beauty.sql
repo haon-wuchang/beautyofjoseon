@@ -29,7 +29,20 @@ desc wish;
 -- ----------------------------------
 -- ***********개별 테스트 공간
 -- ----------------------------------
+drop view view_cart_list;
 
+truncate table cart;
 
-
-
+create view view_cart_list
+as 
+select  ca.cid as cid,
+		ca.qty as qty,
+		cu.id as id,
+		pd.pid as pid,
+		pd.pname as pname,
+		pd.price as price,
+		pd.discount_rate as discount_rate,
+		main_image
+from cart ca, customer cu, product pd
+where ca.id = cu.id 
+and ca.pid = pd.pid;

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from "../auth/AuthContext.js";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { IoGrid } from "react-icons/io5";
@@ -11,6 +12,8 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import '../style/product.scss';
 
 export default function Products() {
+
+    const { isLoggedIn } = useContext(AuthContext);
 
     const [list, setList] = useState([]);
 
@@ -39,10 +42,10 @@ export default function Products() {
                     <li>세트</li>
                 </ul>
             </div>
-            <div className='product-all-top-bottom space-between'>
+            <div className='product-all-bottom space-between'>
                 <div>
-                    <span>{list.length}</span>
-                    <span>Products</span>
+                    <span className='f12' >{list.length}</span>
+                    <span className='f12'>Products</span>
                 </div>
                 <div className='flex'>
                     {/* grid 아이콘들 */}
@@ -72,10 +75,10 @@ export default function Products() {
             {/* 상품 행당 3개일 때 */}
             <div className='product-list'>
                 {list.map((item) => (
-                            <Link key={item.pid} to={`/product/list${item.pid}`}>
+                            <Link key={item.pid} to={`/product/detail/${item.pid}`}>
                                 <div className='product-item'>
                                     <img src={item.image} alt="" />
-                                    <span className='square9-heart'><FaRegHeart /></span>
+                                    <span className='wish-icon'><FaRegHeart /></span>
                                     <span className='product-title'>{item.pname}</span>
                                     <p className='product-price'>18,000원</p>
                                     <span className='product-sale'>10%</span>
