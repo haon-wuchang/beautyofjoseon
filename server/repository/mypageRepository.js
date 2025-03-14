@@ -1,5 +1,6 @@
 import {db} from './db.js';
 
+// 마이페이지 회워정보 가져오기
 export const getMyinfo = async({id}) => {
     // console.log(id);
     
@@ -21,4 +22,30 @@ export const getMyinfo = async({id}) => {
     // console.log('마이페이지레파지토리',result[0]);
     
     return result[0];
+}
+
+//마이페이지 회원정보수정 업데이트
+export const updateInfo = async({id,colName,value}) => {
+    console.log(id);
+    console.log(colName);
+    console.log(value);
+    
+   const sql =`
+       update customer    
+                  set ${colName} = ?
+                           where id = ? 
+                `;
+    const result = await db.execute(sql,[value,id]);
+    // console.log('마이페이지레파지토리',result[0].changedRows);
+    return {result : result[0].changedRows};
+}
+
+//회원탈퇴
+export const deleteAllMyinfo = async({id}) => {   
+   const sql =`
+       delete from customer where id = ? 
+                `;
+    const result = await db.execute(sql,[id]);
+    console.log('마이페이지레파지토리',result[0].affectedRows);    
+    return {result : result[0].affectedRows};
 }

@@ -6,29 +6,41 @@ import Order from '../component/mypage/Order.jsx';
 import UpdateMypage from '../component/mypage/UpdateMypage.jsx';
 import Money from '../component/mypage/Money.jsx';
 import Coupon from '../component/mypage/Coupon.jsx';
-import {AuthContext} from '../auth/AuthContext.js';
+import { AuthContext } from '../auth/AuthContext.js';
 import { useContext } from 'react';
 import { MypageContext } from '../context/MypageContext.js';
-import {useMypage} from '../hooks/useMypage.js';
+import { useMypage } from '../hooks/useMypage.js';
+import { useNavigate } from 'react-router-dom';
+import {useLogin} from '../hooks/useLogin.js';
 
 export default function Mypage() {
-    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
-    const {myinfo,year,month,date,gender} = useContext(MypageContext);
-    setIsLoggedIn(true);
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const { setMyinfo, myinfo, year, month, date, gender } = useContext(MypageContext);
+    const {handleLogin} = useLogin();
     const [tab, setTab] = useState('main');
-    const {getMyinfo} = useMypage();
+    const { getMyinfo } = useMypage();
+    const [isChecked1, setIsChecked1] = useState(false); //체크박스 상태 관리
+    const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
+    useEffect(() => {
+        getMyinfo();
+        // handleLogin();
+        if (gender === 'M') {
+            setIsChecked1(true);
+            setIsChecked2(false);
+        } else if (gender === 'F') {
+            setIsChecked2(true);
+            setIsChecked1(false);
+        } else {
+            setIsChecked1(false);
+            setIsChecked2(false);
+        }
+    }, [isLoggedIn]);
+    console.log('testsetset', isLoggedIn);
 
-
-    useEffect(()=>{
-        getMyinfo(); 
-    },[isLoggedIn]);
-
-    console.log('회원정보',myinfo);
-
-
-    
-
-
+    /* 로그아웃 버튼 클릭 이벤트 */
+    const logout = () => {
+        handleLogin(false,'logout');
+    }
     return (
         <div className='mypage-box'>
             <div className='mypage-top'>
@@ -37,7 +49,7 @@ export default function Mypage() {
                 </div>
                 <div>
                     <button onClick={() => { setTab('my') }}>나의 정보</button>
-                    <button>로그아웃</button>
+                    <button onClick={logout}>로그아웃</button>
                 </div>
             </div>
             {tab === 'main' &&
@@ -77,16 +89,16 @@ export default function Mypage() {
             {tab === 'money' && <Money />}
             {tab === 'coupon' && <Coupon />}
             {tab === 'review' && <Review />}
-            {tab === 'delivery' && <Delivery myinfo={myinfo} births={{year,month,date}}/>}
-            {tab === 'my' && <UpdateMypage myinfo={myinfo} births={{year,month,date,gender}}/>}
+            {tab === 'delivery' && <Delivery myinfo={myinfo} births={{ year, month, date }} />}
+            {tab === 'my' && <UpdateMypage Checked={{ isChecked1, isChecked2, setIsChecked1, setIsChecked2 }} myinfo={myinfo} births={{ year, month, date, gender }} />}
             {tab === 'main' &&
                 <>
                     <div className='mypage-desc'>
-                        <p>	저희 쇼핑몰을 이용해 주셔서 감사합니다. 
-                            <span>{myinfo.name}님</span>은 
+                        <p>	저희 쇼핑몰을 이용해 주셔서 감사합니다.
+                            <span>{myinfo.name}님</span>은
                             <span>[{myinfo.membership}]</span> 회원이십니다.</p>
-                        <p><span>10,000원 이상</span>구매시 
-                        <span>1%</span>를 추가적립 받으실 수 있습니다.</p>
+                        <p><span>10,000원 이상</span>구매시
+                            <span>1%</span>를 추가적립 받으실 수 있습니다.</p>
                     </div>
                     <div className='mypage-middle-box'>
                         <div>
