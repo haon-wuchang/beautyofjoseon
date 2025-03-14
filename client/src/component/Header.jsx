@@ -11,11 +11,20 @@ import { IoCloseOutline } from "react-icons/io5";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import HeaderToggle from './header/HeaderToggle.jsx';
+import Modal from 'react-modal';
+import SearchModal from './header/SearchModal.jsx';
+import { useMypage } from '../hooks/useMypage.js';
 
 export default function Header() {
+    const { getMyinfo } = useMypage();
+
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const [toggleOpen, setToggleOpen] = useState(false);
+    const [toggleOpen, setToggleOpen] = useState(false); // 토글 버튼 클릭시 상태 관리
+    const [searchModalOpen, setSearchModalOpen] = useState(false); // 검색 버튼 클릭시 상태 관리
+
+    /* 로그인, 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
         const handleLog = window.confirm("로그아웃 하시겠습니까?");
         if (handleLog) {
@@ -27,13 +36,12 @@ export default function Header() {
             navigate('/');
         }
     }
+
+    /* 마이페이지 버튼 클릭 이벤트 */
     const handleMypage = () => {
         const handleLog = window.confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?");
         (handleLog) ? navigate('/login') : navigate('/');
     }
-
-    /* 토글 버튼 클릭 이벤트 */
-    console.log("토글 --> ", toggleOpen);
 
     /* 슬라이더 세팅 */
     const settings = {
@@ -46,6 +54,34 @@ export default function Header() {
         autoplay: true,
         autoplaySpeed: 5000,
         pauseOnHover: true,
+    };
+
+    /* 모달 */
+    console.log("모달 상태 --> ", searchModalOpen);
+    const customModalStyles = {
+        overlay: {
+            backgroundColor: " rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            height: "100vh",
+            zIndex: "10",
+            position: "fixed",
+            top: "0",
+            left: "0",
+        },
+        content: {
+            width: "350px",
+            height: "100%",
+            zIndex: "150",
+            position: "fixed",
+            top: "0",
+            right: "0",
+            left: "auto",
+            margin: "0",
+            backgroundColor: "white",
+            justifyContent: "center",
+            overflow: "auto",
+            transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
+        },
     };
 
     return (
@@ -76,56 +112,32 @@ export default function Header() {
                             {isLoggedIn ?
                                 (<li onClick={logout}><Link to="/login"><GoUnlock /></Link></li>) :
                                 (<li><Link to="/login"><GoLock /></Link></li>)}
-                            <li onClick={!isLoggedIn ? handleMypage : null} ><Link to="/mypage"><GoPerson /></Link></li>
-                                {/* {
-                                    isLoggedIn
-                                        ? <li><Link to="/login"><GoUnlock /></Link></li>
-                                        : <li><Link to="/login"><GoLock /></Link></li>
-                                } */}
-                                {/* <li><Link to="/mypage"><GoPerson /></Link></li> */}
-                                <li><Link to="/cart"><PiShoppingBag /></Link></li>
-                                <li><Link to="/"><IoSearchOutline /></Link></li>
-                                {
-                                    toggleOpen
-                                        ? <li><Link onClick={() => setToggleOpen(!toggleOpen)}><IoCloseOutline /></Link></li>
-                                        : <li><Link onClick={() => setToggleOpen(!toggleOpen)}><BsList /></Link></li>
-                                }
+                            <li onClick={!isLoggedIn ? handleMypage : getMyinfo} ><Link to="/mypage"><GoPerson /></Link></li>
+                            <li><Link to="/cart"><PiShoppingBag /></Link></li>
+                            <li onClick={() => setSearchModalOpen(!searchModalOpen)}><Link><IoSearchOutline /></Link></li>
+                                {/* 검색 버튼 클릭시 보이는 모달 컴포넌트 */}
+                                <Modal
+                                    isOpen={searchModalOpen}
+                                    onRequestClose={() => setSearchModalOpen(false)}
+                                    style={customModalStyles}
+                                    ariaHideApp={false}
+                                    contentLabel="Search Modal"
+                                    // className={searchModalOpen ? "search-modal-opne" : "search-modal-exit"}
+                                >
+                                    <SearchModal />
+                                </Modal>
+
+                            {
+                                toggleOpen
+                                    ? <li><Link onClick={() => setToggleOpen(!toggleOpen)}><IoCloseOutline /></Link></li>
+                                    : <li><Link onClick={() => setToggleOpen(!toggleOpen)}><BsList /></Link></li>
+                            }
                         </ul>
                     </div>
                 </div>
-                {
-                    toggleOpen &&
-                    <div className='header-bottom-menu'>
-                        <div className='header-bottom-menu-left'>
-                            <div className='header-bottom-menu-category'>
-                                <span>Shop All</span>
-                                <ul className='header-bottom-menu-category-list'>
-                                    <li><Link to="/">전 제품</Link></li>
-                                    <li><Link to="/">스킨케어</Link></li>
-                                    <li><Link to="/">바디케어</Link></li>
-                                    <li><Link to="/">라이프스타일</Link></li>
-                                    <li><Link to="/">세트</Link></li>
-                                </ul>
-                            </div>
-                            <div className='header-bottom-menu-sub-category'>
-                                <span>유형별</span>
-                                <ul className='header-bottom-menu-sub-category-list'>
-                                    <li><Link to="/">선케어</Link></li>
-                                    <li><Link to="/">세럼</Link></li>
-                                    <li><Link to="/">젤/크림</Link></li>
-                                    <li><Link to="/">토너/에센스</Link></li>
-                                    <li><Link to="/">클렌저</Link></li>
-                                    <li><Link to="/">각질제거</Link></li>
-                                    <li><Link to="/">마스크팩</Link></li>
-                                    <li><Link to="/">기타</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className='header-bottom-menu-right'>
-                            <img src="/images/header_menu_image.jpg" alt="" />
-                        </div>
-                    </div>
-                }
+
+                {/* 헤더 토글 버튼 클릭시 나오는 컴포넌트 */}
+                <HeaderToggle toggleOpen={toggleOpen} /> 
             </div>
         </div>
     );
