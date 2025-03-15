@@ -33,7 +33,7 @@ export function useCart() {
         const result = await axios.post("http://localhost:9000/cart/add", formData);
         if (result.data.result_rows) {
             setCartCount(cartCount + 1);
-            // getCartList(); // 장바구니 리스트 불러오는 함수
+            getCartList(); // 장바구니 리스트 불러오는 함수
         }
 
         return result.data.result_rows;
@@ -51,7 +51,7 @@ export function useCart() {
     const updateCartList = async (cid, type, qty) => {
         const result = await axios.put('http://localhost:9000/cart/updateQty',
             { "cid": cid, 'type': type, 'qty':qty });
-        // result.data.result_rows && getCartList(); 
+        result.data.result_rows && getCartList(); 
         return result.data.result_rows;
 
     }

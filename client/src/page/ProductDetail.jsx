@@ -34,11 +34,14 @@ export default function ProductDetail() {
                 setProduct(res.data);
                 setImgList(res.data.SlideImgList);
                 setDetailImgList(res.data.descImgList);
-                getCartList();
+                // getCartList();
             })
 
             .catch((error) => console.log(error));
     }, []);
+
+    // console.log(cartList);
+    
 
     /* 장바구니 추가 이벤트 */
     const addCartItem = () => {
@@ -84,7 +87,7 @@ export default function ProductDetail() {
 
         setQty(updatedQty);
         setCartCount(updatedQty);
-        updateCartList(pid, type, 1);
+
     }; 
 
 
