@@ -16,60 +16,50 @@ export default function ProductDetail() {
     const { isLoggedIn } = useContext(AuthContext);
     const { pid } = useParams();
     const { cartList, setCartCount, cartCount } = useContext(CartContext);
-    const { updateCartList, saveToCartList, getCartList } = useCart();
+    const { updateCartList, saveToCartList } = useCart();
     const navigate = useNavigate();
 
     /* 디테일 페이지 상태관리 */
     const [product, setProduct] = useState({});
-    const [imgList, setImgList] = useState([]);
+    const [slideImgList, setSlideImgList] = useState([]);
     const [detailImgList, setDetailImgList] = useState([]);
     const [qty, setQty] = useState(1); // detail 페이지 수량 증가
 
 
     useEffect(() => {
         axios
-            .post("http://localhost:9000/product/detail", { "pid": pid }) // 
+            .post("http://localhost:9000/product/detail", { "pid": pid }) 
             .then((res) => {
                 console.log('res.data -> ', res.data)
                 setProduct(res.data);
-                setImgList(res.data.SlideImgList);
+                setSlideImgList(res.data.SlideImgList);
                 setDetailImgList(res.data.descImgList);
-                // getCartList();
             })
-
             .catch((error) => console.log(error));
     }, []);
 
-    // console.log(cartList);
     
 
-    /* 장바구니 추가 이벤트 */
+    /* 로그인 시 장바구니 추가 이벤트 */
     const addCartItem = () => {
         if (isLoggedIn) {
 
             const cartItem = {
                 pid: product.pid,
-                qty: qty,
+                qty: qty 
             };
 
-            console.log('cartItem', cartItem);
-
             const findItem = cartList && cartList.find(item => item.pid === product.pid);
-
 
             if (findItem) {
                 const result = updateCartList(findItem.cid, "increase", qty);
                 result && alert("장바구니가 업데이트 되었습니다.")
             } else {
-
                 const id = localStorage.getItem("user_id");
                 const formData = { id: id, cartList: [cartItem] }
                 const result = saveToCartList(formData);
-                result && alert("장바구니에 추가되었습니다.")
-
-            }
-
-        } else {
+                result && alert("장바구니에 추가되었습니다.") }
+            } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
             if (select) {
                 navigate('/login');
@@ -79,15 +69,11 @@ export default function ProductDetail() {
 
 
     /* 아이템 수량 증감 */
-
-
     const handleQtyChange = (type) => {
         const updatedQty = type === "increase" ? qty + 1 : qty - 1;
         if (updatedQty < 1) return; 
-
         setQty(updatedQty);
         setCartCount(updatedQty);
-
     }; 
 
 

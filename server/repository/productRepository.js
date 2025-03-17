@@ -8,8 +8,9 @@ import { db } from './db.js';
 export const getList = async () => {
     const sql = `
         select pid,
-                pname, 
+                pname,
                 price,
+                discount_rate,
                 concat('http://localhost:9000/',main_image->>'$[0]') as image, 
                 main_image, 
                 pdate

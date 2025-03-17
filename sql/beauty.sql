@@ -29,9 +29,8 @@ desc wish;
 -- ----------------------------------
 -- ***********개별 테스트 공간
 -- ----------------------------------
-drop view view_cart_list;
 
-truncate table cart;
+
 
 create view view_cart_list
 as 

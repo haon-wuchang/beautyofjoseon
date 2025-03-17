@@ -24,8 +24,9 @@ export default function Products() {
             .catch((error) => console.log(error))
     }, [])
 
-    console.log('list' , list);
-    
+    console.log('list', list);
+
+    console.log('list.discount_rate', list.discount_rate);
 
 
 
@@ -75,17 +76,24 @@ export default function Products() {
             {/* 상품 행당 3개일 때 */}
             <div className='product-list'>
                 {list.map((item) => (
-                            <Link key={item.pid} to={`/product/detail/${item.pid}`}>
-                                <div className='product-item'>
-                                    <img src={item.image} alt="" />
-                                    <span className='wish-icon'><FaRegHeart /></span>
-                                    <span className='product-title'>{item.pname}</span>
-                                    <p className='product-price'>18,000원</p>
-                                    <span className='product-sale'>10%</span>
-                                    <span className='product-sale-price'>16,200원</span>
+                    <Link key={item.pid} to={`/product/detail/${item.pid}`}>
+                        <div className='product-item'>
+                            <img src={item.image} alt="" />
+                            <span className='wish-icon'><FaRegHeart /></span>
+                            <span className='product-title w600 text-center f15' >{item.pname}</span>
+                            <p className='product-price pt10 f12'>{(item.discount_rate !== 0) ? `${item.price.toLocaleString()}원` : ('')}</p>
+                            <div className='gap5 flex'>
+                                    {(item.discount_rate !== 0) ? 
+                                (<div className='product-sale'>
+                                {`${item.discount_rate.toLocaleString()}%`}
+                                </div>) : null }
+                                <div className='product-sale-price'>{`${((item.price - (item.discount_rate * 100)).toLocaleString())}원`}
                                 </div>
-                            </Link>
-                        ))}
+
+                            </div>
+                        </div>
+                    </Link>
+                ))}
             </div>
 
 
