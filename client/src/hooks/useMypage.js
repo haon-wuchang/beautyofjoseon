@@ -5,8 +5,8 @@ import { AuthContext } from '../auth/AuthContext.js';
 
 export function useMypage(){   
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
-    const {myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,gender,setGender
-        
+    const {myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,gender,setGender,
+        zipcode,setZipcode,address,setAddress,extra,setExtra
     } = useContext(MypageContext);
 
     const getMyinfo = async() => {
@@ -35,7 +35,7 @@ export function useMypage(){
             }else if(result.data.gender === 'M'){
                 setGender('M');
             }
-        }else if(!result.data.birth && !result.data.gender ){
+        }else if(!result.data.birth && !result.data.gender ){   
             setMyinfo(result.data);
             setYear('');
             setMonth('');
@@ -44,7 +44,6 @@ export function useMypage(){
         }
         return result.data;
     }
-
 
     return {getMyinfo};
 }
