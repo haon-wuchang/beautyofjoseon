@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MainTitleBlock from '../../component/MainTitleBlock';
 import MainProductBlock from './MainProductBlock.jsx';
 import axios from 'axios';
+import { motion } from 'framer-motion'; // 스크롤 애니메이션 라이브러리
 
 export default function MainBestProducts() {
     const [bestList, setBestList] = useState([]);
@@ -14,17 +15,28 @@ export default function MainBestProducts() {
 
     return (
         <div className='main-contents-best'>
-            <MainTitleBlock
-                divClassName="main-contents-best-top"
-                title="Best Product"
-                des="조선미녀의 베스트상품을 만나보세요"
-            />
-            <div className='main-contents-best-products'>
-                <MainProductBlock
-                    bestList={bestList}
-                    className="main-contents-best-products" 
+            <motion.div
+                initial={{ opacity: 0, y: 100}}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                    ease: "easeInOut",
+                    duration: 2,
+                    y: { duration: 2},
+                }}
+            >
+                <MainTitleBlock
+                    divClassName="main-contents-best-top"
+                    title="Best Product"
+                    des="조선미녀의 베스트상품을 만나보세요"
                 />
-            </div>
+                <div className='main-contents-best-products'>
+                    <MainProductBlock
+                        bestList={bestList}
+                        className="main-contents-best-products" 
+                    />
+                </div>
+            </motion.div>
         </div>
     );
 }

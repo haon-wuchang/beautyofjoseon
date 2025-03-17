@@ -1,6 +1,7 @@
 import React from 'react';
 import MainTitleBlock from '../../component/MainTitleBlock';
 import MainSunCareProducts from './MainSunCareProducts';
+import { motion } from 'framer-motion'; // 스크롤 애니메이션 라이브러리
 
 export default function MainSunCare() {
     return (
@@ -23,7 +24,18 @@ export default function MainSunCare() {
                     divClassName="suncare-title"
                     title="Suncare Product"
                 />
-                <MainSunCareProducts className="main-contents-suncare" />
+                <motion.div
+                    initial={{ opacity: 0, y: 100}}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                        ease: "easeInOut",
+                        duration: 2,
+                        y: { duration: 2},
+                    }}
+                >
+                    <MainSunCareProducts className="main-contents-suncare" />
+                </motion.div>
             </div>
         </div>
     );

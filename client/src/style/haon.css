@@ -1234,9 +1234,10 @@
     border: 1px solid gray;
     width: 500px;
     margin: 0 auto;
-    height: 600px;
+    /* height: 600px; */
     padding-top: 20px;
     height: 400px;
+    /* position: fixed; */
 }
 .delivery-write-form>ul{
     list-style-type: none;
@@ -1279,6 +1280,12 @@
     width: 100px;
     display: block;
     margin-right: 10px;
+}
+.delivery-write-form>ul>p{
+    /* color: white; */
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 .mypage-delivery-form-check{
     width: 100%;

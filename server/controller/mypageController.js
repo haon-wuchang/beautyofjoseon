@@ -20,3 +20,13 @@ export const deleteAllMyinfo = async(req,res) => {
         res.json(result);
         res.end();
 }
+// 배송지 추가 
+export const addDelivery = async(req,res) => {
+    // console.log('배송지 추가 ',req.body.id);
+    const addAddress = req.body.deliData.zipcode.concat('-', req.body.deliData.address, '=', req.body.deliData.extra_address)
+    // console.log('배송지 추가 ',addAddress);
+        const result = await repository.addDelivery(req.body.id, addAddress);
+        res.json(result);
+        res.end();
+}
+
