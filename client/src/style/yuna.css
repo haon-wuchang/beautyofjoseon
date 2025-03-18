@@ -465,7 +465,7 @@ body {
 * 상품 상세 페이지
 * yuna
 *****************************/
-.product-detail-wrap {
+/* .product-detail-wrap {
     border: 1px solid red;
 }
 .product-detail-contents {
@@ -507,13 +507,13 @@ body {
 }
 
 .product-detail-right {
-    /* border: 1px solid blue; */
+    border: 1px solid blue;
     width: 25%;
     margin-right: 50px;
     display: block;
-    /* position: fixed;
+    position: fixed;
     right: 0;
-    top: 86px; */
+    top: 86px;
 }
 .product-detail-info > p:not(:first-child) {
     margin: 0;
@@ -692,19 +692,22 @@ body {
 .product-detail-bottom-notice > li {
     line-height: 18px;
 }
-/* border: 1px solid red;
-border: 1px solid blue; */
+border: 1px solid red;
+border: 1px solid blue;
 .product-detail-notice-toggle {
     display: none;
-    /* max-height: 0;
-    overflow: hidden; */
+    max-height: 0;
+    overflow: hidden;
 }
 .product-detail-notice-toggle-open {
-    /* max-height: 150px;
-    transition: max-height 0.3s ease-in-out; */
+    max-height: 150px;
+    transition: max-height 0.3s ease-in-out;
     display: block;
 }
+ */
 
+
+ 
 /****************************
 * 장바구니 페이지
 * yuna

@@ -10,6 +10,11 @@ import { FiMinus } from "react-icons/fi";
 import OtherPay from '../component/OtherPay';
 import axios from 'axios';
 
+
+
+
+
+
 export default function ProductDetail() {
 
     /* 전역 등 import 된 것 */
@@ -37,6 +42,9 @@ export default function ProductDetail() {
             })
             .catch((error) => console.log(error));
     }, []);
+
+
+
 
     
 

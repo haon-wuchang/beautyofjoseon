@@ -304,7 +304,9 @@
         text-align: center;
     }
 
-    /* 상품리스트 페이지 */
+    /* **************************
+        상품리스트 페이지 ****
+    ***************************/
 
     .product-all-top {
         display: flex;
@@ -410,13 +412,14 @@
         flex-direction: column;
         position: relative;
         align-items: center;
-        // width: 100%;
-        // max-width: 300px;
-        // box-sizing: border-box;
+        width: 100%;
         overflow: hidden;
-        width: 100%; /* 부모 크기 유지 */
         height: auto;
-        // aspect-ratio: 1 / 1;
+    }
+    
+    .product-img-wrap {
+        width: 100%;
+        overflow: hidden;
     }
 
     .product-item img {
@@ -428,7 +431,7 @@
         transform-origin: center center;
     }
     .product-item img:hover {
-        transform: scale(1.2) translateY(-10px);
+        transform: scale(1.04);
     }
 
 
@@ -457,7 +460,23 @@
     .product-sale-price{
         font-size: 14px;
         font-weight: 600;
+
+
     }
+
+    
+    .product-list-pagination {
+        text-align: center;
+        cursor: point;
+        margin: auto 0;
+    }
+
+
+
+     /* **************************
+        상품 상세페이지 ****
+    ***************************/
+
 
 
 }
