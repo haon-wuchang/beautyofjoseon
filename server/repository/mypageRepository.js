@@ -68,17 +68,30 @@ export const addDelivery = async (id, addAddress) => {
 
 // 메인배송지 업뎃
 export const updateMainDelivery = async (id, data) => {
-    console.log('deli', data);
-    console.log('id', id);
-    // const sql = `
-    //     update customer
-    //     set name = ? , phone = ?, zipcode = ?, address = ?, extra_address = ? 
-    //     where id = ? 
-    //     `;
+    // console.log('deli', data);
+    // console.log('id', id);
+    const sql = `
+        update customer
+        set name = ? , phone = ?, zipcode = ?, address = ?, extra_address = ? 
+        where id = ? 
+        `;
 
-    // const [result] = await db.execute(sql,
-    //     [data.name, data.phone, data.zipcode, data.address, data.extraAddress, id]);
+    const [result] = await db.execute(sql,
+        [data.name, data.phone, data.zipcode, data.address, data.extra_address, id]);
 
-    //     console.log('마이페이지레파지토리', result);
-    // return { 'result': result.affectedRows };
+        // console.log('마이페이지레파지토리', result);
+    return { 'result': result.affectedRows };
+}
+
+
+// 추가배송지 삭제
+export const deleteDelivery = async ({ id }) => {
+    const sql = `
+            update customer 
+                  set addtional_address = null 
+                           where id = ? 
+                `;
+
+    const result = await db.execute(sql, [id]);
+    return result;
 }

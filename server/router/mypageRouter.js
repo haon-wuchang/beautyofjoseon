@@ -7,7 +7,8 @@ router.post('/getMyinfo',controller.getMyinfo)
 .post('/updateInfo',controller.updateInfo)
 .post('/deleteUser',controller.deleteAllMyinfo)
 .post('/addDelivery',controller.addDelivery)
-.post('/updateMainDelivery',controller.updateMainDelivery);
+.post('/updateMainDelivery',controller.updateMainDelivery)
+.post('/deleteDelivery',controller.deleteDelivery);
 
 
 

@@ -25,7 +25,6 @@ desc sub_category;
 desc wish;
 
 
-
 -- ----------------------------------
 -- ***********개별 테스트 공간
 -- ----------------------------------
@@ -50,5 +49,8 @@ and ca.pid = pd.pid;
 
 select * from view_cart_list;
 
-
+select * from customer;
 alter table customer add column addtional_address json null;
+
+ALTER TABLE customer MODIFY COLUMN zipcode VARCHAR(10);
+

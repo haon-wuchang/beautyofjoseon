@@ -114,54 +114,64 @@ export default function Delivery() {
                 });
         }
     }
-    
-    const addressC = myinfo.addtional_address[0].indexOf('-');  // - 있는 위치 찾기
-    const extraC = myinfo.addtional_address[0].indexOf('=');  // - 있는 위치 찾기
-    const nameC = myinfo.addtional_address[0].indexOf('+');  // + 있는 위치 찾기
-    const phoneC = myinfo.addtional_address[0].indexOf('~');  // ~ 있는 위치 찾기
-    const zipcodeF = myinfo.addtional_address[0].slice(0, 5);
-    const addressF = myinfo.addtional_address[0].slice(addressC + 1, extraC);
-    const extraF = myinfo.addtional_address[0].slice(extraC + 1, nameC);
-    const nameF = myinfo.addtional_address[0].slice(nameC + 1, phoneC);
-    const phoneF = myinfo.addtional_address[0].slice(phoneC + 1, myinfo.addtional_address[0].length);
+    const addressC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('!');  // - 있는 위치 찾기
+    const extraC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('=');  // - 있는 위치 찾기
+    const nameC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('+');  // + 있는 위치 찾기
+    const phoneC =myinfo.addtional_address &&  myinfo.addtional_address[0].indexOf('~');  // ~ 있는 위치 찾기
+    const zipcodeF =myinfo.addtional_address &&  myinfo.addtional_address[0].slice(0, addressC-1);
+    const addressF = myinfo.addtional_address && myinfo.addtional_address[0].slice(addressC + 1, extraC);
+    const extraF =myinfo.addtional_address &&  myinfo.addtional_address[0].slice(extraC + 1, nameC);
+    const nameF = myinfo.addtional_address && myinfo.addtional_address[0].slice(nameC + 1, phoneC);
+    const phoneF = myinfo.addtional_address && myinfo.addtional_address[0].slice(phoneC + 1, myinfo.addtional_address[0].length);
     
 const ChangeOriginDelivery = async() => {
     const id = localStorage.getItem('user_id');
     if(isChecked2){
         alert('기본배송지가 변경되었습니다.');
         setIsChecked2(false);
-        const deliData = {
+        const deliData2 = {
             'name':myinfo.addtional_address[0].slice(nameC + 1, phoneC),
             'phone':myinfo.addtional_address[0].slice(phoneC + 1, myinfo.addtional_address[0].length),
             'zipcode': myinfo.addtional_address[0].slice(0, 5),
             'address': myinfo.addtional_address[0].slice(addressC + 1, extraC),
             'extra_address': myinfo.addtional_address[0].slice(extraC + 1, nameC)
         };
-        const deliForm2 = {
+        const adf = {
             'name':myinfo.name,
             'phone':myinfo.phone,
-            'zipcode': myinfo.zipcode,
+            'zipcode': String(myinfo.zipcode),
             'address':myinfo.address ,
             'extra_address': myinfo.extra_address
             };
 
-        await axios.post('http://localhost:9000/mypage/updateMainDelivery', { deliData, 'id': id })
+        await axios.post('http://localhost:9000/mypage/updateMainDelivery', { deliData2, 'id': id })
         .then(res => {
-            console.log(res.data); 
+            console.log('apdpspsp',res.data); 
+            getMyinfo();
             // if (res.data.reslt === 1) {
             //     // getMyinfo();
             // }
         })
-        .catch(err => console.log(err));
-
-        await axios.post('http://localhost:9000/mypage/addDelivery', { deliForm2, 'id': id })
+        .catch(err => console.log(err));      
+            
+        await axios.post('http://localhost:9000/mypage/addDelivery',{ 'id': id, 'deliData': adf })
         .then(res => {
-            console.log(res.data);            
+            console.log('rlrlrl',res.data);  
+            getMyinfo();          
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err));      
     }
 }
 
+const deliveryDelete = () => {
+    const id = localStorage.getItem('user_id');
+    axios.post('http://localhost:9000/mypage/deleteDelivery', { 'id': id })
+        .then(res => {
+            console.log(res.data);
+            getMyinfo();
+        })
+        .catch(err => console.log(err));
+}
 
     return (
         <div className='mypage-delivery-all'>
@@ -262,6 +272,7 @@ const ChangeOriginDelivery = async() => {
                                 <span>{zipcodeF} </span>
                                 <span>{addressF} </span>
                                 <span>{extraF}</span>
+                                <button onClick={deliveryDelete}>배송지 삭제</button>
                             </td>
                         </tr>
                     }
