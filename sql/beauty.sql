@@ -29,19 +29,26 @@ desc wish;
 -- ----------------------------------
 -- ***********개별 테스트 공간
 -- ----------------------------------
-
-
+-- *** view_cart_list 수정 ***
+drop view view_cart_list;
 
 create view view_cart_list
-as 
+as
 select  ca.cid as cid,
-		ca.qty as qty,
-		cu.id as id,
-		pd.pid as pid,
-		pd.pname as pname,
-		pd.price as price,
-		pd.discount_rate as discount_rate,
-		main_image
+      ca.qty as qty,
+      cu.id as id,
+      pd.pid as pid,
+      pd.pname as pname,
+      format(pd.price, 0) as price,
+      pd.discount_rate as discount_rate,
+        format((pd.price / ifnull(pd.discount_rate, 0)), 0) as discount,
+      ifnull(format(round(pd.price - (pd.price / ifnull(pd.discount_rate, 0)), -3), 0), format(pd.price, 0)) as discount_price,
+      main_image
 from cart ca, customer cu, product pd
 where ca.id = cu.id 
 and ca.pid = pd.pid;
+
+select * from view_cart_list;
+
+
+alter table customer add column addtional_address json null;

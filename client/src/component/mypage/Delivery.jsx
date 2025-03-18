@@ -12,14 +12,18 @@ export default function Delivery() {
     const { getMyinfo } = useMypage();
     const [open, setOpen] = useState(false);
     const [deliData, setDeliData] = useState({});
+    const [mainDeli, setMainDeli] = useState(true);
+    const [isChecked1, setIsChecked1] = useState(true); //체크박스 상태 관리
+    const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
     const handleModal = () => {
         setOpen(!open);
     }
     useEffect(() => {
         getMyinfo();
-    }, []);
+    }, [handleModal]);
 
-
+    const handleChecked1 = (e) => { setIsChecked1(e.target.checked); setIsChecked2(false); }
+    const handleChecked2 = (e) => { setIsChecked2(e.target.checked);setIsChecked1(false); }    
 
     const refs = {
         'nameRef': useRef(null),
@@ -49,7 +53,6 @@ export default function Delivery() {
         width: "400px",
         height: "500px",
     };
-
     const completeHandler = (data) => {
         setDeliData({ ...deliData, zipcode: data.zonecode, address: data.address });
     };
@@ -66,9 +69,7 @@ export default function Delivery() {
     const nameMsgRef = useRef(null);
     const phoneMsgRef = useRef(null);
     const addressMsgRef = useRef(null);
-
     const [error, setError] = useState({});
-
 
     const deliValidate = () => {
         if (refs.nameRef.current.value === '') {
@@ -113,13 +114,53 @@ export default function Delivery() {
                 });
         }
     }
-    // 얘를 맵돌리던가 forEach?for 이런거로 돌려서 화면에 뿌려야대는뎁;;;
-    const zipcodeF = myinfo.addtional_address[0].slice(0, 5);
+    
     const addressC = myinfo.addtional_address[0].indexOf('-');  // - 있는 위치 찾기
     const extraC = myinfo.addtional_address[0].indexOf('=');  // - 있는 위치 찾기
+    const nameC = myinfo.addtional_address[0].indexOf('+');  // + 있는 위치 찾기
+    const phoneC = myinfo.addtional_address[0].indexOf('~');  // ~ 있는 위치 찾기
+    const zipcodeF = myinfo.addtional_address[0].slice(0, 5);
     const addressF = myinfo.addtional_address[0].slice(addressC + 1, extraC);
-    const extraF = myinfo.addtional_address[0].slice(extraC + 1, myinfo.addtional_address[0].length);
-    // console.log('q',zipcodeF);
+    const extraF = myinfo.addtional_address[0].slice(extraC + 1, nameC);
+    const nameF = myinfo.addtional_address[0].slice(nameC + 1, phoneC);
+    const phoneF = myinfo.addtional_address[0].slice(phoneC + 1, myinfo.addtional_address[0].length);
+    
+const ChangeOriginDelivery = async() => {
+    const id = localStorage.getItem('user_id');
+    if(isChecked2){
+        alert('기본배송지가 변경되었습니다.');
+        setIsChecked2(false);
+        const deliData = {
+            'name':myinfo.addtional_address[0].slice(nameC + 1, phoneC),
+            'phone':myinfo.addtional_address[0].slice(phoneC + 1, myinfo.addtional_address[0].length),
+            'zipcode': myinfo.addtional_address[0].slice(0, 5),
+            'address': myinfo.addtional_address[0].slice(addressC + 1, extraC),
+            'extra_address': myinfo.addtional_address[0].slice(extraC + 1, nameC)
+        };
+        const deliForm2 = {
+            'name':myinfo.name,
+            'phone':myinfo.phone,
+            'zipcode': myinfo.zipcode,
+            'address':myinfo.address ,
+            'extra_address': myinfo.extra_address
+            };
+
+        await axios.post('http://localhost:9000/mypage/updateMainDelivery', { deliData, 'id': id })
+        .then(res => {
+            console.log(res.data); 
+            // if (res.data.reslt === 1) {
+            //     // getMyinfo();
+            // }
+        })
+        .catch(err => console.log(err));
+
+        await axios.post('http://localhost:9000/mypage/addDelivery', { deliForm2, 'id': id })
+        .then(res => {
+            console.log(res.data);            
+        })
+        .catch(err => console.log(err));
+    }
+}
 
 
     return (
@@ -182,6 +223,7 @@ export default function Delivery() {
                 </div>
                 <div className='mypage-delivery-write-btns'>
                     <button onClick={() => {
+                        handleModal()
                         handleDelivery()
                     }}>저장</button>
                     <button onClick={() => handleModal()}>취소</button>
@@ -197,7 +239,10 @@ export default function Delivery() {
                         <td>주소</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox" /></td>
+                        <td>
+                            <input type="checkbox" checked={isChecked1} onChange={handleChecked1}/>
+                            <span>기본배송지</span>
+                        </td>
                         <td>{myinfo.name}</td>
                         <td>{myinfo.phone}</td>
                         <td>
@@ -208,9 +253,11 @@ export default function Delivery() {
                     </tr>
                     {myinfo.addtional_address &&
                         <tr>
-                            <td><input type="checkbox" /></td>
-                            <td>{myinfo.name}</td>
-                            <td>{myinfo.phone}</td>
+                            <td>
+                                <input type="checkbox" checked={isChecked2} onChange={handleChecked2} />
+                            </td>
+                            <td>{nameF}</td>
+                            <td>{phoneF}</td>
                             <td>
                                 <span>{zipcodeF} </span>
                                 <span>{addressF} </span>
@@ -220,7 +267,7 @@ export default function Delivery() {
                     }
                 </table>
                 <div className='mypage-delivery-btns'>
-                    <button >기본배송지 지정</button>
+                    <button onClick={ChangeOriginDelivery}>기본배송지 지정</button>                    
                     <button onClick={() => handleModal()}>배송지 추가</button>
                 </div>
             </div>
