@@ -201,10 +201,9 @@
 /*****************************************/
 /*********     Signup            *********/
 /*****************************************/
-.signup-box{
+/* .signup-box{
     margin: 0 auto;
     width: 500px;
-    /* border: 1px solid red; */
     margin-bottom: 100px;
     margin-top: 50px;
 }
@@ -273,7 +272,6 @@
 .signup-check-box>ul>li:nth-child(5),
 .signup-check-box>ul>li:nth-child(6),
 .signup-check-box>ul>li:nth-child(7){
-    /* list-style-type:circle; */
     font-size: 13px;
     color: gray;
     padding: 0 10px;
@@ -292,7 +290,6 @@
 }
 .signup-check-box>ul>li:first-child{
     border-bottom: 1px solid gray;
-    /* font-size: 15px; */
     padding: 10px 0;
     display: flex;
     text-align: center;
@@ -309,11 +306,10 @@
 }
 .signup-check-box>ul {
     border: 1px solid gray;
-    /* padding: ; */
 }
 .signup-check-box>ul>li:nth-child(2){
     padding-top: 10px;
-}
+} */
 
 /*****************************************/
 /*********     Products           *********/
