@@ -1193,6 +1193,12 @@
     border-right: 1px solid gainsboro;
     padding: 10px 0;
 }
+.mypage-delivery-table>table>tr>td>button{
+    margin-left: 30px;
+    background-color: rgb(240 , 238, 232);
+    border: 1px solid rgb(240 , 238, 232);
+    padding: 5px 10px;
+}
 .mypage-delivery-btns{
     width: 100%;
     text-align: center;
