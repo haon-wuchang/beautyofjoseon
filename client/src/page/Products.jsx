@@ -10,22 +10,10 @@ import { FaRegHeart } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import ReactPaginate from 'react-paginate';
 import '../style/product.scss';
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
-function Items({ currentItems }) {
-    return (
-        <>
-            {currentItems &&
-                currentItems.map((item) => (
-                    <div>
-                        <h3>Item #{item}</h3>
-                    </div>
-                ))}
-        </>
-    );
-}
 
 export default function Products() {
 
@@ -134,19 +122,23 @@ export default function Products() {
                 ))}
 
             </div>
-            <div className='product-list-pagination'>
-                    {/* 페이지네이션 */}
-                    <ReactPaginate
-                        breakLabel="..."
-                        nextLabel="next >"
-                        onPageChange={handlePageClick}
-                        pageRangeDisplayed={5}
-                        pageCount={pageCount}
-                        previousLabel="< previous"
-                        renderOnZeroPageCount={null}
-                    />
+                {/* 페이지네이션 */}
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel={<MdNavigateNext />}
+                    previousLabel={<MdNavigateBefore />}
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="prev"
+                    nextClassName="next"
+                    disabledClassName="disabled"
+                />
 
-                </div>
 
 
 

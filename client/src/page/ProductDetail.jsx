@@ -9,6 +9,7 @@ import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import OtherPay from '../component/OtherPay';
 import axios from 'axios';
+import Slider from "react-slick";
 
 
 
@@ -16,6 +17,19 @@ import axios from 'axios';
 
 
 export default function ProductDetail() {
+
+
+
+
+    // 슬라이드 바 설정
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 3
+    };
+
 
     /* 전역 등 import 된 것 */
     const { isLoggedIn } = useContext(AuthContext);
@@ -33,7 +47,7 @@ export default function ProductDetail() {
 
     useEffect(() => {
         axios
-            .post("http://localhost:9000/product/detail", { "pid": pid }) 
+            .post("http://localhost:9000/product/detail", { "pid": pid })
             .then((res) => {
                 console.log('res.data -> ', res.data)
                 setProduct(res.data);
@@ -44,9 +58,10 @@ export default function ProductDetail() {
     }, []);
 
 
+    console.log('product', product);
 
 
-    
+
 
     /* 로그인 시 장바구니 추가 이벤트 */
     const addCartItem = () => {
@@ -54,7 +69,7 @@ export default function ProductDetail() {
 
             const cartItem = {
                 pid: product.pid,
-                qty: qty 
+                qty: qty
             };
 
             const findItem = cartList && cartList.find(item => item.pid === product.pid);
@@ -66,8 +81,9 @@ export default function ProductDetail() {
                 const id = localStorage.getItem("user_id");
                 const formData = { id: id, cartList: [cartItem] }
                 const result = saveToCartList(formData);
-                result && alert("장바구니에 추가되었습니다.") }
-            } else {
+                result && alert("장바구니에 추가되었습니다.")
+            }
+        } else {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
             if (select) {
                 navigate('/login');
@@ -79,10 +95,10 @@ export default function ProductDetail() {
     /* 아이템 수량 증감 */
     const handleQtyChange = (type) => {
         const updatedQty = type === "increase" ? qty + 1 : qty - 1;
-        if (updatedQty < 1) return; 
+        if (updatedQty < 1) return;
         setQty(updatedQty);
         setCartCount(updatedQty);
-    }; 
+    };
 
 
 
@@ -102,12 +118,16 @@ export default function ProductDetail() {
     }
 
 
-    
+
 
     return (
-        <div className='product-detail-wrap'>
+        <div className='p-common product-detail-wrap'>
             <div className='product-imgs-slider'>
-                이미지 슬라이더
+                <Slider {...settings}>
+                    {slideImgList && slideImgList.map((item) =>
+                        <img src={item} className="slide-img" />
+                    )}
+                </Slider>
             </div>
             <div className='product-detail-contents'>
                 <div className='product-detail-main'>
@@ -171,9 +191,9 @@ export default function ProductDetail() {
                             <p className='product-detail-qty-name'>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
                             <div className='product-detail-qty-box'>
                                 <div>
-                                    <button className='decrease' onClick={()=>{handleQtyChange("decrease")}}><FiMinus /></button>
+                                    <button className='decrease' onClick={() => { handleQtyChange("decrease") }}><FiMinus /></button>
                                     <span>{qty}</span>
-                                    <button className='increase' onClick={()=>{handleQtyChange("increase")}}><FiPlus /></button>
+                                    <button className='increase' onClick={() => { handleQtyChange("increase") }}><FiPlus /></button>
                                 </div>
                                 <span>16,200원</span>
                             </div>
