@@ -22,4 +22,14 @@ export const getProduct = async(req, res) => {
     res.end();
 }; 
 
+/************************ 
+    위시리스트 추가
+**************************/
+
+export const setWishList = async(req, res) => {
+    const result = await repository.setWishList(req.body);
+    res.json(result);                                       
+    res.end();
+}; 
+
 

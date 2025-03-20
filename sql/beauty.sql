@@ -82,3 +82,7 @@ where o.pid = p.pid and  p.sub_category_id = sca.sub_category_id
 and p.category_id = ca.category_id;
 
 select * from view_myOrder;
+
+
+-- customer 테이블 wish 컬럼 추가 
+alter table customer add column wish json null;

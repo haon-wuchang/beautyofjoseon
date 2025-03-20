@@ -17,7 +17,7 @@ export const getList = async () => {
         from product;
     `;
     const [result] = await db.execute(sql);
-    return result; 
+    return result;
 }
 
 
@@ -26,7 +26,7 @@ export const getList = async () => {
 **************************/
 
 
-export const getProduct = async(pid) => {
+export const getProduct = async (pid) => {
 
     const sql = `
             select 
@@ -50,8 +50,23 @@ where p.pid = ?;
 
         `;
 
-    const [result] = await db.execute(sql, [pid]); 
+    const [result] = await db.execute(sql, [pid]);
 
 
     return result[0];
+}
+
+/************************ 
+    위시리스트 추가
+**************************/
+
+export const setWishList = async (data) => {
+    console.log(data);
+
+    const sql = `update customer set wish = ? where id = ?`;
+
+    const values = [JSON.stringify(data.wishList), data.id];
+
+    const [result] = await db.execute(sql, values);
+    return result.affectedRows;
 }
