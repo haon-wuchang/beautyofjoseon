@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../auth/AuthContext.js";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -16,7 +17,7 @@ import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 
 export default function Products() {
-
+    const navigate = useNavigate();
 
 
     const { isLoggedIn } = useContext(AuthContext);
@@ -105,7 +106,12 @@ export default function Products() {
                                 <img src={item.image} alt="" />
 
                             </div>
-                            <span className='wish-icon'><FaRegHeart /></span>
+                            <span className='wish-icon' onClick={()=>{
+                                const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
+                                if (select) {
+                                    navigate('../../login');
+                                }
+                            }}><FaRegHeart /></span>
                             <span className='product-title w600 text-center f15' >{item.pname}</span>
                             <p className='product-price pt10 f12'>{(item.discount_rate) ? `${item.price.toLocaleString()}원` : null }</p>
                             <div className='gap5 flex'>
