@@ -43,6 +43,13 @@ export default function Header() {
         (handleLog) ? navigate('/login') : navigate('/');
     }
 
+    /* 장바구니 버튼 클릭 이벤트 */
+    const clickCartIcon = () => {
+        if (!isLoggedIn) {
+            window.confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") && navigate('/login');
+        }
+    }
+
     /* 슬라이더 세팅 */
     const settings = {
         dots: false,
@@ -116,7 +123,11 @@ export default function Header() {
                                 (<li onClick={logout}><Link to="/login"><GoUnlock /></Link></li>) :
                                 (<li><Link to="/login"><GoLock /></Link></li>)}
                             <li onClick={!isLoggedIn ? handleMypage : getMyinfo} ><Link to="/mypage"><GoPerson /></Link></li>
-                            <li><Link to="/cart"><PiShoppingBag /></Link></li>
+
+                            <li onClick={clickCartIcon}>
+                                <Link to={isLoggedIn && "/cart"}><PiShoppingBag /></Link>
+                            </li>
+
                             <li onClick={() => setSearchModalOpen(!searchModalOpen)}><Link><IoSearchOutline /></Link></li>
                                 {/* 검색 버튼 클릭시 보이는 모달 컴포넌트 */}
                                 <Modal

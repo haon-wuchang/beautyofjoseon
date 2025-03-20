@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/cartContext.js';
 import { useCart } from '../../hooks/useCart.js';
 import { FiPlus } from "react-icons/fi";
@@ -7,13 +8,10 @@ import { IoClose } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 
 export default function CartTable() {
-    const { updateCartList, deleteCartItem } = useCart();
-    const { cartList } = useContext(CartContext);
-    const { totalPrice } = useContext(CartContext);
-
-    const [cids, setCids] = useState([]); // 장바구니 아이템 개별 선택시 cid 배열 생성, 저장
-
-    console.log("장바구니 목록 --> ", cartList);
+    const navigate = useNavigate();
+    const { updateCartList, deleteCartItem, clearCart } = useCart();
+    const { cartList, totalPrice, cids, setCids } = useContext(CartContext);
+    const [allSelect, setAllSelect] = useState(false); // 장바구니 아이템 전체 선택 버튼 활성화 여부
 
     // 장바구니 아이템 개별 삭제 버튼 클릭 이벤트
     const clickDeleteItem = (cid) => {
@@ -21,11 +19,27 @@ export default function CartTable() {
         select && deleteCartItem(cid);
     }
 
-    // 장바구니 아이템 전체 선택 버튼 클릭 이벤트
-    const clickSelectAll = () => {
-        const allCid = cartList.map((item) => item.cid);
-        console.log("상품 전체 선택 --> ", allCid);
+    // 장바구니 아이템 전체 삭제 버튼 클릭 이벤트
+    const clickAllDelete = () => {
+        const select = window.confirm("전체 상품을 삭제하시겠습니까?");
+        select && clearCart();
     }
+
+
+    // 장바구니 아이템 전체 선택 버튼 클릭 시 발생되는 이벤트
+    useEffect(() => {
+        if (allSelect) {
+            const allCid = cartList.map((item) => ({"cid": item.cid}));
+            setCids(allCid);
+        } else {
+            setCids([]);
+        }
+    }, [allSelect]);
+
+    useEffect(() => {
+        cids.length === 0 && setAllSelect(false);
+    }, [cids]);
+
 
     // 장바구니 아이템 개별 선택 버튼 클릭 이벤트
     const clickSelect = (cid) => {
@@ -37,7 +51,13 @@ export default function CartTable() {
             setCids([...cids, {"cid":cid}]);
         }
     }
-    console.log("상품 개별 선택 --> ", cids);
+
+    // 장바구니 아이템 개별 주문하기 클릭 이벤트
+    const clickEachOrder = (cid) => {
+        localStorage.getItem("cids") && localStorage.removeItem("cids");
+        localStorage.setItem("cids", cid);
+        navigate("/payment");
+    }
     
     return (
         <>
@@ -48,7 +68,10 @@ export default function CartTable() {
                         <thead>
                             <tr className='cart-main-table-title'>
                                 <td>
-                                    <button onClick={clickSelectAll}><FaCheck /></button>
+                                    <button className={ allSelect ? "cart-item-check-selected" : "cart-item-check" }
+                                            onClick={() => setAllSelect(!allSelect)}>
+                                        <FaCheck />
+                                    </button>
                                 </td>
                                 <td>이미지</td>
                                 <td>상품정보</td>
@@ -64,10 +87,12 @@ export default function CartTable() {
                             { cartList.map((item) =>
                                 <tr className='cart-main-table-list'>
                                     <td>
-                                        <button onClick={() => clickSelect(item.cid)}>
+                                        <button className={
+                                                            cids.find((cids) => cids.cid === item.cid) ? "cart-item-check-selected": "cart-item-check"
+                                                        }
+                                                onClick={() => clickSelect(item.cid)}>
                                             <span><FaCheck /></span>
                                         </button>
-                                        <input type="checkbox" />
                                     </td>
                                     <td>
                                         <img src={`http://localhost:9000/${item.main_image}`} alt={`${item.pname} 상품 이미지`} />
@@ -85,13 +110,13 @@ export default function CartTable() {
                                     </td>
                                     <td>
                                         <p>{item.price}원</p>
-                                        <p>{Number(item.discount_price).toLocaleString()}원</p>
+                                        <p>{Number(item.discount_price * item.qty).toLocaleString()}원</p>
                                     </td>
                                     <td>{item.discount_rate !== 0 ? `${item.discount.toLocaleString()}원` : "-"}</td>
                                     <td>기본배송</td>
                                     <td>{ totalPrice > 20000 ? "무료배송" : "3,000원" }</td>
                                     <td>
-                                        <button>주문하기</button>
+                                        <button onClick={() => clickEachOrder(item.cid)}>주문하기</button>
                                         <button>관심상품등록</button>
                                         <button onClick={() => clickDeleteItem(item.cid)}>
                                             <span><IoClose /></span>
@@ -109,7 +134,7 @@ export default function CartTable() {
                     </table>
                     <p className='cart-main-table-notice'>할인 적용 금액은 주문서작성의 결제예정금액에서 확인 가능합니다.</p>
                     <div className='cart-main-table-option-btns'>
-                        <button>삭제하기</button>
+                        <button onClick={clickAllDelete}>전체삭제</button>
                         <button>해외배송상품 장바구니로 이동</button>
                         <button>장바구니비우기</button>
                         <button>견적서출력</button>
