@@ -107,7 +107,7 @@ export default function Header() {
                             <Link to="/">MEMBERSHIP</Link>
                             <Link to="/">PRESS</Link>
                             {
-                            myinfo.type === 'c' ?
+                            myinfo.type === 'a' ?
                             <Link to="/admin" style={{color : 'blue'}}>ADMIN</Link> : null 
                             }
                         </nav>
