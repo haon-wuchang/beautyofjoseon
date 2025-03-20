@@ -10,6 +10,10 @@ export default function AdminMain() {
     let [formData, setFormData] = useState({});
     const [preview, setPreview] = useState('');
     const productNameRef = useRef(null);
+    const productPriceRef = useRef(null);
+    const productCategoryRef = useRef(null);
+    const productSubCategoryRef = useRef(null);
+    const productSaleRef = useRef(null);
     const [previewList, setPreviewList] = useState([]);
 
     const handleChange = (e) => {
@@ -41,6 +45,11 @@ export default function AdminMain() {
                 .then(res => {
                     if (res.data.result_rows === 1) {
                         alert('상품등록 완료');
+                        productNameRef.current.value = '';
+                        productPriceRef.current.value = '';
+                        productCategoryRef.current.value = '';
+                        productSubCategoryRef.current.value = '';
+                        productSaleRef.current.value = '';
                         navigate('/admin');
                     } else {
                         alert('상품등록 실패');
