@@ -16,10 +16,11 @@ import Modal from 'react-modal';
 import SearchModal from './header/SearchModal.jsx';
 import { useMypage } from '../hooks/useMypage.js';
 import { useLogin } from '../hooks/useLogin.js';
+import { MypageContext } from '../context/MypageContext.js';
 
 export default function Header() {
     const { getMyinfo } = useMypage();
-
+    const {myinfo} = useContext(MypageContext);
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const [toggleOpen, setToggleOpen] = useState(false); // 메뉴 토글 버튼 클릭시 상태 관리
@@ -28,6 +29,7 @@ export default function Header() {
     const {handleLogin} = useLogin();
     useEffect(() => {
         console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
+        getMyinfo();
     }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행  
 
     /* 로그아웃 버튼 클릭 이벤트 */
@@ -104,6 +106,10 @@ export default function Header() {
                             <Link to="/">BRAND STORY</Link>
                             <Link to="/">MEMBERSHIP</Link>
                             <Link to="/">PRESS</Link>
+                            {
+                            myinfo.type === 'c' ?
+                            <Link to="/admin" style={{color : 'blue'}}>ADMIN</Link> : null 
+                            }
                         </nav>
                         <ul className='header-bottom-right-icons'>
                             {isLoggedIn ?
