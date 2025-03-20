@@ -25,7 +25,6 @@ export default function ProductDetail() {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
@@ -45,6 +44,7 @@ export default function ProductDetail() {
     const [slideImgList, setSlideImgList] = useState([]);
     const [detailImgList, setDetailImgList] = useState([]);
     const [qty, setQty] = useState(1); // detail 페이지 수량 증가
+    const [totalPrice, setTotalPrice] = useState(0);
 
 
     useEffect(() => {
@@ -100,6 +100,7 @@ export default function ProductDetail() {
         if (updatedQty < 1) return;
         setQty(updatedQty);
         setCartCount(updatedQty);
+        setTotalPrice(updatedQty * product.price);
     };
 
 
@@ -108,17 +109,15 @@ export default function ProductDetail() {
     /* style 관련 */
 
     // const [ showDetails, setShowDetails ] = useState([false, false, false]);
-    const [showDetails, setShowDetails] = useState(null);
+    const [showDetails, setShowDetails] = useState([false, false, false]);
 
     const clickDetailToggle = (index) => {
-        // setShowDetails(prevState => {
-        //     const newState = [...prevState];
-        //     newState[index] = !newState[index];
-        //     return newState;
-        // })
-        setShowDetails(prevIndex => (prevIndex === index ? null : index));
-    }
-
+    setShowDetails(prevState => {
+        const newState = [...prevState];
+        newState[index] = !newState[index];
+        return newState;
+    });
+};
 
 
 
@@ -228,27 +227,27 @@ export default function ProductDetail() {
                                     <span>{qty}</span>
                                     <button className='increase' onClick={() => { handleQtyChange("increase") }}><FiPlus /></button>
                                 </div>
-                                <span>{product.price?.toLocaleString()}원</span>
+                                <span>{totalPrice.toLocaleString()}원</span>
                             </div>
                         </div>
-                        <div className='product-detail-total-price'>
+                        <div className='product-detail-total-price space-between'>
                             <p>Total</p>
-                            <p>{product.price?.toLocaleString()}원</p>
+                            <p>{totalPrice.toLocaleString()}원</p>
                         </div>
-                        <div className='product-detail-buttons'>
-                            <button>Wish</button>
-                            <button>Add to Cart</button>
-                            <button onClick={addCartItem}>Buy now</button>
+                        <div className='btn-wrap'>
+                            <button className='w-btn'>Wish</button>
+                            <button className='w-btn' onClick={addCartItem}>Add to Cart</button>
+                            <button className='b-btn' >Buy now</button>
                         </div>
                     </div>
-                    <OtherPay className='product-detail-pay' />
+                    <OtherPay className='product-detail-payments' />
                     <ul className='product-detail-notice'>
                         <li>
                             <div>
                                 <span>Payment</span>
-                                <span onClick={() => clickDetailToggle(0)}>
-                                    {showDetails === 0 ? <IoIosArrowUp /> : <IoIosArrowDown />}
-                                </span>
+                                <span onClick={() => clickDetailToggle()}>
+                {showDetails[0] ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            </span>
                             </div>
                             <div className={showDetails === 0 ? 'product-detail-notice-toggle-open' : 'product-detail-notice-toggle'}>
                                 <p>고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.</p>
@@ -258,9 +257,9 @@ export default function ProductDetail() {
                         <li>
                             <div>
                                 <span>Delivery</span>
-                                <span onClick={() => clickDetailToggle(1)}>
-                                    {showDetails === 1 ? <IoIosArrowUp /> : <IoIosArrowDown />}
-                                </span>
+                                <span onClick={() => clickDetailToggle(0)}>
+                {showDetails[0] ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            </span>
                             </div>
                             <div className={showDetails === 1 ? 'product-detail-notice-toggle-open' : 'product-detail-notice-toggle'}>
                                 <p>

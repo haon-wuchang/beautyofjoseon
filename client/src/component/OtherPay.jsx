@@ -4,25 +4,21 @@ export default function OtherPay({className}) {
     return (
         <ul className={className}>
             <li className={`${className}-naver`}>
+                    <span className='naver-text'></span>
+                    <span className='naver-img'></span>
                 <div>
-                    <p>NAVER</p>
-                    <p>네이버ID로 간편구매</p>
-                    <p>네이버페이</p>
-                </div>
-                <div>
-                    <button>N pay 구매</button>
-                    <button>찜</button>
+                    <button className='w-btn2'>찜</button>
                 </div>
             </li>
             <li className={`${className}-kakao`}>
-                <div>
-                    <p>kakao</p>
-                    <p>톡체크아웃</p>
+                <div className='kakao-text'>
+                    <p className='f13'>kakao</p>
+                    <p className='f12'>톡체크아웃</p>
                 </div>
+                    <span className='kakao-img'></span>
                 <div>
-                    <button>간편구매</button>
-                    <button>채널</button>
-                    <button>찜</button>
+                    {/* <svg src="/images/kakaopay.svg" style={{width:"100px"}}></svg> */}
+                    <button className='w-btn2'>찜</button>
                 </div>
             </li>
         </ul>

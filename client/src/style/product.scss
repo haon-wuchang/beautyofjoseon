@@ -575,7 +575,7 @@
         padding-right: 30px;
     }
  
-    .product-detail-price-cancle {
+    .product-detail-price {
         margin-top: 20px;
     }
 
@@ -634,22 +634,127 @@
 
             // gap: 10px;
         .product-detail-qty-box {
-            display: flex;
             justify-content: space-between;
+            display: flex;
             padding-top: 10px;
             vertical-align: center;
             align-items: center;
-            width: 150px;
 
             div {
                 background-color: white;
-                border: 1px solid rgb(172, 171, 171);
+                border: 1px solid  rgba(0, 0, 0, 0.1);;
+                width: 100px;
+                padding: 5px 2px;
+                justify-content: space-between;
+                display: flex;
                 
             }
             button {
                 border: none;
             }
         }
+    }
+
+    .product-detail-total-price{
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+        padding: 0 2px;
+        color: #333333;
+    }
+
+    .btn-wrap {
+        display: flex;
+        justify-content: space-between;
+        display: grid
+;
+    grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+    width: 100%;
+    gap: 0.5rem;
+    }
+
+
+
+    .w-btn {
+        padding: 0 5px;
+        border: 1px solid rgba(0, 0, 0, 0.1);;
+        height: 40px;
+        font-size: 13px;
+        align-items: center;
+        justify-content: center;
+        color: #333333;
+    }
+    .w-btn2 {
+        padding: 5px 15px;
+        border: 1px solid rgba(0, 0, 0, 0.1);;
+        height: 40px;
+        font-size: 13px;
+        align-items: center;
+        justify-content: center;
+        color: #333333;
+    }
+
+    .b-btn {
+        padding: 0 20px;
+        background-color: #333333;
+        color: white;
+    }
+
+    /* payments */
+
+    .product-detail-payments li  {
+        margin: 20px 0 15px 0;
+        border-top: 1.5px solid black;
+        display: flex;
+        position: relative;
+        width: 380px;
+        justify-content: space-between;
+        padding: 10px 0;
+    }
+
+
+
+
+    .product-detail-payments-naver .naver-text {
+        width: 90px;
+        height: auto;
+        background: url("../../public/images/npay_sp_text.png") no-repeat center;
+        margin: 0;
+        padding: 0;
+        background-size: 80px auto;
+    
+    }
+    .product-detail-payments-naver .naver-img {
+        width: 200px;
+        height: auto;
+        padding: 0 5px;
+        background-color: #00de5a !important;
+        background: url("../../public/images/npay_sp_payment.png") no-repeat center;
+        border-radius: 5px;
+        background-size: 80px auto;
+    
+    }
+
+    .product-detail-payments-kakao .kakao-text {
+        text-align: left;
+        margin-left: 6px;
+        width: 80px;
+    }
+
+    .product-detail-payments-kakao .kakao-img {
+        width: 200px;
+        height: auto;
+        padding: 0 5px;
+        background-color: yellow !important;
+        background: url("../../public/images/kakaopay.svg") no-repeat center;
+        border-radius: 5px;
+        background-size: 45px auto;
+    
+    }
+
+
+    .product-detail-notice {
+        
     }
 
 
