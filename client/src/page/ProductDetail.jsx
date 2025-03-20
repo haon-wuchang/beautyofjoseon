@@ -27,7 +27,9 @@ export default function ProductDetail() {
         infinite: true,
         speed: 500,
         slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000
     };
 
 
@@ -121,7 +123,8 @@ export default function ProductDetail() {
 
 
     return (
-        <div className='p-common product-detail-wrap'>
+        <div className='p-common'>
+
             <div className='product-imgs-slider'>
                 <Slider {...settings}>
                     {slideImgList && slideImgList.map((item) =>
@@ -129,11 +132,19 @@ export default function ProductDetail() {
                     )}
                 </Slider>
             </div>
+
+            {/* contents wrap */}
             <div className='product-detail-contents'>
-                <div className='product-detail-main'>
-                    <img src="https://beautyofjoseonkr.openhost.cafe24.com/web/%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80/%EA%B3%B5%ED%86%B5/%EB%A7%91%EC%9D%80%EC%8C%80%EC%84%A0%ED%81%AC%EB%A6%BC%20%EC%95%84%EC%BF%A0%EC%95%84%ED%94%84%EB%A0%88%EC%89%AC/gif/250219_%EC%83%81%EC%84%B8%ED%8E%98%EC%9D%B4%EC%A7%80_%EB%A7%91%EC%9D%80%EC%8C%80%EC%84%A0%ED%81%AC%EB%A6%BC-%EC%95%84%EC%BF%A0%EC%95%84%ED%94%84%EB%A0%88%EC%89%AC-1.jpg" alt="" />
-                    <div className='product-detail-main-bottom'>
-                        <p className='product-detail-main-bottom-name'>Review</p>
+
+                {/* Left-Side / 상세이미지 / review / qna  */}
+                <div className='product-detail-left'>
+                    <div className='product-detail-imgs'>
+                        {detailImgList && detailImgList.map((item) =>
+                            <img src={item} className="detail-img" />
+                        )}
+                    </div>
+                    <div className='product-detail-review'>
+                        <p className='f14 w600'>Review</p>
                         <table>
                             <tbody>
                                 <tr>
@@ -152,8 +163,8 @@ export default function ProductDetail() {
                         </table>
                         <p>페이지네이션</p>
                     </div>
-                    <div className='product-detail-main-bottom'>
-                        <p className='product-detail-main-bottom-name'>Q & A</p>
+                    <div className='product-detail-qna'>
+                        <p className='f14 w600'>Q & A</p>
                         <table>
                             <tbody>
                                 <tr>
@@ -166,17 +177,39 @@ export default function ProductDetail() {
                         </table>
                         <p>페이지네이션</p>
                     </div>
-                </div>
+                </div> {/* end of left side */}
+
+                {/* RightSide / 상품정보 */}
                 <div className='product-detail-right'>
-                    <div className='product-detail-buy'>
+                    <div className='product-detail-info'>
                         <div className='product-detail-info'>
-                            <p className='product-detail-info-name'>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
-                            <p className='product-detail-info-oprice'>18,000원</p>
-                            <p className='product-detail-dprice'>
-                                <span>10%</span>
-                                <span>16,200원</span>
-                            </p>
-                            <ul className='product-detail-info-delivery'>
+                            <p className='f22 w600'>{product.pname}</p>
+
+                            <div className='product-detail-price'>
+                                {   // dc 값이 있다면 있다면 3가지 다 표시되게, 없다면 원가격만 표시되게
+                                    product.discount_rate ? ( 
+                                    <>
+                                        <p className='product-detail-price-cancle'>
+                                            {product.price?.toLocaleString()}원
+                                        </p>
+                                        <div className='order-price' >
+                                            {(product.discount_rate) ?
+                                                (<div className='dc'>
+                                                    {`${product.discount_rate.toLocaleString()}%`}
+                                                </div>) : null}
+                                            <div>{`${((product.price - (product.discount_rate * 100)).toLocaleString())}원`}</div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <p className='product-detail-price-origin'>
+                                        {product.price?.toLocaleString()}원
+                                    </p>
+                                )}
+                            </div>
+
+
+
+                            <ul className='product-detail-delivery'>
                                 <li>
                                     <p>배송방법</p>
                                     <p>택배</p>
@@ -188,19 +221,19 @@ export default function ProductDetail() {
                             </ul>
                         </div>
                         <div className='product-detail-qty'>
-                            <p className='product-detail-qty-name'>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
+                            <p className='product-detail-qty-name'>{product.pname}</p>
                             <div className='product-detail-qty-box'>
                                 <div>
                                     <button className='decrease' onClick={() => { handleQtyChange("decrease") }}><FiMinus /></button>
                                     <span>{qty}</span>
                                     <button className='increase' onClick={() => { handleQtyChange("increase") }}><FiPlus /></button>
                                 </div>
-                                <span>16,200원</span>
+                                <span>{product.price?.toLocaleString()}원</span>
                             </div>
                         </div>
                         <div className='product-detail-total-price'>
                             <p>Total</p>
-                            <p>16,200원</p>
+                            <p>{product.price?.toLocaleString()}원</p>
                         </div>
                         <div className='product-detail-buttons'>
                             <button>Wish</button>
@@ -271,8 +304,8 @@ export default function ProductDetail() {
                         <li>최소주문수량 1개 이상</li>
                         <li>수량을 선택해주세요.</li>
                     </ul>
-                </div>
-            </div>
+                </div> {/* end of product-detail-right */}
+            </div> {/* end of product-detail-content */}
         </div>
     );
 }

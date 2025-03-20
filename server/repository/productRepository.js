@@ -30,11 +30,11 @@ export const getProduct = async(pid) => {
 
     const sql = `
             select 
-    p.pid,
-    p.pname,
-    p.price,
-    p.discount_rate,
-    p.pdate,
+            p.pid as pid,
+            p.pname as pname,
+            p.price as price,
+            p.discount_rate as discount_rate,
+            p.pdate as pdate,
     concat('http://localhost:9000/', p.main_image->>'$[0]') as mainImg,
     (
         select json_arrayagg(concat('http://localhost:9000/', s.slideCol))

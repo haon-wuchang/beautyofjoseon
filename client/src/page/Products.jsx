@@ -107,9 +107,9 @@ export default function Products() {
                             </div>
                             <span className='wish-icon'><FaRegHeart /></span>
                             <span className='product-title w600 text-center f15' >{item.pname}</span>
-                            <p className='product-price pt10 f12'>{(item.discount_rate !== 0) ? `${item.price.toLocaleString()}원` : ('')}</p>
+                            <p className='product-price pt10 f12'>{(item.discount_rate) ? `${item.price.toLocaleString()}원` : null }</p>
                             <div className='gap5 flex'>
-                                {(item.discount_rate !== 0) ?
+                                {(item.discount_rate) ?
                                     (<div className='product-sale'>
                                         {`${item.discount_rate.toLocaleString()}%`}
                                     </div>) : null}
