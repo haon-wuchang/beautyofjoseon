@@ -996,15 +996,15 @@
     padding: 10px 20px;
 
 }
-.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2){
+.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(3){
     padding :10px 0;
     display: flex;
     align-items: center;
 }
-.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2)>img{
+.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(3)>img{
     height: 130px;
 }
-.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2)>span{
+.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(3)>span{
     margin-left: 5px;
 }
 .mypage-order-page{
