@@ -51,3 +51,11 @@ export const deleteDelivery = async(req, res) => {
     res.json(result);
     res.end();
 }
+
+// 주문정보 전체 가져오기
+export const getMyOrder = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getMyOrder(req.body);
+    res.json(result);
+    res.end();
+}

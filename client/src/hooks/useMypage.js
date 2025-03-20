@@ -6,7 +6,7 @@ import { AuthContext } from '../auth/AuthContext.js';
 export function useMypage(){   
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
     const {myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,gender,setGender,
-        zipcode,setZipcode,address,setAddress,extra,setExtra
+        zipcode,setZipcode,address,setAddress,extra,setExtra,myOrder , setMyOrder
     } = useContext(MypageContext);
 
     const getMyinfo = async() => {
@@ -45,5 +45,12 @@ export function useMypage(){
         return result.data;
     }
 
-    return {getMyinfo};
+    const getMyOrder = async() => {
+        const id = localStorage.getItem('user_id');
+        const result = await axios.post('http://localhost:9000/mypage/getMyOrder',{'id':id});
+        setMyOrder(result.data);
+    }
+
+
+    return {getMyinfo,getMyOrder};
 }

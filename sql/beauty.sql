@@ -6,7 +6,7 @@ show tables;
 select * from cart;
 select * from category;
 select * from customer;
-select * from `order`; -- order는 mysql에 내장된 예약어라 백틱(``)사용
+select * from orders; -- order는 mysql에 내장된 예약어라 백틱(``)사용
 select * from product;
 select * from qna;
 select * from review;
@@ -17,7 +17,7 @@ select * from wish;
 desc cart;
 desc category;
 desc customer;
-desc `order`;
+desc orders;
 desc product;
 desc qna;
 desc review;
@@ -40,6 +40,7 @@ alter table customer add column addtional_address json null;
 -- *********** 수정 사항3/20
 -- ----------------------------------
 ALTER TABLE product MODIFY desc_image json NULL;
+RENAME TABLE `order` TO orders;
 
 -- *** view_cart_list 수정 ***
 drop view view_cart_list;
