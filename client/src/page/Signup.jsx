@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { Modal, Button } from "antd";
+import {  } from '../utils/funcinitialize.js';
+import { initSignup, useInitSignupRefs } from '../utils/funcValidate.js';
+
 
 export default function Signup() {
+    const navigate = useNavigate();
+    const { names, labels, initFormData } = initSignup();
+    const [ formData, setFormData ] = useState(initFormData);
     const [ checkedItems, setCheckedItems ] = useState([]);
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalContent, setModalContent ] = useState('');
@@ -60,6 +67,8 @@ export default function Signup() {
             <div className='signup-box signup-content'>
                 <h5>New Account</h5>
                 <ul>
+                    {
+                      <>
                     <li>
                         <label>아이디 <span>·</span></label>
                         <input type="text" name='id'/>
@@ -81,14 +90,14 @@ export default function Signup() {
                     <li className='phone-info'>
                         <label>휴대전화 <span>·</span></label>
                         <div>
-                            <select name="" id="" className='phone'>
+                            <select name="phone" id="" className='phone'>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
                             </select>
                             <span class="dash"> - </span>
-                            <input type="tel" className='phone' maxLength={4}/>
+                            <input type="tel" name="phone" className='phone' maxLength={4}/>
                             <span class="dash"> - </span>
-                            <input type="tel" className='phone' maxLength={4}/>
+                            <input type="tel" name="phone" className='phone' maxLength={4}/>
                         </div>
                     </li>
                     <li className='signup-email-line'>
@@ -104,6 +113,8 @@ export default function Signup() {
                             </select>
                         </div>
                     </li>
+                    </>  
+                    }
                 </ul>
                 
                 <div className='signup-check-box'>
