@@ -16,7 +16,7 @@ import { AuthProvider } from './auth/AuthContext.js';
 import { MypageProvider } from './context/MypageContext.js';
 import { SearchProvider } from './context/SearchContext.js';
 import { CartProvider } from './context/cartContext.js';
-import { OrderProvider } from './context/OrderContext.js';
+import { OrderProvider } from './context/orderContext.js';
 import Search from './page/Search.jsx';
 import Admin from './page/Admin.jsx';
 
