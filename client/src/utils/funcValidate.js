@@ -18,8 +18,6 @@ export const initSignup = () => {
     return acc;
   },{});
 
-
-
   return {names, labels, initFormData};
 };
 

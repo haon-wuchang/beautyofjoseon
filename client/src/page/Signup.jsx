@@ -9,6 +9,7 @@ export default function Signup() {
     const navigate = useNavigate();
     const { names, labels, initFormData } = initSignup();
     const [ formData, setFormData ] = useState(initFormData);
+
     const [ checkedItems, setCheckedItems ] = useState([]);
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalContent, setModalContent ] = useState('');
@@ -39,6 +40,9 @@ export default function Signup() {
         }
     ];
 
+
+    
+    /* 체크박스 개별 체크 */
     const handleCheckedItem = (checked, id) => {
         if(checked){
             setCheckedItems(prev => [...prev,id]);
@@ -46,7 +50,7 @@ export default function Signup() {
             setCheckedItems(checkedItems.filter(item => item !==id));
         }
     };
-
+    /* 체크박스 All 체크 */
     const handleAllClick = (checked) => {
         if(checked){
             const idArray = [];
@@ -56,7 +60,7 @@ export default function Signup() {
             setCheckedItems([]);
         }
     };
-
+    /* 이용약관 모달창 */
     const openModal = (content) =>{
         setModalContent(content);
         setModalOpen(true);
