@@ -8,6 +8,7 @@ import mainRouter from './router/mainRouter.js';
 import searchRouter from './router/searchRouter.js';
 import cartRouter from './router/cartRouter.js';
 import orderRouter from './router/orderRouter.js';
+import adminRouter from './router/adminRouter.js';
 
 
 /* 서버 생성 및 포트 정의 */
@@ -18,8 +19,7 @@ const port = 9000;
 server.use(express.json());
 server.use(express.urlencoded()); 
 server.use(cors());
-server.use('/upload_files', express.static(path.join("upload_files")));
-
+server.use('/upload_product', express.static(path.join("upload_product")));
 
 /* 서버의 요청처리를 위한 미들웨어 정의 */
 server.use('/product', productRouter)
@@ -29,6 +29,8 @@ server.use('/main', mainRouter);
 server.use('/search', searchRouter);
 server.use('/cart', cartRouter);
 server.use('/order', orderRouter);
+server.use('/uploads', adminRouter);
+
 
 
 
