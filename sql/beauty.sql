@@ -60,3 +60,25 @@ select  ca.cid as cid,
 from cart ca, customer cu, product pd
 where ca.id = cu.id 
 and ca.pid = pd.pid;
+
+-- 하온 주문정보가져오기 뷰
+drop view view_myOrder;
+create view view_myOrder
+as
+select  
+	o.oid as oid,
+    o.id as id,
+    p.pid as pid,
+    o.oder_number as order_number,
+    o.qty as qty,
+    o.total_price as total_price,
+    o.odate as odate,
+    p.pname as pname,
+    p.main_image as main_image,
+    ca.category_name as category_name,
+    sca.sub_category_name as sub_category_name
+from product p, orders o, category ca , sub_category sca
+where o.pid = p.pid and  p.sub_category_id = sca.sub_category_id
+and p.category_id = ca.category_id;
+
+select * from view_myOrder;

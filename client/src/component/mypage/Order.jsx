@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CiSearch } from "react-icons/ci";
 
-export default function Order() {  
+export default function Order({myOrder}) {  
     const [orderDate, setOrderDate] = useState({});
     
     const checkOrderDate = (e) =>{
@@ -11,6 +11,15 @@ export default function Order() {
     }
     // console.log(orderDate);
     
+    const orderStatus = {
+        'before_deposit':'입금전',
+        'Prepare_for_delivery':'배송준비중',
+        'delivery':'배송중',
+        'delivery_done':'배송완료',
+        'cancle':'취소',
+        'change':'교환',
+        'return':'반품'
+    };
 
 
     return (
@@ -38,15 +47,15 @@ export default function Order() {
         </div>
         <div className='mypage-order-select-box'>
             <select name="" id="">
-                <option value="">선택</option>
-                <option value="">전체주문 처리상태</option>
-                <option value="">입금전</option>
-                <option value="">배송준비중</option>
-                <option value="">배송중</option>
-                <option value="">배송완료</option>
-                <option value="">취소</option>
-                <option value="">교환</option>
-                <option value="">반품</option>
+                <option value="default">선택</option>
+                <option value="all">전체주문 처리상태</option>
+                <option value="before_deposit">입금전</option>
+                <option value="Prepare_for_delivery">배송준비중</option>
+                <option value="delivery">배송중</option>
+                <option value="delivery_done">배송완료</option>
+                <option value="cancle">취소</option>
+                <option value="change">교환</option>
+                <option value="return">반품</option>
             </select>
             <ul>
                 <li>오늘</li>
@@ -74,6 +83,7 @@ export default function Order() {
                 <table>
                     <tr>
                         <td>주문번호</td>
+                        <td>주문날짜</td>
                         <td>상품정보</td>
                         <td>수량</td>
                         <td>총금액</td>
@@ -81,14 +91,15 @@ export default function Order() {
                         <td>취소/교환/반품</td>
                     </tr>
                     <tr>
-                        <td>s29349234234df</td>
+                        <td>{myOrder.order_number}</td>
+                        <td>{myOrder.odate.slice(0,10)}</td>
                         <td>
-                          <img src="https://beautyofjoseon.co.kr/web/upload/category/editor/2024/08/29/9f33ecb883aa2c7144a97288b91c3db4.jpg" alt="" />
-                        <span>따끈한 옷dfsefsdfsefefsdfsefsfsefef</span>
+                          <img src={myOrder.main_image} alt="주문대표이미지" />
+                        <span>{myOrder.pname}</span>
                         </td>
-                        <td>13,000</td>
-                        <td>배송중</td>
-                        <td></td>
+                        <td>{myOrder.qty}</td>
+                        <td>{myOrder.total_price.toLocaleString().concat('원')}</td>
+                        <td>{orderStatus.delivery}</td>
                     </tr>
                 </table>
             </div>

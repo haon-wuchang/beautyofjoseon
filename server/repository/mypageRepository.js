@@ -97,7 +97,6 @@ export const deleteDelivery = async ({ id }) => {
     return result;
 }
 
-// 마이페이지 주문정보 가져오기
 export const getMyOrder = async ({ id }) => {
     // console.log(id);
 
@@ -106,15 +105,17 @@ export const getMyOrder = async ({ id }) => {
             oid, 
             id, 
             pid, 
-            oder_number, 
+            order_number, 
             qty, 
             total_price, 
-            odate
-        from orders
+            odate,
+            concat('http://localhost:9000/',main_image->>'$[0]') as main_image,
+            pname
+        from view_myOrder
         where id = ?
                 `;
     const [result] = await db.execute(sql, [id]);
-    console.log('마이페이지레파지토리',result[0]);
+    // console.log('마이페이지레파지토리',result[0]);
 
     return result[0];
 }

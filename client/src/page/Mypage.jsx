@@ -37,7 +37,7 @@ export default function Mypage() {
         }
     }, [isLoggedIn]);
 
-    console.log('myOrder',myOrder);
+    // console.log('myOrder',myOrder);
     
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
@@ -86,7 +86,7 @@ export default function Mypage() {
                     <li onClick={() => { setTab('delivery') }}>배송지 관리</li>
                 </ul>
             </div>
-            {tab === 'order' && <Order />}
+            {tab === 'order' && <Order myOrder={myOrder} />}
             {tab === 'wish' && <Wish />}
             {tab === 'money' && <Money />}
             {tab === 'coupon' && <Coupon />}
