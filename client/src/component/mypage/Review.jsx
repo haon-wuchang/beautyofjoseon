@@ -21,7 +21,7 @@ export default function Review() {
                     </td>
                     <td>1개</td>
                     <td>13,000</td>
-                    <td><button>리뷰작성하기</button></td>
+                    <td>리뷰작성하기</td>
                 </tr>
             </table>
         </div>

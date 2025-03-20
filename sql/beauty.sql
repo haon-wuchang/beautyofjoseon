@@ -34,6 +34,8 @@ ALTER TABLE product MODIFY desc_image json NULL;
 alter table customer modify zipcode varchar(10) not null;
 alter table customer add column addtional_address json null;	
 
+
+
 -- *** view_cart_list 수정 ***
 drop view view_cart_list;
 
