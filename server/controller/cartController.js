@@ -41,3 +41,13 @@ export const updateQty = async (req, res) => {
         res.end();
 };
 
+/********************************************
+        장바구니 아이템 삭제
+        사용처 : Cart
+        작성자 : 김유나
+********************************************/
+export const deleteCartItem = async() => {
+        const result = await repository.deleteCartItem(req.body);
+        res.json(result);
+        res.end();
+}

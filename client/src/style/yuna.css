@@ -779,7 +779,36 @@ border: 1px solid blue;
     width: 20px;
     height: 20px;
     padding: 2px;
+    cursor: pointer;
 }
+.cart-main-table-list > td:first-child > input {
+    border: 1px solid red;
+    appearance: none; /* 기본 스타일 제거 */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    content: "✔";
+    color: gray;
+}
+.cart-main-table-list > td:first-child > input:checked {
+    background-color: #fff;
+    position: relative;
+}
+.cart-main-table-list > td:first-child > input:checked::after {
+    position: absolute;
+    content: "✔️";
+    color: black;
+    /* top: 2px;
+    left: 4px; */
+}
+/* .cart-main-table-check-selected {
+    border: 1px solid red;
+    color: #000;
+}
+.cart-main-table-check-normal {
+    border: 1px solid red;
+    color: gray;
+} */
 .cart-main-table-title > td:nth-child(2),
 .cart-main-table-list > td:nth-child(2) {
     width: 80px;
@@ -835,6 +864,14 @@ border: 1px solid blue;
 .cart-main-table-list > td:nth-child(5) {
     font-weight: bold;
     color: #000;
+}
+.cart-main-table-list > td:nth-child(5) > p {
+    margin: 0;
+}
+.cart-main-table-list > td:nth-child(5) > p:first-child {
+    color: silver;
+    text-decoration: line-through;
+    margin-bottom: 10px;
 }
 .cart-main-table-title > td:nth-child(6),
 .cart-main-table-list > td:nth-child(6) {
