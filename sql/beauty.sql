@@ -25,9 +25,14 @@ desc sub_category;
 desc wish;
 
 
+
+
 -- ----------------------------------
--- ***********개별 테스트 공간
+-- *********** 수정 사항
 -- ----------------------------------
+-- *** product 수정 ***
+ALTER TABLE product MODIFY desc_image json NULL;
+
 -- *** view_cart_list 수정 ***
 drop view view_cart_list;
 
@@ -38,19 +43,11 @@ select  ca.cid as cid,
       cu.id as id,
       pd.pid as pid,
       pd.pname as pname,
-      format(pd.price, 0) as price,
+      format(pd.price * ca.qty, 0) as price,
       pd.discount_rate as discount_rate,
-        format((pd.price / ifnull(pd.discount_rate, 0)), 0) as discount,
-      ifnull(format(round(pd.price - (pd.price / ifnull(pd.discount_rate, 0)), -3), 0), format(pd.price, 0)) as discount_price,
+	  format((pd.price / ifnull(pd.discount_rate, 0)) * ca.qty, 0) as discount,
+      ifnull(round((pd.price - (pd.price / ifnull(pd.discount_rate, 0))), -3), pd.price) as discount_price,
       main_image
 from cart ca, customer cu, product pd
 where ca.id = cu.id 
 and ca.pid = pd.pid;
-
-select * from view_cart_list;
-
-select * from customer;
-alter table customer add column addtional_address json null;
-
-ALTER TABLE customer MODIFY COLUMN zipcode VARCHAR(10);
-
