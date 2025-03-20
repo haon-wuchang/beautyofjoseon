@@ -15,6 +15,7 @@ export const getMyinfo = async ({ id }) => {
             gender, 
             birth,
             membership,
+            type,
             addtional_address
         from customer
         where id = ?
