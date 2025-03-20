@@ -8,8 +8,9 @@ import { db } from './db.js';
 export const getList = async () => {
     const sql = `
         select pid,
-                pname, 
+                pname,
                 price,
+                discount_rate,
                 concat('http://localhost:9000/',main_image->>'$[0]') as image, 
                 main_image, 
                 pdate
@@ -29,25 +30,24 @@ export const getProduct = async(pid) => {
 
     const sql = `
             select 
-                pid,
-                pname,
-                price,
-                discount_rate,
-                pdate,
-                concat('http://localhost:9000/',main_image->>'$[0]') as mainImg,
-                json_arrayagg(
-					concat( 'http://localhost:9000/' ,slideJt.slideCol)
-                    ) as SlideImgList,
-				json_arrayagg(
-					concat( 'http://localhost:9000/' ,descJt.descCol)
-                    ) as descImgList
-            from product, 
-                        json_table(product.slide_image, '$[*]' 
-                            columns(slideCol varchar(100) path'$' )) as slideJt,
-						json_table(product.desc_image, '$[*]' 
-                            columns(descCol varchar(100) path'$' )) as descJt
-            where pid = ?
-            group by pid;
+            p.pid as pid,
+            p.pname as pname,
+            p.price as price,
+            p.discount_rate as discount_rate,
+            p.pdate as pdate,
+    concat('http://localhost:9000/', p.main_image->>'$[0]') as mainImg,
+    (
+        select json_arrayagg(concat('http://localhost:9000/', s.slideCol))
+        from json_table(p.slide_image, '$[*]' columns(slideCol varchar(100) path '$')) as s
+    ) as SlideImgList,
+    (
+        select json_arrayagg(concat('http://localhost:9000/', d.descCol))
+        from json_table(p.desc_image, '$[*]' columns(descCol varchar(100) path '$')) as d
+    ) as descImgList
+
+from product p
+where p.pid = ?;
+
         `;
 
     const [result] = await db.execute(sql, [pid]); 

@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import CartTable from '../component/cart/CartTable.jsx';
 import CartBill from '../component/cart/CartBill.jsx';
+import { AuthContext } from '../auth/AuthContext.js';
+import { CartContext } from '../context/cartContext.js';
+import { useCart } from '../hooks/useCart.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useContext(AuthContext);
+    const { getCartList } = useCart();
+    const { cartList } = useContext(CartContext);
     const [selectStatus, setSelectStatus] = useState("domestic");
+
+    useEffect(() => {
+        // isLoggedIn && getCartList();
+        if (isLoggedIn) {
+            getCartList();
+        } else {
+            alert("로그인이 필요한 서비스입니다.");
+            navigate("/login");
+        }
+    }, []);
 
     return (
         <div className='cart-page-wrap'>
@@ -21,8 +39,17 @@ export default function Cart() {
                 </span>
             </div>
 
-            <CartTable /> {/* 카트 상품 목록 */}
-            <CartBill /> {/* 카트 영수증 */}
+            { cartList.length > 0
+                ? (
+                    <>
+                        <CartTable /> {/* 카트 상품 목록 */}
+                        <CartBill /> {/* 카트 영수증 */}
+                    </>
+                )
+                : (
+                    <p>장바구니가 비어 있습니다.</p>
+                )
+            }
 
             <div className='cart-page-bottom-notice'>
                 <p>이용안내</p>

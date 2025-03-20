@@ -74,3 +74,16 @@ export const updateQty = async ({ cid, type, qty }) => {
 }
 
 
+/********************************************
+        장바구니 아이템 삭제
+        사용처 : Cart
+        작성자 : 김유나
+********************************************/
+export const deleteCartItem = async({cid}) => {
+    const sql = `
+        delete from view_cart_list where = ${cid}
+    `;
+
+    const [result] = await db.execute(sql);
+    return {"result_rows": result.affectedRows};
+}

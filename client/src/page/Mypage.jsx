@@ -35,7 +35,7 @@ export default function Mypage() {
             setIsChecked2(false);
         }
     }, [isLoggedIn]);
-    console.log('testsetset', isLoggedIn);
+
 
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {

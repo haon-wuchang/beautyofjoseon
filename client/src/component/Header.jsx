@@ -94,7 +94,7 @@ export default function Header() {
                 <div className='header-bottom-container'>
                     <div className='header-bottom-left'>
                         <Link to="/">
-                            <img className='header-bottom-left-main-logo' src="images/beautyofjoseon_logo.jpg" alt="mainLogo" />
+                            <img className='header-bottom-left-main-logo' src="/images/beautyofjoseon_logo.jpg" alt="mainLogo" />
                         </Link>
                     </div>
                     <div className='header-bottom-right'>

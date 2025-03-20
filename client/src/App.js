@@ -18,6 +18,7 @@ import { MypageProvider } from './context/MypageContext.js';
 import { SearchProvider } from './context/SearchContext.js';
 import {CartProvider} from './context/cartContext.js';
 import Search from './page/Search.jsx';
+import Admin from './page/Admin.jsx';
 
 export default function App() {
   return (
@@ -38,6 +39,7 @@ export default function App() {
               <Route path='/cart' element={<Cart />} />
               <Route path='/payment' element={<Payment />} />
               <Route path='/search' element={<Search />} />
+              <Route path='/admin' element={<Admin />} />
             </Route>
           </Routes>
         </BrowserRouter>

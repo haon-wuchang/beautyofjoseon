@@ -8,10 +8,16 @@ import { BsGrid3X3GapFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-
+import ReactPaginate from 'react-paginate';
 import '../style/product.scss';
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+
+
+
 
 export default function Products() {
+
+
 
     const { isLoggedIn } = useContext(AuthContext);
 
@@ -24,10 +30,28 @@ export default function Products() {
             .catch((error) => console.log(error))
     }, [])
 
-    console.log('list' , list);
-    
+    console.log('list', list);
+
+    console.log('list.discount_rate', list.discount_rate);
 
 
+
+    /* 페이지네이션 */
+    const itemsPerPage = 20;
+    const [itemOffset, setItemOffset] = useState(0);
+
+    // 페이지네이션 관련 로직
+    const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+
+    const currentItems = list.slice(itemOffset, endOffset); // list에서 20개씩 슬라이싱
+    const pageCount = Math.ceil(list.length / itemsPerPage); // 전체 페이지 수
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % list.length;
+        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+        setItemOffset(newOffset);
+    };
 
 
     return (
@@ -74,19 +98,46 @@ export default function Products() {
 
             {/* 상품 행당 3개일 때 */}
             <div className='product-list'>
-                {list.map((item) => (
-                            <Link key={item.pid} to={`/product/detail/${item.pid}`}>
-                                <div className='product-item'>
-                                    <img src={item.image} alt="" />
-                                    <span className='wish-icon'><FaRegHeart /></span>
-                                    <span className='product-title'>{item.pname}</span>
-                                    <p className='product-price'>18,000원</p>
-                                    <span className='product-sale'>10%</span>
-                                    <span className='product-sale-price'>16,200원</span>
+                {currentItems.map((item) => (
+                    <Link key={item.pid} to={`/product/detail/${item.pid}`}>
+                        <div className='product-item'>
+                            <div className='product-img-wrap'>
+                                <img src={item.image} alt="" />
+
+                            </div>
+                            <span className='wish-icon'><FaRegHeart /></span>
+                            <span className='product-title w600 text-center f15' >{item.pname}</span>
+                            <p className='product-price pt10 f12'>{(item.discount_rate) ? `${item.price.toLocaleString()}원` : null }</p>
+                            <div className='gap5 flex'>
+                                {(item.discount_rate) ?
+                                    (<div className='product-sale'>
+                                        {`${item.discount_rate.toLocaleString()}%`}
+                                    </div>) : null}
+                                <div className='product-sale-price'>{`${((item.price - (item.discount_rate * 100)).toLocaleString())}원`}
                                 </div>
-                            </Link>
-                        ))}
+
+                            </div>
+                        </div>
+                    </Link>
+                ))}
+
             </div>
+                {/* 페이지네이션 */}
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel={<MdNavigateNext />}
+                    previousLabel={<MdNavigateBefore />}
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="prev"
+                    nextClassName="next"
+                    disabledClassName="disabled"
+                />
 
 
 
