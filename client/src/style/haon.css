@@ -1127,11 +1127,11 @@
     align-items: center;
     padding-left: 10px;
 }
-.mypage-review-write > table>tr>td>button{
-    padding: 10px 20px;
-    border: 1px solid rgb(240, 238, 232);
+.mypage-review-write > table>tr:last-child>td:last-child:hover{
+    cursor: pointer;
     background-color: rgb(240, 238, 232);
 }
+
 .mypage-review-write-page{
     width: 100%;
     text-align: center;
@@ -1474,9 +1474,81 @@
 /*****************************************/
 /*********     admin           *********/
 /*****************************************/
+.admin-all{
+    margin: 0 auto;
+    width: 1200px;
+}
+.admin-flex{
+    display: flex;
+    /* justify-content: space-between; */
+    text-align: center;
+    margin-top: 30px;
+}
+.admin-flex>form{
+    /* border: 1px solid red; */
+}
+.admin-flex>form>ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+.admin-flex>form>ul>li{
+    margin-bottom: 5px;
+}
+.admin-flex>form>ul>li:not(:nth-child(6))>label{
+    /* background-color: red; */
+    width: 100px;
+    display: inline-block;
+}
+.admin-flex>form>ul>li:nth-child(6){
+    display: flex;
+    align-items: center;
+}
+.admin-flex>form>ul>li:nth-child(6)>label{
+    margin-right: 10px;
+}
+.admin-flex>form>ul>li:last-child{
+    margin-top: 20px;
+}
+.admin-flex>form>ul>li:last-child>button{
+    width: 100px;
+    padding: 5px ;
+}
+.admin-flex>form>ul>li:last-child>button:first-child{
+    color: rgb(0, 0, 0);
+    background-color: rgb(209, 205, 194);
+    border : 1px solid rgb(209, 205, 194);
+    margin-right: 10px;
+}
+.admin-flex>form>ul>li:last-child>button:last-child{
+    background-color: white;
+    border: 1px solid gray;
+}
+.admin-flex>div{
+    margin-left: 30px;
+    padding: 0;
+    /* border: 1px solid red; */
+}
+.admin-flex>div>table{
+    border: 1px solid gainsboro;
+    border-collapse: collapse;
 
+}
+.admin-flex>div>table>tr>td{
+    padding: 10px;
+    border: 1px solid gainsboro;
 
-
-
-
-
+}
+.admin-tab{
+    display: flex;
+    gap: 20px;
+}
+.admin-title{
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+.admin-none{
+    padding: 5px;
+}
