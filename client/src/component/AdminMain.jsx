@@ -54,7 +54,7 @@ export default function AdminMain() {
                     } else {
                         alert('상품등록 실패');
                     }
-                    console.log('res===', res.data);
+                    // console.log('res===', res.data);
                 })
                 .catch(error => {
                     alert('상품등록 실패');

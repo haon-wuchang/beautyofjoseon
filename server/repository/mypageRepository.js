@@ -96,3 +96,25 @@ export const deleteDelivery = async ({ id }) => {
     const result = await db.execute(sql, [id]);
     return result;
 }
+
+// 마이페이지 주문정보 가져오기
+export const getMyOrder = async ({ id }) => {
+    // console.log(id);
+
+    const sql = `
+        select 
+            oid, 
+            id, 
+            pid, 
+            oder_number, 
+            qty, 
+            total_price, 
+            odate
+        from orders
+        where id = ?
+                `;
+    const [result] = await db.execute(sql, [id]);
+    console.log('마이페이지레파지토리',result[0]);
+
+    return result[0];
+}

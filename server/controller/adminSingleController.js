@@ -5,7 +5,7 @@ import * as repository from '../repository/adminRepository.js';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'upload_product/')  //이미지 저장할 경로 설정
+      cb(null, 'upload_files/')  //이미지 저장할 경로 설정
     },  filename: function (req, file, cb) {        
           const uniqueSuffix = Date.now() + "-" + Math.round(Math.random()*1e9);    
           cb(null, uniqueSuffix + '-' + file.originalname); 
@@ -22,7 +22,7 @@ export const fileUpload = (req,res) => {
         } else {
             const oldFile = req.body.oldFile;
           if(oldFile){
-            const oldFilePath = path.join('upload_product/',oldFile);
+            const oldFilePath = path.join('upload_files/',oldFile);
             if(fs.existsSync(oldFilePath)){
               try{
                 fs.unlinkSync(oldFilePath);

@@ -15,14 +15,15 @@ import {useLogin} from '../hooks/useLogin.js';
 
 export default function Mypage() {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const { setMyinfo, myinfo, year, month, date, gender } = useContext(MypageContext);
+    const { setMyinfo, myinfo, year, month, date, gender ,myOrder} = useContext(MypageContext);
     const {handleLogin} = useLogin();
     const [tab, setTab] = useState('main');
-    const { getMyinfo } = useMypage();
+    const { getMyinfo, getMyOrder } = useMypage();
     const [isChecked1, setIsChecked1] = useState(false); //체크박스 상태 관리
     const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
     useEffect(() => {
         getMyinfo();
+        getMyOrder();
         // handleLogin();
         if (gender === 'M') {
             setIsChecked1(true);
@@ -36,7 +37,8 @@ export default function Mypage() {
         }
     }, [isLoggedIn]);
 
-
+    console.log('myOrder',myOrder);
+    
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
         handleLogin(false,'logout');
