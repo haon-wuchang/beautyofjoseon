@@ -81,9 +81,41 @@ export const updateQty = async ({ cid, type, qty }) => {
 ********************************************/
 export const deleteCartItem = async({cid}) => {
     const sql = `
-        delete from view_cart_list where = ${cid}
+        delete from cart where cid = ${cid}
     `;
 
     const [result] = await db.execute(sql);
     return {"result_rows": result.affectedRows};
+}
+
+/********************************************
+        장바구니 아이템 전체 삭제
+        사용처 : Cart
+        작성자 : 김유나
+********************************************/
+export const clearCart = async() => {
+    const sql = `
+        truncate table cart;
+    `;
+
+    const [result] = await db.execute(sql);
+    return {"result_rows": result.affectedRows};
+}
+
+/********************************************
+        장바구니에서 선택한 상품의 가격만 계산
+        사용처 : Cart
+        작성자 : 김유나
+********************************************/
+export const getSelectItemPrice = async({cids}) => {
+    const arr = cids.map(item => item.cid).join(",");
+
+    const sql = `
+        select cid, discount_price, qty 
+        from view_cart_list 
+        where cid in (${arr});
+    `;
+
+    const [result] = await db.execute(sql);
+    return result;
 }

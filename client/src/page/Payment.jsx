@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
+import { OrderContext } from '../context/orderContext.js';
+import { useOrder } from '../hooks/useOrder.js';
 import PaymentDestination from '../component/payment/PaymentDestination.jsx';
 
 export default function Payment() {
+    const { orderList, orderType } = useContext(OrderContext);
+    const { getCartAll } = useOrder();
+
+    console.log("주문 목록 --> ", orderList);
+
+    useEffect(() => {
+        if (orderType === "all") {
+            getCartAll();
+        } else {
+            localStorage.getItem("cids");
+        }
+    }, []);
+
     return (
         <div className='payment-page-wrap'>
             <div className='payment-page-top'>
@@ -22,21 +37,23 @@ export default function Payment() {
                     <span>주문상품</span>
                     <span><IoIosArrowUp /></span>
                 </div>
-                <div className='payment-order-list-main'>
-                    <div className='payment-order-list-products'>
-                        <div className='payment-order-list-products-img'>
-                            <img src="https://beautyofjoseon.co.kr/web/product/tiny/202408/af8c24dd16346451d39954442738da37.jpg" alt="" />
-                        </div>
-                        <div className='payment-order-list-products-detail'>
-                            <p>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
-                            <p>수량: 1개</p>
-                            <p>16,200원</p>
-                        </div>
-                    </div>
-                    <div>
-                        <span>배송비</span>
-                        <span>3,000원</span>
-                    </div>
+                {/* <div className='payment-order-list-main'> */}
+                    <ul className='payment-order-list-products'>
+                        <li>
+                            <div className='payment-order-list-products-img'>
+                                <img src="https://beautyofjoseon.co.kr/web/product/tiny/202408/af8c24dd16346451d39954442738da37.jpg" alt="" />
+                            </div>
+                            <div className='payment-order-list-products-detail'>
+                                <p>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
+                                <p>수량: 1개</p>
+                                <p>16,200원</p>
+                            </div>
+                        </li>
+                    </ul>
+                {/* </div> */}
+                <div className='payment-order-list-bottom'>
+                    <span>배송비</span>
+                    <span>3,000원</span>
                 </div>
             </div>
             <div className='payment-discount'>

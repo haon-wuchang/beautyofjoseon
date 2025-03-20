@@ -42,12 +42,34 @@ export const updateQty = async (req, res) => {
 };
 
 /********************************************
-        장바구니 아이템 삭제
+        장바구니 아이템 개별 삭제
         사용처 : Cart
         작성자 : 김유나
 ********************************************/
-export const deleteCartItem = async() => {
+export const deleteCartItem = async(req, res) => {
         const result = await repository.deleteCartItem(req.body);
+        res.json(result);
+        res.end();
+}
+
+/********************************************
+        장바구니 아이템 전체 삭제
+        사용처 : Cart
+        작성자 : 김유나
+********************************************/
+export const clearCart = async(req, res) => {
+        const result = await repository.clearCart(req.body);
+        res.json(result);
+        res.end();
+}
+
+/********************************************
+        장바구니에서 선택한 상품의 가격만 계산
+        사용처 : Cart
+        작성자 : 김유나
+********************************************/
+export const getSelectItemPrice = async(req, res) => {
+        const result = await repository.getSelectItemPrice(req.body);
         res.json(result);
         res.end();
 }
