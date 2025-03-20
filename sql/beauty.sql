@@ -28,13 +28,18 @@ desc wish;
 
 
 -- ----------------------------------
--- *********** 수정 사항3/20
+-- *********** 수정 사항3/１９
 -- ----------------------------------
-ALTER TABLE product MODIFY desc_image json NULL;
+
 alter table customer modify zipcode varchar(10) not null;
 alter table customer add column addtional_address json null;	
 
 
+
+-- ----------------------------------
+-- *********** 수정 사항3/20
+-- ----------------------------------
+ALTER TABLE product MODIFY desc_image json NULL;
 
 -- *** view_cart_list 수정 ***
 drop view view_cart_list;
