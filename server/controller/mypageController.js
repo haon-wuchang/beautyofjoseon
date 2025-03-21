@@ -77,3 +77,20 @@ export const getWishInfo = async(req, res) => {
     res.json(result);
     res.end();
 }
+
+// 위시리스트 삭제 후 새정보 가져오기
+export const updateWishList = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.updateWishList(req.body);
+    res.json(result);
+    res.end();
+}
+
+
+// 위시리스트 전체삭제
+export const deleteAllWishList = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.deleteAllWishList(req.body);
+    res.json(result);
+    res.end();
+}
