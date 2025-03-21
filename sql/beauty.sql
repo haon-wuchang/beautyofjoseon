@@ -91,9 +91,30 @@ and p.category_id = ca.category_id;
 
 ALTER TABLE orders MODIFY delivery_status varchar(20) null default '입금전';
 
+-- 유나
+-- payment 페이지 조회용 view table 생성
+create view view_payment_list
+as
+select ca.cid as cid,
+	cu.id as id,
+	cu.name as name,
+    cu.address as address,
+    cu.extra_address as extra_address,
+    cu.zipcode as zipcode,
+    cu.phone as phone,
+    cu.email as email,
+    ca.pid as pid,
+    pd.pname as pname,
+    ca.qty as qty,
+    ifnull(round((pd.price - (pd.price / ifnull(pd.discount_rate, 0))), -3), pd.price) as discount_price,
+    pd.main_image
+from customer cu, cart ca, product pd
+where cu.id = ca.id
+	and ca.pid = pd.pid
+order by ca.cid;
 
+select * from view_payment_list;
 
-
-
-
-
+-- orders 테이블 컬럼명 오타 수정
+alter table orders rename column oder_number to order_number;
+select * from orders;
