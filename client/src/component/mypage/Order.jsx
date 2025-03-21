@@ -9,9 +9,9 @@ export default function Order() {
     const [orderDate, setOrderDate] = useState({});
     const [orderEndDate, setOrderEndDate] = useState({});
     const [orderCategory, setOrderCategory] = useState({});
-    const {getMyOrder}  = useMypage();
+    const { getMyOrder } = useMypage();
     const [date, setDate] = useState('');
-    const {orderType, setOrderType, myOrder} = useContext(MypageContext);
+    const { orderType, setOrderType, myOrder } = useContext(MypageContext);
 
     useEffect(() => {
         getMyOrder();
@@ -42,18 +42,22 @@ export default function Order() {
     };
     const selectRef = useRef(null);
     const handleSelectOrder = (e) => {
-        const {name , value} = e.target;
-        setOrderCategory({...orderCategory, [name]:value})
+        const { name, value } = e.target;
+        setOrderCategory({ ...orderCategory, [name]: value })
     }
-    // console.log(orderCategory);
-    
+
+
+    console.log(orderDate);
+    console.log(orderEndDate);
+
     const handleSearch = () => {
-        if(selectRef.current.value === 'default'){
+        if (selectRef.current.value === 'default') {
             alert('주문처리상태를 선택해주세요.');
         }
-        else if(selectRef.current.value !== orderType){            
+        else if (selectRef.current.value !== orderType) {
             setOrderType(selectRef.current.value);
-            }
+        }
+       
     }
     return (
         <div className='mypage-order-all'>
@@ -79,7 +83,7 @@ export default function Order() {
                 </ul>
             </div>
             <div className='mypage-order-select-box'>
-                <select name="select-order" ref={selectRef} onChange={(e) => {handleSelectOrder(e)}}>
+                <select name="select-order" ref={selectRef} onChange={(e) => { handleSelectOrder(e) }}>
                     <option value="default">선택</option>
                     <option value="전체">전체주문</option>
                     <option value="입금전">입금전</option>

@@ -14,7 +14,7 @@ export const MypageProvider = ({children}) => {
     const [myOrder , setMyOrder] = useState([]);
     const [wishList, setWishList] = useState([]);
     const [orderType, setOrderType] = useState('전체'); 
-    const [orderDate, setOrderDate] = useState('all'); 
+    const [orderDate, setOrderDate] = useState('all');  // 얘는 아직안함
 
     return ( 
         <MypageContext.Provider 
