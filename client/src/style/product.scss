@@ -830,7 +830,7 @@
     /* review */
     .product-detail-review {
 
-    margin-top: 10px;
+    margin-top: 30px;
 
 
     .review-top{
@@ -852,8 +852,44 @@
             color: #333333;
         }
     }
-
+    
+    
+    
 }
 
+    .table {
+        width: 100%;
+        // border: 1px solid red;
+        margin: 10px;
+        font-size: 12px;
+        table-layout: fixed;
+        color: #333333;
+        
+        border-bottom: 1px solid #e5e5e5;;
+    }
+    
+    .table td {
+        border-top: 1px solid #e5e5e5;;
+        text-align: center;
+        padding: 8px 10px 7px;
+        vertical-align: middle
+    }
+
+    .table td:nth-child(2) {
+        text-align: left;
+        padding-left: 20px;
+      }
+
+
+      .modal-review {
+        width: 400px;
+        border: 1px solid red;
+        width: 300px;
+  height: 200px;
+  background: red;
+      }
+
+
+      
 
 }

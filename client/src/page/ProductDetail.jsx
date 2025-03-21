@@ -12,8 +12,9 @@ import { FiMinus } from "react-icons/fi";
 import OtherPay from '../component/OtherPay';
 import axios from 'axios';
 import Slider from "react-slick";
-
-
+import Modal from 'react-modal';
+import CreateReview from '../component/product/CreateReview.jsx';
+import '../style/product.scss';
 
 
 
@@ -37,7 +38,7 @@ export default function ProductDetail() {
     /* 전역 등 import 된 것 */
     const { isLoggedIn } = useContext(AuthContext);
     const { pid } = useParams();
-    const { cartList  } = useContext(CartContext);
+    const { cartList } = useContext(CartContext);
     const { wishList, setWishList } = useContext(ProductContext);
     const { updateCartList, saveToCartList } = useCart();
     const { addWishList } = useProduct();
@@ -68,58 +69,15 @@ export default function ProductDetail() {
 
 
 
-    /* Wish List */
-
-    // useEffect(() => {
-    //     const id = localStorage.getItem("user_id");
-    //     if (isLoggedIn && id) {
-    //         axios.post("http://localhost:9000/product/getWishList", { id })
-    //             .then(res => {
-    //                 const wish = res.data?.wish || [];
-    //                 setWishList(wish);
-    //                 console.log("💾 서버에서 불러온 wishList:", wish);
-    //             })
-    //             .catch(err => console.log("❌ wish 불러오기 실패:", err));
-    //     }
-    // }, [isLoggedIn]);
-
-    
-
-    // const addHeart = () => {
-    //     if(!isLoggedIn) {
-    //         alert('로그인 후 사용가능 한 서비스 입니다')
-    //         navigate('/login')
-    //     }else {
-    //         const id = localStorage.getItem("user_id");
-    //         if(wishList !== null) {
-    //             setWishList((add) => {
-    //                 // 전에 저장된 wish리스트 있다면 가져오기
-    //                 const alreadyWish = add.includes(product.pid); 
-    //                 // wish list 추가
-    //                 const updateWishList = alreadyWish 
-    //                 ? add.filter((prev) => prev !== product.pid) 
-    //                 : [...add, product.pid];
-                    
-                    
-    //                 axios
-    //                     .post('http://localhost:9000/product/addWishList', {id, wishList :updateWishList})
-    //                     .catch((error) => console.log(error)); 
-    //                     return updateWishList;
-    //             })
-    //         }
-    //     }
-    // }; 
-
-
-
+    /* wish list 추가 */
     const addHeart = () => {
-        if(!isLoggedIn) {
+        if (!isLoggedIn) {
             alert('로그인 후 사용가능 한 서비스 입니다')
             navigate('/login')
         }
-        alert('찜 목록에 추가되었습니다.')
+        alert('위시리스트에 추가되었습니다.')
         addWishList(product.pid);
-    }; 
+    };
 
 
     /* 로그인 시 장바구니 추가 이벤트 */
@@ -179,6 +137,37 @@ export default function ProductDetail() {
         });
     };
 
+    /* 리뷰 토글 */
+    const [showReview, setShowReview] = useState(false);
+
+    const toggleReview = () => {
+        setShowReview((prev) => !prev);
+    };
+
+
+
+    /* 리뷰 작성 모달 */
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // 모달 스타일
+    const modalStyle = {
+        content: {
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '600px',
+            height: 'auto',
+            padding: '20px',
+            background: '#fff',
+            borderRadius: '10px',
+        },
+        overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            zIndex: 10
+        },
+    };
+
+
 
 
     return (
@@ -208,22 +197,46 @@ export default function ProductDetail() {
                         <div className='review-top'>
                             <p className='f14 w600'>Review</p>
                             <div>
-                                <button className='w-btn3'>write</button>
+                                <button className='w-btn3' onClick={() => setIsModalOpen(true)} >write</button>
                                 <button className='w-btn3'>view all</button>
                             </div>
 
                         </div>
-                        <table>
+                        <table className='table'>
+                            <colgroup>
+                                <col style={{ width: "5%" }} />
+                                <col style={{ width: "auto" }} />
+                                <col style={{ width: "15%" }} />
+                                <col style={{ width: "15%" }} />
+                                <col style={{ width: "10%" }} />
+                            </colgroup>
                             <tbody>
-                                <tr>
+                                <tr className='review-row ' onClick={toggleReview}>
                                     <td>1</td>
-                                    <td>만족</td>
-                                    <td>네****</td>
+                                    <td>만족합니다~~~~~~</td>
+                                    <td>홍*동</td>
                                     <td>2025-03-11 02:43:07</td>
+                                    <td>333</td>
                                 </tr>
+                                {showReview && (
+                                    <tr className='review-content'>
+                                        <td colSpan={5}>
+                                            리뷰 상세  리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 
+                                        </td>
+                                    </tr>
+                                )}
+                                {isModalOpen && (
+                                    <Modal isOpen={isModalOpen}
+                                        onRequestClose={() => setIsModalOpen(false)}
+                                        style={modalStyle}
+                                    >
+                                        <CreateReview />
+                                    </Modal>
+                                )}
+
+
                             </tbody>
                         </table>
-                        <p>페이지네이션</p>
                     </div>
 
 
