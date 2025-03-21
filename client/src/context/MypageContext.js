@@ -12,13 +12,12 @@ export const MypageProvider = ({children}) => {
     const [address,setAddress] = useState([]);
     const [extra,setExtra] = useState([]);
     const [myOrder , setMyOrder] = useState([]);
-    const [wishList, setWishList] = useState([]);
 
     return ( 
         <MypageContext.Provider 
         value ={{myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,
             gender,setGender,zipcode,setZipcode,address,setAddress,extra,setExtra,
-            myOrder , setMyOrder , wishList, setWishList
+            myOrder , setMyOrder
         }}> 
             {children}
         </MypageContext.Provider>
