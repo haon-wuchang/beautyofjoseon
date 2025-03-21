@@ -15,7 +15,7 @@ import {useLogin} from '../hooks/useLogin.js';
 
 export default function Mypage() {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const { setMyinfo, myinfo, year, month, date, gender ,myOrder,wishList} = useContext(MypageContext);
+    const { setMyinfo, myinfo, year, month, date, gender ,myOrder,wishList, orderType} = useContext(MypageContext);
     const {handleLogin} = useLogin();
     const [tab, setTab] = useState('main');
     const { getMyinfo, getMyOrder ,getWishNumber} = useMypage();
@@ -87,7 +87,7 @@ export default function Mypage() {
                     <li onClick={() => { setTab('delivery') }}>배송지 관리</li>
                 </ul>
             </div>
-            {tab === 'order' && myOrder && <Order myOrder={myOrder} />}
+            {tab === 'order' && myOrder && <Order myOrder={myOrder} orderType={orderType} />}
             {tab === 'wish' && wishList && <Wish wishList ={wishList}/>}
             {tab === 'money' && <Money />}
             {tab === 'coupon' && <Coupon />}

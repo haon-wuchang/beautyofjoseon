@@ -7,7 +7,7 @@ export function useMypage(){
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
     const {myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,gender,setGender,
         zipcode,setZipcode,address,setAddress,extra,setExtra,myOrder , setMyOrder,
-        wishList, setWishList
+        wishList, setWishList,orderType, setOrderType
     } = useContext(MypageContext);
 
     const getMyinfo = async() => {
@@ -49,7 +49,14 @@ export function useMypage(){
     const getMyOrder = async() => {
         const id = localStorage.getItem('user_id');
         const result = await axios.post('http://localhost:9000/mypage/getMyOrder',{'id':id});
-        setMyOrder(result.data);
+        const data = result.data;
+        if(orderType==='전체'){
+            setMyOrder(data);
+        }else{
+            const filterData = data.filter((item)=> item.delivery_status === orderType); 
+            setMyOrder(filterData);
+        }
+        // setMyOrder(data);
     }
 
     const getWishNumber = async() => {

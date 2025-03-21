@@ -89,10 +89,7 @@ from product p, orders o, category ca , sub_category sca
 where o.pid = p.pid and  p.sub_category_id = sca.sub_category_id
 and p.category_id = ca.category_id;
 
-
-
-
-
+ALTER TABLE orders MODIFY delivery_status varchar(20) null default '입금전';
 
 
 
