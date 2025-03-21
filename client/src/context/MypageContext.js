@@ -14,14 +14,14 @@ export const MypageProvider = ({children}) => {
     const [myOrder , setMyOrder] = useState([]);
     const [wishList, setWishList] = useState([]);
     const [orderType, setOrderType] = useState('전체'); 
-    const [orderDate, setOrderDate] = useState('all');  // 얘는 아직안함
+    const [orderDates, setOrderDates] = useState(''); 
 
     return ( 
         <MypageContext.Provider 
         value ={{myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,
             gender,setGender,zipcode,setZipcode,address,setAddress,extra,setExtra,
             myOrder , setMyOrder, wishList, setWishList,orderType, setOrderType,
-            orderDate, setOrderDate
+            orderDates, setOrderDates
         }}> 
             {children}
         </MypageContext.Provider>

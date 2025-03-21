@@ -11,11 +11,11 @@ export default function Order() {
     const [orderCategory, setOrderCategory] = useState({});
     const { getMyOrder } = useMypage();
     const [date, setDate] = useState('');
-    const { orderType, setOrderType, myOrder } = useContext(MypageContext);
+    const { orderType, setOrderType, myOrder,orderDates, setOrderDates } = useContext(MypageContext);
 
     useEffect(() => {
         getMyOrder();
-    }, [orderType]);
+    }, [orderType,orderDates]);
 
     const checkOrderDate = (e) => {
         const { name, value } = e.target;
@@ -47,15 +47,17 @@ export default function Order() {
     }
 
 
-    console.log(orderDate);
-    console.log(orderEndDate);
+    // console.log(orderDate);
+    // console.log(orderEndDate.end_date);
+    // console.log('ddd',orderDates);
 
     const handleSearch = () => {
         if (selectRef.current.value === 'default') {
             alert('주문처리상태를 선택해주세요.');
         }
-        else if (selectRef.current.value !== orderType) {
+        else {
             setOrderType(selectRef.current.value);
+            // setOrderDates(orderEndDate.end_date);
         }
        
     }
@@ -135,7 +137,7 @@ export default function Order() {
                         {currentItems && currentItems.map((item) => (
                             <tr className='mypage-order-table-info'>
                                 <td>{item.order_number}</td>
-                                <td>{item.odate.slice(0, 10)}</td>
+                                <td>{item.odate}</td>
                                 <td>
                                     <img src={item.main_image} alt="주문대표이미지" />
                                     <span>{item.pname}</span>
