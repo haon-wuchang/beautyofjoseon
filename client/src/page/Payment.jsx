@@ -7,18 +7,19 @@ import { useOrder } from '../hooks/useOrder.js';
 import PaymentDestination from '../component/payment/PaymentDestination.jsx';
 
 export default function Payment() {
-    const { orderList, orderType } = useContext(OrderContext);
-    const { getCartAll } = useOrder();
-
-    console.log("주문 목록 --> ", orderList);
-
+    const { orderList, orderType, orderPrice } = useContext(OrderContext);
+    const { getCartAll, getSelectItems } = useOrder();
+    
     useEffect(() => {
         if (orderType === "all") {
             getCartAll();
         } else {
-            localStorage.getItem("cids");
+            getSelectItems();
         }
     }, []);
+
+    console.log("주문정보 --> ", orderList);
+
 
     return (
         <div className='payment-page-wrap'>
@@ -37,23 +38,23 @@ export default function Payment() {
                     <span>주문상품</span>
                     <span><IoIosArrowUp /></span>
                 </div>
-                {/* <div className='payment-order-list-main'> */}
-                    <ul className='payment-order-list-products'>
-                        <li>
+                <ul className='payment-order-list-main'>
+                    { orderList.map((item) => 
+                        <li className='payment-order-list-products'>
                             <div className='payment-order-list-products-img'>
-                                <img src="https://beautyofjoseon.co.kr/web/product/tiny/202408/af8c24dd16346451d39954442738da37.jpg" alt="" />
+                                <img src={`http://localhost:9000/${item.main_image}`} alt="" />
                             </div>
                             <div className='payment-order-list-products-detail'>
-                                <p>[NEW] 맑은쌀선크림 아쿠아프레쉬</p>
-                                <p>수량: 1개</p>
-                                <p>16,200원</p>
+                                <p>{item.pname}</p>
+                                <p>수량: {item.qty}개</p>
+                                <p>{Number(item.discount_price).toLocaleString()}원</p>
                             </div>
                         </li>
-                    </ul>
-                {/* </div> */}
+                    ) }
+                </ul>
                 <div className='payment-order-list-bottom'>
                     <span>배송비</span>
-                    <span>3,000원</span>
+                    <span>{orderPrice > 20000 ? "무료" : "3,000원" }</span>
                 </div>
             </div>
             <div className='payment-discount'>
@@ -94,16 +95,16 @@ export default function Payment() {
                     <ul>
                         <li>
                             <span>주문상품</span>
-                            <span>16,200원</span>
+                            <span>{orderPrice.toLocaleString()}원</span>
                         </li>
                         <li>
                             <span>배송비</span>
-                            <span>+3,200원</span>
+                            <span>+ {orderPrice > 20000 ? "0" : "3,000" }원</span>
                         </li>
                         <li>
                             <span>할인/부가결제</span>
                             <span>
-                                <span>-0</span>
+                                <span>- 0</span>
                                 <span>원</span>
                             </span>
                         </li>
@@ -111,7 +112,7 @@ export default function Payment() {
                 </div>
                 <div className='payment-detail-bottom'>
                     <span>최종 결제 금액</span>
-                    <span>19,200원</span>
+                    <span>{orderPrice > 20000 ? `${orderPrice.toLocaleString()}` : `${(orderPrice + 3000).toLocaleString()}`}원</span>
                 </div>
             </div>
             <div className='payment-method'>
@@ -127,7 +128,7 @@ export default function Payment() {
                     <span><IoIosArrowUp /></span>
                 </div>
             </div>
-            <button className='payment-button'>19,200원 결제하기</button>
+            <button className='payment-button'>{orderPrice > 20000 ? `${orderPrice.toLocaleString()}` : `${(orderPrice + 3000).toLocaleString()}`}원 결제하기</button>
         </div>
     );
 }

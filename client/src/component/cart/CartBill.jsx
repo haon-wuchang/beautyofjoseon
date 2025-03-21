@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export default function CartBill() {
     const navigate = useNavigate();
     const { totalPrice, cids } = useContext(CartContext);
-    const { setOrderType } = useContext(OrderContext);
+    const { orderType, setOrderType } = useContext(OrderContext);
     const { getSelectItemPrice, getCartList } = useCart();
 
     useEffect(() => {
@@ -17,16 +17,20 @@ export default function CartBill() {
 
     // 주문 버튼 클릭 이벤트
     const clickOrder = (type) => {
-        setOrderType(type);
         localStorage.getItem("cids") && localStorage.removeItem("cids");
-
+        // localStorage.getItem("ORDERTYPE") && localStorage.removeItem("ORDERTYPE");
+        
         if (type === "all") {
-            // getCartAll();
+            setOrderType("all");
+            // localStorage.setItem("ORDERTYPE", "all");
             navigate("/payment");
-        } else {
+        } else { //선택상품 주문
             if (cids.length > 0) {
                 const arr = cids.map(item => item.cid).join();
-                localStorage.setItem("cids", arr)
+                localStorage.setItem("cids", arr);
+                setOrderType("select");
+                // localStorage.setItem("ORDERTYPE", "select");
+                navigate("/payment");
             } else {
                 alert("선택된 상품이 없습니다.");
             }
