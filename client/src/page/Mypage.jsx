@@ -87,7 +87,7 @@ export default function Mypage() {
                     <li onClick={() => { setTab('delivery') }}>배송지 관리</li>
                 </ul>
             </div>
-            {tab === 'order' && myOrder && <Order myOrder={myOrder} orderType={orderType} />}
+            {tab === 'order' && myOrder && <Order/>}
             {tab === 'wish' && wishList && <Wish wishList ={wishList}/>}
             {tab === 'money' && <Money />}
             {tab === 'coupon' && <Coupon />}

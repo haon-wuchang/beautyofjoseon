@@ -4,7 +4,7 @@ import { MypageContext } from '../context/MypageContext.js';
 
 export function useMypage(){   
     const { setMyinfo, setYear, setMonth, setDate,setGender,setMyOrder,         
-         setWishList,orderType,orderDate, setOrderDate
+         setWishList,orderType,orderDates, setOrderDates
     } = useContext(MypageContext);
 
     const getMyinfo = async() => {
@@ -49,7 +49,13 @@ export function useMypage(){
         const data = result.data;
         if(orderType==='전체'){
             setMyOrder(data);
-        }else{
+        }
+        // else if(orderType==='전체' && orderDates){
+        //     const filterData = data.filter((item)=> 
+        //      item.odate === orderDates); 
+        //     setMyOrder(filterData);
+        // }
+        else if(orderType !=='전체'){
              const filterData = data.filter((item)=> item.delivery_status === orderType); 
             setMyOrder(filterData);
         }
