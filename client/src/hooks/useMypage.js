@@ -6,7 +6,8 @@ import { AuthContext } from '../auth/AuthContext.js';
 export function useMypage(){   
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
     const {myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,gender,setGender,
-        zipcode,setZipcode,address,setAddress,extra,setExtra,myOrder , setMyOrder
+        zipcode,setZipcode,address,setAddress,extra,setExtra,myOrder , setMyOrder,
+        wishList, setWishList
     } = useContext(MypageContext);
 
     const getMyinfo = async() => {
@@ -51,6 +52,22 @@ export function useMypage(){
         setMyOrder(result.data);
     }
 
+    const getWishNumber = async() => {
+        const id = localStorage.getItem('user_id');
+        const result = await axios.post('http://localhost:9000/mypage/getWishNumber',{'id':id});
+        const list = result.data.wish;
+        // setWishList(list);
+        const wishListData = await Promise.all(
+            list.map(async (item) => {
+                const res = await axios.post('http://localhost:9000/mypage/getWishInfo', { pid: item });
+                return res.data;
+            })
+        );
+        setWishList(wishListData);
+    }
 
-    return {getMyinfo,getMyOrder};
+
+
+
+    return {getMyinfo,getMyOrder,getWishNumber};
 }

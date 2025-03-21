@@ -59,3 +59,21 @@ export const getMyOrder = async(req, res) => {
     res.json(result);
     res.end();
 }
+
+
+
+// 위시리스트 번호 전체 가져오기
+export const getWishNumber = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getWishNumber(req.body);
+    res.json(result);
+    res.end();
+}
+
+// 위시리스트 정보 가져오기
+export const getWishInfo = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getWishInfo(req.body);
+    res.json(result);
+    res.end();
+}

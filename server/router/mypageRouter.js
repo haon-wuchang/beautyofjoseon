@@ -9,7 +9,9 @@ router.post('/getMyinfo',controller.getMyinfo)
 .post('/addDelivery',controller.addDelivery)
 .post('/updateMainDelivery',controller.updateMainDelivery)
 .post('/deleteDelivery',controller.deleteDelivery)
-.post('/getMyOrder',controller.getMyOrder);
+.post('/getMyOrder',controller.getMyOrder)
+.post('/getWishNumber',controller.getWishNumber)
+.post('/getWishInfo',controller.getWishInfo);
 
 
 

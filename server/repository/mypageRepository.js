@@ -110,11 +110,42 @@ export const getMyOrder = async ({ id }) => {
             total_price, 
             odate,
             concat('http://localhost:9000/',main_image->>'$[0]') as main_image,
+            delivery_status,
             pname
         from view_myOrder
         where id = ?
                 `;
     const [result] = await db.execute(sql, [id]);
+    // console.log('마이페이지레파지토리',result[0]);
+
+    return result;
+}
+
+// 위시리스트  번호 가져오기
+export const getWishNumber = async ({ id }) => {
+    // console.log(id);
+    const sql = `
+        select wish            
+        from customer
+        where id = ?
+                `;
+    const [result] = await db.execute(sql, [id]);
+    // console.log('마이페이지레파지토리',result[0]);
+
+    return result[0];
+}
+
+// 위시리스트 정보 가져오기
+export const getWishInfo = async ({ pid }) => {
+    // console.log(id);
+    const sql = `
+        select pname, 
+       concat('http://localhost:9000/',main_image->>'$[0]') as main_image,
+        price            
+        from product
+        where pid = ?
+                `;
+    const [result] = await db.execute(sql, [pid]);
     // console.log('마이페이지레파지토리',result[0]);
 
     return result[0];
