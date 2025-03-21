@@ -118,3 +118,12 @@ select * from view_payment_list;
 -- orders 테이블 컬럼명 오타 수정
 alter table orders rename column oder_number to order_number;
 select * from orders;
+
+-- orders 테이블 odate 제약사항 년월일시분초 -> 년월일 로 변경
+ALTER TABLE orders MODIFY odate date not null;
+    
+                  
+                           
+
+
+
