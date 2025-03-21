@@ -108,7 +108,7 @@ export const getMyOrder = async ({ id }) => {
             order_number, 
             qty, 
             total_price, 
-            odate,
+            substring(odate,1,10) as odate,
             concat('http://localhost:9000/',main_image->>'$[0]') as main_image,
             delivery_status,
             pname
