@@ -60,13 +60,23 @@ where p.pid = ?;
     위시리스트 추가
 **************************/
 
-export const setWishList = async (data) => {
-    console.log(data);
-
-    const sql = `update customer set wish = ? where id = ?`;
-
-    const values = [JSON.stringify(data.wishList), data.id];
-
+export const setWishList = async ({ id, wishList }) => {
+    const sql = `UPDATE customer SET wish = ? WHERE id = ?`;
+    const values = [JSON.stringify(wishList), id]; // 
     const [result] = await db.execute(sql, values);
     return result.affectedRows;
-}
+};
+
+
+
+
+/************************ 
+    위시리스트 불러오기
+**************************/
+
+export const getWishList = async ({ id }) => {
+    const sql = `SELECT wish FROM customer WHERE id = ?`;
+    const [rows] = await db.execute(sql, [id]);
+
+    return rows[0]?.wish;
+};

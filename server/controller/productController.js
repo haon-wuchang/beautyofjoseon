@@ -33,3 +33,14 @@ export const setWishList = async(req, res) => {
 }; 
 
 
+/************************ 
+    위시리스트 가져오기\
+**************************/
+
+export const getWishList = async(req, res) => {
+    const result = await repository.getWishList(req.body);
+    res.json(result);                                       
+    res.end();
+}; 
+
+

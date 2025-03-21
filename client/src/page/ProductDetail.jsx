@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from "../auth/AuthContext.js";
 import { CartContext } from "../context/cartContext.js";
-import { MypageContext } from "../context/MypageContext.js";
+import { ProductContext } from "../context/productContext.js";
 import { useCart } from "../hooks/useCart.js"
+import { useProduct } from "../hooks/useProduct.js"
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
@@ -18,6 +19,8 @@ import Slider from "react-slick";
 
 
 export default function ProductDetail() {
+
+
 
 
     // 슬라이드 바 설정
@@ -35,8 +38,9 @@ export default function ProductDetail() {
     const { isLoggedIn } = useContext(AuthContext);
     const { pid } = useParams();
     const { cartList  } = useContext(CartContext);
-    const { wishList, setWishList } = useContext(MypageContext);
+    const { wishList, setWishList } = useContext(ProductContext);
     const { updateCartList, saveToCartList } = useCart();
+    const { addWishList } = useProduct();
     const navigate = useNavigate();
 
     /* 디테일 페이지 상태관리 */
@@ -63,29 +67,58 @@ export default function ProductDetail() {
 
 
 
+
     /* Wish List */
+
+    // useEffect(() => {
+    //     const id = localStorage.getItem("user_id");
+    //     if (isLoggedIn && id) {
+    //         axios.post("http://localhost:9000/product/getWishList", { id })
+    //             .then(res => {
+    //                 const wish = res.data?.wish || [];
+    //                 setWishList(wish);
+    //                 console.log("💾 서버에서 불러온 wishList:", wish);
+    //             })
+    //             .catch(err => console.log("❌ wish 불러오기 실패:", err));
+    //     }
+    // }, [isLoggedIn]);
+
+    
+
+    // const addHeart = () => {
+    //     if(!isLoggedIn) {
+    //         alert('로그인 후 사용가능 한 서비스 입니다')
+    //         navigate('/login')
+    //     }else {
+    //         const id = localStorage.getItem("user_id");
+    //         if(wishList !== null) {
+    //             setWishList((add) => {
+    //                 // 전에 저장된 wish리스트 있다면 가져오기
+    //                 const alreadyWish = add.includes(product.pid); 
+    //                 // wish list 추가
+    //                 const updateWishList = alreadyWish 
+    //                 ? add.filter((prev) => prev !== product.pid) 
+    //                 : [...add, product.pid];
+                    
+                    
+    //                 axios
+    //                     .post('http://localhost:9000/product/addWishList', {id, wishList :updateWishList})
+    //                     .catch((error) => console.log(error)); 
+    //                     return updateWishList;
+    //             })
+    //         }
+    //     }
+    // }; 
+
+
+
     const addHeart = () => {
         if(!isLoggedIn) {
-            alert('로그인 후 사용가능 한 서비스 입니다') && navigate('/login')
-        }else {
-            const id = localStorage.getItem("user_id");
-            if(wishList !== null) {
-                setWishList((add) => {
-                    // 전에 저장된 wish리스트 있다면 가져오기
-                    const alreadyWish = add.includes(product.pid); 
-                    // wish list 추가
-                    const updateWishList = alreadyWish 
-                    ? add.filter((prev) => prev !== product.pid) 
-                    : [...add, product.pid];
-
-                    axios
-                        .post('http://localhost:9000/product/addWishList', {id, wishList :updateWishList})
-                        .catch((error) => console.log(error)); 
-                        return updateWishList;
-                })
-            }
+            alert('로그인 후 사용가능 한 서비스 입니다')
+            navigate('/login')
         }
-
+        alert('찜 목록에 추가되었습니다.')
+        addWishList(product.pid);
     }; 
 
 
