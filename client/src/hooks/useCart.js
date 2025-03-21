@@ -58,13 +58,12 @@ export function useCart() {
     }
 
     /********************************************
-            장바구니 아이템 수량 업데이트
+            장바구니 아이템 총 금액 계산
             사용처 : Cart
             작성자 : 김유나
     ********************************************/
     const calculateTotalPrice = (cartList) => {
         const totalPrice = cartList.reduce((sum, item) => sum + item.discount_price * item.qty, 0);
-        // const totalPrice = cartList.reduce((sum, item) => sum + item.discount_price, 0);
         setTotalPrice(totalPrice);
         return totalPrice;
     }
