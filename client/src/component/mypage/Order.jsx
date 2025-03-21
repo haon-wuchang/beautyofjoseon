@@ -1,12 +1,20 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { CiSearch } from "react-icons/ci";
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { MypageContext } from '../../context/MypageContext';
+import { useMypage } from '../../hooks/useMypage';
 
-export default function Order({ myOrder }) {
+export default function Order() {
     const [orderDate, setOrderDate] = useState({});
     const [orderCategory, setOrderCategory] = useState({});
+    const {getMyOrder}  = useMypage();
     const [date, setDate] = useState('');
+    const {orderType, setOrderType, myOrder} = useContext(MypageContext);
+
+    useEffect(() => {
+        getMyOrder();
+    }, [orderType]);
 
     const checkOrderDate = (e) => {
         const { name, value } = e.target;
@@ -17,17 +25,8 @@ export default function Order({ myOrder }) {
         const { name, value } = e.target;
         setOrderDate({ ...orderDate, [name]: value });
     }
-    // console.log(orderDate);
+    // console.log(myOrder);
 
-    const orderStatus = {
-        'before_deposit': '입금전',
-        'Prepare_for_delivery': '배송준비중',
-        'delivery': '배송중',
-        'delivery_done': '배송완료',
-        'cancle': '취소',
-        'change': '교환',
-        'return': '반품'
-    };
 
     /* 페이지네이션 */
     const [itemOffset, setItemOffset] = useState(0);
@@ -44,7 +43,6 @@ export default function Order({ myOrder }) {
         setItemOffset(newOffset);
     };
     const selectRef = useRef(null);
-
     const handleSelectOrder = (e) => {
         const {name , value} = e.target;
         setOrderCategory({...orderCategory, [name]:value})
@@ -52,14 +50,13 @@ export default function Order({ myOrder }) {
     // console.log(orderCategory);
     
     const handleSearch = () => {
-        // 여기서 셀렉트박스로 선택한 애와 주문상품의 주문처리상태가 일치하면 걔만 출력되게 작업해야함
-        // 근데 주문상품정보를 우선은 내맘대로 설정하고
-        //나중에 시간이 잇다면 관리자로 주문처리상태 바뀌게 해야할듯 
-        if(orderCategory === orderStatus.delivery){
-
+        if(selectRef.current.value === 'default'){
+            alert('주문처리상태를 선택해주세요.');
         }
+        else if(selectRef.current.value !== orderType){            
+            setOrderType(selectRef.current.value);
+            }
     }
-
     return (
         <div className='mypage-order-all'>
             <div className='mypage-update-info-title mypage-title'>주문조회</div>
@@ -86,14 +83,14 @@ export default function Order({ myOrder }) {
             <div className='mypage-order-select-box'>
                 <select name="select-order" ref={selectRef} onChange={(e) => {handleSelectOrder(e)}}>
                     <option value="default">선택</option>
-                    <option value="all">전체주문 처리상태</option>
-                    <option value="before_deposit">입금전</option>
-                    <option value="Prepare_for_delivery">배송준비중</option>
-                    <option value="delivery">배송중</option>
-                    <option value="delivery_done">배송완료</option>
-                    <option value="cancle">취소</option>
-                    <option value="change">교환</option>
-                    <option value="return">반품</option>
+                    <option value="전체">전체주문</option>
+                    <option value="입금전">입금전</option>
+                    <option value="배송준비중">배송준비중</option>
+                    <option value="배송중">배송중</option>
+                    <option value="배송완료">배송완료</option>
+                    <option value="취소">취소</option>
+                    <option value="교환">교환</option>
+                    <option value="반품">반품</option>
                 </select>
                 <ul>
                     <li onClick={() => { setDate('today') }}
