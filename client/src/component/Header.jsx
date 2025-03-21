@@ -1,6 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../auth/AuthContext.js';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthContext.js';
+import { MypageContext } from '../context/MypageContext.js';
+import { CartContext } from '../context/cartContext.js';
+import { useLogin } from '../hooks/useLogin.js';
+import { useMypage } from '../hooks/useMypage.js';
+import { useCart } from '../hooks/useCart.js';
 import { GoPerson } from "react-icons/go";
 import { PiShoppingBag } from "react-icons/pi";
 import { IoSearchOutline } from "react-icons/io5";
@@ -9,27 +14,27 @@ import { GoLock } from "react-icons/go";
 import { GoUnlock } from "react-icons/go";
 import { IoCloseOutline } from "react-icons/io5";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import HeaderToggle from './header/HeaderToggle.jsx';
 import Modal from 'react-modal';
 import SearchModal from './header/SearchModal.jsx';
-import { useMypage } from '../hooks/useMypage.js';
-import { useLogin } from '../hooks/useLogin.js';
-import { MypageContext } from '../context/MypageContext.js';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Header() {
-    const { getMyinfo } = useMypage();
-    const {myinfo} = useContext(MypageContext);
     const navigate = useNavigate();
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const [toggleOpen, setToggleOpen] = useState(false); // 메뉴 토글 버튼 클릭시 상태 관리
-    const [searchModalOpen, setSearchModalOpen] = useState(false);  // 검색 모달창 상태 관리
+    const { isLoggedIn } = useContext(AuthContext);
+    const { myinfo } = useContext(MypageContext);
+    const { cartCount } = useContext(CartContext);
+    const { getMyinfo } = useMypage();
+    const { handleLogin } = useLogin();
+    const { getCartList } = useCart();
+    const [ toggleOpen, setToggleOpen ] = useState(false); // 메뉴 토글 버튼 클릭시 상태 관리
+    const [ searchModalOpen, setSearchModalOpen ] = useState(false);  // 검색 모달창 상태 관리
 
-    const {handleLogin} = useLogin();
     useEffect(() => {
         console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
         getMyinfo();
+        getCartList(); // Header 장바구니 아이콘에 아이템 갯수 표시 위해 실행
     }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행  
 
     /* 로그아웃 버튼 클릭 이벤트 */
@@ -125,7 +130,11 @@ export default function Header() {
                             <li onClick={!isLoggedIn ? handleMypage : getMyinfo} ><Link to="/mypage"><GoPerson /></Link></li>
 
                             <li onClick={clickCartIcon}>
-                                <Link to={isLoggedIn && "/cart"}><PiShoppingBag /></Link>
+                                <Link to={isLoggedIn && "/cart"}>
+                                    <PiShoppingBag />
+                                    { isLoggedIn && cartCount > 0 && 
+                                        <div>{cartCount}</div> }
+                                </Link>
                             </li>
 
                             <li onClick={() => setSearchModalOpen(!searchModalOpen)}><Link><IoSearchOutline /></Link></li>
@@ -136,7 +145,6 @@ export default function Header() {
                                     style={customModalStyles}
                                     ariaHideApp={false}
                                     contentLabel="Search Modal"
-                                    // className={searchModalOpen ? "search-modal-opne" : "search-modal-exit"}
                                 >
                                     <SearchModal setSearchModalOpen={setSearchModalOpen} />
                                 </Modal>
