@@ -25,8 +25,6 @@ desc sub_category;
 desc wish;
 
 
-
-
 -- ----------------------------------
 -- *********** 수정 사항3/１９
 -- ----------------------------------
@@ -61,7 +59,16 @@ from cart ca, customer cu, product pd
 where ca.id = cu.id 
 and ca.pid = pd.pid;
 
--- 하온 주문정보가져오기 뷰
+
+-- customer 테이블 wish 컬럼 추가 
+alter table customer add column wish json null;
+
+-- ----------------------------------
+-- *********** 수정 사항3/21
+-- ----------------------------------
+-- orders 테이블에 배송상태delivery_status 컬럼 추가
+alter table orders add column delivery_status varchar(20) null;
+-- 하온 주문정보가져오기 뷰 (drop 먼저 한 후 생성해주세요)
 drop view view_myOrder;
 create view view_myOrder
 as
@@ -74,6 +81,7 @@ select
     o.total_price as total_price,
     o.odate as odate,
     p.pname as pname,
+    o.delivery_status as delivery_status,
     p.main_image as main_image,
     ca.category_name as category_name,
     sca.sub_category_name as sub_category_name
@@ -81,8 +89,14 @@ from product p, orders o, category ca , sub_category sca
 where o.pid = p.pid and  p.sub_category_id = sca.sub_category_id
 and p.category_id = ca.category_id;
 
-select * from view_myOrder;
 
 
--- customer 테이블 wish 컬럼 추가 
-alter table customer add column wish json null;
+
+
+
+
+
+
+
+
+
