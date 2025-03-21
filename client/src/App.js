@@ -17,12 +17,14 @@ import { MypageProvider } from './context/MypageContext.js';
 import { SearchProvider } from './context/SearchContext.js';
 import { CartProvider } from './context/cartContext.js';
 import { OrderProvider } from './context/orderContext.js';
+import { ProductProvider } from './context/productContext.js';
 import Search from './page/Search.jsx';
 import Admin from './page/Admin.jsx';
 
 export default function App() {
   return (
     
+    <ProductProvider>
     <OrderProvider>
     <CartProvider>
     <AuthProvider>
@@ -49,6 +51,7 @@ export default function App() {
     </AuthProvider>
     </CartProvider>
     </OrderProvider>
+    </ProductProvider>
   );
 }
 
