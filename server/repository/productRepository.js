@@ -74,9 +74,23 @@ export const setWishList = async ({ id, wishList }) => {
     위시리스트 불러오기
 **************************/
 
+// export const getWishList = async ({ id }) => {
+//     const sql = `SELECT wish FROM customer WHERE id = ?`;
+//     const [rows] = await db.execute(sql, [id]);
+
+//     return rows[0]?.wish;
+// };
+
 export const getWishList = async ({ id }) => {
     const sql = `SELECT wish FROM customer WHERE id = ?`;
     const [rows] = await db.execute(sql, [id]);
 
-    return rows[0]?.wish;
+    const wish = rows[0]?.wish;
+
+    // null, "null", 빈 문자열 처리
+    if (!wish || wish === "null" || wish === "") {
+        return JSON.stringify([]);
+    }
+
+    return typeof wish === "string" ? wish : JSON.stringify(wish);
 };
