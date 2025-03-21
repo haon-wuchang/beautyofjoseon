@@ -80,7 +80,7 @@ export const updateMainDelivery = async (id, data) => {
     const [result] = await db.execute(sql,
         [data.name, data.phone, data.zipcode, data.address, data.extra_address, id]);
 
-        // console.log('마이페이지레파지토리', result);
+    // console.log('마이페이지레파지토리', result);
     return { 'result': result.affectedRows };
 }
 
@@ -141,7 +141,8 @@ export const getWishInfo = async ({ pid }) => {
     const sql = `
         select pname, 
        concat('http://localhost:9000/',main_image->>'$[0]') as main_image,
-        price            
+        price,
+        pid            
         from product
         where pid = ?
                 `;
@@ -149,4 +150,26 @@ export const getWishInfo = async ({ pid }) => {
     // console.log('마이페이지레파지토리',result[0]);
 
     return result[0];
+}
+
+// 위시리스트 정보 가져오기
+export const updateWishList = async ({ newWishList, id }) => {
+    // console.log(newWishList);
+    const sql = `
+            update customer set wish = ? where id = ? `;
+    const values = [JSON.stringify(newWishList), id];
+
+    const [result] = await db.execute(sql, values);
+    // console.log('마이페이지레파지토리', result.affectedRows);
+    return result.affectedRows;
+}
+
+
+// 위시리스트 전체삭제
+export const deleteAllWishList = async ({ id }) => {
+    // console.log(id);
+    const sql = `update customer set wish = null where id = ? `;           
+    const [result] = await db.execute(sql, [id]);
+    // console.log('마이페이지레파지토리', result.affectedRows);
+    return result.affectedRows;
 }

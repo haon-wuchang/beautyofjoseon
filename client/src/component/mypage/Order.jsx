@@ -7,6 +7,7 @@ import { useMypage } from '../../hooks/useMypage';
 
 export default function Order() {
     const [orderDate, setOrderDate] = useState({});
+    const [orderEndDate, setOrderEndDate] = useState({});
     const [orderCategory, setOrderCategory] = useState({});
     const {getMyOrder}  = useMypage();
     const [date, setDate] = useState('');
@@ -20,13 +21,10 @@ export default function Order() {
         const { name, value } = e.target;
         setOrderDate({ ...orderDate, [name]: value });
     }
-    // console.log(orderDate);
     const checkOrderEndDate = (e) => {
         const { name, value } = e.target;
-        setOrderDate({ ...orderDate, [name]: value });
+        setOrderEndDate({ ...orderEndDate, [name]: value });
     }
-    // console.log(myOrder);
-
 
     /* 페이지네이션 */
     const [itemOffset, setItemOffset] = useState(0);

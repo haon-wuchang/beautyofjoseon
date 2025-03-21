@@ -1020,6 +1020,12 @@
 /*****************************************/
 /*********    Mypage 관심상품탭         *********/
 /*****************************************/
+.mypage-wish-all > div> span{
+    margin-left: 20px;
+    font-weight: 300;
+    font-size: 14px;
+    color: blue;
+}
 .mypage-wish-table{
     margin-top: 30px;
     width: 100%;
@@ -1043,16 +1049,14 @@
     border-right: 1px solid gainsboro;
 }
 .mypage-wish-table >table>tr:first-child>td:first-child{
-    width: 50px;
-}
-.mypage-wish-table >table>tr:first-child>td:nth-child(2){
+    /* width: 50px; */
     width: 700px;
-
 }
+
 .mypage-wish-table >table>tr>td>img{
     height: 130px;
 }
-.mypage-wish-table-info>td:nth-child(2){
+.mypage-wish-table-info>td:nth-child(1){
     display: flex;
     align-items: center;
     padding-left: 10px;
@@ -1060,11 +1064,11 @@
 .mypage-wish-table >table>tr>td>span{
     margin-left: 10px;
 }
-.mypage-wish-table >table>tr:first-child>td:nth-child(3),
-.mypage-wish-table >table>tr:first-child>td:nth-child(4){
+.mypage-wish-table >table>tr:first-child>td:nth-child(2),
+.mypage-wish-table >table>tr:first-child>td:nth-child(3){
     width: 150px;
 }
-.mypage-wish-table-info>td:nth-child(4){
+.mypage-wish-table-info>td:nth-child(3){
     padding: 0 20px;
     text-align: center;
     /* background-color: red; */
@@ -1075,7 +1079,7 @@
 .mypage-wish-table-info>td>button:hover{
     cursor: pointer;
 }
-.mypage-wish-table-info>td:nth-child(4)>button{
+.mypage-wish-table-info>td:nth-child(3)>button{
     display: block;
     width: 100px;
     margin: 0 auto;
@@ -1083,7 +1087,7 @@
     border: 1px solid gray;
     padding: 5px;
 }
-.mypage-wish-table-info>td:nth-child(4)>button:not(:last-child){
+.mypage-wish-table-info>td:nth-child(3)>button:not(:last-child){
     margin-bottom: 5px;
 }
 .mypage-wish-btns{

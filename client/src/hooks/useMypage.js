@@ -1,13 +1,10 @@
 import React,{useContext} from 'react'; 
 import axios from 'axios';
 import { MypageContext } from '../context/MypageContext.js';
-import { AuthContext } from '../auth/AuthContext.js';
 
 export function useMypage(){   
-    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
-    const {myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,gender,setGender,
-        zipcode,setZipcode,address,setAddress,extra,setExtra,myOrder , setMyOrder,
-        wishList, setWishList,orderType, setOrderType
+    const { setMyinfo, setYear, setMonth, setDate,setGender,setMyOrder,         
+         setWishList,orderType,orderDate, setOrderDate
     } = useContext(MypageContext);
 
     const getMyinfo = async() => {
@@ -53,26 +50,30 @@ export function useMypage(){
         if(orderType==='전체'){
             setMyOrder(data);
         }else{
-            const filterData = data.filter((item)=> item.delivery_status === orderType); 
+             const filterData = data.filter((item)=> item.delivery_status === orderType); 
             setMyOrder(filterData);
         }
         // setMyOrder(data);
     }
 
+    // 위시리스트 번호 가져온 후 상품정보 가져오기
     const getWishNumber = async() => {
         const id = localStorage.getItem('user_id');
         const result = await axios.post('http://localhost:9000/mypage/getWishNumber',{'id':id});
-        const list = result.data.wish;
-        // setWishList(list);
-        const wishListData = await Promise.all(
-            list.map(async (item) => {
-                const res = await axios.post('http://localhost:9000/mypage/getWishInfo', { pid: item });
-                return res.data;
-            })
-        );
-        setWishList(wishListData);
+       if(result.data.wish !== null ){
+           const list = result.data.wish;
+           // setWishList(list);
+           const wishListData = await Promise.all(
+               list.map(async (item) => {
+                   const res = await axios.post('http://localhost:9000/mypage/getWishInfo', { pid: item });
+                   return res.data;
+               })
+           );
+           setWishList(wishListData);
+       }else {
+        setWishList([]);
+       }
     }
-
 
 
 

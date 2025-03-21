@@ -38,7 +38,7 @@ export default function Mypage() {
         }
     }, [isLoggedIn]);
 
-    console.log('myOrder',myOrder);
+    // console.log('wishList',wishList);
     
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
@@ -63,15 +63,15 @@ export default function Mypage() {
                             <h5>반가워요 :)</h5>
                             <span>{myinfo.membership}</span>
                         </li>
-                        <li>
+                        <li onClick={() => { setTab('order') }} >
                             <p>주문</p>
-                            <span>0개</span>
+                            <span>{myOrder.length}개</span>
                         </li>
-                        <li>
+                        <li onClick={() => { setTab('money') }}>
                             <p>적립금</p>
                             <span>0원</span>
                         </li>
-                        <li>
+                        <li onClick={() => { setTab('coupon') }}> 
                             <p>쿠폰</p>
                             <span>2개</span>
                         </li>

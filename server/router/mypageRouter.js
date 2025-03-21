@@ -11,7 +11,9 @@ router.post('/getMyinfo',controller.getMyinfo)
 .post('/deleteDelivery',controller.deleteDelivery)
 .post('/getMyOrder',controller.getMyOrder)
 .post('/getWishNumber',controller.getWishNumber)
-.post('/getWishInfo',controller.getWishInfo);
+.post('/getWishInfo',controller.getWishInfo)
+.post('/updateWishList',controller.updateWishList)
+.post('/deleteAllWishList',controller.deleteAllWishList);
 
 
 
