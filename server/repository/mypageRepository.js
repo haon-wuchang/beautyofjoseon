@@ -28,9 +28,9 @@ export const getMyinfo = async ({ id }) => {
 
 //마이페이지 회원정보수정 업데이트
 export const updateInfo = async ({ id, colName, value }) => {
-    console.log(id);
-    console.log(colName);
-    console.log(value);
+    // console.log(id);
+    // console.log(colName);
+    // console.log(value);
 
     const sql = `
        update customer    

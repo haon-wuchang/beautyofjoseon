@@ -4,7 +4,7 @@ import { MypageContext } from '../context/MypageContext.js';
 
 export function useMypage(){   
     const { setMyinfo, setYear, setMonth, setDate,setGender,setMyOrder,         
-         setWishList,orderType,orderDates, setOrderDates
+         setWishList,orderType,orderEnd,orderStart
     } = useContext(MypageContext);
 
     const getMyinfo = async() => {
@@ -50,17 +50,19 @@ export function useMypage(){
         if(orderType==='전체'){
             setMyOrder(data);
         }
-        // else if(orderType==='전체' && orderDates){
-        //     const filterData = data.filter((item)=> 
-        //      item.odate === orderDates); 
-        //     setMyOrder(filterData);
-        // }
-        else if(orderType !=='전체'){
-             const filterData = data.filter((item)=> item.delivery_status === orderType); 
-            setMyOrder(filterData);
+        else if(orderType==='전체'  && orderEnd !== ''){
+            const allFilter = data.filter((item)=> 
+                orderStart <= item.odate &&  item.odate <= orderEnd)
+            setMyOrder(allFilter);
         }
-        // setMyOrder(data);
-    }
+        else if(orderType !=='전체' && orderEnd !== ''){
+             const filterData = data.filter((item)=> item.delivery_status === orderType); 
+             const doubleFilter = filterData.filter((item)=> 
+                 orderStart <= item.odate &&  item.odate <= orderEnd)
+             setMyOrder(doubleFilter);
+        }}
+        
+    
 
     // 위시리스트 번호 가져온 후 상품정보 가져오기
     const getWishNumber = async() => {

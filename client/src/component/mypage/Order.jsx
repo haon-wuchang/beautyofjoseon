@@ -10,12 +10,14 @@ export default function Order() {
     const [orderEndDate, setOrderEndDate] = useState({});
     const [orderCategory, setOrderCategory] = useState({});
     const { getMyOrder } = useMypage();
-    const [date, setDate] = useState('');
-    const { orderType, setOrderType, myOrder,orderDates, setOrderDates } = useContext(MypageContext);
+    // const [date, setDate] = useState(''); // 1개우러 3개월 갑 ㅅ저장
+    const { orderType, setOrderType, myOrder,
+        orderEnd, setOrderEnd, orderStart, setOrderStart
+    } = useContext(MypageContext);
 
     useEffect(() => {
         getMyOrder();
-    }, [orderType,orderDates]);
+    }, [orderType, orderStart, orderEnd]);
 
     const checkOrderDate = (e) => {
         const { name, value } = e.target;
@@ -46,21 +48,23 @@ export default function Order() {
         setOrderCategory({ ...orderCategory, [name]: value })
     }
 
-
-    // console.log(orderDate);
-    // console.log(orderEndDate.end_date);
-    // console.log('ddd',orderDates);
-
     const handleSearch = () => {
         if (selectRef.current.value === 'default') {
             alert('주문처리상태를 선택해주세요.');
         }
+        else if (orderDate.start_date === undefined) {
+            alert('주문날짜를 선택해주세요.');
+        }
+        else if (orderEndDate.end_date === undefined) {
+            alert('주문날짜를 선택해주세요.');
+        }
         else {
             setOrderType(selectRef.current.value);
-            // setOrderDates(orderEndDate.end_date);
+            setOrderEnd(orderEndDate.end_date);
+            setOrderStart(orderDate.start_date);
         }
-       
     }
+
     return (
         <div className='mypage-order-all'>
             <div className='mypage-update-info-title mypage-title'>주문조회</div>
@@ -85,7 +89,8 @@ export default function Order() {
                 </ul>
             </div>
             <div className='mypage-order-select-box'>
-                <select name="select-order" ref={selectRef} onChange={(e) => { handleSelectOrder(e) }}>
+                <select name="select-order"
+                    ref={selectRef} onChange={(e) => { handleSelectOrder(e) }}>
                     <option value="default">선택</option>
                     <option value="전체">전체주문</option>
                     <option value="입금전">입금전</option>
@@ -96,7 +101,7 @@ export default function Order() {
                     <option value="교환">교환</option>
                     <option value="반품">반품</option>
                 </select>
-                <ul>
+                {/* <ul>
                     <li onClick={() => { setDate('today') }}
                         className={date === 'today' && 'active-order-date'}>오늘</li>
                     <li onClick={() => { setDate('week') }}
@@ -107,7 +112,7 @@ export default function Order() {
                         className={date === '3month' && 'active-order-date'}>3개월</li>
                     <li onClick={() => { setDate('6month') }}
                         className={date === '6month' && 'active-order-date'}>6개월</li>
-                </ul>
+                </ul> */}
                 <div>
                     <input type="date" onChange={checkOrderDate} name='start_date' />
                     <span>~</span>
@@ -145,6 +150,13 @@ export default function Order() {
                                 <td>{item.qty}</td>
                                 <td>{item.total_price.toLocaleString().concat('원')}</td>
                                 <td>{item.delivery_status}</td>
+                                {item.delivery_status === '배송완료' &&
+                                <td>
+                                    <button>취소</button>
+                                    <button>교환</button>
+                                    <button>반품</button>
+                                </td>
+                                }
                             </tr>
                         ))
                         }
