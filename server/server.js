@@ -21,6 +21,7 @@ server.use(express.urlencoded());
 server.use(cors());
 // server.use('/upload_product', express.static(path.join("upload_product")));
 server.use('/upload_files', express.static(path.join("upload_files")));
+server.use('/upload_review_photos', express.static('upload_review_photos'));
 
 /* 서버의 요청처리를 위한 미들웨어 정의 */
 server.use('/product', productRouter)

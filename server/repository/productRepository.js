@@ -1,3 +1,4 @@
+import { format } from 'path';
 import { db } from './db.js';
 
 
@@ -74,6 +75,7 @@ export const setWishList = async ({ id, wishList }) => {
     위시리스트 불러오기
 **************************/
 
+// 파싱 오류나서 주석
 // export const getWishList = async ({ id }) => {
 //     const sql = `SELECT wish FROM customer WHERE id = ?`;
 //     const [rows] = await db.execute(sql, [id]);
@@ -94,3 +96,54 @@ export const getWishList = async ({ id }) => {
 
     return typeof wish === "string" ? wish : JSON.stringify(wish);
 };
+
+
+/************************ 
+    리뷰 불러오기
+**************************/
+
+export const getReview = async (pid) => {
+    const sql = `
+        SELECT 
+        rid,
+        id,
+        subject,
+        text,
+        review_image,
+        rdate
+        FROM review
+        WHERE pid = ?
+        ORDER BY rdate DESC;
+    `;
+    const [result] = await db.execute(sql, [pid]);
+    return result;
+};
+
+
+/************************ 
+    리뷰 Form 업로드
+**************************/
+
+export const reviewUp = async (formData) => {
+
+    
+    const sql = `
+        insert into review(id, pid, subject, text, review_image, org_review_img, view_count, rdate)
+             values(?, ?, ?, ?, ?, ?, ?, now())
+
+    `; 
+
+    const values = [
+        formData.id,
+        formData.pid,
+        formData.reviewSubject,
+        formData.reviewContent,
+        JSON.stringify(formData.uploadFileName || []),
+        JSON.stringify(formData.orgFileName || []),
+        0
+    ];
+
+    const [result] = await db.execute(sql, values); 
+
+    return { "result_rows" : result.affectedRows};
+}

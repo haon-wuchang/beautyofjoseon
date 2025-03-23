@@ -18,10 +18,7 @@ import '../style/product.scss';
 
 
 
-
 export default function ProductDetail() {
-
-
 
 
     // 슬라이드 바 설정
@@ -39,9 +36,9 @@ export default function ProductDetail() {
     const { isLoggedIn } = useContext(AuthContext);
     const { pid } = useParams();
     const { cartList } = useContext(CartContext);
-    const { wishList, setWishList } = useContext(ProductContext);
+    const { wishList, setWishList, reviews } = useContext(ProductContext);
     const { updateCartList, saveToCartList } = useCart();
-    const { addWishList } = useProduct();
+    const { addWishList, getReview } = useProduct();
     const navigate = useNavigate();
 
     /* 디테일 페이지 상태관리 */
@@ -66,6 +63,10 @@ export default function ProductDetail() {
             .catch((error) => console.log(error));
     }, []);
 
+    useEffect(() => {
+        getReview(pid);
+
+    }, [pid]);
 
 
 
@@ -140,9 +141,9 @@ export default function ProductDetail() {
     /* 리뷰 토글 */
     const [showReview, setShowReview] = useState(false);
 
-    const toggleReview = () => {
-        setShowReview((prev) => !prev);
-    };
+    // const toggleReview = () => {
+    //     setShowReview((prev) => !prev);
+    // };
 
 
 
@@ -155,8 +156,9 @@ export default function ProductDetail() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '600px',
-            height: 'auto',
+            width: '500px',
+            height: '600px',
+            overflow: 'auto',
             padding: '20px',
             background: '#fff',
             borderRadius: '10px',
@@ -210,27 +212,53 @@ export default function ProductDetail() {
                                 <col style={{ width: "15%" }} />
                                 <col style={{ width: "10%" }} />
                             </colgroup>
+
+
+
                             <tbody>
-                                <tr className='review-row ' onClick={toggleReview}>
-                                    <td>1</td>
-                                    <td>만족합니다~~~~~~</td>
-                                    <td>홍*동</td>
-                                    <td>2025-03-11 02:43:07</td>
-                                    <td>333</td>
-                                </tr>
-                                {showReview && (
-                                    <tr className='review-content'>
-                                        <td colSpan={5}>
-                                            리뷰 상세  리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 리뷰 상세 
-                                        </td>
-                                    </tr>
-                                )}
+
+                                {reviews && reviews.map((review, index) => (
+                                    <React.Fragment key={review.rid}>
+                                        <tr
+      className='review-row'
+      onClick={() => setShowReview(showReview === index ? null : index)}
+    >
+                                            <td>{index + 1}</td>
+                                            <td>{review.subject}</td>
+                                            <td>{review.id}</td>
+                                            <td>{review.rdate}</td>
+                                            <td>{review.view_count || 0}</td>
+                                        </tr>
+                                        {showReview === index && (
+                                            <tr className='review-content'>
+                                                <td colSpan={5}>
+                                                    <p>{review.text}</p>
+                                                    {review.review_image?.map((img, idx) => (
+                                                        <img
+                                                            key={idx}
+                                                            src={`http://localhost:9000/upload_review_photos/${img}`}
+                                                            alt={`review-${idx}`}
+                                                            style={{
+                                                                width: '100px',
+                                                                marginRight: '10px',
+                                                                borderRadius: '5px'
+                                                            }}
+                                                        />
+                                                    ))}
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+
+
+
                                 {isModalOpen && (
                                     <Modal isOpen={isModalOpen}
                                         onRequestClose={() => setIsModalOpen(false)}
                                         style={modalStyle}
                                     >
-                                        <CreateReview />
+                                        <CreateReview closeModal={() => setIsModalOpen(false)} />
                                     </Modal>
                                 )}
 

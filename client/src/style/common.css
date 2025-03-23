@@ -10,7 +10,8 @@ p,
 button,
 div,
 span,
-input {
+input,
+textarea  {
     font-family: 'Pretendard-Regular';
     letter-spacing: -0.5px;
 }

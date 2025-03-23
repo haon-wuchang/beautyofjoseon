@@ -5,9 +5,23 @@ import { ProductContext } from "../context/productContext.js";
 
 
 export function useProduct() {
-    const { setWishList } = useContext(ProductContext);
+    const { setWishList, reviews, setReviews } = useContext(ProductContext);
+
+     /********************************************
+            리뷰 불러오기
+            작성자 : 정서령
+    ********************************************/
 
     
+            const getReview = async (pid) => {
+                const result = await axios.post("http://localhost:9000/product/getReview", { pid });
+              
+                console.log('리뷰',result);
+            
+                setReviews(result.data);
+              };
+              
+
     /********************************************
             위시리스트 불러오기 
             - 로그인한 유저의 위시리스트 
@@ -47,5 +61,5 @@ export function useProduct() {
     };
     
 
-    return { addWishList };
+    return { addWishList, getReview };
 }
