@@ -76,7 +76,7 @@ select
 	o.oid as oid,
     o.id as id,
     p.pid as pid,
-    o.oder_number as order_number,
+    o.order_number as order_number,
     o.qty as qty,
     o.total_price as total_price,
     o.odate as odate,
@@ -88,6 +88,8 @@ select
 from product p, orders o, category ca , sub_category sca
 where o.pid = p.pid and  p.sub_category_id = sca.sub_category_id
 and p.category_id = ca.category_id;
+
+select * from  view_myOrder;
 
 ALTER TABLE orders MODIFY delivery_status varchar(20) null default '입금전';
 
@@ -122,8 +124,8 @@ select * from orders;
 -- orders 테이블 odate 제약사항 년월일시분초 -> 년월일 로 변경
 ALTER TABLE orders MODIFY odate date not null;
     
-                  
-                           
-
-
+-- review 테이블 컬럼 추가 
+alter table review add column org_review_img json null;
+         
+-- wish 테이블 삭제하기
 
