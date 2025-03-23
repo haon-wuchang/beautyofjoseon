@@ -200,7 +200,7 @@ export default function ProductDetail() {
                             <p className='f14 w600'>Review</p>
                             <div>
                                 <button className='w-btn3' onClick={() => setIsModalOpen(true)} >write</button>
-                                <button className='w-btn3'>view all</button>
+                                {/* <button className='w-btn3'>view all</button> */}
                             </div>
 
                         </div>
