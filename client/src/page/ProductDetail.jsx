@@ -217,40 +217,39 @@ export default function ProductDetail() {
 
                             <tbody>
 
-                                {reviews && reviews.map((review, index) => (
-                                    <React.Fragment key={review.rid}>
-                                        <tr
-      className='review-row'
-      onClick={() => setShowReview(showReview === index ? null : index)}
-    >
-                                            <td>{index + 1}</td>
-                                            <td>{review.subject}</td>
-                                            <td>{review.id}</td>
-                                            <td>{review.rdate}</td>
-                                            <td>{review.view_count || 0}</td>
-                                        </tr>
-                                        {showReview === index && (
-                                            <tr className='review-content'>
-                                                <td colSpan={5}>
-                                                    <p>{review.text}</p>
-                                                    {review.review_image?.map((img, idx) => (
-                                                        <img
-                                                            key={idx}
-                                                            src={`http://localhost:9000/upload_review_photos/${img}`}
-                                                            alt={`review-${idx}`}
-                                                            style={{
-                                                                width: '100px',
-                                                                marginRight: '10px',
-                                                                borderRadius: '5px'
-                                                            }}
-                                                        />
-                                                    ))}
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </React.Fragment>
-                                ))}
-
+                            {reviews && reviews.length > 0 ? (
+    reviews.map((review, index) => (
+      <React.Fragment key={review.rid}>
+        <tr onClick={() => setShowReview(showReview === index ? null : index)}>
+          <td>{index + 1}</td>
+          <td>{review.subject}</td>
+          <td>{review.id}</td>
+          <td>{review.rdate}</td>
+          <td>{review.view_count || 0}</td>
+        </tr>
+        {showReview === index && (
+          <tr>
+            <td colSpan={5} className="review-content">
+              <p>{review.text}</p>
+              {review.review_image?.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={`http://localhost:9000/upload_review_photos/${img}`}
+                  alt=""
+                />
+              ))}
+            </td>
+          </tr>
+        )}
+      </React.Fragment>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={5} style={{ textAlign: 'center', padding: '20px' }}>
+        리뷰가 없습니다. 리뷰를 작성해주세요
+      </td>
+    </tr>
+  )}
 
 
                                 {isModalOpen && (

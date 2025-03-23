@@ -110,10 +110,10 @@ export const getReview = async (pid) => {
         subject,
         text,
         review_image,
-        rdate
+        DATE_FORMAT(rdate, '%Y-%m-%d %H:%i:%s') AS rdate
         FROM review
         WHERE pid = ?
-        ORDER BY rdate DESC;
+        ORDER BY rdate ASC;
     `;
     const [result] = await db.execute(sql, [pid]);
     return result;

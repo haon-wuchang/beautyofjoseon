@@ -880,7 +880,19 @@
         padding-left: 20px;
       }
 
+      .review-content {
+        text-align: left !important;
+        padding-left: 7% !important;
 
-      
+        p {
+            margin: 10px 0 15px 0;
+        }
+
+        img {
+            width: 100px;
+            margin-right : 10px;
+            border-radius: 5px;
+        }
+      }
 
 }
