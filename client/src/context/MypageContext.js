@@ -16,13 +16,14 @@ export const MypageProvider = ({children}) => {
     const [orderType, setOrderType] = useState('전체'); // 셀렉트박스
     const [orderStart, setOrderStart] = useState('');  // 날짜검색 시작
     const [orderEnd, setOrderEnd] = useState('');  // 날짜검색 종료
+    const [myReview, setMyReview] = useState([]);  
 
     return ( 
         <MypageContext.Provider 
         value ={{myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,
             gender,setGender,zipcode,setZipcode,address,setAddress,extra,setExtra,
             myOrder , setMyOrder, wishList, setWishList,orderType, setOrderType,
-            orderEnd, setOrderEnd,orderStart, setOrderStart
+            orderEnd, setOrderEnd,orderStart, setOrderStart, myReview, setMyReview
         }}> 
             {children}
         </MypageContext.Provider>
