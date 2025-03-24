@@ -1,5 +1,5 @@
 -- beautydb_dump
-drop database beautydb;
+-- drop database beautydb;
 CREATE DATABASE  IF NOT EXISTS `beautydb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `beautydb`;
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
@@ -31,20 +31,24 @@ CREATE TABLE `customer` (
   `name` varchar(10) not null,
   `phone` varchar(23) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `zipcode` int(5) not null,
-  `address` varchar(80) NOT NULL,
-  `extra_address` varchar(80) not null,
+  `zipcode`  varchar(10)  null,
+  `address` varchar(80)  NULL,
+  `extra_address` varchar(80)  null,
   `gender` char(1) NULL,
   `birth` varchar(10) null,
   `register_date` datetime NOT NULL,
   `membership` varchar(10) default 'Family' null,
   `type` char(1) default 'c', -- 관리자, 일반고객 구분
+  `wish` json null,
+  `addtional_address` json null,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `customer` VALUES ('agikim','agikim','김아기','010-9603-8126','agi.kim@gmail.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1972-05-18',now(),'Family','c'),
-							  ('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06',now(),null,'a');
---   
+
+INSERT INTO `customer`  
+(id, password, name, phone, email, zipcode, address, extra_address, gender, birth, register_date, membership, type)
+VALUES ('agikim','agikim','김아기','010-9603-8126','agi.kim@gmail.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1972-05-18',now(),'Family','c'),
+    ('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06',now(),null,'a');
 --
 -- Dumping data for table `customer`
 --
@@ -111,7 +115,7 @@ CREATE TABLE `product` (
   `main_origin_image` json null,
   `slide_image` json not null,
   `slide_origin_image` json null,
-  `desc_image` json not null,
+  `desc_image` json  null,
   `desc_origin_image` json null,
   `pdate` datetime not null, -- 상품 등록 날짜
   PRIMARY KEY (`pid`),
@@ -148,17 +152,18 @@ CREATE TABLE `cart` (
 --
 -- Table structure for table `order`
 --
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
+CREATE TABLE `orders` (
   `oid` int auto_increment,
   `id` varchar(20) NOT NULL,
   `pid` int NOT NULL,
-  `oder_number` varchar(30) not null,
+  `order_number` varchar(30) not null,
   `qty` int not null,
   `total_price` int not null,
-  `odate` datetime not null,
+  `odate` date not null,
+  `delivery_status` varchar(20) null default '배송준비중',
   PRIMARY KEY (`oid`),
   CONSTRAINT `pid_fk2` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`),
   CONSTRAINT `id_fk2` FOREIGN KEY (`id`) REFERENCES `customer` (`id`)
@@ -184,6 +189,7 @@ CREATE TABLE `review` (
   `review_image` json null,
   `rdate` datetime not null,
   `view_count` int default 0,
+  `org_review_img` json null,
   PRIMARY KEY (`rid`),
   CONSTRAINT `pid_fk3` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`),
   CONSTRAINT `id_fk3`FOREIGN KEY (`id`) REFERENCES `customer` (`id`)
@@ -192,26 +198,6 @@ CREATE TABLE `review` (
 --
 -- Dumping data for table `order_detail`
 --
-
---
--- Table structure for table `wish` :: 관심상품
---
-DROP TABLE IF EXISTS `wish`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wish` (
-  `wid` int auto_increment,
-  `id` varchar(20) NOT NULL,
-  `pid` int NOT NULL,
-  PRIMARY KEY (`wid`),
-  CONSTRAINT `pid_fk4` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`),
-  CONSTRAINT `id_fk4`FOREIGN KEY (`id`) REFERENCES `customer` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
---
--- Dumping data for table `wish`
---
-
 
 --
 -- Table structure for table `qna`
@@ -245,3 +231,89 @@ CREATE TABLE `qna` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-03-12
+
+
+-- *** view_cart_list 생성 *** --
+create view view_cart_list
+as
+select  ca.cid as cid,
+      ca.qty as qty,
+      cu.id as id,
+      pd.pid as pid,
+      pd.pname as pname,
+      format(pd.price * ca.qty, 0) as price,
+      pd.discount_rate as discount_rate,
+     format((pd.price / ifnull(pd.discount_rate, 0)) * ca.qty, 0) as discount,
+      ifnull(round((pd.price - (pd.price / ifnull(pd.discount_rate, 0))), -3), pd.price) as discount_price,
+      main_image
+from cart ca, customer cu, product pd
+where ca.id = cu.id 
+and ca.pid = pd.pid;
+
+-- *** payment 페이지 조회용 view table 생성 *** --
+create view view_payment_list
+as
+select ca.cid as cid,
+   cu.id as id,
+   cu.name as name,
+    cu.address as address,
+    cu.extra_address as extra_address,
+    cu.zipcode as zipcode,
+    cu.phone as phone,
+    cu.email as email,
+    ca.pid as pid,
+    pd.pname as pname,
+    ca.qty as qty,
+    ifnull(round((pd.price - (pd.price / ifnull(pd.discount_rate, 0))), -3), pd.price) as discount_price,
+    pd.main_image
+from customer cu, cart ca, product pd
+where cu.id = ca.id
+   and ca.pid = pd.pid
+order by ca.cid;
+
+
+
+-- 하온 리뷰 뷰 생성 3/24
+create view view_myReview
+as
+select  
+   r.id,
+   p.pid as pid,
+    r.subject as subject,
+    r.text as text,
+    r.review_image as review_image,
+    r.rdate as rdate,
+    r.view_count as view_count,
+    p.pname as pname,
+    o.order_number  as order_number
+from review r, product p, orders o 
+where o.pid = p.pid and  p.pid = r.pid;
+
+-- 하온 주문정보가져오기 뷰 
+
+create view view_myOrder
+as
+select  
+   o.oid as oid,
+    o.id as id,
+    p.pid as pid,
+    o.order_number as order_number,
+    o.qty as qty,
+    o.total_price as total_price,
+    o.odate as odate,
+    p.pname as pname,
+    o.delivery_status as delivery_status,
+    p.main_image as main_image,
+    ca.category_name as category_name,
+    sca.sub_category_name as sub_category_name
+from product p, orders o, category ca , sub_category sca
+where o.pid = p.pid and  p.sub_category_id = sca.sub_category_id
+and p.category_id = ca.category_id;
+
+
+
+
+
+
+
+
