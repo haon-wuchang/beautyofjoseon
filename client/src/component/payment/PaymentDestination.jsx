@@ -11,8 +11,9 @@ export default function PaymentDestination() {
     const [domain, setDomain] = useState(""); // 이메일 도메인 선택 관리
     const [isCustom, setIsCustom] = useState(false); // 이메일 도메인 직접입력 박스 관리
 
-    console.log("주문타입 --> ", orderType);
+    // console.log("주문타입 --> ", orderType);
 
+    // 이메일 도메인 변경 체크
     const handleDomainChange = (e) => {
         const selected = e.target.value;
         if (selected === "self") {
@@ -55,17 +56,17 @@ export default function PaymentDestination() {
                                 <>
                                 <li className='payment-destination-form-name'>
                                     <label>받는 사람<span> *</span></label>
-                                    <input type="text" defaultValue={member.name} />
+                                    <input type="text" defaultValue={member.name && member.name} />
                                 </li>
                                 <li className='payment-destination-form-address'>
                                     <label>주소<span> *</span></label>
                                     <div>
                                         <div>
-                                            <input type="text" placeholder='우편번호' defaultValue={member.zipcode} />
+                                            <input type="text" placeholder='우편번호' defaultValue={member.zipcode && member.zipcode} />
                                             <button>주소검색</button>
                                         </div>
-                                        <input type="text" placeholder='기본주소' defaultValue={member.address} />
-                                        <input type="text" placeholder='나머지 주소(선택 입력 가능)' defaultValue={member.extra_address} />
+                                        <input type="text" placeholder='기본주소' defaultValue={member.address && member.address} />
+                                        <input type="text" placeholder='나머지 주소(선택 입력 가능)' defaultValue={member.extra_address && member.extra_address} />
                                     </div>
                                 </li>
                                 <li className='payment-destination-form-tel'>
@@ -91,32 +92,25 @@ export default function PaymentDestination() {
                                         ? (
                                             <select name="" id="" onChange={handleDomainChange}>
                                                 <option value="default">-이메일 선택-</option>
-                                                <option value="naver">naver.com</option>
-                                                <option value="daum">daum.net</option>
-                                                <option value="gmail">gmail.com</option>
+                                                <option value="naver.com">naver.com</option>
+                                                <option value="daum.net">daum.net</option>
+                                                <option value="gmail.com">gmail.com</option>
                                                 <option value="self">직접입력</option>
                                             </select>
                                         )
                                         : (
                                             <>
-                                                <input type="text" placeholder="직접입력" />
-                                                <datalist onChange={handleDomainChange}>
-                                                    <option value="default">-이메일 선택-</option>
-                                                    <option value="naver">naver.com</option>
-                                                    <option value="daum">daum.net</option>
-                                                    <option value="gmail">gmail.com</option>
-                                                    <option value="self">직접입력</option>
+                                                <input type="text" placeholder="직접입력" list="emaildomain" onBlur={() => setIsCustom(false)} />
+                                                <datalist id="emaildomain" onChange={handleDomainChange}>
+                                                    <option value="-이메일 선택-">-이메일 선택-</option>
+                                                    <option value="naver.com">naver.com</option>
+                                                    <option value="daum.net">daum.net</option>
+                                                    <option value="gmail.com">gmail.com</option>
+                                                    <option value="직접입력">직접입력</option>
                                                 </datalist>
                                             </>
                                         )
                                     }
-                                    {/* <select name="" id="" onChange={handleDomainChange} value={isCustom ? "self" : domain}>
-                                        <option value="default">-이메일 선택-</option>
-                                        <option value="naver">naver.com</option>
-                                        <option value="daum">daum.net</option>
-                                        <option value="gmail">gmail.com</option>
-                                        <option value="self">직접입력</option>
-                                    </select> */}
                                 </li>
                                 </>
                             )

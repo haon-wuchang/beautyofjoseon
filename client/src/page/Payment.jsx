@@ -8,7 +8,7 @@ import PaymentDestination from '../component/payment/PaymentDestination.jsx';
 
 export default function Payment() {
     const { orderList, orderType, orderPrice } = useContext(OrderContext);
-    const { getCartAll, getSelectItems } = useOrder();
+    const { getCartAll, getSelectItems, saveToOrder } = useOrder();
     
     useEffect(() => {
         if (orderType === "all") {
@@ -18,8 +18,14 @@ export default function Payment() {
         }
     }, []);
 
-    console.log("주문정보 --> ", orderList);
-
+    
+    // 결제하기 버튼 클릭 이벤트
+    const clickPaymentBtn = () => {
+        alert("!!!");
+        console.log("주문정보 --> ", orderList);
+        // orders 테이블에 주문 정보 저장하는 함수 :: orderType 넘기기
+        saveToOrder(orderType);
+    }
 
     return (
         <div className='payment-page-wrap'>
@@ -128,7 +134,11 @@ export default function Payment() {
                     <span><IoIosArrowUp /></span>
                 </div>
             </div>
-            <button className='payment-button'>{orderPrice > 20000 ? `${orderPrice.toLocaleString()}` : `${(orderPrice + 3000).toLocaleString()}`}원 결제하기</button>
+            <button className='payment-button'
+                    onClick={clickPaymentBtn}
+            >
+                {orderPrice > 20000 ? `${orderPrice.toLocaleString()}` : `${(orderPrice + 3000).toLocaleString()}`}원 결제하기
+            </button>
         </div>
     );
 }
