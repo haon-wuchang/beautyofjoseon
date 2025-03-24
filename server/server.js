@@ -7,7 +7,13 @@ import mypageRouter from './router/mypageRouter.js';
 import mainRouter from './router/mainRouter.js';
 import searchRouter from './router/searchRouter.js';
 import cartRouter from './router/cartRouter.js';
+<<<<<<< HEAD
 import signupRouter from './router/signupRouter.js';
+=======
+import orderRouter from './router/orderRouter.js';
+import adminRouter from './router/adminRouter.js';
+
+>>>>>>> c8e9e5b6a1190f6bf2fcef321587f4a9a34619ff
 
 /* 서버 생성 및 포트 정의 */
 const server = express();
@@ -17,8 +23,9 @@ const port = 9000;
 server.use(express.json());
 server.use(express.urlencoded()); 
 server.use(cors());
+// server.use('/upload_product', express.static(path.join("upload_product")));
 server.use('/upload_files', express.static(path.join("upload_files")));
-
+server.use('/upload_review_photos', express.static('upload_review_photos'));
 
 /* 서버의 요청처리를 위한 미들웨어 정의 */
 server.use('/product', productRouter)
@@ -28,6 +35,9 @@ server.use('/mypage',mypageRouter);
 server.use('/main', mainRouter);
 server.use('/search', searchRouter);
 server.use('/cart', cartRouter);
+server.use('/order', orderRouter);
+server.use('/uploads', adminRouter);
+
 
 
 

@@ -14,13 +14,7 @@ export default function Cart() {
     const [selectStatus, setSelectStatus] = useState("domestic");
 
     useEffect(() => {
-        // isLoggedIn && getCartList();
-        if (isLoggedIn) {
-            getCartList();
-        } else {
-            alert("로그인이 필요한 서비스입니다.");
-            navigate("/login");
-        }
+        getCartList();
     }, []);
 
     return (
@@ -30,7 +24,7 @@ export default function Cart() {
                 <span onClick={() => setSelectStatus("domestic")}
                     className={selectStatus === 'domestic' ? 'cart-item-select-tab' : 'cart-item-status-tab'}
                 >
-                    국내배송상품 (1)
+                    국내배송상품 ({cartList.length})
                 </span>
                 <span onClick={() => setSelectStatus("oversea")}
                     className={selectStatus === 'oversea' ? 'cart-item-select-tab' : 'cart-item-status-tab'}
@@ -47,7 +41,7 @@ export default function Cart() {
                     </>
                 )
                 : (
-                    <p>장바구니가 비어 있습니다.</p>
+                    <p className='cart-page-status-msg'>장바구니가 비어 있습니다.</p>
                 )
             }
 

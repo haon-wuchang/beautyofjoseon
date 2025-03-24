@@ -1,41 +1,39 @@
-import React,{useContext} from 'react'; 
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { MypageContext } from '../context/MypageContext.js';
-import { AuthContext } from '../auth/AuthContext.js';
 
-export function useMypage(){   
-    const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
-    const {myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,gender,setGender,
-        zipcode,setZipcode,address,setAddress,extra,setExtra
+export function useMypage() {
+    const { setMyinfo, setYear, setMonth, setDate, setGender, setMyOrder,
+        setWishList, orderType, orderEnd, orderStart, myReview, setMyReview
     } = useContext(MypageContext);
 
-    const getMyinfo = async() => {
+    const getMyinfo = async () => {
         const id = localStorage.getItem('user_id');
-        const result = await axios.post('http://localhost:9000/mypage/getMyinfo',{'id':id});
-        if(result.data.birth && result.data.gender){
+        const result = await axios.post('http://localhost:9000/mypage/getMyinfo', { 'id': id });
+        if (result.data.birth && result.data.gender) {
             setMyinfo(result.data);
-            const year = result.data.birth.slice(0,4);
-            const month = result.data.birth.slice(5,7);
-            const date = result.data.birth.slice(8,10);
+            const year = result.data.birth.slice(0, 4);
+            const month = result.data.birth.slice(5, 7);
+            const date = result.data.birth.slice(8, 10);
             setYear(year);
             setMonth(month);
             setDate(date);
-            if(result.data.gender === 'F'){
+            if (result.data.gender === 'F') {
                 setGender('F');
-            }else if(result.data.gender === 'M'){
+            } else if (result.data.gender === 'M') {
                 setGender('M');
             }
-        }else if(!result.data.birth && result.data.gender ){
+        } else if (!result.data.birth && result.data.gender) {
             setMyinfo(result.data);
             setYear('');
             setMonth('');
             setDate('');
-            if(result.data.gender === 'F'){
+            if (result.data.gender === 'F') {
                 setGender('F');
-            }else if(result.data.gender === 'M'){
+            } else if (result.data.gender === 'M') {
                 setGender('M');
             }
-        }else if(!result.data.birth && !result.data.gender ){   
+        } else if (!result.data.birth && !result.data.gender) {
             setMyinfo(result.data);
             setYear('');
             setMonth('');
@@ -45,5 +43,51 @@ export function useMypage(){
         return result.data;
     }
 
-    return {getMyinfo};
+    const getMyOrder = async () => {
+        const id = localStorage.getItem('user_id');
+        const result = await axios.post('http://localhost:9000/mypage/getMyOrder', { 'id': id });
+        const data = result.data;
+        if (orderType === '전체') {
+            setMyOrder(data);
+        }
+        else if (orderType === '전체' && orderEnd !== '') {
+            const allFilter = data.filter((item) =>
+                orderStart <= item.odate && item.odate <= orderEnd)
+            setMyOrder(allFilter);
+        }
+        else if (orderType !== '전체' && orderEnd !== '') {
+            const filterData = data.filter((item) => item.delivery_status === orderType);
+            const doubleFilter = filterData.filter((item) =>
+                orderStart <= item.odate && item.odate <= orderEnd)
+            setMyOrder(doubleFilter);
+        }
+    }
+
+    // 위시리스트 번호 가져온 후 상품정보 가져오기
+    const getWishNumber = async () => {
+        const id = localStorage.getItem('user_id');
+        const result = await axios.post('http://localhost:9000/mypage/getWishNumber', { 'id': id });
+        if (result.data.wish !== null) {
+            const list = result.data.wish;
+            // setWishList(list);
+            const wishListData = await Promise.all(
+                list.map(async (item) => {
+                    const res = await axios.post('http://localhost:9000/mypage/getWishInfo', { pid: item });
+                    return res.data;
+                })
+            );
+            setWishList(wishListData);
+        } else {
+            setWishList([]);
+        }
+    }
+
+    const getReview = async() => {
+        const id = localStorage.getItem('user_id');
+        const result = await axios.post('http://localhost:9000/mypage/getReview', { 'id': id });
+        setMyReview(result.data);
+    }
+
+
+    return { getMyinfo, getMyOrder, getWishNumber, getReview };
 }

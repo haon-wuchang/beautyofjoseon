@@ -15,14 +15,17 @@ import {useLogin} from '../hooks/useLogin.js';
 
 export default function Mypage() {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const { setMyinfo, myinfo, year, month, date, gender } = useContext(MypageContext);
+    const { setMyinfo, myinfo, year, month, date, gender ,myOrder,wishList, orderType, myReview} = useContext(MypageContext);
     const {handleLogin} = useLogin();
     const [tab, setTab] = useState('main');
-    const { getMyinfo } = useMypage();
+    const { getMyinfo, getMyOrder ,getWishNumber,getReview} = useMypage();
     const [isChecked1, setIsChecked1] = useState(false); //체크박스 상태 관리
     const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
     useEffect(() => {
         getMyinfo();
+        getMyOrder();
+        getWishNumber();
+        getReview();
         // handleLogin();
         if (gender === 'M') {
             setIsChecked1(true);
@@ -36,7 +39,7 @@ export default function Mypage() {
         }
     }, [isLoggedIn]);
 
-
+    
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
         handleLogin(false,'logout');
@@ -60,15 +63,15 @@ export default function Mypage() {
                             <h5>반가워요 :)</h5>
                             <span>{myinfo.membership}</span>
                         </li>
-                        <li>
+                        <li onClick={() => { setTab('order') }} >
                             <p>주문</p>
-                            <span>0개</span>
+                            <span>{myOrder.length}개</span>
                         </li>
-                        <li>
+                        <li onClick={() => { setTab('money') }}>
                             <p>적립금</p>
                             <span>0원</span>
                         </li>
-                        <li>
+                        <li onClick={() => { setTab('coupon') }}> 
                             <p>쿠폰</p>
                             <span>2개</span>
                         </li>
@@ -84,21 +87,21 @@ export default function Mypage() {
                     <li onClick={() => { setTab('delivery') }}>배송지 관리</li>
                 </ul>
             </div>
-            {tab === 'order' && <Order />}
-            {tab === 'wish' && <Wish />}
-            {tab === 'money' && <Money />}
+            {tab === 'order' && myOrder && <Order/>}
+            {tab === 'wish' && wishList && <Wish wishList ={wishList}/>}
+            {tab === 'money' && <Money myOrder = {myOrder}/>}
             {tab === 'coupon' && <Coupon />}
-            {tab === 'review' && <Review />}
-            {tab === 'delivery' && <Delivery myinfo={myinfo} births={{ year, month, date }} />}
+            {tab === 'review' && <Review myOrder = {myOrder} myReview = {myReview}/>}
+            {tab === 'delivery' && myinfo && <Delivery myinfo={myinfo} births={{ year, month, date }} />}
             {tab === 'my' && <UpdateMypage Checked={{ isChecked1, isChecked2, setIsChecked1, setIsChecked2 }} myinfo={myinfo} births={{ year, month, date, gender }} />}
             {tab === 'main' &&
                 <>
                     <div className='mypage-desc'>
                         <p>	저희 쇼핑몰을 이용해 주셔서 감사합니다.
-                            <span>{myinfo.name}님</span>은
-                            <span>[{myinfo.membership}]</span> 회원이십니다.</p>
-                        <p><span>10,000원 이상</span>구매시
-                            <span>1%</span>를 추가적립 받으실 수 있습니다.</p>
+                            <span> {myinfo.name} 님</span>은
+                            <span> [{myinfo.membership}]</span> 회원이십니다.</p>
+                        <p><span>10,000원 이상 </span>구매시
+                            <span> 1%</span>를 추가적립 받으실 수 있습니다.</p>
                     </div>
                     <div className='mypage-middle-box'>
                         <div>
@@ -127,7 +130,7 @@ export default function Mypage() {
                                 </li>
                                 <li>
                                     <span>총주문</span>
-                                    <span>0원(회)</span>
+                                    <span>{myOrder.length} 회</span>
                                 </li>
                             </ul>
                         </div>
@@ -141,7 +144,8 @@ export default function Mypage() {
                             <ul>
                                 <li>
                                     <p>입금전</p>
-                                    <span>0</span>
+                                    {/*  이거 어케하는지찾아봐 입금전인 애가 몇개인지가 필요해 */}
+                                    <span>{myOrder.map((item)=> item.delivery_status === '입금전'.length)}</span>
                                 </li>
                                 <li>
                                     <p>배송준비중</p>

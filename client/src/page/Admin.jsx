@@ -1,41 +1,21 @@
-// 관리자 로그인 시 상품등록
-import React from 'react';
+import React, { useState} from 'react';
+import AdminDesc from '../component/AdminDesc.jsx';
+import AdminMain from '../component/AdminMain.jsx';
 
 export default function Admin() {
+    const [tab, setTab] = useState('main');
+
     return (
-        <div>
-           <h1>관리자 페이지 상품등록</h1> 
-           <ul>
-            <li>
-                <label htmlFor="">상품명</label>
-                <input type="text" />
-            </li>
-            <li>
-                <label htmlFor="">가격</label>
-                <input type="text" />
-            </li>
-            <li>
-                <label htmlFor="">할인율</label>
-                <input type="text" />
-            </li>
-            <li>
-                <label htmlFor="">할인가격</label>
-                <input type="text" />
-            </li>
-            <li>
-                <label htmlFor="">대표이미지</label>
-                <input type="text" />
-            </li>
-            <li>
-                <label htmlFor="">카테고리</label>
-                <input type="text" />
-            </li>
-            <li>
-                <label htmlFor="">서브카테고리</label>
-                <input type="text" />
-            </li>
-           </ul>
+        <div className='admin-all'>
+            <div className='admin-tab'>
+                <h1 onClick={() => { setTab('main') }} 
+                className={tab === 'main' ? 'admin-title' : 'admin-none'}>메인, 슬라이드 상품등록</h1>
+                <h1 onClick={() => { setTab('desc') }}
+                    className={tab === 'desc' ? 'admin-title' : 'admin-none'}>상세설명 상품등록</h1>
+            </div>
+            { tab === 'main' && <AdminMain /> }
+            { tab === 'desc' && <AdminDesc /> }
+            
         </div>
     );
 }
-

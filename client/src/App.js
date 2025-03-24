@@ -16,13 +16,18 @@ import Payment from './page/Payment.jsx';
 import { AuthProvider } from './auth/AuthContext.js';
 import { MypageProvider } from './context/MypageContext.js';
 import { SearchProvider } from './context/SearchContext.js';
-import {CartProvider} from './context/cartContext.js';
+import { CartProvider } from './context/cartContext.js';
+import { OrderProvider } from './context/orderContext.js';
+import { ProductProvider } from './context/productContext.js';
 import Search from './page/Search.jsx';
 import Admin from './page/Admin.jsx';
+import PaymentSuccess from './page/PaymentSuccess.jsx';
 
 export default function App() {
   return (
     
+    <ProductProvider>
+    <OrderProvider>
     <CartProvider>
     <AuthProvider>
       <SearchProvider>
@@ -38,6 +43,7 @@ export default function App() {
               <Route path='/product/detail/:pid' element={<ProductDetail />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/payment' element={<Payment />} />
+              <Route path='/payment/success' element={<PaymentSuccess />} />
               <Route path='/search' element={<Search />} />
               <Route path='/admin' element={<Admin />} />
             </Route>
@@ -47,6 +53,8 @@ export default function App() {
       </SearchProvider>
     </AuthProvider>
     </CartProvider>
+    </OrderProvider>
+    </ProductProvider>
   );
 }
 

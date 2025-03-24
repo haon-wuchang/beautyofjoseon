@@ -600,6 +600,10 @@
     font-size: 15px;
     
 }
+.active-order-date{
+    background-color: black;
+    color: white;
+}
 .mypage-cate>ul>li:hover{
     cursor: pointer;
 }
@@ -918,10 +922,12 @@
     align-items: center;
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 800px;
 }
 .mypage-order-select-box>select{
     border: 1px solid gainsboro;
-    padding: 5px 3px;
+    padding: 5px 5px;
+    width: 120px;
 }
 .mypage-order-select-box>ul{
     list-style-type: none;
@@ -945,7 +951,8 @@
 .mypage-order-select-box>div>input{
     border: 1px solid gainsboro;
     padding: 5px 10px;
-    width: 150px;
+    width: 180px;
+    padding-left: 20px;
 }
 
 .mypage-order-select-box>div>span:nth-child(2){
@@ -992,15 +999,15 @@
     padding: 10px 20px;
 
 }
-.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2){
+.mypage-order-table-info>td:nth-child(3){
     padding :10px 0;
     display: flex;
     align-items: center;
 }
-.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2)>img{
+.mypage-order-table-info>td:nth-child(3)>img{
     height: 130px;
 }
-.mypage-order-bottom-all>div>table>tr:last-child>td:nth-child(2)>span{
+.mypage-order-table-info>td:nth-child(3)>span{
     margin-left: 5px;
 }
 .mypage-order-page{
@@ -1009,9 +1016,29 @@
     margin-top: 30px;
 }
 
+.mypage-order-table-info>td>button:hover{
+    cursor: pointer;
+}
+.mypage-order-table-info>td:nth-child(7)>button{
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid gray;
+    padding: 5px;
+}
+.mypage-order-table-info>td:nth-child(7)>button:not(:last-child){
+    margin-bottom: 5px;
+}
 /*****************************************/
 /*********    Mypage 관심상품탭         *********/
 /*****************************************/
+.mypage-wish-all > div> span{
+    margin-left: 20px;
+    font-weight: 300;
+    font-size: 14px;
+    color: blue;
+}
 .mypage-wish-table{
     margin-top: 30px;
     width: 100%;
@@ -1035,16 +1062,14 @@
     border-right: 1px solid gainsboro;
 }
 .mypage-wish-table >table>tr:first-child>td:first-child{
-    width: 50px;
-}
-.mypage-wish-table >table>tr:first-child>td:nth-child(2){
+    /* width: 50px; */
     width: 700px;
-
 }
+
 .mypage-wish-table >table>tr>td>img{
     height: 130px;
 }
-.mypage-wish-table >table>tr:last-child>td:nth-child(2){
+.mypage-wish-table-info>td:nth-child(1){
     display: flex;
     align-items: center;
     padding-left: 10px;
@@ -1052,16 +1077,22 @@
 .mypage-wish-table >table>tr>td>span{
     margin-left: 10px;
 }
-.mypage-wish-table >table>tr:first-child>td:nth-child(3),
-.mypage-wish-table >table>tr:first-child>td:nth-child(4){
+.mypage-wish-table >table>tr:first-child>td:nth-child(2),
+.mypage-wish-table >table>tr:first-child>td:nth-child(3){
     width: 150px;
 }
-.mypage-wish-table >table>tr:last-child>td:nth-child(4){
+.mypage-wish-table-info>td:nth-child(3){
     padding: 0 20px;
     text-align: center;
     /* background-color: red; */
 }
-.mypage-wish-table >table>tr:last-child>td:nth-child(4)>button{
+.mypage-wish-table-info{
+    border-bottom: 1px solid gainsboro;
+}
+.mypage-wish-table-info>td>button:hover{
+    cursor: pointer;
+}
+.mypage-wish-table-info>td:nth-child(3)>button{
     display: block;
     width: 100px;
     margin: 0 auto;
@@ -1069,7 +1100,7 @@
     border: 1px solid gray;
     padding: 5px;
 }
-.mypage-wish-table >table>tr:last-child>td:nth-child(4)>button:not(:last-child){
+.mypage-wish-table-info>td:nth-child(3)>button:not(:last-child){
     margin-bottom: 5px;
 }
 .mypage-wish-btns{
@@ -1123,11 +1154,11 @@
     align-items: center;
     padding-left: 10px;
 }
-.mypage-review-write > table>tr>td>button{
-    padding: 10px 20px;
-    border: 1px solid rgb(240, 238, 232);
+.mypage-review-write > table>tr:last-child>td:last-child:hover{
+    cursor: pointer;
     background-color: rgb(240, 238, 232);
 }
+
 .mypage-review-write-page{
     width: 100%;
     text-align: center;
@@ -1466,4 +1497,137 @@
 }
 .mypage-coupon-table>table>tr>td>div>span:hover{
     cursor: pointer;
+}
+/*****************************************/
+/*********     admin           *********/
+/*****************************************/
+.admin-all{
+    margin: 0 auto;
+    width: 1200px;
+}
+.admin-flex{
+    display: flex;
+    /* justify-content: space-between; */
+    text-align: center;
+    margin-top: 30px;
+}
+.admin-flex>form{
+    /* border: 1px solid red; */
+}
+.admin-flex>form>ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+.admin-flex>form>ul>li{
+    margin-bottom: 5px;
+}
+.admin-flex>form>ul>li:not(:nth-child(6))>label{
+    /* background-color: red; */
+    width: 100px;
+    display: inline-block;
+}
+.admin-flex>form>ul>li:nth-child(6){
+    display: flex;
+    align-items: center;
+}
+.admin-flex>form>ul>li:nth-child(6)>label{
+    margin-right: 10px;
+}
+.admin-flex>form>ul>li:last-child{
+    margin-top: 20px;
+}
+.admin-flex>form>ul>li:last-child>button{
+    width: 100px;
+    padding: 5px ;
+}
+.admin-flex>form>ul>li:last-child>button:first-child{
+    color: rgb(0, 0, 0);
+    background-color: rgb(209, 205, 194);
+    border : 1px solid rgb(209, 205, 194);
+    margin-right: 10px;
+}
+.admin-flex>form>ul>li:last-child>button:last-child{
+    background-color: white;
+    border: 1px solid gray;
+}
+.admin-flex>div{
+    margin-left: 30px;
+    padding: 0;
+    /* border: 1px solid red; */
+}
+.admin-flex>div>table{
+    border: 1px solid gainsboro;
+    border-collapse: collapse;
+
+}
+.admin-flex>div>table>tr>td{
+    padding: 10px;
+    border: 1px solid gainsboro;
+
+}
+.admin-tab{
+    display: flex;
+    gap: 20px;
+}
+.admin-title{
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+.admin-none{
+    padding: 5px;
+}
+
+/* 페이지네이션  */
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 80px;
+
+    .page-item {
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .page-link {
+        color: rgb(139, 139, 139);
+        padding: 5px 10px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .active .page-link,
+    .page-item:hover .page-link {
+        color: rgb(0, 0, 0);
+    }
+
+    /* 이전/다음 버튼 스타일 */
+    .prev,
+    .next {
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+        margin: 0 20px;
+    }
+
+    .prev:hover,
+    .next:hover {
+        opacity: 1;
+    }
+
+    .prev a,
+    .next a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
 }

@@ -5,7 +5,7 @@ import { CartContext } from "../context/cartContext";
 
 
 export function useCart() {
-    const { cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice } = useContext(CartContext);
+    const { cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice, selectItems, setSelectItems } = useContext(CartContext);
 
 
 
@@ -58,7 +58,7 @@ export function useCart() {
     }
 
     /********************************************
-            장바구니 아이템 수량 업데이트
+            장바구니 아이템 총 금액 계산
             사용처 : Cart
             작성자 : 김유나
     ********************************************/
@@ -69,7 +69,7 @@ export function useCart() {
     }
 
     /********************************************
-            장바구니 아이템 삭제
+            장바구니 아이템 개별 삭제
             사용처 : Cart
             작성자 : 김유나
     ********************************************/
@@ -78,5 +78,42 @@ export function useCart() {
         result.data.result_rows && getCartList();
     }
 
-    return { saveToCartList, updateCartList, getCartList, calculateTotalPrice, deleteCartItem };
+    /********************************************
+            장바구니 아이템 전체 삭제
+            사용처 : Cart
+            작성자 : 김유나
+    ********************************************/
+    const clearCart = async() => {
+        const result = await axios.delete("http://localhost:9000/cart/deleteAll");
+        result.data.result_rows && getCartList();
+    }
+
+    /********************************************
+            장바구니에서 선택한 상품의 가격만 계산
+            사용처 : Cart
+            작성자 : 김유나
+    ********************************************/
+    const getSelectItemPrice = async(cids) => {
+        const result = await axios.post("http://localhost:9000/cart/selectItems", {"cids": cids});
+        setSelectItems(result.data);
+        calculateTotalPrice(result.data);
+    }
+
+    /********************************************
+            장바구니 아이템 개별 주문
+            사용처 : Cart
+            작성자 : 김유나
+    ********************************************/
+    const orderSelectItem = async(cid) => {
+        const result = await axios.post("http://localhost:9000/cart/orderSelect", {"cid": cid});
+    }
+
+    return { saveToCartList, 
+            updateCartList, 
+            getCartList, 
+            calculateTotalPrice, 
+            deleteCartItem, 
+            getSelectItemPrice, 
+            clearCart,
+            orderSelectItem};
 }

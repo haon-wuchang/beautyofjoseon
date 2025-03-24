@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../auth/AuthContext.js";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -16,11 +17,12 @@ import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 
 export default function Products() {
-
+    const navigate = useNavigate();
 
 
     const { isLoggedIn } = useContext(AuthContext);
 
+    // product list
     const [list, setList] = useState([]);
 
     useEffect(() => {
@@ -30,10 +32,6 @@ export default function Products() {
             .catch((error) => console.log(error))
     }, [])
 
-    console.log('list', list);
-
-    console.log('list.discount_rate', list.discount_rate);
-
 
 
     /* 페이지네이션 */
@@ -42,14 +40,14 @@ export default function Products() {
 
     // 페이지네이션 관련 로직
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
 
     const currentItems = list.slice(itemOffset, endOffset); // list에서 20개씩 슬라이싱
     const pageCount = Math.ceil(list.length / itemsPerPage); // 전체 페이지 수
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * itemsPerPage) % list.length;
-        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+        // console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
         setItemOffset(newOffset);
     };
 
@@ -105,9 +103,15 @@ export default function Products() {
                                 <img src={item.image} alt="" />
 
                             </div>
-                            <span className='wish-icon'><FaRegHeart /></span>
+                            <span className='wish-icon' onClick={() => {
+
+                                if (!isLoggedIn) {
+                                    window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
+                                    navigate('../../login');
+                                }
+                            }}><FaRegHeart /></span>
                             <span className='product-title w600 text-center f15' >{item.pname}</span>
-                            <p className='product-price pt10 f12'>{(item.discount_rate) ? `${item.price.toLocaleString()}원` : null }</p>
+                            <p className='product-price pt10 f12'>{(item.discount_rate) ? `${item.price.toLocaleString()}원` : null}</p>
                             <div className='gap5 flex'>
                                 {(item.discount_rate) ?
                                     (<div className='product-sale'>
@@ -122,22 +126,22 @@ export default function Products() {
                 ))}
 
             </div>
-                {/* 페이지네이션 */}
-                <ReactPaginate
-                    breakLabel="..."
-                    nextLabel={<MdNavigateNext />}
-                    previousLabel={<MdNavigateBefore />}
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={pageCount}
-                    containerClassName="pagination"
-                    activeClassName="active"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="prev"
-                    nextClassName="next"
-                    disabledClassName="disabled"
-                />
+            {/* 페이지네이션 */}
+            <ReactPaginate
+                breakLabel="..."
+                nextLabel={<MdNavigateNext />}
+                previousLabel={<MdNavigateBefore />}
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                containerClassName="pagination"
+                activeClassName="active"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="prev"
+                nextClassName="next"
+                disabledClassName="disabled"
+            />
 
 
 
@@ -147,7 +151,7 @@ export default function Products() {
                 <div className='square4'>
                     <img src="https://beautyofjoseon.co.kr/web/product/medium/202408/c8cda7e6862e2e8a5cc1a7934969f234.jpg" alt="" />
                     <span className='square4-heart'><FaRegHeart /></span>
-                     <span><FaHeart /></span> 
+                    <span><FaHeart /></span> 
                     <span className='product-title'>[New]맑은쌇선크림 아쿠아프레쉬</span>
                     <p className='product-price'>18,000원</p>
                     <span className='product-sale'>10%</span>
@@ -158,8 +162,8 @@ export default function Products() {
                 <div className='square2'>
                     <img src="https://beautyofjoseon.co.kr/web/product/medium/202408/c8cda7e6862e2e8a5cc1a7934969f234.jpg" alt="" />
                     <span className='square4-heart'><FaRegHeart /></span>
-                      <span><FaHeart /></span> 
-                     <span className='product-title'>[New]맑은쌇선크림 아쿠아프레쉬</span>
+                    <span><FaHeart /></span> 
+                    <span className='product-title'>[New]맑은쌇선크림 아쿠아프레쉬</span>
                     <p className='product-price'>18,000원</p>
                     <span className='product-sale'>10%</span>
                     <span className='product-sale-price'>16,200원</span>

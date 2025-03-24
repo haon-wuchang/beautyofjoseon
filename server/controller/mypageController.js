@@ -51,3 +51,54 @@ export const deleteDelivery = async(req, res) => {
     res.json(result);
     res.end();
 }
+
+// 주문정보 전체 가져오기
+export const getMyOrder = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getMyOrder(req.body);
+    res.json(result);
+    res.end();
+}
+
+
+
+// 위시리스트 번호 전체 가져오기
+export const getWishNumber = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getWishNumber(req.body);
+    res.json(result);
+    res.end();
+}
+
+// 위시리스트 정보 가져오기
+export const getWishInfo = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getWishInfo(req.body);
+    res.json(result);
+    res.end();
+}
+
+// 위시리스트 삭제 후 새정보 가져오기
+export const updateWishList = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.updateWishList(req.body);
+    res.json(result);
+    res.end();
+}
+
+
+// 위시리스트 전체삭제
+export const deleteAllWishList = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.deleteAllWishList(req.body);
+    res.json(result);
+    res.end();
+}
+
+// 내리뷰가져오기
+export const getReview = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getReview(req.body);
+    res.json(result);
+    res.end();
+}

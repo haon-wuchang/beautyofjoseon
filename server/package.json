@@ -14,11 +14,16 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.13.0",
     "react-kakao-login": "^2.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+<<<<<<< HEAD
   },
   "description": ""
+=======
+  }
+>>>>>>> c8e9e5b6a1190f6bf2fcef321587f4a9a34619ff
 }

@@ -1,6 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../auth/AuthContext.js';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthContext.js';
+import { MypageContext } from '../context/MypageContext.js';
+import { CartContext } from '../context/cartContext.js';
+import { useLogin } from '../hooks/useLogin.js';
+import { useMypage } from '../hooks/useMypage.js';
+import { useCart } from '../hooks/useCart.js';
 import { GoPerson } from "react-icons/go";
 import { PiShoppingBag } from "react-icons/pi";
 import { IoSearchOutline } from "react-icons/io5";
@@ -9,25 +14,27 @@ import { GoLock } from "react-icons/go";
 import { GoUnlock } from "react-icons/go";
 import { IoCloseOutline } from "react-icons/io5";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import HeaderToggle from './header/HeaderToggle.jsx';
 import Modal from 'react-modal';
 import SearchModal from './header/SearchModal.jsx';
-import { useMypage } from '../hooks/useMypage.js';
-import { useLogin } from '../hooks/useLogin.js';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Header() {
-    const { getMyinfo } = useMypage();
-
     const navigate = useNavigate();
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const [toggleOpen, setToggleOpen] = useState(false); // 메뉴 토글 버튼 클릭시 상태 관리
-    const [searchModalOpen, setSearchModalOpen] = useState(false);  // 검색 모달창 상태 관리
+    const { isLoggedIn } = useContext(AuthContext);
+    const { myinfo } = useContext(MypageContext);
+    const { cartCount } = useContext(CartContext);
+    const { getMyinfo } = useMypage();
+    const { handleLogin } = useLogin();
+    const { getCartList } = useCart();
+    const [ toggleOpen, setToggleOpen ] = useState(false); // 메뉴 토글 버튼 클릭시 상태 관리
+    const [ searchModalOpen, setSearchModalOpen ] = useState(false);  // 검색 모달창 상태 관리
 
-    const {handleLogin} = useLogin();
     useEffect(() => {
         console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
+        getMyinfo();
+        getCartList(); // Header 장바구니 아이콘에 아이템 갯수 표시 위해 실행
     }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행  
 
     /* 로그아웃 버튼 클릭 이벤트 */
@@ -39,6 +46,13 @@ export default function Header() {
     const handleMypage = () => {
         const handleLog = window.confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?");
         (handleLog) ? navigate('/login') : navigate('/');
+    }
+
+    /* 장바구니 버튼 클릭 이벤트 */
+    const clickCartIcon = () => {
+        if (!isLoggedIn) {
+            window.confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") && navigate('/login');
+        }
     }
 
     /* 슬라이더 세팅 */
@@ -104,13 +118,25 @@ export default function Header() {
                             <Link to="/">BRAND STORY</Link>
                             <Link to="/">MEMBERSHIP</Link>
                             <Link to="/">PRESS</Link>
+                            {
+                            myinfo.type === 'a' ?
+                            <Link to="/admin" style={{color : 'blue'}}>ADMIN</Link> : null 
+                            }
                         </nav>
                         <ul className='header-bottom-right-icons'>
                             {isLoggedIn ?
                                 (<li onClick={logout}><Link to="/login"><GoUnlock /></Link></li>) :
                                 (<li><Link to="/login"><GoLock /></Link></li>)}
                             <li onClick={!isLoggedIn ? handleMypage : getMyinfo} ><Link to="/mypage"><GoPerson /></Link></li>
-                            <li><Link to="/cart"><PiShoppingBag /></Link></li>
+
+                            <li onClick={clickCartIcon}>
+                                <Link to={isLoggedIn && "/cart"}>
+                                    <PiShoppingBag />
+                                    { isLoggedIn && cartCount > 0 && 
+                                        <div>{cartCount}</div> }
+                                </Link>
+                            </li>
+
                             <li onClick={() => setSearchModalOpen(!searchModalOpen)}><Link><IoSearchOutline /></Link></li>
                                 {/* 검색 버튼 클릭시 보이는 모달 컴포넌트 */}
                                 <Modal
@@ -119,7 +145,6 @@ export default function Header() {
                                     style={customModalStyles}
                                     ariaHideApp={false}
                                     contentLabel="Search Modal"
-                                    // className={searchModalOpen ? "search-modal-opne" : "search-modal-exit"}
                                 >
                                     <SearchModal setSearchModalOpen={setSearchModalOpen} />
                                 </Modal>
