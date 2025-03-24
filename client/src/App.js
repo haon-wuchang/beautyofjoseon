@@ -20,6 +20,7 @@ import { OrderProvider } from './context/orderContext.js';
 import { ProductProvider } from './context/productContext.js';
 import Search from './page/Search.jsx';
 import Admin from './page/Admin.jsx';
+import PaymentSuccess from './page/PaymentSuccess.jsx';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
               <Route path='/product/detail/:pid' element={<ProductDetail />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/payment' element={<Payment />} />
+              <Route path='/payment/success' element={<PaymentSuccess />} />
               <Route path='/search' element={<Search />} />
               <Route path='/admin' element={<Admin />} />
             </Route>
