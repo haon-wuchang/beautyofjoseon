@@ -1,6 +1,26 @@
 import React from 'react';
+import ReactPaginate from 'react-paginate';
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { useState } from 'react';
 
-export default function Money() {
+export default function Money({ myOrder }) {
+
+    /* 페이지네이션 */
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 5;
+
+    // 페이지네이션 관련 로직
+    const endOffset = itemOffset + itemsPerPage;
+
+    const currentItems = myOrder.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(myOrder.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % myOrder.length;
+        setItemOffset(newOffset);
+    };
+
+
     return (
         <div className='mypage-money-all'>
             <div className='mypage-update-info-title mypage-title'>적립금</div>
@@ -46,6 +66,7 @@ export default function Money() {
                         <td>적립금</td>
                         <td>주문내역</td>
                     </tr>
+                    {
                     <tr>
                         <td>ㄴㅇㄹ234092ㅕ423</td>
                         <td>3,000 포인트</td>
@@ -54,10 +75,25 @@ export default function Money() {
                             <span>따끊나 옷</span>
                         </td>
                     </tr>
+                    }
                 </table>
             </div>
             <div className='mypage-money-page'>
-                1
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel={<MdNavigateNext />}
+                    previousLabel={<MdNavigateBefore />}
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="prev"
+                    nextClassName="next"
+                    disabledClassName="disabled"
+                />
             </div>
             <div className='mypage-money-desc'>
                 <h5>적립금 안내</h5>

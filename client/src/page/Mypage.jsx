@@ -89,7 +89,7 @@ export default function Mypage() {
             </div>
             {tab === 'order' && myOrder && <Order/>}
             {tab === 'wish' && wishList && <Wish wishList ={wishList}/>}
-            {tab === 'money' && <Money />}
+            {tab === 'money' && <Money myOrder = {myOrder}/>}
             {tab === 'coupon' && <Coupon />}
             {tab === 'review' && <Review myOrder = {myOrder} myReview = {myReview}/>}
             {tab === 'delivery' && myinfo && <Delivery myinfo={myinfo} births={{ year, month, date }} />}
@@ -98,10 +98,10 @@ export default function Mypage() {
                 <>
                     <div className='mypage-desc'>
                         <p>	저희 쇼핑몰을 이용해 주셔서 감사합니다.
-                            <span>{myinfo.name}님</span>은
-                            <span>[{myinfo.membership}]</span> 회원이십니다.</p>
-                        <p><span>10,000원 이상</span>구매시
-                            <span>1%</span>를 추가적립 받으실 수 있습니다.</p>
+                            <span> {myinfo.name} 님</span>은
+                            <span> [{myinfo.membership}]</span> 회원이십니다.</p>
+                        <p><span>10,000원 이상 </span>구매시
+                            <span> 1%</span>를 추가적립 받으실 수 있습니다.</p>
                     </div>
                     <div className='mypage-middle-box'>
                         <div>
@@ -130,7 +130,7 @@ export default function Mypage() {
                                 </li>
                                 <li>
                                     <span>총주문</span>
-                                    <span>0원(회)</span>
+                                    <span>{myOrder.length} 회</span>
                                 </li>
                             </ul>
                         </div>
@@ -144,7 +144,8 @@ export default function Mypage() {
                             <ul>
                                 <li>
                                     <p>입금전</p>
-                                    <span>0</span>
+                                    {/*  이거 어케하는지찾아봐 입금전인 애가 몇개인지가 필요해 */}
+                                    <span>{myOrder.map((item)=> item.delivery_status === '입금전'.length)}</span>
                                 </li>
                                 <li>
                                     <p>배송준비중</p>
