@@ -15,16 +15,17 @@ import {useLogin} from '../hooks/useLogin.js';
 
 export default function Mypage() {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const { setMyinfo, myinfo, year, month, date, gender ,myOrder,wishList, orderType} = useContext(MypageContext);
+    const { setMyinfo, myinfo, year, month, date, gender ,myOrder,wishList, orderType, myReview} = useContext(MypageContext);
     const {handleLogin} = useLogin();
     const [tab, setTab] = useState('main');
-    const { getMyinfo, getMyOrder ,getWishNumber} = useMypage();
+    const { getMyinfo, getMyOrder ,getWishNumber,getReview} = useMypage();
     const [isChecked1, setIsChecked1] = useState(false); //체크박스 상태 관리
     const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
     useEffect(() => {
         getMyinfo();
         getMyOrder();
         getWishNumber();
+        getReview();
         // handleLogin();
         if (gender === 'M') {
             setIsChecked1(true);
@@ -38,7 +39,6 @@ export default function Mypage() {
         }
     }, [isLoggedIn]);
 
-    // console.log('wishList',wishList);
     
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
@@ -91,7 +91,7 @@ export default function Mypage() {
             {tab === 'wish' && wishList && <Wish wishList ={wishList}/>}
             {tab === 'money' && <Money />}
             {tab === 'coupon' && <Coupon />}
-            {tab === 'review' && <Review />}
+            {tab === 'review' && <Review myOrder = {myOrder} myReview = {myReview}/>}
             {tab === 'delivery' && myinfo && <Delivery myinfo={myinfo} births={{ year, month, date }} />}
             {tab === 'my' && <UpdateMypage Checked={{ isChecked1, isChecked2, setIsChecked1, setIsChecked2 }} myinfo={myinfo} births={{ year, month, date, gender }} />}
             {tab === 'main' &&

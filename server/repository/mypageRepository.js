@@ -168,8 +168,31 @@ export const updateWishList = async ({ newWishList, id }) => {
 // 위시리스트 전체삭제
 export const deleteAllWishList = async ({ id }) => {
     // console.log(id);
-    const sql = `update customer set wish = null where id = ? `;           
+    const sql = `update customer set wish = null where id = ? `;
     const [result] = await db.execute(sql, [id]);
     // console.log('마이페이지레파지토리', result.affectedRows);
     return result.affectedRows;
+}
+
+// 리뷰 정보 가져오기
+// 얘 리뷰테이블이랑 상품테이블 조인해서 뷰 만들어서 필요한거 가져와
+// 상품명, 주문번호, 
+export const getReview = async ({ id }) => {
+    // console.log(id);
+    const sql = `
+        select            
+            pid, 
+            pname,
+            subject, 
+            text,       
+            review_image,     
+             view_count,
+             order_number,
+             rdate
+            from view_myReview
+            where id = ?
+                `;
+    const [result] = await db.execute(sql, [id]);
+    // console.log('마이페이지레파지토리',result);
+    return result;
 }

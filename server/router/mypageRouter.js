@@ -13,7 +13,8 @@ router.post('/getMyinfo',controller.getMyinfo)
 .post('/getWishNumber',controller.getWishNumber)
 .post('/getWishInfo',controller.getWishInfo)
 .post('/updateWishList',controller.updateWishList)
-.post('/deleteAllWishList',controller.deleteAllWishList);
+.post('/deleteAllWishList',controller.deleteAllWishList)
+.post('/getReview',controller.getReview);
 
 
 

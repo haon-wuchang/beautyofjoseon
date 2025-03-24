@@ -94,3 +94,11 @@ export const deleteAllWishList = async(req, res) => {
     res.json(result);
     res.end();
 }
+
+// 내리뷰가져오기
+export const getReview = async(req, res) => {
+    // console.log('yeeye',req.body);
+    const result = await repository.getReview(req.body);
+    res.json(result);
+    res.end();
+}
