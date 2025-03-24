@@ -20,6 +20,17 @@
 }
 .signup-box>ul>li{
   margin-bottom: 20px;
+  position: relative;
+}
+.signup-box>ul>li>button{
+  position: absolute;
+  width: 80px;
+  top: 30px;
+  right: 10px;
+  padding: 5px 10px;
+  color: var(--color-grey);
+  border: 1px solid var(--color-lightgrey2);
+  border-radius: 5px;
 }
 .signup-box>ul>li>label{
   display: block;
@@ -49,6 +60,14 @@
 .signup-email-line input:focus{
   outline: none;
 }
+.signup-box>ul>li>.pwd-error{
+  color: red;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.signup-box>ul>li>.cpwd-text{
+  display: none;
+}
 .signup-box>ul>li>p {
   margin: 0;
   font-size: 10px;
@@ -69,7 +88,9 @@
 .phone-info .dash{
   margin: 0 10px;
 }
-
+/* .phone-info  .phone2:invalid{
+  border: 1px solid red;
+} */
 .signup-email-line>div{
   display: flex;
 }

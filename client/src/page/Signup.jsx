@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Modal, Button } from "antd";
-import {  } from '../utils/funcinitialize.js';
-import { initSignup, useInitSignupRefs } from '../utils/funcValidate.js';
+import { validationSignup, handleIdCheck } from '../utils/funcinitialize.js';
+import { initSignup } from '../utils/funcValidate.js';
 
 
 export default function Signup() {
     const navigate = useNavigate();
     const { names, labels, initFormData } = initSignup();
     const [ formData, setFormData ] = useState(initFormData);
-
+    const refs = {
+        idRef: useRef(null),
+        pwdRef: useRef(null),
+        cpwdRef: useRef(null),
+        nameRef: useRef(null),
+        phone1Ref: useRef("default"),
+        phone2Ref: useRef(null),
+        phone3Ref: useRef(null),
+        emailRef: useRef(null),
+        emailDomainRef: useRef("default") 
+    };
+    const [ idCheckResult, setIdCheckResult] = useState('default');
+    const [ pwdCheck, setPwdCheck] = useState(null);
+    const [ cpwdCheck, setCpwdCheck] = useState(null);
     const [ checkedItems, setCheckedItems ] = useState([]);
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ modalContent, setModalContent ] = useState('');
@@ -40,8 +53,36 @@ export default function Signup() {
         }
     ];
 
+    useEffect(()=>{
+        if(idCheckResult === 'complete'){
+            setIdCheckResult("default"); 
+        }
+    },[formData.id]);
 
-    
+    /* 폼 입력 정보 */
+    const handleChangeForm= (e) =>{
+        const { name, value } = e.target;
+        const newFormData = {...formData, [name]:value};
+        const pvalue = Number(e.target.value);
+        setFormData({...formData, [name]: value});
+       
+        if(name === 'pwd'){
+            const isVaild = (value.length >= 8 && value.length <= 15);
+            setPwdCheck(isVaild);
+        }else if(name ==='cpwd'){
+            setCpwdCheck(newFormData.pwd === value);
+        }else if(name ==='phone1'){
+            // const regex
+            alert('숫자만 입력가능합니다.');
+        }
+    };
+
+    // /* 전화번호 글자 입력시 안내창 */
+    // const handleKeyup  = (e:React.KeyboardEvent<HTMLInputElement>) => {
+
+    // };   
+
+
     /* 체크박스 개별 체크 */
     const handleCheckedItem = (checked, id) => {
         if(checked){
@@ -66,50 +107,87 @@ export default function Signup() {
         setModalOpen(true);
     };
 
+    /* form 버튼 클릭 이벤트  */
+    const handleSumbit = (e) =>{
+        e.preventDefault();
+        if(validationSignup(names, refs, labels)){
+            if(idCheckResult === 'default'){
+                alert('아이디 중복확인을 진행해주세요');
+                return false;
+            }else{
+                console.log('유효성체크 formData ->',formData);
+                // 서버연동
+                
+            }
+        }
+    };
+
     return (
-        <form>
+        <form onSubmit={handleSumbit}>
             <div className='signup-box signup-content'>
                 <h5>New Account</h5>
                 <ul>
-                    {
-                      <>
                     <li>
-                        <label>아이디 <span>·</span></label>
-                        <input type="text" name='id'/>
+                        <label>아이디<span>·</span></label>
+                        <input type="text" name='id'
+                                ref={refs.idRef}     
+                                onChange={handleChangeForm}/>
+                        <button type='button'
+                                onClick={()=>{handleIdCheck(refs.idRef, refs.pwdRef, setIdCheckResult)}}>중복확인</button>
                         <p>6자 이상으로 입력해주세요</p>
                     </li>
                     <li>
                         <label>비밀번호 <span>·</span></label>
-                        <input type="password" name='pwd'/>
-                        <p>8~15자 사이로 입력해주세요.</p>
+                        <input type="password" name='pwd'
+                               ref={refs.pwdRef}
+                               onChange={handleChangeForm} />
+                        <p className={pwdCheck === null || pwdCheck === true ?"" : "pwd-error" }>8~15자 사이로 입력해주세요.</p>
                     </li>
                     <li>
                         <label>비밀번호 확인 <span>·</span></label>
-                        <input type="password" name='cpwd' />
+                        <input type="password" name='cpwd'
+                               ref={refs.cpwdRef} 
+                               onChange={handleChangeForm}/>
+                        <p className={cpwdCheck === null || cpwdCheck === true? "cpwd-text" : "pwd-error"}>비밀번호가 일치하지 않습니다.</p>       
                     </li>
                     <li>
                         <label>이름 <span>·</span></label>
-                        <input type="text" name='name' />
+                        <input type="text" name='name' 
+                               ref={refs.nameRef}
+                               onChange={handleChangeForm}/>
                     </li>
                     <li className='phone-info'>
                         <label>휴대전화 <span>·</span></label>
                         <div>
-                            <select name="phone" id="" className='phone'>
+                            <select name="phone1" className='phone' 
+                                    ref={refs.phone1Ref} 
+                                    onChange={handleChangeForm}>
+                                <option value="default">선택</option>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
                             </select>
-                            <span class="dash"> - </span>
-                            <input type="tel" name="phone" className='phone' maxLength={4}/>
-                            <span class="dash"> - </span>
-                            <input type="tel" name="phone" className='phone' maxLength={4}/>
+                            <span className="dash"> - </span>
+                            <input type="text" name="phone2" className='phone phone2' 
+                                   maxLength={4}
+                                   ref={refs.phone2Ref} 
+                                   onChange={handleChangeForm}/>
+                            <span className="dash"> - </span>
+                            <input type="text" name="phone3" className='phone phone3' 
+                                   maxLength={4}
+                                   ref={refs.phone3Ref} 
+                                   onChange={handleChangeForm}/>
                         </div>
                     </li>
                     <li className='signup-email-line'>
                         <label>이메일 <span>·</span></label>
                         <div>
-                            <input type="text" name='email' />
+                            <input type="text" name='email' 
+                                   ref={refs.emailRef}
+                                   onChange={handleChangeForm}/>
                             <span>@</span>
-                            <select name="emailDomain" id="">
+                            <select name="emailDomain" 
+                                    ref={refs.emailDomainRef}
+                                    onChange={handleChangeForm}>
                                 <option value="default">선택</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="gmail.com">gmail.com</option>
@@ -117,8 +195,6 @@ export default function Signup() {
                             </select>
                         </div>
                     </li>
-                    </>  
-                    }
                 </ul>
                 
                 <div className='signup-check-box'>

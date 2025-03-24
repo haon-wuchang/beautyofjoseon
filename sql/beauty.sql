@@ -54,3 +54,6 @@ alter table customer add column addtional_address json null;
 
 ALTER TABLE customer MODIFY COLUMN zipcode VARCHAR(10);
 
+ALTER TABLE customer MODIFY address VARCHAR(80) NULL;
+ALTER TABLE customer MODIFY extra_address VARCHAR(80) NULL;
+
