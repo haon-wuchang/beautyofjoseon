@@ -3,7 +3,8 @@
     작성자 : 정서령 
     사용시 productDetail.jsx 의 return 바로 위 모달 스타일 적용 참고!!!!
     리뷰 가져올 때 커스텀 훅 -> useProduct, 상태관리 -> productContext
-
+    db 수정전-> review 테이블 추가 필수 
+    alter table review add column org_review_img json null;
 ********************************************************************/
 import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
