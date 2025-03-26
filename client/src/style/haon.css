@@ -1153,6 +1153,21 @@
     border-right: 1px solid gainsboro;
     
 }
+.mypage-review-write > table>tr>td:nth-child(1){
+    width: 200px;
+}
+.mypage-review-write > table>tr>td:nth-child(2){
+    width: 630px;
+}
+.mypage-review-write > table>tr>td:nth-child(3){
+    width: 100px;
+}
+.mypage-review-write > table>tr>td:nth-child(4){
+    width: 150px;
+}
+.mypage-review-write > table>tr>td:nth-child(5){
+    width: 200px;
+}
 .mypage-review-write > table>tr>td:nth-child(2){
     display: flex;
     align-items: center;

@@ -44,13 +44,23 @@ export default function Review({ myOrder, myReview }) {
         setItemOffset2(newOffset2);
     };
 
+// 해야될거
+// 리뷰 작성하기 클릭하면 작성가능 리뷰에섯 삭제되게 
+// 얘 삭제를 ㅎㅁ흠 주문번호 가지고가서 입력된거 확인하면 삭제?
+// 이렇게 하려면 리뷰테이블에 주문번호가 fk 로 잇어야함
+const deleteWriteReview = () => {
+
+}
+
+
+
     return (
         <div className='mypage-review-all'>
             <div className='mypage-update-info-title mypage-title'>작성가능 리뷰</div>
             <div className='mypage-review-write'>
                 <table>
                     <tr>
-                        <td>번호</td>
+                        <td>주문번호</td>
                         <td>상품정보</td>
                         <td>수량</td>
                         <td>총금액</td>
@@ -59,14 +69,16 @@ export default function Review({ myOrder, myReview }) {
                     {
                         currentItems && currentItems.map((item) =>
                             <tr>
-                                <td>1</td>
+                                <td>{item.order_number}</td>
                                 <td>
                                     <img src={item.main_image} alt="리뷰이미지" />
                                     <span>{item.pname}</span>
                                 </td>
                                 <td>{item.qty}개</td>
                                 <td>{item.total_price.toLocaleString().concat('원')}</td>
-                                <td onClick={() => { handleReview(item.pid) }}>리뷰작성하기</td>
+                                <td onClick={() => { handleReview(item.pid) ;
+                                    deleteWriteReview();
+                                }}>리뷰작성하기</td>
                             </tr>
                         )
                     }
