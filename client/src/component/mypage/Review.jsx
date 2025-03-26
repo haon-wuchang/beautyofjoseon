@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import axios from 'axios';
 
 export default function Review({ myOrder, myReview }) {
     const navigate = useNavigate();
@@ -45,11 +46,10 @@ export default function Review({ myOrder, myReview }) {
     };
 
 // 해야될거
-// 리뷰 작성하기 클릭하면 작성가능 리뷰에섯 삭제되게 
-// 얘 삭제를 ㅎㅁ흠 주문번호 가지고가서 입력된거 확인하면 삭제?
-// 이렇게 하려면 리뷰테이블에 주문번호가 fk 로 잇어야함
-const deleteWriteReview = () => {
-
+// 리뷰 작성하기 클릭하면 작성가능 리뷰에섯 삭제되게 우선 진행
+const deleteWriteReview = (order_number) => {
+    // myOrder에서 내가 클릭한애의  order_number 랑 동일한애가 있으면 
+    // 배열에서 걔만 삭제하고 다시 맵돌리게해야함
 }
 
 
@@ -77,7 +77,7 @@ const deleteWriteReview = () => {
                                 <td>{item.qty}개</td>
                                 <td>{item.total_price.toLocaleString().concat('원')}</td>
                                 <td onClick={() => { handleReview(item.pid) ;
-                                    deleteWriteReview();
+                                    deleteWriteReview(item.order_number);
                                 }}>리뷰작성하기</td>
                             </tr>
                         )
