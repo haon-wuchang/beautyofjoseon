@@ -3,16 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import axios from 'axios';
+import { useMypage } from '../../hooks/useMypage.js';
+import { useContext } from 'react';
+import { MypageContext } from '../../context/MypageContext';
 
-export default function Review({ myOrder, myReview }) {
+export default function Review({  myReview }) {
+    const {myOrder} = useContext(MypageContext);
+    const {getMyOrder} = useMypage();
+
     const navigate = useNavigate();
-
     let filter = myOrder.filter((item) => item.delivery_status === '배송완료');
 
     const handleReview = (pid) => {
         navigate(`/product/detail/:${pid}`);
     }
-    // console.log('flqb', myReview);
+    // console.log('flqb', myReview);  
 
     /* 리뷰작성 전 페이지네이션 */
     const [itemOffset, setItemOffset] = useState(0);
@@ -28,8 +33,6 @@ export default function Review({ myOrder, myReview }) {
         const newOffset = (event.selected * itemsPerPage) % filter.length;
         setItemOffset(newOffset);
     }
-
-
     /* 작성한 리뷰 페이지네이션 */
     const [itemOffset2, setItemOffset2] = useState(0);
     const itemsPerPage2 = 5;
@@ -45,12 +48,16 @@ export default function Review({ myOrder, myReview }) {
         setItemOffset2(newOffset2);
     };
 
-// 해야될거
-// 리뷰 작성하기 클릭하면 작성가능 리뷰에섯 삭제되게 우선 진행
-const deleteWriteReview = (order_number) => {
-    // myOrder에서 내가 클릭한애의  order_number 랑 동일한애가 있으면 
-    // 배열에서 걔만 삭제하고 다시 맵돌리게해야함
-}
+    // 리뷰 작성하기 클릭하면 오더테이블에서 오더넘버로 삭제
+    const deleteWriteReview = (order_number) => {
+       axios.post('http://localhost:9000/mypage/deleteOrder',{'order_number':order_number})
+        .then(res => {
+            // console.log(res.data);
+            getMyOrder();            
+        })
+        .catch(error => console.log(error));
+    }
+
 
 
 
@@ -68,7 +75,7 @@ const deleteWriteReview = (order_number) => {
                     </tr>
                     {
                         currentItems && currentItems.map((item) =>
-                            <tr>
+                            <tr className='mypage-review-write-2nd'>
                                 <td>{item.order_number}</td>
                                 <td>
                                     <img src={item.main_image} alt="리뷰이미지" />
@@ -76,12 +83,14 @@ const deleteWriteReview = (order_number) => {
                                 </td>
                                 <td>{item.qty}개</td>
                                 <td>{item.total_price.toLocaleString().concat('원')}</td>
-                                <td onClick={() => { handleReview(item.pid) ;
+                                <td onClick={() => {
+                                    handleReview(item.pid);
                                     deleteWriteReview(item.order_number);
                                 }}>리뷰작성하기</td>
                             </tr>
                         )
                     }
+
                 </table>
             </div>
             <div className='mypage-review-write-page'>
@@ -139,7 +148,7 @@ const deleteWriteReview = (order_number) => {
                     previousLabel={<MdNavigateBefore />}
                     onPageChange={handlePageClick2}
                     pageRangeDisplayed={5}
-                    pageCount={pageCount}
+                    pageCount={pageCount2}
                     containerClassName="pagination"
                     activeClassName="active"
                     pageClassName="page-item"
