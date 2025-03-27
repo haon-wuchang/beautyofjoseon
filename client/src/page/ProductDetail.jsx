@@ -124,41 +124,6 @@ export default function ProductDetail() {
 
 
 
-    /* 로그인시 해당상품 결제로 바로가기 추가 이벤트 */
-    // const addBuyNow = () => {
-    //     if (!isLoggedIn) {
-    //         if (window.confirm("로그인이 필요합니다.\n로그인 하시겠습니까?")) {
-    //             navigate("/login");
-    //         }
-    //         return;
-    //     }
-    
-    //     const id = localStorage.getItem("user_id");
-    //     const cartItem = { id, cartList: [{ pid: product.pid, qty }] };
-    
-    //     eTsavoCartList(cartItem)
-    //         .then(res => {
-    //             const cid = res?.data?.cid;
-    //             if (!cid) return alert("상품 추가에 실패했습니다.");
-    
-    //             return orderSelectItem(cid);
-    //         })
-    //         .then(res => {
-    //             if (res?.data) {
-    //                 navigate("/payment");
-    //             } else {
-    //                 alert("결제 페이지 이동 실패");
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.error(err);
-    //             alert("문제가 발생했습니다.");
-    //         });
-    // };
-    
-    
-
-
 
     /* 아이템 수량 증감 */
     const handleQtyChange = (type) => {
