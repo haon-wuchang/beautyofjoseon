@@ -37,7 +37,7 @@ export default function ProductDetail() {
     const { pid } = useParams();
     const { cartList } = useContext(CartContext);
     const { wishList, setWishList, reviews } = useContext(ProductContext);
-    const { updateCartList, saveToCartList } = useCart();
+    const { updateCartList, saveToCartList, orderSelectItem } = useCart();
     const { addWishList, getReview } = useProduct();
     const navigate = useNavigate();
 
@@ -46,7 +46,9 @@ export default function ProductDetail() {
     const [slideImgList, setSlideImgList] = useState([]);
     const [detailImgList, setDetailImgList] = useState([]);
     const [qty, setQty] = useState(1); // detail 페이지 수량 증가
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0); // 할인 후 금액 토탈
+    const [discountedPrice, setDiscountedPrice] = useState(0); // dc 금액 계산 
+
 
 
     useEffect(() => {
@@ -56,8 +58,16 @@ export default function ProductDetail() {
                 setProduct(res.data);
                 setSlideImgList(res.data.SlideImgList);
                 setDetailImgList(res.data.descImgList);
+
+                // 할인 가격 계산
+                let price = res.data.price;
+                if (res.data.discount_rate) {
+                    price = price - Math.floor((price * res.data.discount_rate) / 100);
+                }
+
                 if (res.data.price) {
-                    setTotalPrice(res.data.price);
+                    setDiscountedPrice(price);  // dc 적용 가격 설정
+                    setTotalPrice(price);  // 초기 total
                 }
             })
             .catch((error) => console.log(error));
@@ -75,6 +85,7 @@ export default function ProductDetail() {
         if (!isLoggedIn) {
             alert('로그인 후 사용가능 한 서비스 입니다')
             navigate('/login')
+            return;
         }
         alert('위시리스트에 추가되었습니다.')
         addWishList(product.pid);
@@ -109,6 +120,45 @@ export default function ProductDetail() {
         }
     };
 
+    
+
+
+
+    /* 로그인시 해당상품 결제로 바로가기 추가 이벤트 */
+    // const addBuyNow = () => {
+    //     if (!isLoggedIn) {
+    //         if (window.confirm("로그인이 필요합니다.\n로그인 하시겠습니까?")) {
+    //             navigate("/login");
+    //         }
+    //         return;
+    //     }
+    
+    //     const id = localStorage.getItem("user_id");
+    //     const cartItem = { id, cartList: [{ pid: product.pid, qty }] };
+    
+    //     eTsavoCartList(cartItem)
+    //         .then(res => {
+    //             const cid = res?.data?.cid;
+    //             if (!cid) return alert("상품 추가에 실패했습니다.");
+    
+    //             return orderSelectItem(cid);
+    //         })
+    //         .then(res => {
+    //             if (res?.data) {
+    //                 navigate("/payment");
+    //             } else {
+    //                 alert("결제 페이지 이동 실패");
+    //             }
+    //         })
+    //         .catch(err => {
+    //             console.error(err);
+    //             alert("문제가 발생했습니다.");
+    //         });
+    // };
+    
+    
+
+
 
     /* 아이템 수량 증감 */
     const handleQtyChange = (type) => {
@@ -118,7 +168,7 @@ export default function ProductDetail() {
         if (updatedQty < 1) return;
         setQty(updatedQty);
         // setCartCount(updatedQty);
-        setTotalPrice(updatedQty * product.price);
+        setTotalPrice(updatedQty * discountedPrice);
     };
 
 
@@ -150,7 +200,7 @@ export default function ProductDetail() {
     /* 리뷰 작성 모달 */
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // 모달 스타일
+    // 리뷰 모달 스타일
     const modalStyle = {
         content: {
             top: '50%',
@@ -217,39 +267,39 @@ export default function ProductDetail() {
 
                             <tbody>
 
-                            {reviews && reviews.length > 0 ? (
-    reviews.map((review, index) => (
-      <React.Fragment key={review.rid}>
-        <tr onClick={() => setShowReview(showReview === index ? null : index)}>
-          <td>{index + 1}</td>
-          <td>{review.subject}</td>
-          <td>{review.id}</td>
-          <td>{review.rdate}</td>
-          <td>{review.view_count || 0}</td>
-        </tr>
-        {showReview === index && (
-          <tr>
-            <td colSpan={5} className="review-content">
-              <p>{review.text}</p>
-              {review.review_image?.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={`http://localhost:9000/upload_review_photos/${img}`}
-                  alt=""
-                />
-              ))}
-            </td>
-          </tr>
-        )}
-      </React.Fragment>
-    ))
-  ) : (
-    <tr>
-      <td colSpan={5} style={{ textAlign: 'center', padding: '20px' }}>
-        리뷰가 없습니다. 리뷰를 작성해주세요
-      </td>
-    </tr>
-  )}
+                                {reviews && reviews.length > 0 ? (
+                                    reviews.map((review, index) => (
+                                        <React.Fragment key={review.rid}>
+                                            <tr onClick={() => setShowReview(showReview === index ? null : index)}>
+                                                <td>{index + 1}</td>
+                                                <td>{review.subject}</td>
+                                                <td>{review.id}</td>
+                                                <td>{review.rdate}</td>
+                                                <td>{review.view_count || 0}</td>
+                                            </tr>
+                                            {showReview === index && (
+                                                <tr>
+                                                    <td colSpan={5} className="review-content">
+                                                        <p>{review.text}</p>
+                                                        {review.review_image?.map((img, idx) => (
+                                                            <img
+                                                                key={idx}
+                                                                src={`http://localhost:9000/upload_review_photos/${img}`}
+                                                                alt=""
+                                                            />
+                                                        ))}
+                                                    </td>
+                                                </tr>
+                                            )}
+                                        </React.Fragment>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={5} style={{ textAlign: 'center', padding: '20px' }}>
+                                            리뷰가 없습니다. 리뷰를 작성해주세요
+                                        </td>
+                                    </tr>
+                                )}
 
 
                                 {isModalOpen && (
@@ -265,25 +315,6 @@ export default function ProductDetail() {
                             </tbody>
                         </table>
                     </div>
-
-
-
-                    {/* <div className='product-detail-qna'>
-                        <p className='f14 w600'>Q & A</p>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>배송문의</td>
-                                    <td>김****</td>
-                                    <td>2025-03-11 02:43:07</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p>페이지네이션</p>
-                    </div> */}
-
-
                 </div> {/* end of left side */}
 
                 {/* RightSide / 상품정보 */}
@@ -304,7 +335,10 @@ export default function ProductDetail() {
                                                     (<div className='dc'>
                                                         {`${product.discount_rate.toLocaleString()}%`}
                                                     </div>) : null}
-                                                <div>{`${((product.price - (product.discount_rate * 100)).toLocaleString())}원`}</div>
+                                                <div>
+                                                    {`${(product.price - Math.floor(product.price * (product.discount_rate / 100))).toLocaleString()}원`}
+                                                </div>
+
                                             </div>
                                         </>
                                     ) : (
@@ -345,7 +379,7 @@ export default function ProductDetail() {
                         <div className='btn-wrap'>
                             <button className='w-btn' onClick={addHeart}>Wish</button>
                             <button className='w-btn' onClick={addCartItem}>Add to Cart</button>
-                            <button className='b-btn' >Buy now</button>
+                            <button className='b-btn' onClick={()=>{}} >Buy now</button>
                         </div>
                     </div>
                     <OtherPay className='product-detail-payments' />

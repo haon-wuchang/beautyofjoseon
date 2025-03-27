@@ -1,29 +1,31 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { useNavigate , useParams } from 'react-router-dom';
 import { AuthContext } from "../auth/AuthContext.js";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { IoGrid } from "react-icons/io5";
 import { TbLayoutListFilled } from "react-icons/tb";
 import { BsGrid3X3GapFill } from "react-icons/bs";
-import { FaHeart } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import ReactPaginate from 'react-paginate';
 import '../style/product.scss';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-
+import { useProduct } from "../hooks/useProduct.js"
 
 
 
 export default function Products() {
     const navigate = useNavigate();
 
-
     const { isLoggedIn } = useContext(AuthContext);
+    const { addWishList, getWishList  } = useProduct();
 
     // product list
     const [list, setList] = useState([]);
+    const [wishList, setWishList] = useState([]);
+   
 
     useEffect(() => {
         axios
@@ -50,6 +52,80 @@ export default function Products() {
         // console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
         setItemOffset(newOffset);
     };
+
+
+    /* wish리스트 불러오기 */
+    useEffect(() => {
+        const fetchWishList = async () => {
+          const id = localStorage.getItem("user_id");
+          if (!id) return;
+      
+          try {
+            const wish = await getWishList();
+            setWishList(wish);
+          } catch (err) {
+            console.error("위시리스트 불러오기 실패", err);
+            setWishList([]);
+          }
+        };
+      
+        fetchWishList();
+      }, []);
+      
+
+    
+    const toggleWish = async (pid) => {
+        if (!isLoggedIn) {
+        alert("로그인 후에 사용할 수 있는 서비스입니다.");    
+        return navigate("/login");}
+      
+        const id = localStorage.getItem("user_id");
+        const isWished = wishList.includes(pid);
+        const newWish = isWished
+          ? wishList.filter(item => item !== pid)
+          : [...wishList, pid];
+      
+        try {
+          await axios.post("http://localhost:9000/mypage/updateWishList", {
+            id,
+            newWishList: newWish,
+          });
+          setWishList(newWish);
+          
+            
+            if (!isWished) {
+                alert("위시리스트에 추가되었습니다.");
+      }
+        } catch (err) {
+          console.error("위시리스트 업데이트 실패", err);
+        }
+      };
+      
+      
+
+
+    
+    /* wish list 추가 */
+    // const addHeart = (e, pid) => {
+    //     e.preventDefault();
+
+    //     if (!isLoggedIn) {
+    //         alert('로그인 후 사용가능 한 서비스 입니다');
+    //         navigate('/login');
+    //         return;
+    //     }
+
+    //      // 위시리스트 상태 토글
+    //         setIsWish(prev => ({
+    //             ...prev,
+    //             [pid]: !prev[pid]
+    //         }));
+
+    
+    //     alert('위시리스트에 추가되었습니다.');
+    //     addWishList(pid);
+    // };
+    
 
 
     return (
@@ -103,13 +179,17 @@ export default function Products() {
                                 <img src={item.image} alt="" />
 
                             </div>
-                            <span className='wish-icon' onClick={() => {
+                            
+                            <span className="wish-icon" onClick={(e) => {
+  e.preventDefault();
+  toggleWish(item.pid);
+}}>
+  {wishList.includes(item.pid) ? <FaHeart color="red" /> : <FaRegHeart />}
+</span>
 
-                                if (!isLoggedIn) {
-                                    window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
-                                    navigate('../../login');
-                                }
-                            }}><FaRegHeart /></span>
+
+
+
                             <span className='product-title w600 text-center f15' >{item.pname}</span>
                             <p className='product-price pt10 f12'>{(item.discount_rate) ? `${item.price.toLocaleString()}원` : null}</p>
                             <div className='gap5 flex'>

@@ -61,5 +61,5 @@ export function useProduct() {
     };
     
 
-    return { addWishList, getReview };
+    return { addWishList, getReview, getWishList };
 }
