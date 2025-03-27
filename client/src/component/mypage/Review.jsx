@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
@@ -7,12 +7,13 @@ import { useMypage } from '../../hooks/useMypage.js';
 import { useContext } from 'react';
 import { MypageContext } from '../../context/MypageContext';
 
-export default function Review({  myReview }) {
-    const {myOrder} = useContext(MypageContext);
-    const {getMyOrder} = useMypage();
+export default function Review() {
+    const {myOrder,myReview} = useContext(MypageContext);
+    const {getMyOrder,getReview} = useMypage();
 
     const navigate = useNavigate();
     let filter = myOrder.filter((item) => item.delivery_status === '배송완료');
+    const selectRef = useRef(null);
 
     const handleReview = (pid) => {
         navigate(`/product/detail/:${pid}`);
@@ -58,8 +59,15 @@ export default function Review({  myReview }) {
         .catch(error => console.log(error));
     }
 
-
-
+ // 셀렉트박스 기준으로 order by 로 가져오기는 하는데 페이지넘어가있는 데이터까지는 못가져옴
+ const handleSelectOrder = (e) => {
+     if(selectRef.current.value === 'date'){
+        getReview('rdate');
+    }else {
+        getReview('view_count');
+    }
+    getReview();
+}
 
     return (
         <div className='mypage-review-all'>
@@ -112,16 +120,15 @@ export default function Review({  myReview }) {
             </div>
             <div className='mypage-update-info-title mypage-title'>작성한 리뷰 관리</div>
             <div className='mypage-review-writed-select'>
-                <select name="" id="">
-                    <option value="">선택</option>
-                    <option value="">작성일자별</option>
-                    <option value="">상품명별</option>
+                <select ref={selectRef} name="" onChange={(e) => { handleSelectOrder(e) }}>
+                    <option value="default">선택</option>
+                    <option value="date">작성일자별</option>
+                    <option value="view">조회수별</option>
                 </select>
             </div>
             <div className='mypage-review-writed'>
                 <table>
                     <tr>
-                        <td>주문번호</td>
                         <td>상품정보</td>
                         <td>제목</td>
                         <td>내용</td>
@@ -130,7 +137,6 @@ export default function Review({  myReview }) {
                     </tr>
                     {currentItems2 && currentItems2.map((item) =>
                         <tr>
-                            <td>{item.order_number}</td>
                             <td>{item.pname}</td>
                             <td>{item.subject}</td>
                             <td>{item.text}</td>
