@@ -105,7 +105,9 @@ export const getReview = async(req, res) => {
 // 리뷰작성클릭시 해당 제품으로 이동되고 오더테이블에서 해당내역 삭제
 export const deleteOrder = async(req, res) => {
     // console.log('yeeye',req.body);
-    const result = await repository.deleteOrder(req.body);
+    const result = await repository.getReview(req.body);
     res.json(result);
     res.end();
 }
+
+

@@ -38,12 +38,14 @@ export default function Mypage() {
             setIsChecked2(false);
         }
     }, [isLoggedIn]);
+console.log('myReview',myReview);
 
     
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
         handleLogin(false,'logout');
     }
+
     return (
         <div className='mypage-box'>
             <div className='mypage-top'>
@@ -144,20 +146,19 @@ export default function Mypage() {
                             <ul>
                                 <li>
                                     <p>입금전</p>
-                                    {/*  이거 어케하는지찾아봐 입금전인 애가 몇개인지가 필요해 */}
-                                    <span>{myOrder.map((item)=> item.delivery_status === '입금전'.length)}</span>
+                                    <span>{myOrder.filter((item)=> item.delivery_status === '입금전').length}</span>
                                 </li>
                                 <li>
                                     <p>배송준비중</p>
-                                    <span>0</span>
+                                    <span>{myOrder.filter((item)=> item.delivery_status === '배송준비중').length}</span>
                                 </li>
                                 <li>
                                     <p>배송중</p>
-                                    <span>0</span>
+                                    <span>{myOrder.filter((item)=> item.delivery_status === '배송중').length}</span>
                                 </li>
                                 <li>
                                     <p>배송완료</p>
-                                    <span>0</span>
+                                    <span>{myOrder.filter((item)=> item.delivery_status === '배송완료').length}</span>
                                 </li>
                                 <li>
                                     <li>· 취소 : <span>0</span></li>

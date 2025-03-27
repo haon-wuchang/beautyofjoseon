@@ -82,12 +82,11 @@ export function useMypage() {
         }
     }
 
-    const getReview = async() => {
+    const getReview = async(type) => {
         const id = localStorage.getItem('user_id');
-        const result = await axios.post('http://localhost:9000/mypage/getReview', { 'id': id });
+        const result = await axios.post('http://localhost:9000/mypage/getReview', { 'id': id ,'type':type});
         setMyReview(result.data);
     }
-
 
     return { getMyinfo, getMyOrder, getWishNumber, getReview };
 }
