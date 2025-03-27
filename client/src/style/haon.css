@@ -1173,7 +1173,7 @@
     align-items: center;
     padding-left: 10px;
 }
-.mypage-review-write > table>tr:last-child>td:last-child:hover{
+.mypage-review-write-2nd>td:last-child:hover{
     cursor: pointer;
     background-color: rgb(240, 238, 232);
 }

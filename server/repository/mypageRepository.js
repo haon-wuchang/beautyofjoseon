@@ -196,3 +196,13 @@ export const getReview = async ({ id }) => {
     // console.log('마이페이지레파지토리',result);
     return result;
 }
+
+//리뷰작성클릭시 오더테이블에서 해당주문번호로 삭제
+export const deleteOrder = async ({ order_number }) => {
+    const sql = `
+       delete from orders where order_number = ? 
+                `;
+    const result = await db.execute(sql, [order_number]);
+    // console.log('마이페이지레파지토리', result[0].affectedRows);
+    return { result: result[0].affectedRows };
+}
