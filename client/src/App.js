@@ -21,10 +21,10 @@ import { ProductProvider } from './context/productContext.js';
 import Search from './page/Search.jsx';
 import Admin from './page/Admin.jsx';
 import PaymentSuccess from './page/PaymentSuccess.jsx';
+import ScrollTop from './component/ScrollTop.jsx';
 
 export default function App() {
-  return (
-    
+  return (    
     <ProductProvider>
     <OrderProvider>
     <CartProvider>
@@ -32,6 +32,7 @@ export default function App() {
       <SearchProvider>
       <MypageProvider>
         <BrowserRouter>
+        <ScrollTop />
           <Routes>
             <Route path='/' element={<Layout />} >
               <Route index element={<Home />} />
