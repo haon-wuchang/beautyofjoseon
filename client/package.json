@@ -7,11 +7,8 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
     "antd": "^5.24.4",
-=======
     "append-field": "^2.0.0",
->>>>>>> c8e9e5b6a1190f6bf2fcef321587f4a9a34619ff
     "axios": "^1.8.2",
     "framer-motion": "^12.5.0",
     "jsonwebtoken": "^9.0.2",

@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Modal, Button } from "antd";
 import { validationSignup, handleIdCheck } from '../utils/funcinitialize.js';
 import { initSignup } from '../utils/funcValidate.js';
-
+import axios from 'axios';
 
 export default function Signup() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { names, labels, initFormData } = initSignup();
     const [ formData, setFormData ] = useState(initFormData);
     const refs = {
         idRef: useRef(null),
-        pwdRef: useRef(null),
+        passwordRef: useRef(null),
         cpwdRef: useRef(null),
         nameRef: useRef(null),
         phone1Ref: useRef("default"),
@@ -21,7 +22,7 @@ export default function Signup() {
         emailDomainRef: useRef("default") 
     };
     const [ idCheckResult, setIdCheckResult] = useState('default');
-    const [ pwdCheck, setPwdCheck] = useState(null);
+    const [ passwordCheck, setPasswordCheck] = useState(null);
     const [ cpwdCheck, setCpwdCheck] = useState(null);
     const [ checkedItems, setCheckedItems ] = useState([]);
     const [ modalOpen, setModalOpen ] = useState(false);
@@ -46,18 +47,37 @@ export default function Signup() {
                     ⑥ 이 약관에서 정하지 아니한 사항과 이 약관의 해석에 관하여는 전자상거래 등에서의 소비자보호에 관한 법률, 약관의 규제 등에 관한 법률, 공정거래위원회가 정하는 전자상거래 등에서의 소비자 보호지침 및 관계법령 또는 상관례에 따릅니다.`
         },
         {   id:1
-            , text:'개인정보 수집 및 이용에 동의하십니까?'
+            , text:'개인정보 수집 및 이용에 동의하십니까?(필수)'
         },
         {   id:2
-            , text:'이메일 수신을 동의하십니까?'
+            , text:'이메일 수신을 동의하십니까?(필수)'
         }
     ];
 
+    /* sns 연동 회원가입 */
+    useEffect(()=>{
+        if(location.state?.join_type === 'sns'){
+            const { name, mobile, email} = location.state;
+            console.log('name>>>',name);
+            console.log('mobile>>>',mobile);
+            
+            const [phone1, phone2, phone3] = (mobile ?? '').split('-');
+
+            setFormData(prev =>({...prev, name: name ?? '',
+                                          phone1 : phone1 ?? 'default',
+                                          phone2 : phone2 ?? '',
+                                          phone3 : phone3 ?? '',
+                                          email : email?.split('@')[0] ?? '',
+                                          emailDomain: email?.split('@')[1] ?? 'default'}))
+                                }
+    },[location.state]);
+    console.log('formData>>>',formData);
     useEffect(()=>{
         if(idCheckResult === 'complete'){
             setIdCheckResult("default"); 
         }
     },[formData.id]);
+
 
     /* 폼 입력 정보 */
     const handleChangeForm= (e) =>{
@@ -66,21 +86,20 @@ export default function Signup() {
         const pvalue = Number(e.target.value);
         setFormData({...formData, [name]: value});
        
-        if(name === 'pwd'){
+        if(name === 'password'){
             const isVaild = (value.length >= 8 && value.length <= 15);
-            setPwdCheck(isVaild);
+            setPasswordCheck(isVaild);
         }else if(name ==='cpwd'){
-            setCpwdCheck(newFormData.pwd === value);
-        }else if(name ==='phone1'){
-            // const regex
-            alert('숫자만 입력가능합니다.');
+            setCpwdCheck(newFormData.password === value);
+        }else if(name ==='phone2'|| name ==='phone3' ){
+            if(/\D/.test(value)){
+                alert('숫자만 입력가능합니다.');
+                e.target.value = '';
+                setFormData((prev)=>({...prev, [name]:''}));
+                return
+            }
         }
     };
-
-    // /* 전화번호 글자 입력시 안내창 */
-    // const handleKeyup  = (e:React.KeyboardEvent<HTMLInputElement>) => {
-
-    // };   
 
 
     /* 체크박스 개별 체크 */
@@ -114,9 +133,19 @@ export default function Signup() {
             if(idCheckResult === 'default'){
                 alert('아이디 중복확인을 진행해주세요');
                 return false;
+            }else if(checkedItems.length !== 3){
+                console.log('checkedItems >>>',checkedItems);
+                alert('약관에 모두 동의해주세요.');
             }else{
                 console.log('유효성체크 formData ->',formData);
-                // 서버연동
+                axios.post('http://localhost:9000/signup/submit', formData)
+                     .then((res)=>{
+                        if(res.data === 1 ){
+                            alert('회원가입이 완료되었습니다.');
+                            navigate('/login');
+                        }
+                     })
+                     .catch((error)=>console.log(error))   
                 
             }
         }
@@ -133,15 +162,15 @@ export default function Signup() {
                                 ref={refs.idRef}     
                                 onChange={handleChangeForm}/>
                         <button type='button'
-                                onClick={()=>{handleIdCheck(refs.idRef, refs.pwdRef, setIdCheckResult)}}>중복확인</button>
+                                onClick={()=>{handleIdCheck(refs.idRef, refs.passwordRef, setIdCheckResult)}}>중복확인</button>
                         <p>6자 이상으로 입력해주세요</p>
                     </li>
                     <li>
                         <label>비밀번호 <span>·</span></label>
-                        <input type="password" name='pwd'
-                               ref={refs.pwdRef}
+                        <input type="password" name='password'
+                               ref={refs.passwordRef}
                                onChange={handleChangeForm} />
-                        <p className={pwdCheck === null || pwdCheck === true ?"" : "pwd-error" }>8~15자 사이로 입력해주세요.</p>
+                        <p className={passwordCheck === null || passwordCheck === true ?"" : "pwd-error" }>8~15자 사이로 입력해주세요.</p>
                     </li>
                     <li>
                         <label>비밀번호 확인 <span>·</span></label>
@@ -154,14 +183,16 @@ export default function Signup() {
                         <label>이름 <span>·</span></label>
                         <input type="text" name='name' 
                                ref={refs.nameRef}
-                               onChange={handleChangeForm}/>
+                               onChange={handleChangeForm}
+                               value={formData.name}/>
                     </li>
                     <li className='phone-info'>
                         <label>휴대전화 <span>·</span></label>
                         <div>
                             <select name="phone1" className='phone' 
                                     ref={refs.phone1Ref} 
-                                    onChange={handleChangeForm}>
+                                    onChange={handleChangeForm}
+                                    value={formData.phone1}>
                                 <option value="default">선택</option>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
@@ -170,12 +201,14 @@ export default function Signup() {
                             <input type="text" name="phone2" className='phone phone2' 
                                    maxLength={4}
                                    ref={refs.phone2Ref} 
-                                   onChange={handleChangeForm}/>
+                                   onChange={handleChangeForm}
+                                   value={formData.phone2}/>
                             <span className="dash"> - </span>
                             <input type="text" name="phone3" className='phone phone3' 
                                    maxLength={4}
                                    ref={refs.phone3Ref} 
-                                   onChange={handleChangeForm}/>
+                                   onChange={handleChangeForm}
+                                   value={formData.phone3}/>
                         </div>
                     </li>
                     <li className='signup-email-line'>
@@ -183,11 +216,13 @@ export default function Signup() {
                         <div>
                             <input type="text" name='email' 
                                    ref={refs.emailRef}
-                                   onChange={handleChangeForm}/>
+                                   onChange={handleChangeForm}
+                                   value={formData.email}/>
                             <span>@</span>
                             <select name="emailDomain" 
                                     ref={refs.emailDomainRef}
-                                    onChange={handleChangeForm}>
+                                    onChange={handleChangeForm}
+                                    value={formData.emailDomain}>
                                 <option value="default">선택</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="gmail.com">gmail.com</option>

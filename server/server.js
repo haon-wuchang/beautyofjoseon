@@ -7,13 +7,10 @@ import mypageRouter from './router/mypageRouter.js';
 import mainRouter from './router/mainRouter.js';
 import searchRouter from './router/searchRouter.js';
 import cartRouter from './router/cartRouter.js';
-<<<<<<< HEAD
 import signupRouter from './router/signupRouter.js';
-=======
 import orderRouter from './router/orderRouter.js';
 import adminRouter from './router/adminRouter.js';
-
->>>>>>> c8e9e5b6a1190f6bf2fcef321587f4a9a34619ff
+import naverRouter from './router/naverRouter.js';
 
 /* 서버 생성 및 포트 정의 */
 const server = express();
@@ -37,6 +34,7 @@ server.use('/search', searchRouter);
 server.use('/cart', cartRouter);
 server.use('/order', orderRouter);
 server.use('/uploads', adminRouter);
+server.use('/naver', naverRouter);
 
 
 

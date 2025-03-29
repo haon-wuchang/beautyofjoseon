@@ -11,6 +11,8 @@ import Signup from './page/Signup.jsx';
 import Mypage from './page/Mypage.jsx';
 import Products from './page/Products.jsx';
 import ProductDetail from './page/ProductDetail.jsx';
+import SignupPopup from './page/SignupPopup.jsx';
+import RedirectPage from './utils/RedirectPage.js';
 import Cart from './page/Cart.jsx';
 import Payment from './page/Payment.jsx';
 import { AuthProvider } from './auth/AuthContext.js';
@@ -46,6 +48,10 @@ export default function App() {
               <Route path='/payment/success' element={<PaymentSuccess />} />
               <Route path='/search' element={<Search />} />
               <Route path='/admin' element={<Admin />} />
+            </Route>
+  
+            <Route element={< SignupPopup/>}>
+              <Route path='/signup/redirect' element={<RedirectPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

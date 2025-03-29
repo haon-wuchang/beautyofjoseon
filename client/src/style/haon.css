@@ -130,7 +130,7 @@
     width: 100%;
     height: 45px;
 }
-.login-box-right-middle > div:first-child{
+.login-box-right-middle > button:first-child{
     margin-bottom: 13px;
 }
 .login-btn2, .login-btn3{
@@ -146,7 +146,8 @@
     font-size: 22px;
 }
 .login-btn2>span:last-child, .login-btn3>span:last-child{
-    margin-left: 5px;
+    margin-left: 10px;
+    letter-spacing: 0.5px;
 }
 .login-btn1{
     background-color: black;

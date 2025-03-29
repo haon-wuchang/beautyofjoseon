@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.8.4",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
@@ -20,10 +21,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-<<<<<<< HEAD
   },
   "description": ""
-=======
-  }
->>>>>>> c8e9e5b6a1190f6bf2fcef321587f4a9a34619ff
 }
