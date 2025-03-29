@@ -90,3 +90,4 @@ export const deleteItems = async(data) => {
 
     return {"result_rows": result.affectedRows};
 }
+

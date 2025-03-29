@@ -1,3 +1,8 @@
+/******************************** 
+ *     상품 리스트
+ *  작성자 : 정서령
+ * ******************************/
+
 import React, { useEffect, useState, useContext } from 'react';
 import '../style/product.scss';
 import { useNavigate } from 'react-router-dom';
