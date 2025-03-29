@@ -7,22 +7,37 @@ export default function RedirectPage() {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get("code");
       const state = urlParams.get("state");
+      const pathname = window.location.pathname;
+
+      let provider = null;
+
+      if(pathname.includes('naver')){
+        provider = 'naver';
+      }else if(pathname.includes('kakao')){
+        provider = 'kakao';
+      }
+
+      if(!provider || !code){
+        console.log('SNS 로그인: provider 또는 code 없음');
+        window.close();
+        return;
+      }
 
       try {
-        // const res = await axios.post(`http://localhost:9000/naver/callback?code=${code}&state=${state}`);
-        const res = await axios.post('http://localhost:9000/naver/callback', {code, state});
+        const payload = provider==='naver'?{code, state} : {code};
+        const res = await axios.post(`http://localhost:9000/signup/${provider}/callback`, payload);
         const data = res.data;
 
         if (window.opener && !window.opener.closed) {
             window.opener.postMessage({
-              type: 'NAVER_LOGIN_SUCCESS',
+              type: provider.toUpperCase() + '_LOGIN_SUCCESS',
               payload: data
             }, "http://localhost:3000");
             console.log('[RedirectPage] postMessage 전송됨:', data);  
             window.close();
           }  
       } catch (error) {
-        console.log('SNS 로그인 실패', error);
+        console.log('SNS 회원가입 실패', error);
         window.close(); 
       }
     };

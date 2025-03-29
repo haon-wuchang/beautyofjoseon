@@ -10,7 +10,7 @@ import cartRouter from './router/cartRouter.js';
 import signupRouter from './router/signupRouter.js';
 import orderRouter from './router/orderRouter.js';
 import adminRouter from './router/adminRouter.js';
-import naverRouter from './router/naverRouter.js';
+import snsLoginRouter from './router/snsLoginRouter.js';
 
 /* 서버 생성 및 포트 정의 */
 const server = express();
@@ -34,7 +34,7 @@ server.use('/search', searchRouter);
 server.use('/cart', cartRouter);
 server.use('/order', orderRouter);
 server.use('/uploads', adminRouter);
-server.use('/naver', naverRouter);
+server.use('/:provider', snsLoginRouter);
 
 
 

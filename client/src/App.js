@@ -51,7 +51,7 @@ export default function App() {
             </Route>
   
             <Route element={< SignupPopup/>}>
-              <Route path='/signup/redirect' element={<RedirectPage />} />
+              <Route path='/signup/redirect/:provider' element={<RedirectPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
