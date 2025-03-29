@@ -6,20 +6,25 @@ import { db } from './db.js';
     전체상품 리스트 조회
 **************************/
 
-export const getList = async () => {
-    const sql = `
-        select pid,
-                pname,
-                price,
-                discount_rate,
-                concat('http://localhost:9000/',main_image->>'$[0]') as image, 
-                main_image, 
-                pdate
-        from product;
+export const getList = async (category_id) => {
+    let sql = `
+        SELECT pid, pname, category_id, price, discount_rate,
+               CONCAT('http://localhost:9000/', main_image->>'$[0]') AS image,
+               main_image, pdate
+        FROM product
     `;
-    const [result] = await db.execute(sql);
+
+    const params = [];
+
+    if (category_id) {
+        sql += ' WHERE category_id = ?'; // ✅ 조건 추가
+        params.push(category_id);
+    }
+
+    const [result] = await db.execute(sql, params);
     return result;
-}
+};
+
 
 
 /************************ 

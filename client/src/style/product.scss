@@ -341,9 +341,10 @@
             border-radius: 5px;
             color: rgba(0, 0, 0, 0.5);
             font-weight: 600;
+            cursor: pointer;
         }
 
-        li:active {
+        li.active {
             padding: 9px 14px;
             background-color: #000000B3;
             font-size: 13px;

@@ -25,10 +25,13 @@ export default function Products() {
 
 
     const [list, setList] = useState([]); // 상품 리스트
+    const [selectedCategory, setSelectedCategory] = useState('all'); // 초기값 'all'
+    const [products, setProducts] = useState([]);
     const [wishList, setWishList] = useState([]); // 위시리스트
     const [isSortOpen, setIsSortOpen] = useState(false); // sort 버튼 토글
     const [sortType, setSortType] = useState("default"); // sort 정렬 상태
     const [gridClass, setGridClass] = useState("product-grid-3"); // 그리드 기본 3열
+
 
 
     /* 상품 리스트 불러오기 */
@@ -40,24 +43,47 @@ export default function Products() {
     }, [])
 
 
-    /* sort */
+
+
+
+    /* sort 버튼 */
     const sortProducts = (products, type) => {
         const sorted = [...products];
-      
+
         switch (type) {
-          case "new":
-            return sorted.sort((a, b) => new Date(b.pdate) - new Date(a.pdate));
-          case "name":
-            return sorted.sort((a, b) => a.pname.localeCompare(b.pname));
-          case "lowPrice":
-            return sorted.sort((a, b) => a.price - b.price);
-          case "highPrice":
-            return sorted.sort((a, b) => b.price - a.price);
-          default:
-            return products;
+            case "new":
+                return sorted.sort((a, b) => new Date(b.pdate) - new Date(a.pdate));
+            case "name":
+                return sorted.sort((a, b) => a.pname.localeCompare(b.pname));
+            case "lowPrice":
+                return sorted.sort((a, b) => a.price - b.price);
+            case "highPrice":
+                return sorted.sort((a, b) => b.price - a.price);
+            default:
+                return products;
         }
-      };
-      
+    };
+
+
+    /* 상단 카테고리별 출력 */
+
+    const currentList = selectedCategory === 'all' ? list : products;
+
+    const handleCategoryClick = async (category) => {
+        setSelectedCategory(category);
+        setItemOffset(0);
+    
+        try {
+            const res = await axios.post('http://localhost:9000/product/list', {
+                category_id: category === 'all' ? null : category
+            });
+            setProducts(res.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    
+
 
 
     /* wish리스트 불러오기 */
@@ -119,9 +145,10 @@ export default function Products() {
     const endOffset = itemOffset + itemsPerPage;
     // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
 
-    const currentItems = list.slice(itemOffset, endOffset); 
+    const currentItems = currentList.slice(itemOffset, endOffset);
     const sortedItems = sortProducts(currentItems, sortType);
-    const pageCount = Math.ceil(list.length / itemsPerPage); // 전체 페이지 수에서 20개씩 슬라이싱
+    const pageCount = Math.ceil(currentList.length / itemsPerPage);
+ // 전체 페이지 수에서 20개씩 슬라이싱
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * itemsPerPage) % list.length;
@@ -135,16 +162,42 @@ export default function Products() {
             <div className='product-all-top'>
                 <h5 className='f18'>SHOP ALL</h5>
                 <ul className='flex list-none w500'>
-                    <li>전 제품</li>
-                    <li>스킨케어</li>
-                    <li>바디케어</li>
-                    <li>라이프스타일</li>
-                    <li>세트</li>
+                    <li
+                        onClick={() => handleCategoryClick('all')}
+                        className={selectedCategory === 'all' ? 'active' : ''}
+                    >
+                        전 제품
+                    </li>
+                    <li
+                        onClick={() => handleCategoryClick(100)}
+                        className={selectedCategory === 100 ? 'active' : ''}
+                    >
+                        스킨케어
+                    </li>
+                    <li
+                        onClick={() => handleCategoryClick(200)}
+                        className={selectedCategory === 200 ? 'active' : ''}
+                    >
+                        바디케어
+                    </li>
+                    <li
+                        onClick={() => handleCategoryClick(300)}
+                        className={selectedCategory === 300 ? 'active' : ''}
+                    >
+                        라이프스타일
+                    </li>
+                    <li
+                        onClick={() => handleCategoryClick(400)}
+                        className={selectedCategory === 400 ? 'active' : ''}
+                    >
+                        세트
+                    </li>
                 </ul>
             </div>
             <div className='product-all-bottom space-between'>
                 <div>
-                    <span className='f12' >{list.length}</span>
+                <span className='f12'>{currentList.length}</span>
+
                     <span className='f12'>Products</span>
                 </div>
                 <div className='flex'>
@@ -169,10 +222,10 @@ export default function Products() {
                         {isSortOpen && (
                             <ul className='sort-dropdown'>
                                 <li onClick={() => setSortType("new")}>신상품</li>
-  <li onClick={() => setSortType("name")}>상품명</li>
-  <li onClick={() => setSortType("lowPrice")}>낮은가격</li>
-  <li onClick={() => setSortType("highPrice")}>높은가격</li>
-  <li onClick={() => alert("아직 준비중입니다.")}>인기상품</li>
+                                <li onClick={() => setSortType("name")}>상품명</li>
+                                <li onClick={() => setSortType("lowPrice")}>낮은가격</li>
+                                <li onClick={() => setSortType("highPrice")}>높은가격</li>
+                                <li onClick={() => alert("아직 준비중입니다.")}>인기상품</li>
                             </ul>
                         )}
                     </div>

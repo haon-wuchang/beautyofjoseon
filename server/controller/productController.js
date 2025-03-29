@@ -12,7 +12,8 @@ import path from 'path';
 
 
 export const getList = async(req, res) => {
-    const result = await repository.getList();
+    const category_id = req.body.category_id;
+    const result = await repository.getList(category_id);
     res.json(result);
     res.end();
 }
