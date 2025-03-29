@@ -17,7 +17,6 @@ export function useProduct() {
             const getReview = async (pid) => {
                 const result = await axios.post("http://localhost:9000/product/getReview", { pid });
               
-                console.log('리뷰',result);
             
                 setReviews(result.data);
               };
