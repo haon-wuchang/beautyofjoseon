@@ -26,6 +26,21 @@ export default function ProductDetail() {
     autoplaySpeed: 2000
   };
 
+  const handleDeleteReview = (pid) => {
+    const id = localStorage.getItem("user_id");
+  
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+  
+    axios.post("http://localhost:9000/review/delete", {
+      pid,
+      id
+    }).then(res => {
+      alert("리뷰가 삭제되었습니다.");
+      getReview(pid); // 리뷰 다시 불러오기
+    });
+  };
+  
+
   const { isLoggedIn } = useContext(AuthContext);
   const { pid } = useParams();
   const { cartList } = useContext(CartContext);
@@ -143,6 +158,7 @@ export default function ProductDetail() {
         <div className='product-detail-left'>
           <DetailImages images={detailImgList} />
           <Review
+            pid={product.pid}
             reviews={reviews}
             showReview={showReview}
             setShowReview={setShowReview}

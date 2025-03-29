@@ -1,4 +1,6 @@
-import { format } from 'path';
+/************************ * 
+ * 작성자 : 정서령
+ ***************************/
 import { db } from './db.js';
 
 
@@ -29,6 +31,7 @@ export const getList = async (category_id) => {
 
 /************************ 
     상품 상세 정보 조회
+    
 **************************/
 
 
@@ -152,3 +155,17 @@ export const reviewUp = async (formData) => {
 
     return { "result_rows" : result.affectedRows};
 }
+
+
+
+
+/************************ 
+    리뷰 삭제
+**************************/
+
+export const DeleteReview = async ({ pid, id }) => {
+    const sql = `DELETE FROM review WHERE pid = ? AND id = ?`; 
+    const [result] = await db.execute(sql, [pid, id]);
+    return result; 
+};
+

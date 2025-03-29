@@ -142,3 +142,11 @@ export const reviewPhotosUp = (req, res) => {
     });
 }
 
+/************************ 
+    리뷰 삭제
+**************************/
+export const DeleteReview = async (req, res) => {
+    const result = await repository.DeleteReview(req.body);
+    res.json(result);
+    res.end();
+};
