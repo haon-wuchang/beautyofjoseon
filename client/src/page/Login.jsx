@@ -35,7 +35,6 @@ export default function Login() {
         }     
         return true;
     }
-    // console.log('=',formData);
     
 
     const handleSubmit = (e) => {

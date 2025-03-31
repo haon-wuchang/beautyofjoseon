@@ -1,9 +1,14 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export default function RedirectPage() {
+  const calledRef = useRef(false); 
+  
   useEffect(()=>{
     const fetchUserInfo = async() =>{
+      if (calledRef.current) return;
+      calledRef.current = true;
+
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get("code");
       const state = urlParams.get("state");
