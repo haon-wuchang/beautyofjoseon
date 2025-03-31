@@ -8,16 +8,16 @@ import { AuthContext } from '../../auth/AuthContext.js';
 import { useLogin } from '../../hooks/useLogin.js';
 
 export default function UpdateMypage({ myinfo, births, Checked }) {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn } = useContext(AuthContext);
     const { getMyinfo } = useMypage();    
     const navigate = useNavigate();
         const {handleLogin} = useLogin();
 
     useEffect(() => {
-        console.log(" 마이페이지 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
-    }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행
+        // console.log(" 마이페이지 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
+    }, [isLoggedIn]);
 
-    const [updateData, setUpdateData] = useState({});   // 회원정보 변경 되면 여기 저장됨
+    const [updateData, setUpdateData] = useState({});  
     /** 주소검색 버튼Toggle */
     const [isOpen, setIsOpen] = useState(false);
     /** 주소 검색 버튼 */
@@ -25,7 +25,6 @@ export default function UpdateMypage({ myinfo, births, Checked }) {
         setIsOpen(!isOpen);
     };
     const [btnChangeClick, setBtnChangeClick] = useState({
-        // 수정을 누르면 true 가 되고 완료를 누르면 false 가 된다
         'pwd': false,
         'name': false,
         'zipcode': false,
@@ -57,9 +56,9 @@ export default function UpdateMypage({ myinfo, births, Checked }) {
     }
     // 버튼 클릭 핸들러
     const handle = (type) => {
-        setBtnChangeClick(prev => ({   // setBtnChangeClick 가 관리하는 값들이 prev 이다.
+        setBtnChangeClick(prev => ({ 
             ...prev,
-            [type]: !prev[type]  // 클릭한 타입만 토글
+            [type]: !prev[type] 
         }));
     };
     const handleChangeInputData = (e) => {
@@ -109,31 +108,29 @@ export default function UpdateMypage({ myinfo, births, Checked }) {
             if (pwdValidate()) {
                 axios.post('http://localhost:9000/mypage/updateInfo', { 'id': id, 'colName': colName, 'value': value })
                     .then(res => {
-                        // console.log('ddd', res.data.result);
                         if (res.data.result === 1) {
                             getMyinfo();
                         } else {
-                            alert('11회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                            alert('회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
                         }
                     })
                     .catch(error => {
                         console.log(error);
-                        alert('22회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                        alert('회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
                     });
             }
         } else {
             axios.post('http://localhost:9000/mypage/updateInfo', { 'id': id, 'colName': colName, 'value': value })
                 .then(res => {
-                    // console.log(res.data);
                     if (res.data.result === 1) {
                         getMyinfo();
                     } else {
-                        alert('33회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.')
+                        alert('회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.')
                     }
                 })
                 .catch(error => {
                     console.log(error);
-                    alert('44회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                    alert('회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
                 });
         }
     }
@@ -142,20 +139,18 @@ export default function UpdateMypage({ myinfo, births, Checked }) {
         const est = refs.yearRef.current.value.concat('-', refs.monthRef.current.value, '-', refs.dateRef.current.value);
         axios.post('http://localhost:9000/mypage/updateInfo', { 'id': id, 'colName': 'birth', 'value': est })
             .then(res => {
-                // console.log(res.data);
                 if (res.data.result === 1) {
                     getMyinfo();
                 } else {
-                    alert('55회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.')
+                    alert('회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.')
                 }
             })
             .catch(error => {
                 console.log(error);
-                alert('66회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                alert('회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
             });
     }
     const handleChecked = (e, type) => {
-        // console.log(type);
         if (type === 'M') {
             Checked.setIsChecked1(e.target.checked);
             Checked.setIsChecked2(false);
@@ -175,7 +170,7 @@ export default function UpdateMypage({ myinfo, births, Checked }) {
                 })
                 .catch(error => {
                     console.log(error);
-                    alert('77회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
+                    alert('회원정보 수정 중 에러가 발생하였습니다. 다시 시도해주세요.');
                 });
         } else {
             navigate('/mypage');
@@ -196,7 +191,6 @@ export default function UpdateMypage({ myinfo, births, Checked }) {
                     <tr>
                         <td>비밀번호</td>
                         <td><input type="password"
-                            //바뀐 값이 value로 안들어감  수정해 
                             value={btnChangeClick.pwd ? null : (
                                 updateData.pwd === undefined ? myinfo.password : updateData.pwd
                             )}

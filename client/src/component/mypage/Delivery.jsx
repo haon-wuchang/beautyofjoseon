@@ -5,14 +5,12 @@ import { useMypage } from '../../hooks/useMypage.js';
 import { useContext } from 'react';
 import { MypageContext } from '../../context/MypageContext.js';
 import { useEffect } from 'react';
-import { AuthContext } from '../../auth/AuthContext.js';
 
 export default function Delivery() {
-    const { address, zipcode, extra, myinfo } = useContext(MypageContext);
+    const {myinfo } = useContext(MypageContext);
     const { getMyinfo } = useMypage();
     const [open, setOpen] = useState(false);
     const [deliData, setDeliData] = useState({});
-    const [mainDeli, setMainDeli] = useState(true);
     const [isChecked1, setIsChecked1] = useState(true); //체크박스 상태 관리
     const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
     const handleModal = () => {
@@ -97,14 +95,11 @@ export default function Delivery() {
     }
 
     const handleDelivery = () => {
-        // 유효성체크후 서버로 보내기 
         if (deliValidate()) {
             const id = localStorage.getItem('user_id');
             axios.post('http://localhost:9000/mypage/addDelivery', { 'id': id, 'deliData': deliData })
                 .then(res => {
-                    console.log('ddd', res.data.result);
                     if (res.data.reslt === 1) {
-                        // 회원정보가져와서 addtional_address 에 있는값 map 돌려서 뿌리기
                         getMyinfo();
                     }
                 })
@@ -115,9 +110,9 @@ export default function Delivery() {
         }
     }
     const addressC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('!');  // - 있는 위치 찾기
-    const extraC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('=');  // - 있는 위치 찾기
-    const nameC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('+');  // + 있는 위치 찾기
-    const phoneC =myinfo.addtional_address &&  myinfo.addtional_address[0].indexOf('~');  // ~ 있는 위치 찾기
+    const extraC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('=');  
+    const nameC = myinfo.addtional_address && myinfo.addtional_address[0].indexOf('+');  
+    const phoneC =myinfo.addtional_address &&  myinfo.addtional_address[0].indexOf('~');  
     const zipcodeF =myinfo.addtional_address &&  myinfo.addtional_address[0].slice(0, addressC-1);
     const addressF = myinfo.addtional_address && myinfo.addtional_address[0].slice(addressC + 1, extraC);
     const extraF =myinfo.addtional_address &&  myinfo.addtional_address[0].slice(extraC + 1, nameC);
@@ -146,17 +141,12 @@ const ChangeOriginDelivery = async() => {
 
         await axios.post('http://localhost:9000/mypage/updateMainDelivery', { deliData2, 'id': id })
         .then(res => {
-            console.log('apdpspsp',res.data); 
             getMyinfo();
-            // if (res.data.reslt === 1) {
-            //     // getMyinfo();
-            // }
         })
         .catch(err => console.log(err));      
             
         await axios.post('http://localhost:9000/mypage/addDelivery',{ 'id': id, 'deliData': adf })
         .then(res => {
-            console.log('rlrlrl',res.data);  
             getMyinfo();          
         })
         .catch(err => console.log(err));      
@@ -167,7 +157,6 @@ const deliveryDelete = () => {
     const id = localStorage.getItem('user_id');
     axios.post('http://localhost:9000/mypage/deleteDelivery', { 'id': id })
         .then(res => {
-            console.log(res.data);
             getMyinfo();
         })
         .catch(err => console.log(err));

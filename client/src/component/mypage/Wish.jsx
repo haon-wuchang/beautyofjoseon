@@ -30,10 +30,6 @@ export default function Wish({ wishList }) {
         setItemOffset(newOffset);
     };
 
-
-
-
-
     const deleteWish = (pid) => {
         const deleteCheck = window.confirm("관심상품을 삭제하시겠습니까?");
         if (deleteCheck) {
