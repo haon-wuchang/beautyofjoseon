@@ -95,6 +95,7 @@ export const deleteItems = async(data) => {
 }
 
 
+
 /********************************************
     주문 완료 후 주문 번호로 주문 내역 호출
     사용처 : payment success
@@ -115,3 +116,4 @@ export const getBill = async(formData) => {
     console.log("getBill 확인 --> ", result);
     return result;
 }
+

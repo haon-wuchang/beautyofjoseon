@@ -58,3 +58,4 @@ export const getBill = async(req, res) => {
     res.json(result);
     res.end();
 }
+

@@ -37,7 +37,7 @@ CREATE TABLE `review` (
   KEY `id_fk3` (`id`),
   CONSTRAINT `id_fk3` FOREIGN KEY (`id`) REFERENCES `customer` (`id`),
   CONSTRAINT `pid_fk3` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,'agikim',1,'너무 좋아요','잘 쓰고 있습니다~~ 제품도 좋고 패키지도 예뻐요','["review_sample1.png","review_sample2.png","review_sample3.png"]','2025-03-29 21:19:56',0,NULL);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-24 18:39:15
+-- Dump completed on 2025-03-29 21:23:40

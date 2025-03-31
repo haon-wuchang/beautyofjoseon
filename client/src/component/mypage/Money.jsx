@@ -66,7 +66,7 @@ export default function Money({ myOrder }) {
                         <td>적립금</td>
                         <td>주문내역</td>
                     </tr>
-                    {
+                    {/* {
                     <tr>
                         <td>ㄴㅇㄹ234092ㅕ423</td>
                         <td>3,000 포인트</td>
@@ -75,7 +75,7 @@ export default function Money({ myOrder }) {
                             <span>따끊나 옷</span>
                         </td>
                     </tr>
-                    }
+                    } */}
                 </table>
             </div>
             <div className='mypage-money-page'>

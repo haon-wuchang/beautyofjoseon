@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import OtherPay from '../../component/OtherPay.jsx';
+import OtherPay from '../product/OtherPay.jsx';
 import { CartContext } from '../../context/cartContext.js';
 import { OrderContext } from '../../context/orderContext.js';
 import { useCart } from '../../hooks/useCart.js';
