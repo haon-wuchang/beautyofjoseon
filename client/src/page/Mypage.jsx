@@ -10,23 +10,21 @@ import { AuthContext } from '../auth/AuthContext.js';
 import { useContext } from 'react';
 import { MypageContext } from '../context/MypageContext.js';
 import { useMypage } from '../hooks/useMypage.js';
-import { useNavigate } from 'react-router-dom';
 import {useLogin} from '../hooks/useLogin.js';
 
 export default function Mypage() {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    const { setMyinfo, myinfo, year, month, date, gender ,myOrder,wishList, orderType, myReview} = useContext(MypageContext);
+    const { isLoggedIn } = useContext(AuthContext);
+    const { myinfo, year, month, date, gender ,myOrder,wishList, myReview} = useContext(MypageContext);
     const {handleLogin} = useLogin();
     const [tab, setTab] = useState('main');
     const { getMyinfo, getMyOrder ,getWishNumber,getReview} = useMypage();
-    const [isChecked1, setIsChecked1] = useState(false); //체크박스 상태 관리
-    const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
+    const [isChecked1, setIsChecked1] = useState(false); 
+    const [isChecked2, setIsChecked2] = useState(false); 
     useEffect(() => {
         getMyinfo();
         getMyOrder();
         getWishNumber();
         getReview();
-        // handleLogin();
         if (gender === 'M') {
             setIsChecked1(true);
             setIsChecked2(false);
@@ -38,10 +36,7 @@ export default function Mypage() {
             setIsChecked2(false);
         }
     }, [isLoggedIn]);
-console.log('myReview',myReview);
 
-    
-    /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
         handleLogin(false,'logout');
     }
