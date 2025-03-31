@@ -9,7 +9,6 @@ import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
 export default function CreateReview({ closeModal }) {
-
     /* 해당 컴포넌트 상태 관리 외 */
     const { pid } = useParams();
     const [uploadFileName, setUploadFileName] = useState([]); // 서버 저장용
@@ -17,27 +16,21 @@ export default function CreateReview({ closeModal }) {
     const [oldFile, setOldFile] = useState([]);
     const [previewList, setPreviewList] = useState([]); // preview 이미지
     const [formData, setFormData] = useState({})
-
     /* ref */
     const reviewSubjectRef = useRef(null); // 리뷰 제목
     const reviewContentRef = useRef(null); // 리뷰 내용
     const fileInputRef = useRef(null); // 리뷰 사진 업로드
 
-
-
-
     /* 리뷰 사진 업로드 이벤트 */
     const handleIconClick = () => {
         fileInputRef.current.click();
     };
-
     const handlePhotosUpload = (e) => {
         const formData = new FormData();
         const files = e.target.files;
 
         for (const file of files) formData.append("files", file);
-        formData.append("oldFile", oldFile)
-        
+        formData.append("oldFile", oldFile)        
         axios
             .post(`http://localhost:9000/product/reviewPhotos?maxFiles=${files.length}`, formData, {
                 headers: {
@@ -50,11 +43,7 @@ export default function CreateReview({ closeModal }) {
                 setPreviewList(res.data.uploadFileName);
             })
             .catch(error => console.log(error));
-
     }
-
-
-
     // 폼 입력시 값을 formData로 추가
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -66,21 +55,16 @@ export default function CreateReview({ closeModal }) {
         e.preventDefault();
 
         let data = {};
-
         if (reviewSubjectRef.current.value === "") {
             alert('리뷰 제목을 입력해주세요');
             reviewSubjectRef.current.focus();
             return false;
-
         } else if (reviewContentRef.current.value === "") {
             alert('리뷰 내용을 입력해주세요');
             reviewContentRef.current.focus();
             return false;
-
         } else {
-
             const id = localStorage.getItem('user_id');
-
             data = {
                 id,
                 pid,
@@ -88,10 +72,7 @@ export default function CreateReview({ closeModal }) {
                 reviewContent: reviewContentRef.current.value,
                 orgFileName,
                 uploadFileName,
-            };
-
-            console.log('서버로 전송할 리뷰 ---> ', data);
-        
+            };        
             axios
                 .post('http://localhost:9000/product/review', data)
                 .then(res => {
@@ -106,15 +87,10 @@ export default function CreateReview({ closeModal }) {
                 .catch(error => {
                     alert('리뷰 등록 실패');
                     console.log(error);
-
                 });
         };
 
     }
-
-
-
-
     /* 스타일 혼용 우려가 있어서 이 페이지에서 적용함!! */
 
     // 해당 폼 전체 설정
@@ -129,7 +105,6 @@ export default function CreateReview({ closeModal }) {
         gap: '15px',
         justifyContent: 'center'
     };
-
     // 해당 폼 타이틀
     const title = {
         width: '90%',
@@ -138,7 +113,6 @@ export default function CreateReview({ closeModal }) {
         fontWeight: 'bold',
         marginLeft: '-3%'
     }
-
     // 리뷰 제목 작성
     const rvSubjectinput = {
         width: '90%',
@@ -146,10 +120,7 @@ export default function CreateReview({ closeModal }) {
         border: '1px solid #e5e5e5',
         borderRadius: '5px',
         padding: '10px'
-
     }
-
-
     // 리뷰 내용 작성 
     const rvContentInput = {
         width: '90%',
@@ -158,19 +129,12 @@ export default function CreateReview({ closeModal }) {
         borderRadius: '5px',
         resize: 'vertical',
         padding: '10px',
-
     }
-
-
     // 리뷰 사진 추가
     const addPhoto = {
         fontSize: '40px',
         cursor: 'pointer'
-        // width: '90%',
-        // textAlign: 'left',
-
     }
-
     const prevWrap = {
         display : 'flex',
         gap : '20px',
@@ -178,16 +142,13 @@ export default function CreateReview({ closeModal }) {
         textAlign: 'left',
         marginLeft : '-3%'
     }
-
     const prevImg = {
         width: '70px', 
         height: '70px',
         objectFit: 'cover', 
         marginRight: '10px',
         borderRadius: '5px',
-
     }
-
     // 리뷰 관련 버튼
     const rvBtnWrap = {
         width: '90%',
@@ -195,7 +156,6 @@ export default function CreateReview({ closeModal }) {
         display: 'flex',
         gap: '10px'
     }
-
     const rvBtn = {
         backgroundColor: '#e5e5e5',
         border: '0',
@@ -204,13 +164,7 @@ export default function CreateReview({ closeModal }) {
         fontSize: '16px',
         width: '50%',
         width: '50%',
-
-
     }
-
-
-
-
 
     return (
         <form onSubmit={handleSubmit}>

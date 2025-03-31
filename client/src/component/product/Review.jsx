@@ -6,14 +6,11 @@ import axios from 'axios';
 
 export default function Review({ pid, reviews, showReview, setShowReview, isModalOpen, setIsModalOpen, modalStyle }) {
 
-
-    const { getReview } = useProduct();
+  const { getReview } = useProduct();
 
   const handleDeleteReview = (pid) => {
     const id = localStorage.getItem("user_id");
-  
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
-  
     axios.post("http://localhost:9000/product/DeleteReview", {
       pid,
       id
@@ -22,9 +19,6 @@ export default function Review({ pid, reviews, showReview, setShowReview, isModa
       getReview(pid); // 리뷰 다시 불러오기
     });
   };
-
-
-
 
   return (
     <div className='product-detail-review'>
@@ -54,10 +48,10 @@ export default function Review({ pid, reviews, showReview, setShowReview, isModa
                   <td>{review.rdate}</td>
                   <td>{review.view_count || 0}</td>
                   <td>{review.id === localStorage.getItem("user_id") && (
-  <button className='b-btn2' onClick={() => handleDeleteReview(pid)}>
-    delete
-  </button>
-)}</td>
+                    <button className='b-btn2' onClick={() => handleDeleteReview(pid)}>
+                      delete
+                    </button>
+                  )}</td>
                 </tr>
                 {showReview === index && (
                   <tr>

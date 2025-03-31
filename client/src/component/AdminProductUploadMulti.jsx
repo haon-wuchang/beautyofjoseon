@@ -3,14 +3,12 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { useState } from 'react';
 
-
 export default function AdminProductUploadMulti({getFileName}) {
     const [oldFile,setOldFile] = useState([]); 
 
     const handleFileUploadMultiple = (e) => {
         const formData = new FormData();
         const files = e.target.files;
-        // console.log('files==>', files);
         for (const file of files) {
             formData.append('files', file);
         }
@@ -19,7 +17,6 @@ export default function AdminProductUploadMulti({getFileName}) {
             headers: { "Content-Type": "multipart/form-data" },
         })
             .then(res => {
-                // console.log('업로드성공',res.data);
                 getFileName(res.data);
                 setOldFile(res.data.oldFile);
             })

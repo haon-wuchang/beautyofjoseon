@@ -10,8 +10,6 @@ export const getCartAll = async(req, res) => {
     res.json(result);
     res.end();
 }
-
-
 /********************************************
     장바구니 선택 목록 조회(선택상품주문)
     사용처 : payment
@@ -22,8 +20,6 @@ export const getSelectItems = async(req, res) => {
     res.json(result);
     res.end();
 }
-
-
 /********************************************
     구매 상품 주문 테이블에 저장
     사용처 : Payment
@@ -34,8 +30,6 @@ export const saveToOrder = async(req, res) => {
     res.json(result);
     res.end();
 }
-
-
 /********************************************
     선택 주문 완료 후 장바구니 테이블에서 삭제
     사용처 : Payment
@@ -46,8 +40,6 @@ export const deleteItems = async(req, res) => {
     res.json(result);
     res.end();
 }
-
-
 /********************************************
     주문 완료 후 주문 번호로 주문 내역 호출
     사용처 : payment success

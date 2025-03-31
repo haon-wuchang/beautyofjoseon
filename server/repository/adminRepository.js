@@ -1,9 +1,6 @@
-
-
 import {db} from './db.js';
 
-export const registerProduct = async(formData) => {  
-    
+export const registerProduct = async(formData) => {      
     const sql = `
                  insert into product(
                     category_id, 
@@ -33,24 +30,18 @@ export const registerProduct = async(formData) => {
         formData.upload_file  || null,
     ];
     
-    const [result] = await db.execute(sql,values);
-   
+    const [result] = await db.execute(sql,values);   
     return {"result_rows":result.affectedRows};
 }
 
 
-export const registerProductDesc = async(formData) => {  
-    // db 에서 product 제약사항 변경해 
-    // desc 이미지 전부 널 허용해서 
- 
+export const registerProductDesc = async(formData) => {   
   const sql = `
    update product    
          set desc_image = json_array(?) , 
          desc_origin_image = json_array(?)
             where pid = ?
               `;
-
   const [result] = await db.execute(sql,[formData.upload_file,formData.source_file,formData.pid]);
- 
   return {"result_rows":result.affectedRows};
 }

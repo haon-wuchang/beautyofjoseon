@@ -5,9 +5,4 @@ const router = express.Router();
 
 router.post('/',controller.CheckLogin);
 
-
-
-
-
-
 export default router;

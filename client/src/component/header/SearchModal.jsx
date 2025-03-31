@@ -6,10 +6,9 @@ import { SearchContext } from '../../context/SearchContext.js';
 
 export default function SearchModal({setSearchModalOpen}) {
     const navigate = useNavigate();
-    const { searchKeyword, setSearchKeyword } = useContext(SearchContext); // 전역에서 관리하는 검색 키워드
-    const [ search, setSearch ] = useState(""); // 로컬에서 관리하는 검색 키워드
+    const { setSearchKeyword } = useContext(SearchContext); 
+    const [ search, setSearch ] = useState(""); 
 
-    /* 검색창 검색 버튼 클릭 이벤트 */
     const clickSearch = () => {
         setSearchKeyword(search);
         setSearchModalOpen(false);

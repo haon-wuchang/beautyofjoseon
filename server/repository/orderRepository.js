@@ -15,7 +15,6 @@ export const getCartAll = async({id}) => {
     return result;
 }
 
-
 /********************************************
     장바구니 선택 목록 조회(선택상품주문)
     사용처 : payment
@@ -42,16 +41,6 @@ export const getSelectItems = async(formData) => {
     작성자 : 김유나
 ********************************************/
 export const saveToOrder = async(formData) => {
-    // 날짜 생성(order_number 랜덤하게 생성하기 위해 사용)
-    // const dateNumber = () => {
-    //     const date = new Date();
-    //     const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, "");
-    //     const randomNumber = Math.floor(10000 + Math.random() * 90000);
-    //     return `${formattedDate}-${randomNumber}`;
-    // }
-
-    // const orderNumber = dateNumber();
-
     const result = await Promise.all(
         formData.orderList.map(async(item) => {
             const values = [
@@ -72,7 +61,6 @@ export const saveToOrder = async(formData) => {
             return {"result_rows": result.affectedRows};
         })
     )
-    console.log("repository saveToOrder 확인 --> ", result[0].result_rows);
     return {"result_rows": result[0].result_rows};
 }
 
@@ -86,15 +74,10 @@ export const deleteItems = async(data) => {
     const sql = `
         delete from cart where cid in (${cids})
     `;
-
-    // console.log("cids 확인 --> ", cids);
-
     const [result] = await db.execute(sql);
 
     return {"result_rows": result.affectedRows};
 }
-
-
 
 /********************************************
     주문 완료 후 주문 번호로 주문 내역 호출
@@ -113,7 +96,6 @@ export const getBill = async(formData) => {
     `;
     
     const [result] = await db.execute(sql, [id]);
-    console.log("getBill 확인 --> ", result);
     return result;
 }
 

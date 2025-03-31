@@ -7,7 +7,6 @@ import { GoHeart } from "react-icons/go";
 import { Link } from 'react-router-dom';
 
 export default function MainProductBlock({ bestList, className }) {
-    // 슬라이드 바 설정
     const [progress, setProgress] = useState(0);
     const totalSlides = bestList.length; // 전체 슬라이드 갯수
     const slidesToShow = 4; //한 번에 보여줄 슬라이드 갯수
@@ -27,14 +26,12 @@ export default function MainProductBlock({ bestList, className }) {
         prevArrow: <PrevArrow />,
         centerMode: true,
         centerPadding: "60px",
-        beforeChange: (oldIndex, newIndex) => {
+        beforeChange: (newIndex) => {
             // 슬라이드 변경 시 진행 바 업데이트
             const newProgress = ((newIndex + slidesToShow) / totalSlides) * 100;
             setProgress(newProgress);
         }
     };
-
-    // className="main-contents-best-products"
 
     return (
         <div className={`${className}-wrap`}>

@@ -11,8 +11,8 @@ export default function Delivery() {
     const { getMyinfo } = useMypage();
     const [open, setOpen] = useState(false);
     const [deliData, setDeliData] = useState({});
-    const [isChecked1, setIsChecked1] = useState(true); //체크박스 상태 관리
-    const [isChecked2, setIsChecked2] = useState(false); //체크박스 상태 관리
+    const [isChecked1, setIsChecked1] = useState(true);
+    const [isChecked2, setIsChecked2] = useState(false); 
     const handleModal = () => {
         setOpen(!open);
     }
@@ -36,11 +36,9 @@ export default function Delivery() {
     }
     /** 주소검색 버튼Toggle */
     const [isOpen, setIsOpen] = useState(false);
-    /** 주소 검색 버튼 */
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
-    //---- DaumPostcode 관련 디자인 및 이벤트 시작 ----//
     const themeObj = {
         bgColor: "#FFFFFF",
         pageBgColor: "#FFFFFF",
