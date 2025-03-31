@@ -43,20 +43,21 @@ export const getSelectItems = async(formData) => {
 ********************************************/
 export const saveToOrder = async(formData) => {
     // 날짜 생성(order_number 랜덤하게 생성하기 위해 사용)
-    const dateNumber = () => {
-        const date = new Date();
-        const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, "");
-        const randomNumber = Math.floor(10000 + Math.random() * 90000);
-        return `${formattedDate}-${randomNumber}`;
-    }
+    // const dateNumber = () => {
+    //     const date = new Date();
+    //     const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, "");
+    //     const randomNumber = Math.floor(10000 + Math.random() * 90000);
+    //     return `${formattedDate}-${randomNumber}`;
+    // }
+
+    // const orderNumber = dateNumber();
 
     const result = await Promise.all(
         formData.orderList.map(async(item) => {
-            const orderNumber = dateNumber();
             const values = [
                 formData.id,
                 item.pid,
-                orderNumber,
+                formData.orderNumber,
                 item.qty,
                 item.discount_price * item.qty
             ];
@@ -71,7 +72,7 @@ export const saveToOrder = async(formData) => {
             return {"result_rows": result.affectedRows};
         })
     )
-    // console.log("repository 확인2 --> ", result[0].result_rows);
+    console.log("repository saveToOrder 확인 --> ", result[0].result_rows);
     return {"result_rows": result[0].result_rows};
 }
 
@@ -86,7 +87,31 @@ export const deleteItems = async(data) => {
         delete from cart where cid in (${cids})
     `;
 
+    // console.log("cids 확인 --> ", cids);
+
     const [result] = await db.execute(sql);
 
     return {"result_rows": result.affectedRows};
+}
+
+
+/********************************************
+    주문 완료 후 주문 번호로 주문 내역 호출
+    사용처 : payment success
+    작성자 : 김유나
+********************************************/
+export const getBill = async(formData) => {
+    const id = formData.id;
+    const orderNumber = formData.orderNumber;
+    
+    const sql = `
+    select *
+    from view_bill_list
+    where id = ?
+        and order_number = '${orderNumber}'
+    `;
+    
+    const [result] = await db.execute(sql, [id]);
+    console.log("getBill 확인 --> ", result);
+    return result;
 }

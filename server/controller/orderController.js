@@ -46,3 +46,15 @@ export const deleteItems = async(req, res) => {
     res.json(result);
     res.end();
 }
+
+
+/********************************************
+    주문 완료 후 주문 번호로 주문 내역 호출
+    사용처 : payment success
+    작성자 : 김유나
+********************************************/
+export const getBill = async(req, res) => {
+    const result = await repository.getBill(req.body);
+    res.json(result);
+    res.end();
+}

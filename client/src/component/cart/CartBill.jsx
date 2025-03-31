@@ -18,18 +18,18 @@ export default function CartBill() {
     // 주문 버튼 클릭 이벤트
     const clickOrder = (type) => {
         localStorage.getItem("cids") && localStorage.removeItem("cids");
-        // localStorage.getItem("ORDERTYPE") && localStorage.removeItem("ORDERTYPE");
+        localStorage.getItem("ORDERTYPE") && localStorage.removeItem("ORDERTYPE");
         
         if (type === "all") {
-            setOrderType("all");
-            // localStorage.setItem("ORDERTYPE", "all");
+            // setOrderType("all");
+            localStorage.setItem("ORDERTYPE", "all");
             navigate("/payment");
         } else { //선택상품 주문
             if (cids.length > 0) {
                 const arr = cids.map(item => item.cid).join();
                 localStorage.setItem("cids", arr);
-                setOrderType("select");
-                // localStorage.setItem("ORDERTYPE", "select");
+                // setOrderType("select");
+                localStorage.setItem("ORDERTYPE", "select");
                 navigate("/payment");
             } else {
                 alert("선택된 상품이 없습니다.");
@@ -51,12 +51,12 @@ export default function CartBill() {
                             <p>
                                 <span>총 배송비</span>
                                 <br />
-                                <span>+ {totalPrice > 20000 ? "0" : "3,000"}원</span>
+                                <span>+ {totalPrice >= 20000 ? "0" : "3,000"}원</span>
                             </p>
                             <p>
                                 <span>결제예정금액</span>
                                 <br />
-                                <span>= {totalPrice > 20000 ? `${totalPrice.toLocaleString()}` : `${(totalPrice + 3000).toLocaleString()}`}원</span>
+                                <span>= {totalPrice >= 20000 ? `${totalPrice.toLocaleString()}` : `${(totalPrice + 3000).toLocaleString()}`}원</span>
                             </p>
                         </div>
                         <div className='cart-bill-block-right'>
@@ -79,12 +79,12 @@ export default function CartBill() {
                             <p>
                                 <span>총 배송비</span>
                                 <br />
-                                <span>+ {totalPrice > 20000 ? "0" : "3,000"}원</span>
+                                <span>+ {totalPrice >= 20000 ? "0" : "3,000"}원</span>
                             </p>
                             <p>
                                 <span>결제예정금액</span>
                                 <br />
-                                <span>= {totalPrice > 20000 ? `${totalPrice.toLocaleString()}` : `${(totalPrice + 3000).toLocaleString()}`}원</span>
+                                <span>= {totalPrice >= 20000 ? `${totalPrice.toLocaleString()}` : `${(totalPrice + 3000).toLocaleString()}`}원</span>
                             </p>
                         </div>
                         <div className='cart-bill-block-right'>
