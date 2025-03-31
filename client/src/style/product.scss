@@ -341,9 +341,10 @@
             border-radius: 5px;
             color: rgba(0, 0, 0, 0.5);
             font-weight: 600;
+            cursor: pointer;
         }
 
-        li:active {
+        li.active {
             padding: 9px 14px;
             background-color: #000000B3;
             font-size: 13px;
@@ -383,33 +384,97 @@
         }
     }
 
-    .sort {
+    // .sort {
+    //     cursor: pointer;
+    //     position: relative;
+
+    //     div:first-child {
+    //         display: flex;
+    //         width: 75px;
+    //         height: 22px;
+    //         line-height: 1;
+    //         font-size: 11px;
+    //         position: relative;
+    //         padding: 0px 5px 0px 9px;
+    //         border: #e5e5e5 1px solid;
+    //         align-items: center;
+    //         color: gray;
+    //         justify-content: space-between;
+            
+        
+    //     }
+
+    // }
+
+    .sort-wrap {
+        position: relative;
         cursor: pointer;
+      }
+      
+      .sort-btn{
+        width: 75px;
+        height: 22px;
+        padding: 0px 5px 0px 9px ;
+        line-height: 1;
+        font-size: 11px;
+        position: relative;
+        padding: 0px 5px 0px 9px;
+        border: #e5e5e5 1px solid;
+        align-items: center;
+        color: gray;
+        justify-content: space-between;
+      }
 
-        div:first-child {
-            display: flex;
-            width: 75px;
-            height: 22px;
-            line-height: 1;
-            font-size: 11px;
-            position: relative;
-            padding: 0px 5px 0px 9px;
-            border: #e5e5e5 1px solid;
-            align-items: center;
-            color: gray;
-            justify-content: space-between;
+      .sort-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        color: gray;
+        border: 1px solid #ddd;
+        width:89px;
+        font-size: 11px;
+        z-index: 100;
+        padding: 10px 0;
+      
+        li {
+          padding: 8px 15px;
+          cursor: pointer;
+          &:hover {
+            background-color: #f5f5f5;
+          }
         }
+      }
 
-    }
 
-    .product-list {
+
+    /* 상품 그리드 */
+    .product-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px;
+        width: 100%;
+        margin: 0 auto;
+
+      }
+      
+      .product-grid-3 {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 50px;
         width: 100%;
         margin: 0 auto;
 
-    }
+      }
+      
+      .product-grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 50px;
+        width: 100%;
+        margin: 0 auto;
+
+      }
 
     .product-item {
         display: flex;
@@ -715,6 +780,12 @@
         background-color: #333333;
         color: white;
     }
+    .b-btn2 {
+        padding: 5px;
+        background-color: #333333;
+        font-size: 12px;
+        color: white;
+    }
 
     /* payments */
 
@@ -837,6 +908,7 @@
         display: flex;
         justify-content: space-between;
         vertical-align: center;
+        padding-left: 15px;
 
         div{
             display: flex;

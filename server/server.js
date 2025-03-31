@@ -11,6 +11,8 @@ import signupRouter from './router/signupRouter.js';
 import orderRouter from './router/orderRouter.js';
 import adminRouter from './router/adminRouter.js';
 import snsLoginRouter from './router/snsLoginRouter.js';
+import paymentRouter from './router/paymentRouter.js';
+
 
 /* 서버 생성 및 포트 정의 */
 const server = express();
@@ -35,6 +37,7 @@ server.use('/cart', cartRouter);
 server.use('/order', orderRouter);
 server.use('/uploads', adminRouter);
 server.use('/:provider', snsLoginRouter);
+server.use('/payment', paymentRouter);
 
 
 

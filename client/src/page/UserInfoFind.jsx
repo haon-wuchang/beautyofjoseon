@@ -134,13 +134,15 @@ export default function UserInfoFind() {
                        maxLength={4}
                        ref={refs.phone2Ref} 
                        onChange={handleChangeForm}
-                       value={formData.phone2}/>
+                       value={formData.phone2}
+                       autoComplete="off"/>
                 &nbsp;<span> - </span>&nbsp;
                 <input type="text" name="phone3" 
                        maxLength={4}
                        ref={refs.phone3Ref} 
                        onChange={handleChangeForm}
-                       value={formData.phone3}/>
+                       value={formData.phone3}
+                       autoComplete="off"/>
               </div>
             </div>
             <button type='submit'>확인</button>

@@ -1156,12 +1156,27 @@ letter-spacing: 0.5px;
     border-right: 1px solid gainsboro;
     
 }
+.mypage-review-write > table>tr>td:nth-child(1){
+    width: 200px;
+}
+.mypage-review-write > table>tr>td:nth-child(2){
+    width: 630px;
+}
+.mypage-review-write > table>tr>td:nth-child(3){
+    width: 100px;
+}
+.mypage-review-write > table>tr>td:nth-child(4){
+    width: 150px;
+}
+.mypage-review-write > table>tr>td:nth-child(5){
+    width: 200px;
+}
 .mypage-review-write > table>tr>td:nth-child(2){
     display: flex;
     align-items: center;
     padding-left: 10px;
 }
-.mypage-review-write > table>tr:last-child>td:last-child:hover{
+.mypage-review-write-2nd>td:last-child:hover{
     cursor: pointer;
     background-color: rgb(240, 238, 232);
 }
@@ -1637,4 +1652,169 @@ letter-spacing: 0.5px;
         height: 100%;
         padding: 0;
     }
+}
+
+/*****************************************/
+/*********     brand story             *********/
+/*****************************************/
+.brand-story-all{
+    padding:30px 70px;
+}
+.brand-story-all>div:first-child{
+    height: 500px;
+    width: 100%;
+    /* border: 1px solid red; */
+    border-radius: 20px;
+    overflow: hidden;
+    
+}
+.brand-story-all>div:first-child>img{
+    border-radius: 20px;
+    width: 100%;
+}
+.brand-story-all>div:nth-child(2){
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    margin-top: 150px;
+    margin-bottom: 300px;
+}
+.brand-story-all>div:nth-child(2)>h4{
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+.brand-story-all>div:nth-child(2)>h5{
+    margin: 0;
+    padding: 0;
+    color: gray;
+    font-weight: 300;
+    font-size: 15px;
+    padding-bottom: 8px;
+}
+.brand-story-all>div:nth-child(3){
+    /* border: 1px solid red; */
+    display: flex;
+    width: 1000px;
+    margin: auto;
+    align-items: center;
+}
+.brand-story-all>div:nth-child(3)>img{
+    border-radius: 20px;
+    margin-left: 40px;
+}
+.brand-story-all>div:nth-child(3) h4{
+    font-size: 20px;
+    margin: 0;
+    padding: 0 0 20px ;
+}
+.brand-story-all>div:nth-child(3) h5{
+    margin: 0;
+    padding: 0 0 7px ;
+    font-weight: 300;
+    font-size: 15px;
+    color: gray;
+}
+
+.brand-story-all>div:nth-child(4){
+    /* border: 1px solid red; */
+    display: flex;
+    width: 1000px;
+    margin: auto;
+    align-items: center;
+    margin-top: 60px;
+}
+.brand-story-all>div:nth-child(4)>img{
+    border-radius: 20px;
+    margin-right: 40px;
+}
+.brand-story-all>div:nth-child(4) h4{
+    font-size: 20px;
+    margin: 0;
+    padding: 0 0 20px ;
+}
+.brand-story-all>div:nth-child(4) h5{
+    margin: 0;
+    padding: 0 0 7px ;
+    font-weight: 300;
+    font-size: 15px;
+    color: gray;
+}
+.brand-story-all>div:nth-child(5){
+    margin-top: 140px;
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+}
+.brand-story-all>div:nth-child(5)>img{
+    border-radius: 20px;
+    width: 100%;
+}
+.brand-story-all>div:nth-child(5)>div{
+    position: absolute;
+    top: 50%;
+    left: 590px;
+    text-align: center;
+}
+.brand-story-all>div:nth-child(5)>div>h4{
+    font-size: 24px;
+    margin: 0;
+    padding: 0 0 20px;
+    color: rgb(59, 59, 59);
+}
+.brand-story-all>div:nth-child(5)>div>h5{
+    margin: 0;
+    padding: 0 0 10px;
+    font-weight: 300;
+    color: rgb(59, 59, 59);
+}
+.brand-story-all>div:nth-child(5)>div>button{
+    margin-top: 10px;
+    border: 1px solid rgb(59, 59, 59);
+    background: none;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    color: rgb(59, 59, 59);
+    margin-left: 45px;
+}
+.brand-story-all>div:nth-child(6){
+    margin-top: 60px;
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+}
+.brand-story-all>div:nth-child(6)>img{
+    border-radius: 20px;
+    width: 100%;
+}
+.brand-story-all>div:nth-child(6)>div{
+    position: absolute;
+    top: 50%;
+    left: 590px;
+    text-align: center;
+}
+.brand-story-all>div:nth-child(6)>div>h4{
+    font-size: 24px;
+    margin: 0;
+    padding: 0 0 20px;
+    color: rgb(59, 59, 59);
+}
+.brand-story-all>div:nth-child(6)>div>h5{
+    margin: 0;
+    padding: 0 0 10px;
+    font-weight: 300;
+    color: rgb(59, 59, 59);
+}
+.brand-story-all>div:nth-child(6)>div>button{
+    margin-top: 10px;
+    border: 1px solid rgb(59, 59, 59);
+    background: none;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    color: rgb(59, 59, 59);
+    margin-left: 45px;
 }

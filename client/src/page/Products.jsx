@@ -1,132 +1,162 @@
+/******************************** 
+ *     상품 리스트
+ *  작성자 : 정서령
+ * ******************************/
+
 import React, { useEffect, useState, useContext } from 'react';
+import '../style/product.scss';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../auth/AuthContext.js";
-import { Link } from 'react-router-dom';
+import { useProduct } from "../hooks/useProduct.js";
 import axios from 'axios';
-import { IoGrid } from "react-icons/io5";
-import { TbLayoutListFilled } from "react-icons/tb";
-import { BsGrid3X3GapFill } from "react-icons/bs";
-import { FaHeart } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa";
-import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import ReactPaginate from 'react-paginate';
-import '../style/product.scss';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
-
-
+// 하위 컴포넌트
+import ProductListItem from "../component/product/ProductListItem.jsx"; // 상품 아이템
+import CategoryTabs from "../component/product/CategoryTabs.jsx"; // 카테고리별 상품 탭
+import SortDropdown from "../component/product/SortDropdown.jsx";  // 유형별 정렬
+import GridSelector from "../component/product/GridSelector.jsx"; // 2,3,4열 grid
 
 export default function Products() {
     const navigate = useNavigate();
-
-
     const { isLoggedIn } = useContext(AuthContext);
+    const { getWishList } = useProduct();
 
-    // product list
     const [list, setList] = useState([]);
-
-    useEffect(() => {
-        axios
-            .post('http://localhost:9000/product/list')
-            .then(res => { setList(res.data) })
-            .catch((error) => console.log(error))
-    }, [])
-
-
-
-    /* 페이지네이션 */
-    const itemsPerPage = 20;
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [products, setProducts] = useState([]);
+    const [wishList, setWishList] = useState([]);
+    const [isSortOpen, setIsSortOpen] = useState(false);
+    const [sortType, setSortType] = useState("default");
+    const [gridClass, setGridClass] = useState("product-grid-3");
     const [itemOffset, setItemOffset] = useState(0);
 
-    // 페이지네이션 관련 로직
-    const endOffset = itemOffset + itemsPerPage;
-    // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    // 전체 상품 불러오기
+    useEffect(() => {
+        axios.post('http://localhost:9000/product/list')
+            .then(res => setList(res.data))
+            .catch((error) => console.log(error));
+    }, []);
 
-    const currentItems = list.slice(itemOffset, endOffset); // list에서 20개씩 슬라이싱
-    const pageCount = Math.ceil(list.length / itemsPerPage); // 전체 페이지 수
+    // 카테고리 클릭 시 해당 상품만 불러오기
+    const handleCategoryClick = async (category) => {
+        setSelectedCategory(category);
+        setItemOffset(0);
 
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % list.length;
-        // console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-        setItemOffset(newOffset);
+        try {
+            const res = await axios.post('http://localhost:9000/product/list', {
+                category_id: category === 'all' ? null : category
+            });
+            setProducts(res.data);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
+    // 위시리스트 불러오기
+    useEffect(() => {
+        const fetchWishList = async () => {
+            const id = localStorage.getItem("user_id");
+            if (!id) return;
+
+            try {
+                const wish = await getWishList();
+                setWishList(wish);
+            } catch (err) {
+                console.error("위시리스트 불러오기 실패", err);
+                setWishList([]);
+            }
+        };
+        fetchWishList();
+    }, []);
+
+    // 위시리스트 토글
+    const toggleWish = async (pid) => {
+        if (!isLoggedIn) {
+            alert("로그인 후에 사용할 수 있는 서비스입니다.");
+            return navigate("/login");
+        }
+
+        const id = localStorage.getItem("user_id");
+        const isWished = wishList.includes(pid);
+        const newWish = isWished
+            ? wishList.filter(item => item !== pid)
+            : [...wishList, pid];
+
+        try {
+            await axios.post("http://localhost:9000/mypage/updateWishList", {
+                id,
+                newWishList: newWish,
+            });
+            setWishList(newWish);
+            if (!isWished) alert("위시리스트에 추가되었습니다.");
+        } catch (err) {
+            console.error("위시리스트 업데이트 실패", err);
+        }
+    };
+
+    // 정렬 
+    const sortProducts = (products, type) => {
+        const sorted = [...products];
+        switch (type) {
+            case "new": return sorted.sort((a, b) => new Date(b.pdate) - new Date(a.pdate));
+            case "name": return sorted.sort((a, b) => a.pname.localeCompare(b.pname));
+            case "lowPrice": return sorted.sort((a, b) => a.price - b.price);
+            case "highPrice": return sorted.sort((a, b) => b.price - a.price);
+            default: return products;
+        }
+    };
+
+    // 페이지네이션
+    const itemsPerPage = 20;
+    const currentList = selectedCategory === 'all' ? list : products;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = currentList.slice(itemOffset, endOffset);
+    const sortedItems = sortProducts(currentItems, sortType);
+    const pageCount = Math.ceil(currentList.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % currentList.length;
+        setItemOffset(newOffset);
+    };
 
     return (
         <div className='p-common products-content'>
             <div className='product-all-top'>
                 <h5 className='f18'>SHOP ALL</h5>
-                <ul className='flex list-none w500'>
-                    <li>전 제품</li>
-                    <li>스킨케어</li>
-                    <li>바디케어</li>
-                    <li>라이프스타일</li>
-                    <li>세트</li>
-                </ul>
+                <CategoryTabs
+                    selectedCategory={selectedCategory}
+                    handleCategoryClick={handleCategoryClick}
+                />
             </div>
+
             <div className='product-all-bottom space-between'>
                 <div>
-                    <span className='f12' >{list.length}</span>
+                    <span className='f12'>{currentList.length}</span>
                     <span className='f12'>Products</span>
                 </div>
                 <div className='flex'>
-                    {/* grid 아이콘들 */}
-                    <ul className='grid-icon'>
-                        <li><TbLayoutListFilled /></li>
-                        <li><IoGrid /></li>
-                        <li><BsGrid3X3GapFill /></li>
-                    </ul>
-                    <div className='sort'>
-                        <div className='flex'>
-                            <span>sort</span>
-                            <div><GoTriangleDown /> </div>
-                            <div style={{ display: "none" }}><GoTriangleUp /></div>
-                        </div>
-                        <ul style={{ display: "none" }}>
-                            <li>신상품</li>
-                            <li>상품명</li>
-                            <li>낮은가격</li>
-                            <li>높은가격</li>
-                            <li>인기상품</li>
-                            <li>사용후기</li>
-                        </ul>
-                    </div>
+                    <GridSelector setGridClass={setGridClass} />
+                    <SortDropdown
+                        isSortOpen={isSortOpen}
+                        setIsSortOpen={setIsSortOpen}
+                        setSortType={setSortType}
+                    />
                 </div>
             </div>
 
-            {/* 상품 행당 3개일 때 */}
-            <div className='product-list'>
-                {currentItems.map((item) => (
-                    <Link key={item.pid} to={`/product/detail/${item.pid}`}>
-                        <div className='product-item'>
-                            <div className='product-img-wrap'>
-                                <img src={item.image} alt="" />
-
-                            </div>
-                            <span className='wish-icon' onClick={() => {
-
-                                if (!isLoggedIn) {
-                                    window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?")
-                                    navigate('../../login');
-                                }
-                            }}><FaRegHeart /></span>
-                            <span className='product-title w600 text-center f15' >{item.pname}</span>
-                            <p className='product-price pt10 f12'>{(item.discount_rate) ? `${item.price.toLocaleString()}원` : null}</p>
-                            <div className='gap5 flex'>
-                                {(item.discount_rate) ?
-                                    (<div className='product-sale'>
-                                        {`${item.discount_rate.toLocaleString()}%`}
-                                    </div>) : null}
-                                <div className='product-sale-price'>{`${((item.price - (item.discount_rate * 100)).toLocaleString())}원`}
-                                </div>
-
-                            </div>
-                        </div>
-                    </Link>
+            <div className={`product-list ${gridClass}`}>
+                {sortedItems.map((item) => (
+                    <ProductListItem
+                        key={item.pid}
+                        item={item}
+                        wishList={wishList}
+                        toggleWish={toggleWish}
+                    />
                 ))}
-
             </div>
-            {/* 페이지네이션 */}
+
             <ReactPaginate
                 breakLabel="..."
                 nextLabel={<MdNavigateNext />}
@@ -142,48 +172,6 @@ export default function Products() {
                 nextClassName="next"
                 disabledClassName="disabled"
             />
-
-
-
-
-
-            {/*<div className='product-box4'>
-                <div className='square4'>
-                    <img src="https://beautyofjoseon.co.kr/web/product/medium/202408/c8cda7e6862e2e8a5cc1a7934969f234.jpg" alt="" />
-                    <span className='square4-heart'><FaRegHeart /></span>
-                    <span><FaHeart /></span> 
-                    <span className='product-title'>[New]맑은쌇선크림 아쿠아프레쉬</span>
-                    <p className='product-price'>18,000원</p>
-                    <span className='product-sale'>10%</span>
-                    <span className='product-sale-price'>16,200원</span>
-                </div>   
-            </div>*/}
-            {/* <div className='product-box2'>
-                <div className='square2'>
-                    <img src="https://beautyofjoseon.co.kr/web/product/medium/202408/c8cda7e6862e2e8a5cc1a7934969f234.jpg" alt="" />
-                    <span className='square4-heart'><FaRegHeart /></span>
-                    <span><FaHeart /></span> 
-                    <span className='product-title'>[New]맑은쌇선크림 아쿠아프레쉬</span>
-                    <p className='product-price'>18,000원</p>
-                    <span className='product-sale'>10%</span>
-                    <span className='product-sale-price'>16,200원</span>
-                </div>  
-            </div> */}
-            <div className='page'>
-                {/* <Pagination
-                    // 현제 보고있는 페이지 
-                    activePage={1}
-                    // 한페이지에 출력할 아이템수
-                    itemsCountPerPage={30}
-                    // 총 아이템수
-                    totalItemsCount={60}
-                    // 표시할 페이지수
-                    pageRangeDisplayed={2}
-                    // 함수
-                    onChange={handlePageChange}>
-                </Pagination> */}
-            </div>
         </div>
     );
 }
-

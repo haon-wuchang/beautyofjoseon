@@ -9,6 +9,7 @@ export function useProduct() {
 
      /********************************************
             리뷰 불러오기
+            (리뷰 작성은 별도의 컴포넌트 생성)
             작성자 : 정서령
     ********************************************/
 
@@ -16,7 +17,6 @@ export function useProduct() {
             const getReview = async (pid) => {
                 const result = await axios.post("http://localhost:9000/product/getReview", { pid });
               
-                console.log('리뷰',result);
             
                 setReviews(result.data);
               };
@@ -61,5 +61,5 @@ export function useProduct() {
     };
     
 
-    return { addWishList, getReview };
+    return { addWishList, getReview, getWishList };
 }

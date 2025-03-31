@@ -12,7 +12,8 @@ import path from 'path';
 
 
 export const getList = async(req, res) => {
-    const result = await repository.getList();
+    const category_id = req.body.category_id;
+    const result = await repository.getList(category_id);
     res.json(result);
     res.end();
 }
@@ -141,3 +142,11 @@ export const reviewPhotosUp = (req, res) => {
     });
 }
 
+/************************ 
+    리뷰 삭제
+**************************/
+export const DeleteReview = async (req, res) => {
+    const result = await repository.DeleteReview(req.body);
+    res.json(result);
+    res.end();
+};

@@ -1199,6 +1199,33 @@ border: 1px solid blue;
     height: 40px;
     margin: 15px 0;
 }
+.payment-type {
+    padding: 0 10px;
+}
+.payment-type-list {
+    list-style-type: none;
+    padding: 0;
+    padding-bottom: 20px;
+}
+.payment-type-select {
+    border: 1px solid rgb(1, 121, 168);
+    color : rgb(1, 121, 168);
+    font-weight: bold;
+    padding: 15px;
+    cursor: pointer;
+}
+/* .payment-type-select + li {
+    border-bottom: none;
+} */
+.payment-type-normal {
+    border: 1px solid silver;
+    border-bottom: none;
+    padding: 15px;
+    cursor: pointer;
+}
+.payment-type-normal:last-child {
+    border-bottom: 1px solid silver;
+}
 
 /* 주문상품 리스트 */
 .payment-order-list-main {
@@ -1467,3 +1494,232 @@ border: 1px solid blue;
     color: silver;
     font-size: 13px;
 }
+
+/****************************
+* Payment Succes Page
+* yuna
+*****************************/
+.payment-success-wrap {
+    border-right: 1px solid silver;
+    border-left: 1px solid silver;
+    width: 900px;
+    margin: 0 auto;
+    background-color: rgb(237, 237, 237);
+}
+.payment-success-wrap > div {
+    background-color: #fff;
+}
+.payment-success-wrap > div:not(:first-child) {
+    /* padding: 0 10px; */
+    margin-top: 10px;
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+}
+/* 상단 */
+.payment-success-top > div:not(:last-child) {
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.payment-success-top > div:first-child {
+    position: relative;
+}
+.payment-success-top > div:first-child > span:last-child {
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.payment-success-top > div:nth-child(2) {
+    background-color: rgb(89, 89, 89);
+    color: #fff;
+}
+.payment-success-info {
+    background-color: rgb(237, 237, 237);
+}
+.payment-success-info > div {
+    background-color: #fff;
+    margin: 0 15px 15px 15px;
+}
+.payment-success-info-top {
+    text-align: center;
+    padding: 20px 0;
+}
+.payment-success-info-top > p:first-child {
+    font-size: 60px;
+    color: rgb(88, 114, 245);
+    margin-bottom: 10px;
+}
+.payment-success-info-top > p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: bold;
+}
+.payment-success-info-bottom > div {
+    width: 850px;
+    margin: 0 auto;
+}
+.payment-success-info-bottom > div:first-child {
+    border-top: 1px dotted silver;
+}
+.payment-success-info-bottom {
+    padding: 10px;
+    padding-bottom: 25px;
+}
+.payment-success-info-bottom > div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    line-height: 25px;
+}
+.payment-success-info-bottom > div > span:first-child {
+    color: rgb(89, 89, 89);
+}
+.payment-success-info-bottom > div > span:last-child {
+    color: rgb(88, 114, 245);
+}
+
+/* 공통 */
+.payment-success-block-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px 10px;
+    border-bottom: 1px solid silver;
+}
+.payment-success-detail-label {
+    color: gray;
+    display: inline-block;
+    width: 80px;
+}
+
+/* 결제수단 */
+.payment-sucess-type-detail {
+    padding: 20px 10px;
+}
+/* 배송지, 주문상품 */
+.payment-success-delivery-detail,
+.payment-success-orderlist-main {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.payment-success-delivery-detail > li,
+.payment-success-orderlist-main > li {
+    margin: 0 10px;
+    padding: 20px 5px;
+}
+.payment-success-delivery-detail > li:not(:last-child) {
+    border-bottom: 1px solid silver;
+}
+/* 주문상품 */
+.payment-success-orderlist-product {
+    display: flex;
+}
+.payment-success-orderlist-product-img {
+    width: 90px;
+    height: 90px;
+    margin-right: 15px;
+}
+.payment-success-orderlist-product-img > img {
+    width: 100%;
+    height: 100%;
+}
+.payment-success-orderlist-product-detail > p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 30px;
+}
+.payment-success-orderlist-product-detail > p:not(:nth-child(2)) {
+    font-weight: 500;
+}
+.payment-success-orderlist-product-detail > p:nth-child(2) {
+    font-size: 13px;
+    color: gray;
+}
+.payment-success-orderlist-product:not(:last-child) {
+    border-bottom: 1px dotted silver;
+}
+.payment-success-orderlist-bottom {
+    margin: 30px 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(240, 241, 244);
+    font-size: 15px;
+}
+.payment-success-orderlist-bottom > span:first-child {
+    color: rgb(89, 89, 89);
+}
+/* 결제정보 */
+.payment-success-bill-detail {
+    padding: 10px 15px;
+    line-height: 30px;
+}
+.payment-success-bill-detail > div,
+.payment-success-bill-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+.payment-success-bill-bottom {
+    margin: 30px 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(240, 241, 244);
+    font-size: 18px;
+    font-weight: bold;
+}
+.payment-success-bill-bottom > span:last-child,
+.payment-success-bottom-benefit > span:last-child {
+    color: rgb(88, 114, 245);
+}
+/* 적립 혜택 */
+.payment-success-benefit-block > div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+.payment-success-bottom-benefit {
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(240, 241, 244);
+}
+.payment-success-bottom-btns {
+    padding: 10px 15px 20px 15px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(237, 237, 237);
+}
+.payment-success-bottom-btns > button {
+    width: 430px;
+    height: 45px;
+    font-size: 19px;
+}
+.payment-success-bottom-btns > button > a {
+    text-decoration: none;
+}
+.payment-success-bottom-btns > button:first-child {
+    background-color: #fff;
+    border: 1px solid silver;
+}
+.payment-success-bottom-btns > button:first-child > a {
+    color: #000;
+}
+.payment-success-bottom-btns > button:last-child > a {
+    color: #fff;
+}
+.payment-success-bottom-btns > button:last-child {
+    background-color: rgb(77, 81, 98);
+    border: 1px solid silver;
+}
+/* border: 1px solid red; */
+/* border: 1px solid blue; */

@@ -10,7 +10,6 @@ export default function Order() {
     const [orderEndDate, setOrderEndDate] = useState({});
     const [orderCategory, setOrderCategory] = useState({});
     const { getMyOrder } = useMypage();
-    // const [date, setDate] = useState(''); // 1개우러 3개월 갑 ㅅ저장
     const { orderType, setOrderType, myOrder,
         orderEnd, setOrderEnd, orderStart, setOrderStart
     } = useContext(MypageContext);

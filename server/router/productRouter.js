@@ -10,7 +10,8 @@ router
     .post('/getWishList', controller.getWishList) // 위시리스트 불러오기 
     .post('/reviewPhotos', controller.reviewPhotosUp) // 리뷰사진 업로드
     .post('/review', controller.reviewUp) // 리뷰 업로드
-    .post('/getReview', controller.getReview); // 리뷰 가져오기
+    .post('/getReview', controller.getReview) // 리뷰 가져오기
+    .post('/DeleteReview', controller.DeleteReview); // 리뷰 삭제
     
 
 export default router;

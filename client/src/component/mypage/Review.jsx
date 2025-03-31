@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import axios from 'axios';
+import { useMypage } from '../../hooks/useMypage.js';
+import { useContext } from 'react';
+import { MypageContext } from '../../context/MypageContext';
 
-export default function Review({ myOrder, myReview }) {
+export default function Review() {
+    const {myOrder,myReview} = useContext(MypageContext);
+    const {getMyOrder,getReview} = useMypage();
+
     const navigate = useNavigate();
-
     let filter = myOrder.filter((item) => item.delivery_status === '배송완료');
+    const selectRef = useRef(null);
 
     const handleReview = (pid) => {
         navigate(`/product/detail/:${pid}`);
     }
-    // console.log('flqb', myReview);
 
     /* 리뷰작성 전 페이지네이션 */
     const [itemOffset, setItemOffset] = useState(0);
@@ -27,8 +33,6 @@ export default function Review({ myOrder, myReview }) {
         const newOffset = (event.selected * itemsPerPage) % filter.length;
         setItemOffset(newOffset);
     }
-
-
     /* 작성한 리뷰 페이지네이션 */
     const [itemOffset2, setItemOffset2] = useState(0);
     const itemsPerPage2 = 5;
@@ -44,13 +48,31 @@ export default function Review({ myOrder, myReview }) {
         setItemOffset2(newOffset2);
     };
 
+    // 리뷰 작성하기 클릭하면 오더테이블에서 오더넘버로 삭제
+    const deleteWriteReview = (order_number) => {
+       axios.post('http://localhost:9000/mypage/deleteOrder',{'order_number':order_number})
+        .then(res => {
+            getMyOrder();            
+        })
+        .catch(error => console.log(error));
+    }
+
+ const handleSelectOrder = (e) => {
+     if(selectRef.current.value === 'date'){
+        getReview('rdate');
+    }else {
+        getReview('view_count');
+    }
+    getReview();
+}
+
     return (
         <div className='mypage-review-all'>
             <div className='mypage-update-info-title mypage-title'>작성가능 리뷰</div>
             <div className='mypage-review-write'>
                 <table>
                     <tr>
-                        <td>번호</td>
+                        <td>주문번호</td>
                         <td>상품정보</td>
                         <td>수량</td>
                         <td>총금액</td>
@@ -58,18 +80,22 @@ export default function Review({ myOrder, myReview }) {
                     </tr>
                     {
                         currentItems && currentItems.map((item) =>
-                            <tr>
-                                <td>1</td>
+                            <tr className='mypage-review-write-2nd'>
+                                <td>{item.order_number}</td>
                                 <td>
                                     <img src={item.main_image} alt="리뷰이미지" />
                                     <span>{item.pname}</span>
                                 </td>
                                 <td>{item.qty}개</td>
                                 <td>{item.total_price.toLocaleString().concat('원')}</td>
-                                <td onClick={() => { handleReview(item.pid) }}>리뷰작성하기</td>
+                                <td onClick={() => {
+                                    handleReview(item.pid);
+                                    deleteWriteReview(item.order_number);
+                                }}>리뷰작성하기</td>
                             </tr>
                         )
                     }
+
                 </table>
             </div>
             <div className='mypage-review-write-page'>
@@ -91,16 +117,15 @@ export default function Review({ myOrder, myReview }) {
             </div>
             <div className='mypage-update-info-title mypage-title'>작성한 리뷰 관리</div>
             <div className='mypage-review-writed-select'>
-                <select name="" id="">
-                    <option value="">선택</option>
-                    <option value="">작성일자별</option>
-                    <option value="">상품명별</option>
+                <select ref={selectRef} name="" onChange={(e) => { handleSelectOrder(e) }}>
+                    <option value="default">선택</option>
+                    <option value="date">작성일자별</option>
+                    <option value="view">조회수별</option>
                 </select>
             </div>
             <div className='mypage-review-writed'>
                 <table>
                     <tr>
-                        <td>주문번호</td>
                         <td>상품정보</td>
                         <td>제목</td>
                         <td>내용</td>
@@ -109,7 +134,6 @@ export default function Review({ myOrder, myReview }) {
                     </tr>
                     {currentItems2 && currentItems2.map((item) =>
                         <tr>
-                            <td>{item.order_number}</td>
                             <td>{item.pname}</td>
                             <td>{item.subject}</td>
                             <td>{item.text}</td>
@@ -127,7 +151,7 @@ export default function Review({ myOrder, myReview }) {
                     previousLabel={<MdNavigateBefore />}
                     onPageChange={handlePageClick2}
                     pageRangeDisplayed={5}
-                    pageCount={pageCount}
+                    pageCount={pageCount2}
                     containerClassName="pagination"
                     activeClassName="active"
                     pageClassName="page-item"
