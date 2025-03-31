@@ -9,6 +9,7 @@ import searchRouter from './router/searchRouter.js';
 import cartRouter from './router/cartRouter.js';
 import orderRouter from './router/orderRouter.js';
 import adminRouter from './router/adminRouter.js';
+import paymentRouter from './router/paymentRouter.js';
 
 
 /* 서버 생성 및 포트 정의 */
@@ -32,6 +33,7 @@ server.use('/search', searchRouter);
 server.use('/cart', cartRouter);
 server.use('/order', orderRouter);
 server.use('/uploads', adminRouter);
+server.use('/payment', paymentRouter);
 
 
 

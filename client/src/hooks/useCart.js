@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { CartContext } from "../context/cartContext";
-
+import { CartContext } from "../context/cartContext.js";
+import { OrderContext } from "../context/orderContext.js";
 
 
 export function useCart() {
     const { cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice, selectItems, setSelectItems } = useContext(CartContext);
-
+    const { orderList } = useContext(OrderContext);
 
 
 
@@ -106,6 +106,39 @@ export function useCart() {
     ********************************************/
     const orderSelectItem = async(cid) => {
         const result = await axios.post("http://localhost:9000/cart/orderSelect", {"cid": cid});
+    }
+
+
+    /********************************************
+            카카오페이 API 연동
+            사용처 : Cart
+            작성자 : 김유나
+    ********************************************/
+    const paymentKakaoPay = async() => {
+        const id = localStorage.getItem("user_id"); 
+        const totalPrice = calculateTotalPrice(orderList);
+        const pname = orderList[0].pname.concat(" 외");
+        const type = "KAKAO_PAY"; 
+
+        let formData = {  
+                            id: id,  
+                            type: type,
+                            totalPrice:totalPrice, 
+                            orderList:orderList
+                        };
+
+        const response = await axios.post("http://localhost:9000/payment/qr", {
+                        id:id,
+                        item_name: pname,
+                        total_amount: totalPrice, // 결제 금액 (KRW)
+                        formData: formData
+                    });
+
+        if ( response.data.next_redirect_pc_url) {
+            response.data.tid && localStorage.setItem("tid", response.data.tid);
+            window.location.href = response.data.next_redirect_pc_url;
+        }
+
     }
 
     return { saveToCartList, 

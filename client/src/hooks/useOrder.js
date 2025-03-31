@@ -4,7 +4,7 @@ import { OrderContext } from '../context/orderContext.js';
 import { useCart } from "./useCart.js";
 
 export function useOrder() {
-    const { orderList, setOrderList, orderPrice, setOrderPrice, setMember } = useContext(OrderContext);
+    const { orderList, setOrderList, setOrderPrice, setMember, SetCompletedOrderList, orderNumber, setOrderNumber } = useContext(OrderContext);
     const { getCartList, clearCart } = useCart();
     
     /********************************************
@@ -65,9 +65,21 @@ export function useOrder() {
         사용처 : Payment
         작성자 : 김유나
     ********************************************/
-    const saveToOrder = async(orderType) => {
+    const saveToOrder = async() => {
+        const orderType = localStorage.getItem("ORDERTYPE");
         const id = localStorage.getItem("user_id");
         let orderList = [];
+        let result_rows = 0;
+
+        // 날짜 생성(order_number 랜덤하게 생성하기 위해 사용)
+        const dateNumber = () => {
+            const date = new Date();
+            const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, "");
+            const randomNumber = Math.floor(10000 + Math.random() * 90000);
+            return `${formattedDate}-${randomNumber}`;
+        }
+    
+        const orderNumber = dateNumber();
         
         if (orderType === "all") {
             orderList = await getCartAll();
@@ -77,19 +89,49 @@ export function useOrder() {
 
         let formData = {  
             id: id,
-            orderList: orderList
+            orderList: orderList,
+            orderNumber: orderNumber
         };
 
-        const result = await axios.post("http://localhost:9000/order/saveOrder", formData);
-
-        if (result.data.result_rows) {
-            if (orderType === "all") {
-                clearCart();
-            } else {
-                deleteItems();
+        try {
+            const result = await axios.post("http://localhost:9000/order/saveOrder", formData);
+            if (result.data.result_rows) {
+                result_rows = result.data.result_rows;
+                setOrderNumber(orderNumber);
+                if (orderType === "all") {
+                    const saveOrderList = await getCartAll(); 
+                    SetCompletedOrderList(saveOrderList);
+                    clearCart();
+                } else {
+                    const saveOrderList = await getSelectItems(); 
+                    SetCompletedOrderList(saveOrderList);
+                    deleteItems();
+                }
             }
+        } catch (error) {
+            console.error("주문테이블 저장 실패:", error);
         }
+        
+        return result_rows;
+
+
+        // const result = await axios.post("http://localhost:9000/order/saveOrder", formData);
+        // if (result.data.result_rows) {
+        //     if (orderType === "all") {
+        //         SetCompletedOrderList(orderList);
+        //         // getBillList(id, orderNumber);
+        //         setOrderNumber(orderNumber);
+        //         clearCart();
+        //     } else {
+        //         SetCompletedOrderList(orderList);
+        //         // getBillList(id, orderNumber);
+        //         setOrderNumber(orderNumber);
+        //         deleteItems();
+        //     }
+        // }
     }
+
+    
     
     /********************************************
         선택 주문 완료 후 장바구니 테이블에서 삭제
@@ -97,12 +139,60 @@ export function useOrder() {
         작성자 : 김유나
     ********************************************/
     const deleteItems = async() => {
-        const cids = orderList.map((item) => item.cid).join(",");
+        const cids = localStorage.getItem("cids");
+        // const cids = orderList.map((item) => item.cid).join(",");
         console.log("주문번호목록 --> ", cids);
         const result = await axios.delete("http://localhost:9000/order/deleteItems", {data: {"cids": cids}});
 
         result.data.result_rows && getCartList();
     }
 
-    return { getCartAll, calculateTotalPrice, getSelectItems, saveToOrder, deleteItems };
+    /********************************************
+        카카오페이 결제 요청
+        사용처 : payment
+        작성자 : 김유나
+    ********************************************/
+    const paymentKakaoPay = async() => {
+        const id = localStorage.getItem("user_id"); 
+        const totalPrice = calculateTotalPrice(orderList);
+        const pname = orderList > 1 ? orderList[0].pname.concat(" 외") : orderList[0].pname;
+        const type = "KAKAO_PAY"; 
+
+        let formData = {  
+                            id: id,  
+                            type: type,
+                            totalPrice:totalPrice, 
+                            orderList:orderList
+                        };
+
+        const response = await axios.post("http://localhost:9000/payment/kakaoQr", {
+                        id:id,
+                        item_name: pname,
+                        total_amount: totalPrice, // 결제 금액 (KRW)
+                        formData: formData
+                    });
+
+        if (response.data.next_redirect_pc_url) {
+            response.data.tid && localStorage.setItem("tid", response.data.tid);
+            window.location.href = response.data.next_redirect_pc_url;
+        }
+    }//paymentKakaoPay
+
+    /********************************************
+        주문 완료 후 주문 번호로 주문 내역 호출
+        사용처 : payment success
+        작성자 : 김유나
+    ********************************************/
+    const getBillList = async(id, orderNumber) => {
+        const formData = {
+            id: id,
+            orderNumber: orderNumber
+        };
+
+        const result = await axios.post("http://localhost:9000/order/getBill", formData);
+        SetCompletedOrderList(result.data);
+        setMember(result.data[0]);
+    }
+
+    return { getCartAll, calculateTotalPrice, getSelectItems, saveToOrder, deleteItems, getBillList, paymentKakaoPay };
 }
