@@ -4,9 +4,11 @@
 ## ⚙️ 설치 라이브러리  
 
 ### client
-  
+
 ```bash
 npm i
+npm i framer-motion  
+npm i antd
 ```
 
 ### server

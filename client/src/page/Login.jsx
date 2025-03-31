@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
@@ -19,7 +19,6 @@ export default function Login() {
 
     const handleLogin = (e) => {
         const { name, value } = e.target;
-        // console.log(name,value);
         setFormData({ ...formData, [name]: value });
     }
     const validate = () => {         
@@ -36,7 +35,6 @@ export default function Login() {
         }     
         return true;
     }
-    // console.log('=',formData);
     
 
     const handleSubmit = (e) => {
@@ -68,6 +66,53 @@ export default function Login() {
         }
     }
 
+    /* 네이버 API연동 로그인 */
+    const NaverLogin = () => {
+        const naver_client_id = "Aot8PsS2gfh4PzSET5k5";
+        const callbackUrl = "http://localhost:3000/signup/redirect/naver"; // 네이버 개발자 센터에 등록한 URL
+        const state = Math.random().toString(36).substring(2, 15); // 랜덤 state 생성
+        const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naver_client_id}&state=${state}&redirect_uri=${callbackUrl}`;
+        
+        const width = 500;
+        const height = 600;
+        const left = (window.screen.width - width) /2;
+        const top = (window.screen.height  - height) /2;
+
+        window.open(
+            NAVER_AUTH_URL,
+            'naverLogin',
+            `width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=yes`
+        );
+    };
+    /* 카카오 API연동 로그인 */
+    const kakaoLogin = () =>{
+        const Rest_api_key = '3f5c49e05800584ba496c54e74152ab3';
+        const redirect_uri = 'http://localhost:3000/signup/redirect/kakao';
+        const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+
+        const width = 500;
+        const height = 600;
+        const left = (window.screen.width - width) /2 ;
+        const top = (window.screen.height - height) /2;
+
+        window.open(
+            kakaoURL,
+            'kakaoLogin',
+            `width=${width},height=${height},left=${left},top=${top},resizeable=no, scrollbars=yes`
+        )
+    };
+
+    useEffect(()=>{
+        const handleMessage = (e) =>{
+            if(e.data?.type === 'NAVER_LOGIN_SUCCESS' || e.data?.type === 'KAKAO_LOGIN_SUCCESS'){
+                const {name, mobile, email} = e.data.payload;
+                navigate('/signup',{state: {name, mobile, email, join_type:'sns' }})
+            }
+        }
+        window.addEventListener("message", handleMessage);
+        return () => window.removeEventListener("message", handleMessage);
+    },[navigate]);
+
     return (
         <div className='login-box'>
             <div className='login-box-left'>
@@ -94,19 +139,17 @@ export default function Login() {
                         />
                         <span ref={pwdMsgRef}>{error.pwd}</span>
                     </div>
-                    <button className='login-btn login-btn1'
-                        type='submit'
-                    >Sign In</button>
+                    <button className='login-btn login-btn1' type='submit'>Sign In</button>
                     <div className='login-cut'>————————————<span>or</span>————————————</div>
                     <div className='login-box-right-middle'>
-                        <div className='login-btn login-btn2'>
+                        <button type='button' className='login-btn login-btn2' onClick={NaverLogin}>
                             <SiNaver className='login-box-right-middle-logo1' />
                             <span>NAVER Account</span>
-                        </div>
-                        <div className='login-btn login-btn3'>
+                        </button>
+                        <button type='button' className='login-btn login-btn3' onClick={kakaoLogin}>
                             <RiKakaoTalkFill className='login-box-right-middle-logo2' />
                             <span>Kakao Account</span>
-                        </div>
+                        </button>
                     </div>
                     <div className='login-cut'>————————————<span>or</span>————————————</div>
                     <div>
@@ -117,14 +160,14 @@ export default function Login() {
                     <div className='login-bottom-box'>
                         <ul>
                             <li>
-                                <a href="#">아이디(이메일) </a>
-                                <span>또는</span>
-                                <a href="#">비밀번호</a>
+                                <span className='userinfo-find-btn' onClick={()=>navigate('/signup/find/fid')}>아이디(이메일) </span>
+                                <span>또는 </span>
+                                <span className='userinfo-find-btn' onClick={()=>navigate('/signup/find/fpwd')}>비밀번호</span>
                                 <span>를 잊으셨나요?</span>
                             </li>
                             <li>
                                 <span>비회원으로 주문하신 경우, </span>
-                                <a href="#">주문조회 </a>
+                                <span className='userinfo-find-btn' onClick={()=>navigate('/')}>주문조회 </span>
                                 <span>해주세요.</span>
                             </li>
                         </ul>

@@ -7,8 +7,10 @@ import mypageRouter from './router/mypageRouter.js';
 import mainRouter from './router/mainRouter.js';
 import searchRouter from './router/searchRouter.js';
 import cartRouter from './router/cartRouter.js';
+import signupRouter from './router/signupRouter.js';
 import orderRouter from './router/orderRouter.js';
 import adminRouter from './router/adminRouter.js';
+import snsLoginRouter from './router/snsLoginRouter.js';
 import paymentRouter from './router/paymentRouter.js';
 
 
@@ -27,12 +29,14 @@ server.use('/upload_review_photos', express.static('upload_review_photos'));
 /* 서버의 요청처리를 위한 미들웨어 정의 */
 server.use('/product', productRouter)
 server.use('/login',LoginRouter);
+server.use('/signup',signupRouter);
 server.use('/mypage',mypageRouter);
 server.use('/main', mainRouter);
 server.use('/search', searchRouter);
 server.use('/cart', cartRouter);
 server.use('/order', orderRouter);
 server.use('/uploads', adminRouter);
+server.use('/:provider', snsLoginRouter);
 server.use('/payment', paymentRouter);
 
 
