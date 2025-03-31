@@ -160,7 +160,8 @@ export default function Signup() {
                         <label>아이디<span>·</span></label>
                         <input type="text" name='id'
                                 ref={refs.idRef}     
-                                onChange={handleChangeForm}/>
+                                onChange={handleChangeForm}
+                                autoComplete="off"/>
                         <button type='button'
                                 onClick={()=>{handleIdCheck(refs.idRef, refs.passwordRef, setIdCheckResult)}}>중복확인</button>
                         <p>6자 이상으로 입력해주세요</p>
@@ -184,7 +185,8 @@ export default function Signup() {
                         <input type="text" name='name' 
                                ref={refs.nameRef}
                                onChange={handleChangeForm}
-                               value={formData.name}/>
+                               value={formData.name}
+                               autoComplete="off"/>
                     </li>
                     <li className='phone-info'>
                         <label>휴대전화 <span>·</span></label>
@@ -202,13 +204,15 @@ export default function Signup() {
                                    maxLength={4}
                                    ref={refs.phone2Ref} 
                                    onChange={handleChangeForm}
-                                   value={formData.phone2}/>
+                                   value={formData.phone2}
+                                   autoComplete="off" />
                             <span className="dash"> - </span>
                             <input type="text" name="phone3" className='phone phone3' 
                                    maxLength={4}
                                    ref={refs.phone3Ref} 
                                    onChange={handleChangeForm}
-                                   value={formData.phone3}/>
+                                   value={formData.phone3}
+                                   autoComplete="off"/>
                         </div>
                     </li>
                     <li className='signup-email-line'>
@@ -217,7 +221,8 @@ export default function Signup() {
                             <input type="text" name='email' 
                                    ref={refs.emailRef}
                                    onChange={handleChangeForm}
-                                   value={formData.email}/>
+                                   value={formData.email}
+                                   autoComplete="off"/>
                             <span>@</span>
                             <select name="emailDomain" 
                                     ref={refs.emailDomainRef}

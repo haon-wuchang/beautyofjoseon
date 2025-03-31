@@ -15,6 +15,7 @@ import SignupPopup from './page/SignupPopup.jsx';
 import RedirectPage from './utils/RedirectPage.js';
 import Cart from './page/Cart.jsx';
 import Payment from './page/Payment.jsx';
+import UserInfoFind from './page/UserInfoFind.jsx';
 import { AuthProvider } from './auth/AuthContext.js';
 import { MypageProvider } from './context/MypageContext.js';
 import { SearchProvider } from './context/SearchContext.js';
@@ -39,6 +40,7 @@ export default function App() {
             <Route path='/' element={<Layout />} >
               <Route index element={<Home />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/signup/find/:finfo' element={<UserInfoFind />} />
               <Route path='/signup' element={<Signup />} />
               <Route path='/mypage' element={<Mypage />} />
               <Route path='/product/list' element={<Products />} />

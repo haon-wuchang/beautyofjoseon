@@ -194,9 +194,15 @@
     font-size: 12px;
     color: gray;
 }
-.login-bottom-box>ul>li>a{
-    color: black;
+.login-bottom-box>ul>li>span{
+letter-spacing: 0.5px;
+}
+.login-bottom-box>ul>li .userinfo-find-btn{
+    color: rgb(62, 62, 62);
     font-weight: 600;
+    text-decoration: underline;
+    letter-spacing: 0.5px;
+    cursor: pointer;
 }
 
 /*****************************************/

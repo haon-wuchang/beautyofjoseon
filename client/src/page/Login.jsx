@@ -161,14 +161,14 @@ export default function Login() {
                     <div className='login-bottom-box'>
                         <ul>
                             <li>
-                                <a href="#">아이디(이메일) </a>
-                                <span>또는</span>
-                                <a href="#">비밀번호</a>
+                                <span className='userinfo-find-btn' onClick={()=>navigate('/signup/find/fid')}>아이디(이메일) </span>
+                                <span>또는 </span>
+                                <span className='userinfo-find-btn' onClick={()=>navigate('/signup/find/fpwd')}>비밀번호</span>
                                 <span>를 잊으셨나요?</span>
                             </li>
                             <li>
                                 <span>비회원으로 주문하신 경우, </span>
-                                <a href="#">주문조회 </a>
+                                <span className='userinfo-find-btn' onClick={()=>navigate('/')}>주문조회 </span>
                                 <span>해주세요.</span>
                             </li>
                         </ul>

@@ -58,3 +58,41 @@ export const handleIdCheck = (idRef, pwdRef, setIdCheckResult) =>{
          .catch((error)=>console.log(error))
   }
 }
+
+/***************************
+ *  회원 아이디 찾기 유효성 검사
+***************************/
+export const validationIdFind = (names, refs, labels) =>{
+  const refEntries = Object.entries(refs);
+ 
+  for(let i=0; i< refEntries.length; i++){
+    const [name, ref] = refEntries[i];
+   
+    if(!ref.current.value){
+      const labelName = labels[names[i]];
+      alert(`${labelName} 입력해주세요`);
+      ref.current.focus();
+      return false;
+    }
+  } 
+  return true;
+};
+
+/***************************
+ *  회원 비밀번호 찾기 유효성 검사
+***************************/
+export const validationPwdFind = (pwds, refs, pwdLabels) =>{
+  const refEntries = Object.entries(refs);
+ 
+  for(let i=0; i< refEntries.length; i++){
+    const [pwd, ref] = refEntries[i];
+   
+    if(!ref.current.value){
+      const labelName = pwdLabels[pwds[i]];
+      alert(`${labelName} 입력해주세요`);
+      ref.current.focus();
+      return false;
+    }
+  } 
+  return true;
+};

@@ -53,7 +53,8 @@
   height: 35px;
   font-size: 12px;
   border: none;
-  border-bottom: 1px solid var(--color-lightgrey1);;
+  border-bottom: 1px solid var(--color-lightgrey1);
+  background-color: #ffffff !important;
 }
 .signup-box>ul>li:not(.signup-email-line)>input:focus,
 .phone-info .phone:focus,
@@ -201,18 +202,82 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+/*****************************************/
+    아이디 찾기  
+/*****************************************/
+.id-find-box,
+.userid-find-content{
+  margin: 0 auto;
+  width: 1200px;
+  padding-bottom: 70px;
+}
+.userid-find-title{
+  padding: 20px 0;
+  margin-bottom: 32px;
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid gainsboro;
+}
+.userid-find-title>p{
+  font-size: 12px;
+  color: rgb(177, 177, 177);
+  letter-spacing: 0.2px;
+}
+.userid-find-box{
+  border: 1px solid gainsboro;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userid-find-box>div{
+  text-align: center;
+  padding: 50px 100px 30px 100px;
+  margin-top: 30px;
+  /* margin-bottom: 30px; */
+}
+.userid-find-box>div:first-child>p{
+  font-size: 23px;
+  font-weight: 700;
+}
+.userid-find-li{
+  display: flex;
+  margin: 16px 50px;
+}
+.userid-find-li>label{
+  width: 100px;
+  padding-right: 30px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  text-align: left;
+}
+.userid-find-li.name>input,
+.userid-find-li.password>input,
+.userid-find-li.id>input{
+  border: 1px solid gainsboro;
+  width: 250px;
+  padding: 5px 8px;
+  outline: none;
+}  
+.userid-find-li.phone>input{
+  border: 1px solid gainsboro;
+  width: 58px;
+  padding: 5px 10px;
+  outline: none;
+}  
+.userid-find-box>button{
+  color: #ffffff;
+  background-color: #000;
+  display: block;
+  margin: 5px 0 50px;
+  padding: 15px 190px;
+}
+.id-find-box .userid-find-content .userid-find-box .find-id-result {
+  /* border: 1px solid red; */
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 70px;
+}
 
 
 

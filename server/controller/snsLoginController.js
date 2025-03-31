@@ -3,7 +3,6 @@ import axios from 'axios';
 export const snsLoginCallback = async(req, res) =>{
   const { code, state } = req.body; 
   const provider = req.params.provider;
-  console.log('컨트롤러 확인', req.body);
   
   try {
     if(provider === 'naver'){
