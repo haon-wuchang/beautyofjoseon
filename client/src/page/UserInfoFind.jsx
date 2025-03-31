@@ -162,6 +162,7 @@ export default function UserInfoFind() {
               <div>
                 <h2>아이디 찾기 결과</h2>
                 <p className='find-id-result'>회원님의 아이디는<strong>"{userId}"</strong>입니다.</p>
+                <button onClick={()=>{navigate('/login')}}>Login</button>
               </div>  
           </div>  
         </div>  
@@ -185,7 +186,7 @@ export default function UserInfoFind() {
                 </div>
                 <div className='userid-find-li password'>
                   <label>현재 비밀번호</label>
-                  <input type="text" name='password' 
+                  <input type="password" name='password' 
                         ref={refs.passwordRef}
                         onChange={handleChangeForm}
                         value={formData.password}
@@ -193,7 +194,7 @@ export default function UserInfoFind() {
                 </div>
                 <div className='userid-find-li password'>
                   <label>변경할 비밀번호</label>
-                  <input type="text" name='newPassword' 
+                  <input type="password" name='newPassword' 
                         ref={refs.newPasswordRef}
                         onChange={handleChangeForm}
                         value={formData.newPassword}
@@ -201,7 +202,7 @@ export default function UserInfoFind() {
                 </div>
                 <div className='userid-find-li password'>
                   <label>비밀번호 확인</label>
-                  <input type="text" name='newCpassword' 
+                  <input type="password" name='newCpassword' 
                         ref={refs.newCpasswordRef}
                         onChange={handleChangeForm}
                         value={formData.newCpassword}

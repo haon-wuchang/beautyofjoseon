@@ -53,8 +53,7 @@ export default function App() {
               <Route path='/search' element={<Search />} />
               <Route path='/admin' element={<Admin />} />
               <Route path='/brand' element={<BrandStory />} />
-            </Route>
-  
+            </Route>  
             <Route element={< SignupPopup/>}>
               <Route path='/signup/redirect/:provider' element={<RedirectPage />} />
             </Route>
