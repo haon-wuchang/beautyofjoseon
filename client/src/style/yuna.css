@@ -23,7 +23,6 @@ body {
     padding: 8px 0;
 }
 .header-bottom { /*수정 필*/
-    /* height: 130px; */
     background-color: #fff;
 }
 .header-bottom-container {
@@ -1360,7 +1359,7 @@ border: 1px solid blue;
     font-size: 20px;
     color: rgb(88, 114, 245);
 }
-.payment-benefit {
+.payment-benefit > div:first-child {
     height: 70px;
     padding: 0 15px;
     display: flex;
@@ -1368,17 +1367,49 @@ border: 1px solid blue;
     align-items: center;
     font-weight: bold;
 }
-.payment-benefit > span {
+.payment-benefit > div:first-child > div {
+    display: flex;
+}
+.payment-benefit > div:first-child  > span {
     font-size: 18px;
 }
-.payment-benefit > div > span:first-child {
+.payment-benefit > div:first-child > div > span:first-child {
     color: rgb(88, 114, 245);
 }
-.payment-benefit > div > span:last-child {
+.payment-benefit > div:first-child > div > span:last-child {
     cursor: pointer;
     display: inline-block;
     margin-left: 5px;
     color: gray;
+}
+
+.payment-benefit-detail {
+    padding-bottom: 15px;
+    list-style-type: none;
+    padding: 15px;
+    margin: 0;
+}
+.payment-benefit-detail > li {
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.payment-benefit-detail > li > span:last-child {
+    font-weight: bold;
+}
+.payment-benefit-bottom {
+    height: 45px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(248, 249, 250);
+    font-size: 17px;
+    font-weight: bold;
+}
+.payment-benefit-bottom > span:last-child {
+    color: rgb(88, 114, 245);
 }
 .payment-button {
     width: 900px;
@@ -1679,6 +1710,7 @@ border: 1px solid blue;
 }
 /* 적립 혜택 */
 .payment-success-benefit-block > div:nth-child(2) {
+    border: 1px solid red;
     display: flex;
     justify-content: space-between;
     padding: 10px 15px;
