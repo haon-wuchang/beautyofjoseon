@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
-import axios from 'axios';
+import  { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 
 export function useLogin() {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const { setIsLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
 
     /* 헤더-로그아웃,마이페이지-로그아웃, 마이페이지-회원탈퇴 시 로그아웃 전역 관리 */

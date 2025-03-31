@@ -18,7 +18,6 @@ export default function Review() {
     const handleReview = (pid) => {
         navigate(`/product/detail/:${pid}`);
     }
-    // console.log('flqb', myReview);  
 
     /* 리뷰작성 전 페이지네이션 */
     const [itemOffset, setItemOffset] = useState(0);
@@ -53,13 +52,11 @@ export default function Review() {
     const deleteWriteReview = (order_number) => {
        axios.post('http://localhost:9000/mypage/deleteOrder',{'order_number':order_number})
         .then(res => {
-            // console.log(res.data);
             getMyOrder();            
         })
         .catch(error => console.log(error));
     }
 
- // 셀렉트박스 기준으로 order by 로 가져오기는 하는데 페이지넘어가있는 데이터까지는 못가져옴
  const handleSelectOrder = (e) => {
      if(selectRef.current.value === 'date'){
         getReview('rdate');

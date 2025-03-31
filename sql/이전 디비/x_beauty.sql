@@ -26,3 +26,6 @@ desc wish;
 
 
 
+ALTER TABLE customer MODIFY address VARCHAR(80) NULL;
+ALTER TABLE customer MODIFY extra_address VARCHAR(80) NULL;
+

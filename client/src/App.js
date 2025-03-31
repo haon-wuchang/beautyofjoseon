@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './style/common.css';
 import './style/haon.css';
 import './style/yuna.css';
+import './style/dahee.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './page/Layout.jsx';
 import Home from './page/Home.jsx';
@@ -10,8 +11,11 @@ import Signup from './page/Signup.jsx';
 import Mypage from './page/Mypage.jsx';
 import Products from './page/Products.jsx';
 import ProductDetail from './page/ProductDetail.jsx';
+import SignupPopup from './page/SignupPopup.jsx';
+import RedirectPage from './utils/RedirectPage.js';
 import Cart from './page/Cart.jsx';
 import Payment from './page/Payment.jsx';
+import UserInfoFind from './page/UserInfoFind.jsx';
 import { AuthProvider } from './auth/AuthContext.js';
 import { MypageProvider } from './context/MypageContext.js';
 import { SearchProvider } from './context/SearchContext.js';
@@ -38,6 +42,7 @@ export default function App() {
             <Route path='/' element={<Layout />} >
               <Route index element={<Home />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/signup/find/:finfo' element={<UserInfoFind />} />
               <Route path='/signup' element={<Signup />} />
               <Route path='/mypage' element={<Mypage />} />
               <Route path='/product/list' element={<Products />} />
@@ -48,6 +53,9 @@ export default function App() {
               <Route path='/search' element={<Search />} />
               <Route path='/admin' element={<Admin />} />
               <Route path='/brand' element={<BrandStory />} />
+            </Route>  
+            <Route element={< SignupPopup/>}>
+              <Route path='/signup/redirect/:provider' element={<RedirectPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

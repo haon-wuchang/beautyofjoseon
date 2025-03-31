@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import  { useContext } from 'react';
 import axios from 'axios';
 import { MypageContext } from '../context/MypageContext.js';
+import {AuthContext} from '../auth/AuthContext.js';
+
 
 export function useMypage() {
     const { setMyinfo, setYear, setMonth, setDate, setGender, setMyOrder,
-        setWishList, orderType, orderEnd, orderStart, myReview, setMyReview
+        setWishList, orderType, orderEnd, orderStart, setMyReview
     } = useContext(MypageContext);
+const { isLoggedIn } = useContext(AuthContext);
 
     const getMyinfo = async () => {
         const id = localStorage.getItem('user_id');
@@ -67,7 +70,7 @@ export function useMypage() {
     const getWishNumber = async () => {
         const id = localStorage.getItem('user_id');
         const result = await axios.post('http://localhost:9000/mypage/getWishNumber', { 'id': id });
-        if (result.data.wish !== null) {
+        if (result.data.wish !== null && isLoggedIn === true) {
             const list = result.data.wish;
             // setWishList(list);
             const wishListData = await Promise.all(
