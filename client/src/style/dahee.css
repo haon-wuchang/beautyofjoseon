@@ -239,6 +239,7 @@
   font-size: 23px;
   font-weight: 700;
 }
+
 .userid-find-li{
   display: flex;
   margin: 16px 50px;
@@ -279,7 +280,13 @@
   margin-bottom: 70px;
 }
 
-
+.userid-find-box > div >button{
+  color: #ffffff;
+  background-color: #000;
+  display: block;
+  margin: 5px 0 50px;
+  padding: 15px 190px;
+}
 
 
 
