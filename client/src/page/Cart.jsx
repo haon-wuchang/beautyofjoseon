@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CartTable from '../component/cart/CartTable.jsx';
 import CartBill from '../component/cart/CartBill.jsx';
-import { AuthContext } from '../auth/AuthContext.js';
 import { CartContext } from '../context/cartContext.js';
 import { useCart } from '../hooks/useCart.js';
-import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
-    const navigate = useNavigate();
-    const { isLoggedIn } = useContext(AuthContext);
     const { getCartList } = useCart();
     const { cartList } = useContext(CartContext);
     const [selectStatus, setSelectStatus] = useState("domestic");

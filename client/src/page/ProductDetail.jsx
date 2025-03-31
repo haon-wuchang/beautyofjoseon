@@ -8,8 +8,6 @@ import { useProduct } from "../hooks/useProduct.js"
 import { FiPlus, FiMinus } from "react-icons/fi";
 import axios from 'axios';
 import '../style/product.scss';
-
-// 하위 컴포넌트
 import ProductSlider from '../component/product/ProductSlider.jsx'; // slick슬라이더
 import DetailImages from '../component/product/DetailImages.jsx'; // 상세이미지 map
 import Review from '../component/product/Review.jsx'; // 리뷰

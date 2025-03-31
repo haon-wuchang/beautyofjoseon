@@ -1,31 +1,22 @@
-
 import { db } from "./db.js";
-
 /********************************************
                 장바구니 전체 리스트 조회 
             작성자 : 정서령
 ********************************************/
-
 export const getItems = async({id}) => {
-
     const sql = `
         select * from view_cart_list
         where id = ?
     `;
-
     const [result] =  await db.execute(sql, [id]);
-
     return result; 
 }
-
 
 /********************************************
         장바구니 새로운 아이템 저장
         사용처 : ProductDetail
         작성자 : 정서령
 ********************************************/
-
-
 export const addCart = async ({ id, cartList }) => {
     let result_rows = 0; // [1,1,1] 결과 누적
     const result = await Promise.all(
@@ -48,19 +39,14 @@ export const addCart = async ({ id, cartList }) => {
     return { 'result_rows': result_rows };
 }
 
-
 /********************************************
         장바구니 아이템 수량 업데이트
         사용처 : ProductDetail, Cart
         작성자 : 정서령
 ********************************************/
-
 // 수량을 여러번 추가할 수 있게 하기 위해 qty 값도 같이 받아와서 추가하는 로직임
 
-
 export const updateQty = async ({ cid, type, qty }) => {
-
-
     const qtyChange = type === "increase" ? `qty=qty+${qty}` : `qty=qty-${qty}`
     const sql = `
         update cart
@@ -69,10 +55,8 @@ export const updateQty = async ({ cid, type, qty }) => {
     `;
 
     const [result] = await db.execute(sql, [cid]);
-
     return { "result_rows": result.affectedRows };
 }
-
 
 /********************************************
         장바구니 아이템 삭제

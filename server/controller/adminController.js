@@ -20,10 +20,7 @@ export const fileUploadMultiple = (req,res) => {
             if(err) {
                 console.log(err);            
             } else {
-            //   console.log('uploadfile===',req.files);   
-            //   console.log('업로드삭제파일 올드파일',req.body.oldFiles); 
               const oldFileArray = req.body.oldFiles.split(",");
-            //   console.log('oldFileArray==>',oldFileArray);             
               
               for(const oldFile of oldFileArray){   
                 if(oldFile){
@@ -31,7 +28,6 @@ export const fileUploadMultiple = (req,res) => {
                   if(fs.existsSync(oldFilePath)){
                     try{
                       fs.unlinkSync(oldFilePath); 
-                    //   console.log('이전파일 삭제완료',oldFilePath); 
                     }catch(error){
                       console.error('이전파일 삭제실패',error);
                     }

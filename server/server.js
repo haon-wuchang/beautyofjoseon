@@ -22,7 +22,6 @@ const port = 9000;
 server.use(express.json());
 server.use(express.urlencoded()); 
 server.use(cors());
-// server.use('/upload_product', express.static(path.join("upload_product")));
 server.use('/upload_files', express.static(path.join("upload_files")));
 server.use('/upload_review_photos', express.static('upload_review_photos'));
 
@@ -41,8 +40,6 @@ server.use('/payment', paymentRouter);
 
 
 
-
 server.listen(port,()=>{
-    console.log('서버실행중');
-    
+    console.log('서버실행중');    
 });

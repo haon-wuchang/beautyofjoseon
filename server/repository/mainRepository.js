@@ -33,6 +33,5 @@ export const getMainSunItem = async() => {
     `;
 
     const [result] = await db.execute(sql);
-    // console.log("repository :: getMainSunItem result --> ", result);
     return result;
 }

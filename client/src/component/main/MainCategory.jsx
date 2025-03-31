@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion'; // 스크롤 애니메이션 라이브러리
+import { motion } from 'framer-motion';
 
 export default function MainCategory() {
     const [categoryList, setCategoryList] = useState([]);

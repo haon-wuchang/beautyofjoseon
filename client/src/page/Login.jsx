@@ -7,7 +7,7 @@ import { AuthContext } from '../auth/AuthContext.js';
 import { useContext } from 'react';
 
 export default function Login() {
-    const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext);
+    const {setIsLoggedIn} = useContext(AuthContext);
     const [formData, setFormData] = useState({ 'id': '', 'pwd': '' });
     const navigate = useNavigate();
     const [error, setError] = useState({'id':'', 'pwd':''});

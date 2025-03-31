@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import AdminProductUpload from '../component/AdminProductUpload.jsx';
 import AdminProductUploadMulti from '../component/AdminProductUploadMulti.jsx';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +24,6 @@ export default function AdminMain() {
     const getFileName = (filesNames) => {
         setFnames(filesNames);
         setPreview(`http://localhost:9000/${filesNames.uploadFileName}`);
-        // console.log('newProduct===fileNames',filesNames);  
         setPreviewList(filesNames.uploadFileName);
     }
 
@@ -54,7 +52,6 @@ export default function AdminMain() {
                     } else {
                         alert('상품등록 실패');
                     }
-                    // console.log('res===', res.data);
                 })
                 .catch(error => {
                     alert('상품등록 실패');
@@ -97,12 +94,6 @@ export default function AdminMain() {
                         onChange={handleChange}
                     />
                 </li>
-                {/* <li>
-                <label htmlFor="">메인 이미지 업로드(단일)</label>
-                <AdminProductUpload getFileName={getFileName} />
-                </li>
-                {preview && <img src={preview} alt="파일미리보기" style={{ 'width': '200px' }} />} */}
-
                 <li>
                     <label htmlFor="">이미지 업로드(멀티) </label>
                     <AdminProductUploadMulti getFileName={getFileName} />

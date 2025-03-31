@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
@@ -9,7 +8,6 @@ import PaymentDestination from '../component/payment/PaymentDestination.jsx';
 import { AuthContext } from '../auth/AuthContext.js';
 
 export default function Payment() {
-    const navigate = useNavigate();
     const { orderList, orderPrice } = useContext(OrderContext);
     const { getCartAll, getSelectItems, paymentKakaoPay } = useOrder();
     const [ paymentType, setPaymentType ] = useState("kakao");

@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import AdminProductUpload from '../component/AdminProductUpload.jsx';
 import AdminProductUploadMulti from '../component/AdminProductUploadMulti.jsx';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +20,6 @@ export default function AdminDesc() {
     const getFileName = (filesNames) => {
         setFnames(filesNames);
         setPreview(`http://localhost:9000/${filesNames.uploadFileName}`);
-        // console.log('newProduct===fileNames',filesNames);  
         setPreviewList(filesNames.uploadFileName);
     }
 
@@ -65,15 +63,8 @@ export default function AdminDesc() {
                                 ref={productNameRef}
                             />
                         </li>
-                        {/* <li>
-                        <label htmlFor="">메인 이미지 업로드(단일)</label>
-                        <AdminProductUpload getFileName={getFileName} />
-                        </li>
-                        {preview && <img src={preview} alt="파일미리보기" style={{ 'width': '200px' }} />} */}
-
                         <li>
                             <label htmlFor="">이미지 업로드(멀티) </label>
-                            {/* 얘의 첫번째 이미지가 메인이니까 가져올때 배열0번지는 메인이미지로 쓰고 나머지는 슬라이드로 */}
                             <AdminProductUploadMulti getFileName={getFileName} />
                         </li>
                         {previewList && previewList.map((preview) =>

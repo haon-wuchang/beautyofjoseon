@@ -5,11 +5,10 @@ import * as uploadcontroller from '../controller/productUploadController.js';
 
     const router = express.Router();
 
-router.post('/',controller.fileUpload);
-router.post('/multiple',multicontroller.fileUploadMultiple);
-router.post('/dbupload',uploadcontroller.registerProduct );
-router.post('/dbDescUpload',uploadcontroller.registerProductDesc );
-
-console.log(controller);
+router
+    .post('/',controller.fileUpload)
+    .post('/multiple',multicontroller.fileUploadMultiple)
+    .post('/dbupload',uploadcontroller.registerProduct )
+    .post('/dbDescUpload',uploadcontroller.registerProductDesc );
 
 export default router;

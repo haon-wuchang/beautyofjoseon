@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { AuthContext } from '../auth/AuthContext.js';
 import { OrderContext } from '../context/orderContext.js';
 import { useOrder } from '../hooks/useOrder.js';
 import { GoPerson } from "react-icons/go";
@@ -8,15 +7,13 @@ import { BiSolidShoppingBags } from "react-icons/bi";
 
 export default function PaymentSuccess() {
     const navigate = useNavigate();
-    // const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const { orderPrice, completedOrderList, orderNumber, member } = useContext(OrderContext);
     const [searchParams] = useSearchParams();
-    const { saveToOrder, getBillList } = useOrder();
+    const { saveToOrder } = useOrder();
     const hasCheckedLogin = useRef(false);
     const id = localStorage.getItem("user_id");
     const pg_token = searchParams.get("pg_token");
     const tid = localStorage.getItem("tid");
-    // const orderType = localStorage.getItem("ORDERTYPE");
 
     useEffect(() => {
         if (hasCheckedLogin.current) return;  // true:로그인 상태 -->  블록 return
@@ -42,11 +39,8 @@ export default function PaymentSuccess() {
             const select = window.confirm("로그인 서비스가 필요합니다. \n로그인 하시겠습니까?");
             select ?  navigate('/login') :  navigate('/');
         }
-    } , [id]);
-    
-    console.log("주문번호 --> ", orderNumber);
-    console.log("주문완료상품목록 --> ", completedOrderList);
-    console.log("주문자 정보 --> ", member);
+    } , [id]);   
+
 
     return (
         <div className='payment-success-wrap'>

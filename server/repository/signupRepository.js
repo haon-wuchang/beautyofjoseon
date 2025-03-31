@@ -1,18 +1,13 @@
 import { db } from "./db.js";
-
-
 /*************************** 
  *  아이디 중복체크 
 ***************************/
 export const getIdCheck = async({id}) => {
   const sql =`select count(*) as cnt from customer where id = ?`;
 
-  const [result] = await db.execute(sql, [id]);
-  
+  const [result] = await db.execute(sql, [id]);  
   return result;
 };
-
-
 /*************************** 
  * 회원가입 로직
 ***************************/
@@ -21,7 +16,6 @@ export const setSignup = async(formdata) => {
       insert into customer(id, password, name, phone, email, register_date )
       values(?,?,?,?,?,now())
   `;
-
   const values = [
         formdata.id,  
         formdata.password,  
@@ -33,7 +27,6 @@ export const setSignup = async(formdata) => {
   const [result] = await db.execute(sql, values );
   return result.affectedRows;
 };
-
 
 /*************************** 
  * 유저 아이디 찾기
@@ -48,11 +41,9 @@ export const getUserIdFind = async(formdata) =>{
 `;
   
 const values = [ formdata.name, formdata.phone];
-
 const [result] = await db.execute(sql, values);
 return result;
 };
-
 
 /*************************** 
  * 유저 비밀번호 일치 여부 확인
