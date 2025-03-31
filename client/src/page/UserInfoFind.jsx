@@ -64,12 +64,11 @@ export default function UserInfoFind() {
       if(validationIdFind(names, idFindRefs, labels)){
         axios.post('http://localhost:9000/signup/find/id', formData)
         .then((res)=>{
-            if(res.data[0].cnt === 1 ){
+            if(res.data[0] && res.data[0].cnt === 1 ){
               navigate('/signup/find/findeId', {state:{userId:res.data[0].id}});
-             } else{
-               alert('존재하지 않는 회원입니다.');
-              }
-            })
+            }else{
+              alert('존재하지 않는 회원입니다.');
+            }})
             .catch((error)=>console.log(error))   
       }
     }else if(finfo === 'fpwd'){
@@ -128,7 +127,8 @@ export default function UserInfoFind() {
                        maxLength={3}
                        ref={refs.phone1Ref} 
                        onChange={handleChangeForm}
-                       value={formData.phone1}/>
+                       value={formData.phone1}
+                       autoComplete="off"/>
                 &nbsp;<span> - </span>&nbsp;
                 <input type="text" name="phone2" 
                        maxLength={4}
