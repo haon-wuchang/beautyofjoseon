@@ -36,6 +36,40 @@ export const getSelectItems = async(formData) => {
     return result;
 }
 
+
+/********************************************
+    결제 페이지 배송지 수정
+    사용처 : payment
+    작성자 : 김유나
+********************************************/
+export const updateDelivery = async(formData) => {
+    const sql = `
+        update customer
+        set name = ?,
+            phone = ?,
+            email = ?,
+            zipcode = ?,
+            address = ?,
+            extra_address = ?
+        where id = ?
+    `;
+
+    const values = [
+        formData.name,
+        formData.phone,
+        formData.email,
+        formData.zipcode,
+        formData.address,
+        formData.extra,
+        formData.id
+    ];
+
+    const [result] = await db.execute(sql, values);
+
+    return {"result_rows": result.affectedRows}
+}
+
+
 /********************************************
     구매 상품 주문 테이블에 저장
     사용처 : Payment

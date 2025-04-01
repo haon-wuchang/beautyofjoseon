@@ -104,7 +104,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('agikim','agikim','김아기','010-9603-8126','agi.kim@gmail.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1972-05-18','2025-03-24 09:23:14','Family','c','[3, 4]',NULL),('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL);
+INSERT INTO `customer` VALUES ('agikim','agikim','김아기','010-9603-1234','agi.kim@gmail.com','06242','서울 강남구 강남대로78길 8','한국빌딩 4층 404호','F','1972-05-18','2025-03-24 09:23:14','Family','c','[3, 4]',NULL),('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,11 +375,7 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `extra_address`,
  1 AS `zipcode`,
  1 AS `phone`,
- 1 AS `phone2`,
- 1 AS `phone3`,
  1 AS `email`,
- 1 AS `emailname`,
- 1 AS `emaildomain`,
  1 AS `pid`,
  1 AS `pname`,
  1 AS `qty`,
@@ -472,7 +468,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_payment_list` AS select `ca`.`cid` AS `cid`,`cu`.`id` AS `id`,`cu`.`name` AS `name`,`cu`.`address` AS `address`,`cu`.`extra_address` AS `extra_address`,`cu`.`zipcode` AS `zipcode`,`cu`.`phone` AS `phone`,substring_index(substring_index(`cu`.`phone`,'-',2),'-',-(1)) AS `phone2`,substring_index(substring_index(`cu`.`phone`,'-',3),'-',-(1)) AS `phone3`,`cu`.`email` AS `email`,substring_index(`cu`.`email`,'@',1) AS `emailname`,substring_index(`cu`.`email`,'@',-(1)) AS `emaildomain`,`ca`.`pid` AS `pid`,`pd`.`pname` AS `pname`,`ca`.`qty` AS `qty`,((`pd`.`price` - floor(((`pd`.`price` * `pd`.`discount_rate`) / 100))) * `ca`.`qty`) AS `discount_price`,`pd`.`main_image` AS `main_image` from ((`customer` `cu` join `cart` `ca`) join `product` `pd`) where ((`cu`.`id` = `ca`.`id`) and (`ca`.`pid` = `pd`.`pid`)) order by `ca`.`cid` */;
+/*!50001 VIEW `view_payment_list` AS select `ca`.`cid` AS `cid`,`cu`.`id` AS `id`,`cu`.`name` AS `name`,`cu`.`address` AS `address`,`cu`.`extra_address` AS `extra_address`,`cu`.`zipcode` AS `zipcode`,`cu`.`phone` AS `phone`,`cu`.`email` AS `email`,`ca`.`pid` AS `pid`,`pd`.`pname` AS `pname`,`ca`.`qty` AS `qty`,((`pd`.`price` - floor(((`pd`.`price` * `pd`.`discount_rate`) / 100))) * `ca`.`qty`) AS `discount_price`,`pd`.`main_image` AS `main_image` from ((`customer` `cu` join `cart` `ca`) join `product` `pd`) where ((`cu`.`id` = `ca`.`id`) and (`ca`.`pid` = `pd`.`pid`)) order by `ca`.`cid` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -486,4 +482,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-31 12:35:12
+-- Dump completed on 2025-04-01 15:36:40
