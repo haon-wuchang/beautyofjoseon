@@ -74,7 +74,6 @@ export default function PaymentDestinationModify({setModalOpen}) {
 
     /* 주소검색 클릭 이벤트 */
     const clickSearch = () => {
-        // alert("!!!");
         setIsOpen(!isOpen);
     }
 
@@ -96,9 +95,7 @@ export default function PaymentDestinationModify({setModalOpen}) {
     const handleSubmit = async(e) => {
         e.preventDefault();
         if(validateModify()) {
-            console.log("수정된 배송지 --> ", formData);
             const result = await updateDelivery(formData);
-            console.log("결과 --> ", result);
             if (result === 1) {
                 alert("배송지가 변경되었습니다!");
                 setModalOpen(false);

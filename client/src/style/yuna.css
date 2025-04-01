@@ -92,7 +92,6 @@ body {
     opacity: 1;
 }
 .header-bottom-menu {
-    /* border: 1px solid red; */
     display: flex;
     justify-content: space-between;
     padding: 10px 80px;
@@ -476,253 +475,8 @@ body {
     width: 45%;
 }
 
-/****************************
-* 상품 상세 페이지
-* yuna
-*****************************/
-/* .product-detail-wrap {
-    border: 1px solid red;
-}
-.product-detail-contents {
-    display: flex;
-    justify-content: space-between;
-}
-.product-detail-main {
-    width: 70%;
-    text-align: center;
-}
-.product-detail-main > img {
-    width: 80%;
-}
-.product-detail-main-bottom {
-    padding: 20px 30px;
-}
-.product-detail-main-bottom-name {
-    margin: 0;
-    padding: 10px 0;
-    text-align: left;
-    font-weight: 600;
-    color: rgb(64, 64, 64);
-}
-.product-detail-main-bottom > table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 14px;
-}
-.product-detail-main-bottom > table > tbody > tr {
-    border-top: 1px solid silver;
-    border-bottom: 1px solid silver;
-    height: 30px;
-}
-.product-detail-main-bottom > table > tbody > tr > td:not(:nth-child(2)) {
-    width: 10%;
-}
-.product-detail-main-bottom > table > tbody > tr > td:nth-child(2) {
-    text-align: left;
-}
-
-.product-detail-right {
-    border: 1px solid blue;
-    width: 25%;
-    margin-right: 50px;
-    display: block;
-    position: fixed;
-    right: 0;
-    top: 86px;
-}
-.product-detail-info > p:not(:first-child) {
-    margin: 0;
-    line-height: 30px;
-}
-.product-detail-info-name {
-    font-size: 20px;
-    font-weight: bold;
-}
-.product-detail-info-oprice {
-    text-decoration: line-through;
-    color: gray;
-    font-size: 15px;
-}
-.product-detail-dprice {
-    font-size: 17px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-}
-.product-detail-dprice > span:first-child {
-    display: flex;
-    align-items: center;
-    width: 35px;
-    height: 20px;
-    text-align: center;
-    color: rgb(255, 187, 0);
-    background-color: #000;
-    font-size: 15px;
-    margin-right: 5px;
-}
-.product-detail-info-delivery {
-    list-style-type: none;
-    padding: 0;
-    color: gray;
-    font-size: 13px;
-}
-.product-detail-info-delivery > li {
-    display: flex;
-    line-height: 20px;
-}
-.product-detail-info-delivery > li > p {
-    margin: 0;
-}
-.product-detail-info-delivery > li > p:first-child {
-    width: 80px;
-}
-.product-detail-qty {
-    padding: 10px;
-    font-size: 13px;
-    background-color: rgb(247, 247, 247);
-}
-.product-detail-qty-name {
-    margin: 0;
-    margin-bottom: 5px;
-}
-.product-detail-qty-box {
-    display: flex;
-    justify-content: space-between;
-}
-.product-detail-qty-box > div {
-    border: 1px solid gray;
-    display: flex;
-}
-.product-detail-qty-box > div > button {
-    width: 24px;
-    height: 24px;
-    background-color: #fff;
-    color: gray;
-    border: none;
-}
-.product-detail-qty-box > div > span {
-    display: inline-block;
-    width: 30px;
-    line-height: 24px;
-    text-align: center;
-    align-items: center;
-    border-right: 1px solid gray;
-    border-left: 1px solid gray;
-    background-color: #fff;
-}
-.product-detail-total-price {
-    display: flex;
-    justify-content: space-between;
-}
-.product-detail-total-price > p {
-    margin: 0;
-    padding: 15px 0;
-    font-size: 17px;
-    font-weight: 500;
-}
-.product-detail-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-}
-.product-detail-buttons > button {
-    height: 50px;
-    font-weight: bold;
-    color: gray;
-}
-.product-detail-buttons > button:not(:last-child) {
-    width: 25%;
-    border: 1px solid silver;
-    background-color: #fff;
-}
-.product-detail-buttons > button:last-child {
-    width: 50%;
-    border: 1px solid #000;
-    background-color: #000;
-    color: #fff;
-}
-.product-detail-pay {
-    list-style-type: none;
-    padding: 0;
-    width: 310px;
-}
-.product-detail-pay > li {
-    border-top: 2px solid #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 3px;
-    margin-bottom: 10px;
-}
-.product-detail-pay > li > div:first-child > p {
-    margin: 0;
-    font-size: 12px;
-}
-.product-detail-pay-naver > div:last-child > button,
-.product-detail-pay-kakao > div:last-child > button {
-    height: 35px;
-}
-.product-detail-pay-naver > div:last-child > button:first-child {
-    border: 1px solid green;
-    width: 145px;
-    margin-right: 5px;
-    background-color: rgb(92, 222, 80);
-}
-.product-detail-pay-naver > div:last-child > button:last-child,
-.product-detail-pay-kakao > div:last-child > button:last-child {
-    width: 35px;
-    background-color: #fff;
-    border: 1px solid silver;
-}
-.product-detail-pay-kakao > div:last-child > button:not(:last-child) {
-    margin-right: 5px;
-    background-color: rgb(244, 222, 77);
-    border: none;
-}
-.product-detail-pay-kakao > div:last-child > button:first-child {
-    width: 120px;
-}
-.product-detail-notice {
-    list-style-type: none;
-    padding: 0;
-}
-.product-detail-notice > li {
-    border-bottom: 1px solid silver;
-    padding: 15px 0;
-    font-size: 12px;
-    color: rgb(164, 164, 164);
-}
-.product-detail-notice > li > div:first-child {
-    display: flex;
-    justify-content: space-between;
-}
-.product-detail-notice > li > div:first-child > span:last-child {
-    cursor: pointer;
-}
-.product-detail-bottom-notice {
-    padding: 0 20px;
-    font-size: 12px;
-    color: rgb(164, 164, 164);
-}
-.product-detail-bottom-notice > li {
-    line-height: 18px;
-}
-border: 1px solid red;
-border: 1px solid blue;
-.product-detail-notice-toggle {
-    display: none;
-    max-height: 0;
-    overflow: hidden;
-}
-.product-detail-notice-toggle-open {
-    max-height: 150px;
-    transition: max-height 0.3s ease-in-out;
-    display: block;
-}
- */
 
 
- 
 /****************************
 * 장바구니 페이지
 * yuna
@@ -1531,7 +1285,6 @@ border: 1px solid blue;
 
 
 .search-page-products {
-    /* border: 1px solid red; */
     list-style-type: none;
     padding: 0;
     display: grid;
@@ -1778,7 +1531,6 @@ border: 1px solid blue;
 }
 /* 적립 혜택 */
 .payment-success-benefit-block > div:nth-child(2) {
-    border: 1px solid red;
     display: flex;
     justify-content: space-between;
     padding: 10px 15px;
@@ -1821,5 +1573,3 @@ border: 1px solid blue;
     background-color: rgb(77, 81, 98);
     border: 1px solid silver;
 }
-/* border: 1px solid red; */
-/* border: 1px solid blue; */
