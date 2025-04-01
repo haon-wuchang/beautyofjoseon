@@ -59,6 +59,18 @@ export function useOrder() {
         return result.data;
     }
 
+    /********************************************
+        결제 페이지 배송지 수정
+        사용처 : payment
+        작성자 : 김유나
+    ********************************************/
+    const updateDelivery = async(formData) => {
+        const result = await axios.post("http://localhost:9000/order/updateDelivery", formData);
+        result.data.result_rows && getCartAll();
+        
+        return result.data.result_rows;
+    }
+
 
     /********************************************
         구매 상품 주문 테이블에 저장
@@ -113,22 +125,6 @@ export function useOrder() {
         }
         
         return result_rows;
-
-
-        // const result = await axios.post("http://localhost:9000/order/saveOrder", formData);
-        // if (result.data.result_rows) {
-        //     if (orderType === "all") {
-        //         SetCompletedOrderList(orderList);
-        //         // getBillList(id, orderNumber);
-        //         setOrderNumber(orderNumber);
-        //         clearCart();
-        //     } else {
-        //         SetCompletedOrderList(orderList);
-        //         // getBillList(id, orderNumber);
-        //         setOrderNumber(orderNumber);
-        //         deleteItems();
-        //     }
-        // }
     }
 
     
@@ -178,21 +174,6 @@ export function useOrder() {
         }
     }//paymentKakaoPay
 
-    /********************************************
-        주문 완료 후 주문 번호로 주문 내역 호출
-        사용처 : payment success
-        작성자 : 김유나
-    ********************************************/
-    const getBillList = async(id, orderNumber) => {
-        const formData = {
-            id: id,
-            orderNumber: orderNumber
-        };
 
-        const result = await axios.post("http://localhost:9000/order/getBill", formData);
-        SetCompletedOrderList(result.data);
-        setMember(result.data[0]);
-    }
-
-    return { getCartAll, calculateTotalPrice, getSelectItems, saveToOrder, deleteItems, getBillList, paymentKakaoPay };
+    return { getCartAll, calculateTotalPrice, getSelectItems, saveToOrder, deleteItems, paymentKakaoPay, updateDelivery };
 }

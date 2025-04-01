@@ -1116,87 +1116,50 @@ border: 1px solid blue;
     border: 1px solid silver;
     background-color: rgb(248, 249, 250);
 }
-.payment-destination-form {
-    padding: 15px;
+.payment-destination-info {
+    padding-bottom: 15px;
 }
-.payment-destination-form-select > span {
-    margin-right: 15px;
-}
-.payment-destination-form > form > ul {
+.payment-destination-detail {
     list-style-type: none;
     padding: 0;
+    border-bottom: 1px solid silver;
+    padding: 0 15px 15px 15px;
 }
-.payment-destination-form > form > ul > li:not(:nth-child(2)) {
-    height: 40px;
+.payment-destination-detail > li {
     display: flex;
     align-items: center;
 }
-.payment-destination-form > form > ul > li:not(:last-child) {
-    margin-bottom: 15px;
-}
-.payment-destination-form > form > ul > li > label {
-    width: 100px;
-}
-.payment-destination-form > form > ul > li > label > span {
-    color: rgb(1, 121, 168);
-    font-weight: 500;
-}
-.payment-destination-form > form > ul > li > input,
-.payment-destination-form > form > ul > li > select {
-    border: 1px solid silver;
-    height: 100%;
-}
-.payment-destination-form-name > input {
-    width: 760px;
-}
-
-.payment-destination-form-address {
-    display: flex;
-}
-.payment-destination-form-address > div > div,
-.payment-destination-form-address > div > input {
-    display: block;
-    height: 40px;
-}
-.payment-destination-form-address > div > div > input, 
-.payment-destination-form-address > div > div > button {
-    border: 1px solid silver;
-    height: 100%;
-}
-.payment-destination-form-address > div > div > button {
-    border: 1px solid gray;
-    background-color: #fff;
-    height: 42px;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-}
-.payment-destination-form-address > div > input {
-    margin-top: 15px;
-    width: 760px;
-    border: 1px solid silver;
-}
-.payment-destination-form-tel {
+.payment-destination-detail > li:first-child {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
-.payment-destination-form-tel > select,
-.payment-destination-form-tel > input  {
-    width: 240px;
+.payment-destination-detail > li:first-child > div > span {
+    font-weight: 700;
 }
-.payment-destination-form-tel > span,
-.payment-destination-form-email > span {
-    display: inline-block;
-    padding: 0 5px;
+.payment-destination-detail > li:first-child > div > span:first-child {
+    color: #3971FF;
 }
-.payment-destination-form-email > input,
-.payment-destination-form-email > select {
-    width: 370px;
+.payment-destination-detail > li:first-child > button {
+    border: 1px solid #b5b5b5;
+    height: 42px;
+    padding: 0 10px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.payment-destination-detail > li:not(:first-child) {
+    font-size: 15px;
+    height: 20px;
+}
+.paymnet-destination-plus {
+    padding: 0 15px;
 }
 .paymnet-destination-plus > select {
     border: 1px solid gray;
     width: 867px;
     height: 40px;
-    margin: 15px 0;
+    margin-bottom: 15px;
 }
 .payment-type {
     padding: 0 10px;
@@ -1213,9 +1176,7 @@ border: 1px solid blue;
     padding: 15px;
     cursor: pointer;
 }
-/* .payment-type-select + li {
-    border-bottom: none;
-} */
+
 .payment-type-normal {
     border: 1px solid silver;
     border-bottom: none;
@@ -1225,6 +1186,113 @@ border: 1px solid blue;
 .payment-type-normal:last-child {
     border-bottom: 1px solid silver;
 }
+
+/* 배송지 수정 모달창 */
+
+.box-top {
+    border-bottom: 1px solid silver;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 19px;
+    background-color: rgb(89, 89, 89);
+    color: #fff;
+}
+.box-top > span:last-child {
+    display: inline-block;
+    font-size: 25px;
+    line-height: 15px;
+    cursor: pointer;
+}
+.box-form {
+    font-size: 17px;
+}
+.box-form input {
+    padding-left: 5px;
+}
+.box-form-list {
+    list-style-type: none;
+    padding: 15px;
+    margin: 0;
+    height: 410px;
+}
+.error-msg {
+    display: block;
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 13px;
+    padding-left: 83px;
+    width: 150px;
+    color: red;
+}
+.box-form-list > li:not(:last-child) {
+    display: flex;
+    gap: 5px;
+    margin-bottom : 8px;
+}
+.box-form-list > li:not(:nth-child(2)) {
+    align-items: center;
+}
+.box-form-list > li label {
+    width: 80px;
+}
+.box-form-list > li label > span {
+    color: rgb(1, 121, 168);
+}
+.box-form-list > li input {
+    border: 1px solid silver;
+    height: 35px;
+    font-size: 15px;
+}
+.box-form-list > li:not(:nth-child(2)) input,
+.box-form-list > .box-form-address > input {
+    width: 376px;
+}
+.box-form-list > .box-form-address > div {
+    display: flex;
+    flex-direction: column;
+}
+.box-form-list > .box-form-address > div > div > input {
+    width: 150px;
+    position: relative;
+}
+.box-form-list > .box-form-address > div > div > button {
+    height: 39px;
+    width: 70px;
+    border: 1px solid rgb(88, 88, 88);
+    background-color: #fff;
+    position: absolute;
+}
+.box-form-list > .box-form-address > div > input {
+    width: 376px;
+}
+.box-form-list > li:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    bottom: 0;
+    left: 27%;
+}
+.box-form-list > li:last-child > button {
+    height: 40px;
+    width: 100px;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.box-form-list > li:last-child > button:first-child {
+    border: 1px solid silver;
+    background-color: #fff;
+}
+.box-form-list > li:last-child > button:last-child {
+    border: 1px solid rgb(88, 114, 245);
+    background-color: rgb(88, 114, 245);
+    color: #fff;
+}
+
 
 /* 주문상품 리스트 */
 .payment-order-list-main {

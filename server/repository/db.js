@@ -5,10 +5,10 @@ import mysql from 'mysql2';
 
 
 const pool = mysql.createPool({
-    host: 'k-beauty-db.ct6mky2ksrs7.ap-northeast-2.rds.amazonaws.com', 
+    host: 'localhost', 
     port: 3306,
-    user: 'admin', // mysql 설치시 준 이름 
-    password: 'kbeauty!!',
+    user: 'root', // mysql 설치시 준 이름 
+    password: 'mysql1234',
     database: 'beautydb',
     })
 
