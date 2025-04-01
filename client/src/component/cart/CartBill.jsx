@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import OtherPay from '../product/OtherPay.jsx';
 import { CartContext } from '../../context/cartContext.js';
 import { OrderContext } from '../../context/orderContext.js';
 import { useCart } from '../../hooks/useCart.js';
@@ -64,7 +63,6 @@ export default function CartBill() {
                                 <button onClick={() => {clickOrder("all")}}>전체상품주문</button>
                                 <button onClick={() => {clickOrder("select")}}>선택상품주문</button>
                             </div>
-                            <OtherPay className="cart-bill-pay" />
                         </div>
                     </div>
                 )
@@ -92,7 +90,6 @@ export default function CartBill() {
                                 <button onClick={() => {clickOrder("all")}}>전체상품주문</button>
                                 <button onClick={() => {clickOrder("select")}}>선택상품주문</button>
                             </div>
-                            <OtherPay className="cart-bill-pay" />
                         </div>
                     </div>
                 )
