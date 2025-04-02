@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function MainCategory() {
+    const navigate = useNavigate();
     const [categoryList, setCategoryList] = useState([]);
 
     useEffect(() => {
@@ -11,6 +12,14 @@ export default function MainCategory() {
             .then(res => setCategoryList(res.data.mainCategory))
             .catch(err => console.log(err));
     }, []);
+
+    // 카테고리 탭 클릭 이벤트
+    const clickCategory = (name) => {
+        // console.log("확인 --> ", name);
+        if (name === '전체') {
+            navigate("/product/list");
+        }
+    }
 
     return (
         <div className='main-contents-category-wrap'>
@@ -48,12 +57,12 @@ export default function MainCategory() {
                     <ul className='main-contents-category-list'>
                         {
                             categoryList && categoryList.map((list) => 
-                                <Link>
-                                    <li>
+                                // <Link>
+                                    <li onClick={() => clickCategory(list.title)}>
                                         <img src={list.img} alt="" />
                                         <p>{list.title}</p>
                                     </li>
-                                </Link>
+                                // </Link>
                             )
                         }
                     </ul>

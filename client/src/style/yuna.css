@@ -315,7 +315,7 @@ body {
     bottom: 150px;
     right: 15px;
     bottom: 145px;
-    z-index: 1;
+    z-index: 10;
     font-size: 27px;
     cursor: pointer;
 }
@@ -359,14 +359,19 @@ body {
     padding: 0;
 
 }
-.main-contents-category-list > a {
+/* .main-contents-category-list > a {
     width: 20%;
     text-decoration: none;
+} */
+.main-contents-category-list > li {
+    width: 20%;
+    text-decoration: none;
+    cursor: pointer;
 }
-.main-contents-category-list > a > li > img {
+.main-contents-category-list > li > img {
     width: 100%;
 }
-.main-contents-category-list > a > li > p {
+.main-contents-category-list > li > p {
     text-align: center;
     font-weight: bold;
     font-size: 17px;
