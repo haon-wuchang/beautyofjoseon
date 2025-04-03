@@ -1,8 +1,7 @@
 ![header](https://capsule-render.vercel.app/api?type=Waving&color=gradient&height=300&section=header&text=조선미녀%20&fontSize=90)
 
-![reversal](https://capsule-render.vercel.app/api?type=rect&text=RECT&fontAlign=30&fontSize=30&desc=Use%20theme&descAlign=60&descAlignY=50&theme=radical)
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=사용자이름&theme=테마이름)
 
-![footer](https://capsule-render.vercel.app/api?section=footer)
 
 ## ⚙️ 설치 라이브러리  
 
