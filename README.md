@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=Waving&color=gradient&height=400&section=header&text=조선미녀%20&fontSize=90)
+![header](https://capsule-render.vercel.app/api?type=Waving&color=gradient&height=200&section=header&text=조선미녀%20&fontSize=90)
 
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anuraghazra&langs_count=5&layout=compact&theme=highcontrast)](https://github.com/anuraghazra/github-readme-stats)
