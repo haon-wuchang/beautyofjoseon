@@ -1,7 +1,8 @@
 ![header](https://capsule-render.vercel.app/api?type=Waving&color=gradient&height=300&section=header&text=조선미녀%20&fontSize=90)
 
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anuraghazra&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anuraghazra&hide=c++&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
+
 
 ## ⚙️ 설치 라이브러리  
 
