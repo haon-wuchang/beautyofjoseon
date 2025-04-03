@@ -2,7 +2,7 @@
 
 ![reversal](https://capsule-render.vercel.app/api?type=rect&text=RECT&fontAlign=30&fontSize=30&desc=Use%20theme&descAlign=60&descAlignY=50&theme=radical)
 
-
+![footer](https://capsule-render.vercel.app/api?section=footer)
 
 ## ⚙️ 설치 라이브러리  
 
