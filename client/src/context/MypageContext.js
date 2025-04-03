@@ -17,13 +17,15 @@ export const MypageProvider = ({children}) => {
     const [orderStart, setOrderStart] = useState('');  // 날짜검색 시작
     const [orderEnd, setOrderEnd] = useState('');  // 날짜검색 종료
     const [myReview, setMyReview] = useState([]);  
+    const [lastPid, setLastPid] = useState();
 
     return ( 
         <MypageContext.Provider 
         value ={{myinfo, setMyinfo,year, setYear,month, setMonth,date, setDate,
             gender,setGender,zipcode,setZipcode,address,setAddress,extra,setExtra,
             myOrder , setMyOrder, wishList, setWishList,orderType, setOrderType,
-            orderEnd, setOrderEnd,orderStart, setOrderStart, myReview, setMyReview
+            orderEnd, setOrderEnd,orderStart, setOrderStart, myReview, setMyReview,
+            lastPid, setLastPid
         }}> 
             {children}
         </MypageContext.Provider>

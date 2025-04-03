@@ -1,6 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs'; 
+import * as repository from '../repository/adminRepository.js';
 
 const storage = multer.diskStorage({ 
     destination: function (req, file, cb) {
@@ -52,5 +53,12 @@ export const fileUploadMultiple = (req,res) => {
             }
         });
 }
+
+
+export const getLastPid = async (req, res) => {
+  const result = await repository.getLastPid(req.body);
+  res.json(result)
+  res.end();
+};
 
 

@@ -9,6 +9,7 @@ router
     .post('/',controller.fileUpload)
     .post('/multiple',multicontroller.fileUploadMultiple)
     .post('/dbupload',uploadcontroller.registerProduct )
-    .post('/dbDescUpload',uploadcontroller.registerProductDesc );
+    .post('/dbDescUpload',uploadcontroller.registerProductDesc )
+    .post('/getLastPid',multicontroller.getLastPid);
 
 export default router;
