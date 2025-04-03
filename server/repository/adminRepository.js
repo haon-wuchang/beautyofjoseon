@@ -44,3 +44,14 @@ export const registerProductDesc = async(formData) => {
   const [result] = await db.execute(sql,[formData.upload_file,formData.source_file,formData.pid]);
   return {"result_rows":result.affectedRows};
 }
+
+
+export const getLastPid = async() => {   
+  const sql = `
+ select * from product order by pid desc limit 1;
+              `;
+  const [result] = await db.execute(sql);
+  // console.log('dddd',result[0].pid);
+  
+  return {"lastPid":result[0].pid};
+}
