@@ -37,7 +37,7 @@ export default function Header() {
     const [ searchModalOpen, setSearchModalOpen ] = useState(false);  // 검색 모달창 상태 관리
 
     useEffect(() => {
-        console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
+        // console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
         getMyinfo();
         getCartList(); // Header 장바구니 아이콘에 아이템 갯수 표시 위해 실행
     }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행  

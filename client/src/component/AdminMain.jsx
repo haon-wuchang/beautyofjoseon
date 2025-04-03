@@ -17,7 +17,7 @@ export default function AdminMain() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log(name, value);
+        // console.log(name, value);
         setFormData({ ...formData, [name]: value });
     }
 
@@ -74,24 +74,28 @@ export default function AdminMain() {
                     <label>가격</label>
                     <input type="text" name='productPrice'
                         onChange={handleChange}
+                        ref={productPriceRef}
                     />
                 </li>
                 <li>
                     <label>카테고리</label>
                     <input type="text" name='category'
                         onChange={handleChange}
+                        ref={productCategoryRef}
                     />
                 </li>
                 <li>
                     <label>서브카테고리</label>
                     <input type="text" name='sub_category'
                         onChange={handleChange}
+                        ref={productSubCategoryRef}
                     />
                 </li>
                 <li>
                     <label>할인율</label>
                     <input type="text" name='sale'
                         onChange={handleChange}
+                        ref={productSaleRef}
                     />
                 </li>
                 <li>

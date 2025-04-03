@@ -11,11 +11,10 @@ export const registerProduct = async(formData) => {
                          main_image,
                          main_origin_image,
                         slide_image, 
-                        slide_origin_image,
-                         desc_image,
+                        slide_origin_image,                        
                          pdate  
                           )
-                     values(?,?,?,?,?,json_array(?),json_array(?),json_array(?),json_array(?),json_array(?),now())
+                     values(?,?,?,?,?,json_array(?),json_array(?),json_array(?),json_array(?),now())
                 `;
     const values = [
         formData.category,
@@ -27,7 +26,7 @@ export const registerProduct = async(formData) => {
         formData.source_file[0] || null,
         formData.upload_file  || null,
         formData.source_file  || null,
-        formData.upload_file  || null,
+        // formData.upload_file  || null,
     ];
     
     const [result] = await db.execute(sql,values);   

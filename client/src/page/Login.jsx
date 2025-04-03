@@ -58,6 +58,7 @@ export default function Login() {
                         pwdRef.current.value = '';
                         pwdMsgRef.current.style.setProperty('color', 'white');
                         idRef.current.focus();
+                        navigate('/signup');
                     }
                 })
                 .catch(error => {
