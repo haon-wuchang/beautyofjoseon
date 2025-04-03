@@ -1,22 +1,27 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import AdminProductUploadMulti from '../component/AdminProductUploadMulti.jsx';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { MypageContext } from '../context/MypageContext.js';
+import { useMypage } from '../hooks/useMypage.js';
 
 export default function AdminDesc() {
     const navigate = useNavigate();
     const [fnames, setFnames] = useState({});
     let [formData, setFormData] = useState({});
     const [preview, setPreview] = useState('');
-    const productNameRef = useRef(null);
     const [previewList, setPreviewList] = useState([]);
+    const {lastPid} = useContext(MypageContext);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        console.log(name, value);
-        setFormData({ ...formData, [name]: value });
+    useEffect(()=>{
+        handleChange();
+    },[lastPid]);
+
+    const handleChange = () => {
+        setFormData({ ...formData, 'pid': lastPid.lastPid });
     }
-
+    
     const getFileName = (filesNames) => {
         setFnames(filesNames);
         setPreview(`http://localhost:9000/${filesNames.uploadFileName}`);
@@ -24,12 +29,7 @@ export default function AdminDesc() {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        if (productNameRef.current.value === '') {
-            alert('상품번호를 입력해주세요.');
-            productNameRef.current.focus();
-            return false;
-        } else {
+        e.preventDefault();        
             formData = ({
                 ...formData, 'upload_file': fnames.uploadFileName,
                 'source_file': fnames.sourceFileName
@@ -43,13 +43,11 @@ export default function AdminDesc() {
                     } else {
                         alert('상품등록 실패');
                     }
-                    console.log('res===', res.data);
                 })
                 .catch(error => {
                     alert('상품등록 실패');
                     console.log(error);
-                });
-        }
+                });        
     }
 
     return (
@@ -59,8 +57,7 @@ export default function AdminDesc() {
                         <li>
                             <label>상품번호</label>
                             <input type="text" name='pid'
-                                onChange={handleChange}
-                                ref={productNameRef}
+                                value={lastPid.lastPid}
                             />
                         </li>
                         <li>

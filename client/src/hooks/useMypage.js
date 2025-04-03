@@ -6,7 +6,7 @@ import {AuthContext} from '../auth/AuthContext.js';
 
 export function useMypage() {
     const { setMyinfo, setYear, setMonth, setDate, setGender, setMyOrder,
-        setWishList, orderType, orderEnd, orderStart, setMyReview
+        setWishList, orderType, orderEnd, orderStart, setMyReview,setLastPid
     } = useContext(MypageContext);
 const { isLoggedIn } = useContext(AuthContext);
 
@@ -91,5 +91,20 @@ const { isLoggedIn } = useContext(AuthContext);
         setMyReview(result.data);
     }
 
-    return { getMyinfo, getMyOrder, getWishNumber, getReview };
+
+
+
+
+    const getLastPid = () =>{
+        axios.post('http://localhost:9000/uploads/getLastPid')
+                .then(res => {
+                        // console.log('skdhk',res.data);                        
+                        setLastPid(res.data);                        
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+    }
+
+    return { getMyinfo, getMyOrder, getWishNumber, getReview,getLastPid };
 }
