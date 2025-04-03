@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { ProductContext } from '../../context/productContext.js';
+import { useProduct } from '../../hooks/useProduct.js';
 
 export default function MainCategory() {
     const navigate = useNavigate();
+    const { selectedCategory, setSelectedCategory } = useContext(ProductContext);
+    const { getCategoryItems } = useProduct();
     const [categoryList, setCategoryList] = useState([]);
 
     useEffect(() => {
@@ -13,12 +17,13 @@ export default function MainCategory() {
             .catch(err => console.log(err));
     }, []);
 
-    // 카테고리 탭 클릭 이벤트
-    const clickCategory = (name) => {
-        // console.log("확인 --> ", name);
-        if (name === '전체') {
-            navigate("/product/list");
-        }
+    const clickCategory = (id) => {
+        console.log("확인 --> ", id);
+        // if (selectedCategory ) {
+            
+        // }
+        getCategoryItems(id);
+        navigate("/product/list");
     }
 
     return (
@@ -57,12 +62,10 @@ export default function MainCategory() {
                     <ul className='main-contents-category-list'>
                         {
                             categoryList && categoryList.map((list) => 
-                                // <Link>
-                                    <li onClick={() => clickCategory(list.title)}>
-                                        <img src={list.img} alt="" />
-                                        <p>{list.title}</p>
-                                    </li>
-                                // </Link>
+                                <li onClick={() => clickCategory(list.id)}>
+                                    <img src={list.img} alt="" />
+                                    <p>{list.title}</p>
+                                </li>
                             )
                         }
                     </ul>

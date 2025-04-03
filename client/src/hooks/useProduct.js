@@ -5,7 +5,7 @@ import { ProductContext } from "../context/productContext.js";
 
 
 export function useProduct() {
-    const { setWishList, reviews, setReviews } = useContext(ProductContext);
+    const { setWishList, reviews, setReviews, setProducts, setSelectedCategory } = useContext(ProductContext);
 
      /********************************************
             리뷰 불러오기
@@ -59,7 +59,24 @@ export function useProduct() {
             setWishList(wishList);
         }
     };
-    
 
-    return { addWishList, getReview, getWishList };
+    /********************************************
+            상품 대분류 카테고리 선택
+            - 선택한 카테고리의 상품 호출
+            작성자 : 정서령, 김유나
+    ********************************************/
+    const getCategoryItems = async(category) => {
+        setSelectedCategory(category);
+
+        try {
+            const res = await axios.post('http://localhost:9000/product/list', {
+                category_id: category === 'all' ? null : category
+            });
+            setProducts(res.data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    return { addWishList, getReview, getWishList, getCategoryItems };
 }

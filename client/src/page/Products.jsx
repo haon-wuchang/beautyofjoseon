@@ -7,6 +7,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import '../style/product.scss';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../auth/AuthContext.js";
+import { ProductContext } from '../context/productContext.js';
 import { useProduct } from "../hooks/useProduct.js";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -21,11 +22,10 @@ import GridSelector from "../component/product/GridSelector.jsx"; // 2,3,4열 gr
 export default function Products() {
     const navigate = useNavigate();
     const { isLoggedIn } = useContext(AuthContext);
-    const { getWishList } = useProduct();
+    const { products, selectedCategory, setSelectedCategory } = useContext(ProductContext);
+    const { getWishList, getCategoryItems } = useProduct();
 
     const [list, setList] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('all');
-    const [products, setProducts] = useState([]);
     const [wishList, setWishList] = useState([]);
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [sortType, setSortType] = useState("default");
@@ -37,21 +37,15 @@ export default function Products() {
         axios.post('http://localhost:9000/product/list')
             .then(res => setList(res.data))
             .catch((error) => console.log(error));
+        // if (selectedCategory !== 'all') {
+        //     setSelectedCategory('all');
+        // }
     }, []);
 
     // 카테고리 클릭 시 해당 상품만 불러오기
-    const handleCategoryClick = async (category) => {
-        setSelectedCategory(category);
+    const handleCategoryClick = (category) => {
+        getCategoryItems(category);
         setItemOffset(0);
-
-        try {
-            const res = await axios.post('http://localhost:9000/product/list', {
-                category_id: category === 'all' ? null : category
-            });
-            setProducts(res.data);
-        } catch (err) {
-            console.error(err);
-        }
     };
 
     // 위시리스트 불러오기
