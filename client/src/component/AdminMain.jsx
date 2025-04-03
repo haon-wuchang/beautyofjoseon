@@ -110,7 +110,7 @@ export default function AdminMain() {
                     <input type="hidden" name='sourceFile' value={fnames.sourceFileName} />
                 </li>
                 <li>
-                    <button type='submit'>파일등록</button>
+                    <button type='submit'>상품등록</button>
                     <button type='reset'>취소</button>
                 </li>
             </ul>
