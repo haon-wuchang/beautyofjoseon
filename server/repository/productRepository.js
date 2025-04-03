@@ -129,3 +129,20 @@ export const DeleteReview = async ({ pid, id }) => {
     return result;
 };
 
+/************************ 
+    서브 카테고리 아이템 호출
+**************************/
+export const getSUbCateItems = async(category) => {
+    const id = category.category;
+    
+    const sql = `
+    SELECT pid, pname, sub_category_id, price, discount_rate,
+            CONCAT('http://localhost:9000/', main_image->>'$[0]') AS image,
+            main_image, pdate
+    FROM product
+    WHERE sub_category_id = ?
+    `;
+    
+    const [result] = await db.execute(sql, [id]);
+    return result;
+}

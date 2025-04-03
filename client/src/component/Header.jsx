@@ -179,7 +179,7 @@ export default function Header() {
                 </div>
 
                 {/* 헤더 토글 버튼 클릭시 나오는 컴포넌트 */}
-                <HeaderToggle toggleOpen={toggleOpen} /> 
+                <HeaderToggle toggleOpen={toggleOpen} setToggleOpen={setToggleOpen} /> 
             </div>
         </div>
     );

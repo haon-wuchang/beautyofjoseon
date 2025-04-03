@@ -11,7 +11,8 @@ router
     .post('/reviewPhotos', controller.reviewPhotosUp) // 리뷰사진 업로드
     .post('/review', controller.reviewUp) // 리뷰 업로드
     .post('/getReview', controller.getReview) // 리뷰 가져오기
-    .post('/DeleteReview', controller.DeleteReview); // 리뷰 삭제
+    .post('/DeleteReview', controller.DeleteReview) // 리뷰 삭제
+    .post('/subList', controller.getSUbCateItems); // 서브 카테고리별 아이템 호출
     
 
 export default router;

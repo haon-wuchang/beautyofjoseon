@@ -125,3 +125,12 @@ export const DeleteReview = async (req, res) => {
     res.json(result);
     res.end();
 };
+
+/************************ 
+    서브 카테고리 아이템 호출
+**************************/
+export const getSUbCateItems = async(req, res) => {
+    const result = await repository.getSUbCateItems(req.body);
+    res.json(result);
+    res.end();
+}

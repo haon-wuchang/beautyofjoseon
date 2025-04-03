@@ -27,6 +27,7 @@ import Admin from './page/Admin.jsx';
 import PaymentSuccess from './page/PaymentSuccess.jsx';
 import ScrollTop from './component/ScrollTop.jsx';
 import BrandStory from './page/BrandStory.jsx';
+import SubProducts from './page/SubProducts.jsx';
 
 export default function App() {
   return (    
@@ -46,6 +47,7 @@ export default function App() {
               <Route path='/signup' element={<Signup />} />
               <Route path='/mypage' element={<Mypage />} />
               <Route path='/product/list' element={<Products />} />
+              <Route path='/product/list/sub' element={<SubProducts />} />
               <Route path='/product/detail/:pid' element={<ProductDetail />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/payment' element={<Payment />} />
