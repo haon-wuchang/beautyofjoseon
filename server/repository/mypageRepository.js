@@ -142,43 +142,69 @@ export const deleteAllWishList = async ({ id }) => {
     return result.affectedRows;
 }
 
+
+export const getReview = async ({ id, type }) => {
+
+    let sql = `
+        SELECT
+            pid,
+            subject,
+            text,
+            review_image,
+            view_count,
+            rdate
+        FROM review
+        WHERE id = ?
+    `;
+
+    if (type) {
+        const order = type.toLowerCase() === "desc" ? "DESC" : "ASC";
+        sql += ` ORDER BY ${order}`;
+    }
+
+    const [result] = await db.execute(sql, [id]);
+    return result;
+};
+
 // 리뷰 정보 가져오기
-export const getReview = async ({ id,type }) => {
-    if(type){
-        const sql = `
-        select            
-            pid, 
-            subject, 
-            text,       
-            review_image,     
-             view_count,
-             rdate
-            from review
-            where id = ?
-            order by ${type} asc
-                `;
-    const [result] = await db.execute(sql, [id]);
-    return result;
-    }
-    else{
-        const sql = `
-        select            
-            pid, 
-            subject, 
-            text,       
-            review_image,     
-             view_count,
-             rdate
-            from review
-            where id = ?
-                `;
-    const [result] = await db.execute(sql, [id]);
-    return result;
-    }
-}
+// export const getReview = async ({ id,type }) => {
+//     if(type){
+//         const sql = `
+//         select            
+//             pid, 
+//             subject, 
+//             text,       
+//             review_image,     
+//              view_count,
+//              rdate
+//             from review
+//             where id = ?
+//             order by ${type} asc
+//                 `;
+//     const [result] = await db.execute(sql, [id]);
+//     return result;
+//     }
+//     else{
+//         const sql = `
+//         select            
+//             pid, 
+//             subject, 
+//             text,       
+//             review_image,     
+//              view_count,
+//              rdate
+//             from review
+//             where id = ?
+//                 `;
+//     const [result] = await db.execute(sql, [id]);
+//     return result;
+//     }
+// }
 
 //리뷰작성클릭시 오더테이블에서 해당주문번호로 삭제
 export const deleteOrder = async ({ order_number }) => {
+    // console.log(order_number);
+    
     const sql = `
        delete from orders where order_number = ? 
                 `;
