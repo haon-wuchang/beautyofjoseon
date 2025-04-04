@@ -1,23 +1,42 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import axios from 'axios';
 import { useMypage } from '../../hooks/useMypage.js';
 import { useContext } from 'react';
-import { MypageContext } from '../../context/MypageContext';
+import { MypageContext } from '../../context/MypageContext.js';
 
 export default function Review() {
-    const {myOrder,myReview} = useContext(MypageContext);
-    const {getMyOrder,getReview} = useMypage();
-
+    const { myOrder, myReview } = useContext(MypageContext);
+    const { getMyOrder, getReview } = useMypage();
     const navigate = useNavigate();
-    let filter = myOrder.filter((item) => item.delivery_status === '배송완료');
     const selectRef = useRef(null);
+    const [filteredOrders, setFilteredOrders] = useState([]);
+    const [reviewedPids, setReviewedPids] = useState(() => {
+        const saved = localStorage.getItem('reviewedPids');
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    useEffect(() => {
+        const completed = myOrder
+            .filter(item => item.delivery_status === '배송완료')
+            .filter(item => !reviewedPids.includes(item.pid));
+        setFilteredOrders(completed);
+    }, [myOrder, reviewedPids]);
 
     const handleReview = (pid) => {
-        navigate(`/product/detail/:${pid}`);
+        navigate(`/product/detail/${pid}`);
     }
+
+    // 클릭한 데이터만 제외하고 새로운 배열 생성
+    const deleteWriteReview = (pid) => {
+        const updatedPids = [...reviewedPids, pid];
+        setReviewedPids(updatedPids);
+        localStorage.setItem('reviewedPids', JSON.stringify(updatedPids));
+        const updated = filteredOrders.filter((item) => item.pid !== pid);
+        setFilteredOrders(updated);
+    };
 
     /* 리뷰작성 전 페이지네이션 */
     const [itemOffset, setItemOffset] = useState(0);
@@ -26,11 +45,11 @@ export default function Review() {
     // 페이지네이션 관련 로직
     const endOffset = itemOffset + itemsPerPage;
 
-    const currentItems = filter.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(filter.length / itemsPerPage);
+    const currentItems = filteredOrders.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(filteredOrders.length / itemsPerPage);
 
     const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % filter.length;
+        const newOffset = (event.selected * itemsPerPage) % filteredOrders.length;
         setItemOffset(newOffset);
     }
     /* 작성한 리뷰 페이지네이션 */
@@ -48,23 +67,18 @@ export default function Review() {
         setItemOffset2(newOffset2);
     };
 
-    // 리뷰 작성하기 클릭하면 오더테이블에서 오더넘버로 삭제
-    const deleteWriteReview = (order_number) => {
-       axios.post('http://localhost:9000/mypage/deleteOrder',{'order_number':order_number})
-        .then(res => {
-            getMyOrder();            
-        })
-        .catch(error => console.log(error));
-    }
+    console.log('reviewedPids', reviewedPids);
+    console.log('filteredOrders', filteredOrders);
 
- const handleSelectOrder = (e) => {
-     if(selectRef.current.value === 'date'){
-        getReview('rdate');
-    }else {
-        getReview('view_count');
+
+    const handleSelectOrder = (e) => {
+        if (selectRef.current.value === 'date') {
+            getReview('rdate');
+        } else {
+            getReview('view_count');
+        }
+        getReview();
     }
-    getReview();
-}
 
     return (
         <div className='mypage-review-all'>
@@ -80,7 +94,7 @@ export default function Review() {
                     </tr>
                     {
                         currentItems && currentItems.map((item) =>
-                            <tr className='mypage-review-write-2nd'>
+                            <tr key={item.pid} className='mypage-review-write-2nd'>
                                 <td>{item.order_number}</td>
                                 <td>
                                     <img src={item.main_image} alt="리뷰이미지" />
@@ -90,7 +104,7 @@ export default function Review() {
                                 <td>{item.total_price.toLocaleString().concat('원')}</td>
                                 <td onClick={() => {
                                     handleReview(item.pid);
-                                    deleteWriteReview(item.order_number);
+                                    deleteWriteReview(item.pid);
                                 }}>리뷰작성하기</td>
                             </tr>
                         )
@@ -164,4 +178,3 @@ export default function Review() {
         </div>
     );
 }
-

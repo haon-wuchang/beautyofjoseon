@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Delivery from '../component/mypage/Delivery.jsx';
-import Review from '../component/mypage/Review.jsx';
+import ReviewMypage from '../component/mypage/ReviewMypage.jsx';
 import Wish from '../component/mypage/Wish.jsx';
 import Order from '../component/mypage/Order.jsx';
 import UpdateMypage from '../component/mypage/UpdateMypage.jsx';
@@ -88,7 +88,7 @@ export default function Mypage() {
             {tab === 'wish' && wishList && <Wish wishList ={wishList}/>}
             {tab === 'money' && <Money myOrder = {myOrder}/>}
             {tab === 'coupon' && <Coupon />}
-            {tab === 'review' && <Review myOrder = {myOrder} myReview = {myReview}/>}
+            {tab === 'review' && <ReviewMypage myOrder = {myOrder} myReview = {myReview}/>}
             {tab === 'delivery' && myinfo && <Delivery myinfo={myinfo} births={{ year, month, date }} />}
             {tab === 'my' && <UpdateMypage Checked={{ isChecked1, isChecked2, setIsChecked1, setIsChecked2 }} myinfo={myinfo} births={{ year, month, date, gender }} />}
             {tab === 'main' &&
