@@ -98,10 +98,6 @@ export default function PaymentSuccess() {
                         <span className='payment-success-detail-label'>연락처</span>
                         <span className='payment-success-detail-desc'>{member.phone}</span>
                     </li>
-                    {/* <li>
-                        <span className='payment-success-detail-label'>배송요청</span>
-                        <span className='payment-success-detail-desc'>부재시 경비실에 맡겨주세요.</span>
-                    </li> */}
                 </ul>
             </div>
 
