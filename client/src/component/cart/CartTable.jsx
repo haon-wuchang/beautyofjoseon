@@ -23,8 +23,11 @@ export default function CartTable() {
     const clickAllDelete = () => {
         const select = window.confirm("전체 상품을 삭제하시겠습니까?");
         select && clearCart();
+        // if (select) {
+        //     clearCart();
+        //     getCartList();
+        // }
     }
-
 
     // 장바구니 아이템 전체 선택 버튼 클릭 시 발생되는 이벤트
     useEffect(() => {

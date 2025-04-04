@@ -14,7 +14,6 @@ export default function PaymentSuccess() {
     const id = localStorage.getItem("user_id");
     const pg_token = searchParams.get("pg_token");
     const tid = localStorage.getItem("tid");
-    console.log(typeof orderPrice);
 
     useEffect(() => {
         if (hasCheckedLogin.current) return;  // true:로그인 상태 -->  블록 return
@@ -99,10 +98,10 @@ export default function PaymentSuccess() {
                         <span className='payment-success-detail-label'>연락처</span>
                         <span className='payment-success-detail-desc'>{member.phone}</span>
                     </li>
-                    <li>
+                    {/* <li>
                         <span className='payment-success-detail-label'>배송요청</span>
                         <span className='payment-success-detail-desc'>부재시 경비실에 맡겨주세요.</span>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
 
@@ -119,7 +118,7 @@ export default function PaymentSuccess() {
                             <div className='payment-success-orderlist-product-detail'>
                                 <p>{item.pname}</p>
                                 <p>수량: {item.qty}개</p>
-                                <p>{item.qty * item.product_price}원</p>
+                                <p>{Number(item.qty * item.discount_price).toLocaleString()}원</p>
                             </div>
                         </li>
                     ) }
@@ -137,11 +136,11 @@ export default function PaymentSuccess() {
                 <div className='payment-success-bill-detail'>
                     <div>
                         <span className='payment-success-detail-label'>주문상품</span>
-                        <span className='payment-success-bill-desc'>{orderPrice}원</span>
+                        <span className='payment-success-bill-desc'>{orderPrice.toLocaleString()}원</span>
                     </div>
                     <div>
                         <span className='payment-success-detail-label'>배송비</span>
-                        <span className='payment-success-bill-desc'>{orderPrice >= 20000 ? '0' : '3000'}원</span>
+                        <span className='payment-success-bill-desc'>{orderPrice >= 20000 ? '0' : Number(3000).toLocaleString() }원</span>
                     </div>
                 </div>
                 <div className='payment-success-bill-bottom'>
@@ -156,13 +155,12 @@ export default function PaymentSuccess() {
                 </div>
                 <div>
                     <span className='payment-success-detail-label'>회원 적립금</span>
-                    {/* <span className='payment-success-benefit-desc'>{orderPrice * 0.01}원</span> */}
-                    <span className='payment-success-benefit-desc'>{Math.trunc(Number(orderPrice) * 0.01)}원</span>
+                    <span className='payment-success-benefit-desc'>{Math.trunc(Number(orderPrice) * 0.01).toLocaleString()}원</span>
                 </div>
                 <div className='payment-success-bottom'>
                     <div className='payment-success-bottom-benefit'>
                         <span>적립 예정금액</span>
-                        <span>{orderPrice * 0.01}원</span>
+                        <span>{(orderPrice * 0.01).toLocaleString()}원</span>
                     </div>
                     <div className='payment-success-bottom-btns'>
                         <button><Link to={'/mypage'}>주문확인하기</Link></button>

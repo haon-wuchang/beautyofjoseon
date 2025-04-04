@@ -11,7 +11,7 @@ export default function Cart() {
 
     useEffect(() => {
         getCartList();
-    }, []);
+    }, [cartList]);
 
     return (
         <div className='cart-page-wrap'>
