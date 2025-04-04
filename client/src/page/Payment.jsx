@@ -175,12 +175,12 @@ export default function Payment() {
                 <div style={{display : !isOpen && activeIndex === 5 ? "none" : "block"}}>
                     <ul className='payment-benefit-detail'>
                         <li><span>상품별 적립금</span><span>0원</span></li>
-                        <li><span>회원 적립금</span><span>{orderPrice * 0.01}원</span></li>
+                        <li><span>회원 적립금</span><span>{Math.trunc(Number(orderPrice) * 0.01)}원</span></li>
                         <li><span>쿠폰 적립금</span><span>0원</span></li>
                     </ul>
                     <div className='payment-benefit-bottom'>
                         <span>적립 예정 금액</span>
-                        <span>{orderPrice * 0.01}원</span>
+                        <span>{Math.trunc(Number(orderPrice) * 0.01)}원</span>
                     </div>
                 </div>
             </div>

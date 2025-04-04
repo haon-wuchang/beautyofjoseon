@@ -19,9 +19,6 @@ export default function MainCategory() {
 
     const clickCategory = (id) => {
         console.log("확인 --> ", id);
-        // if (selectedCategory ) {
-            
-        // }
         getCategoryItems(id);
         navigate("/product/list");
     }

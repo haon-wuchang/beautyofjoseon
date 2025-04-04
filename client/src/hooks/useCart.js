@@ -5,7 +5,7 @@ import { OrderContext } from "../context/orderContext.js";
 
 
 export function useCart() {
-    const { cartList, setCartList, cartCount, setCartCount, totalPrice, setTotalPrice, selectItems, setSelectItems } = useContext(CartContext);
+    const { setCartList, cartCount, setCartCount, setTotalPrice, setSelectItems } = useContext(CartContext);
     const { orderList } = useContext(OrderContext);
 
 

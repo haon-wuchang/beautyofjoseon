@@ -14,6 +14,7 @@ export default function PaymentSuccess() {
     const id = localStorage.getItem("user_id");
     const pg_token = searchParams.get("pg_token");
     const tid = localStorage.getItem("tid");
+    console.log(typeof orderPrice);
 
     useEffect(() => {
         if (hasCheckedLogin.current) return;  // true:로그인 상태 -->  블록 return
@@ -155,7 +156,8 @@ export default function PaymentSuccess() {
                 </div>
                 <div>
                     <span className='payment-success-detail-label'>회원 적립금</span>
-                    <span className='payment-success-benefit-desc'>{orderPrice * 0.01}원</span>
+                    {/* <span className='payment-success-benefit-desc'>{orderPrice * 0.01}원</span> */}
+                    <span className='payment-success-benefit-desc'>{Math.trunc(Number(orderPrice) * 0.01)}원</span>
                 </div>
                 <div className='payment-success-bottom'>
                     <div className='payment-success-bottom-benefit'>

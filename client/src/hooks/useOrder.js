@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import axios from "axios";
+import { CartContext } from "../context/cartContext.js";
 import { OrderContext } from '../context/orderContext.js';
 import { useCart } from "./useCart.js";
 
 export function useOrder() {
+    const { setCartCount } = useContext(CartContext);
     const { orderList, setOrderList, setOrderPrice, setMember, SetCompletedOrderList, orderNumber, setOrderNumber } = useContext(OrderContext);
     const { getCartList, clearCart } = useCart();
     
@@ -114,6 +116,7 @@ export function useOrder() {
                     const saveOrderList = await getCartAll(); 
                     SetCompletedOrderList(saveOrderList);
                     clearCart();
+                    setCartCount(0);
                 } else {
                     const saveOrderList = await getSelectItems(); 
                     SetCompletedOrderList(saveOrderList);
