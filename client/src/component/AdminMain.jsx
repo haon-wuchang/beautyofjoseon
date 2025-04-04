@@ -40,7 +40,8 @@ export default function AdminMain() {
             return false;
         } else {
             formData = ({
-                ...formData, 'upload_file': fnames.uploadFileName,
+                ...formData,
+                'upload_file': fnames.uploadFileName,
                 'source_file': fnames.sourceFileName
             });
 

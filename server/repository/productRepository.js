@@ -30,7 +30,7 @@ export const getList = async (category_id) => {
 export const getProduct = async (pid) => {
 
     const sql = `
-            select 
+    select 
             p.pid as pid,
             p.pname as pname,
             p.price as price,
@@ -132,9 +132,9 @@ export const DeleteReview = async ({ pid, id }) => {
 /************************ 
     서브 카테고리 아이템 호출
 **************************/
-export const getSUbCateItems = async(category) => {
+export const getSUbCateItems = async (category) => {
     const id = category.category;
-    
+
     const sql = `
     SELECT pid, pname, sub_category_id, price, discount_rate,
             CONCAT('http://localhost:9000/', main_image->>'$[0]') AS image,
@@ -142,7 +142,7 @@ export const getSUbCateItems = async(category) => {
     FROM product
     WHERE sub_category_id = ?
     `;
-    
+
     const [result] = await db.execute(sql, [id]);
     return result;
 }

@@ -82,6 +82,7 @@ export default function ProductDetail() {
         setProduct(data);
         setSlideImgList(data.SlideImgList);
         setDetailImgList(data.descImgList);
+        
 
         let price = data.price;
         if (data.discount_rate) {
