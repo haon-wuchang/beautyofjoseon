@@ -15,8 +15,6 @@ export default function Payment() {
     const [isOpen, setIsOpen] = useState(true); // 섹션 탭 화살표 클릭 이벤트 관리
     const [ activeIndex, setActiveIndex ] = useState(null); // 섹션 화살표 클릭 이벤트 관리
     const orderType = localStorage.getItem("ORDERTYPE");
-    
-    console.log("로그인 상태 확인 --> ", isLoggedIn);
 
     useEffect(() => {
         if (orderType === "all") {
@@ -36,7 +34,6 @@ export default function Payment() {
     /** 섹션 화살표 클릭 이벤트 **/
     const clickArrow = () => {
         setIsOpen(!isOpen);
-        // index === activeIndex && alert("!!!");
     }
 
     return (
