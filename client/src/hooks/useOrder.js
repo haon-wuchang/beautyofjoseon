@@ -115,6 +115,7 @@ export function useOrder() {
                 if (orderType === "all") {
                     const saveOrderList = await getCartAll(); 
                     SetCompletedOrderList(saveOrderList);
+                    setMember(saveOrderList[0]);
                     clearCart();
                     setCartCount(0);
                 } else {

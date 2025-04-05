@@ -15,6 +15,8 @@ export default function PaymentSuccess() {
     const pg_token = searchParams.get("pg_token");
     const tid = localStorage.getItem("tid");
 
+    console.log("주문자 정보 확인 --> ", member);
+
     useEffect(() => {
         if (hasCheckedLogin.current) return;  // true:로그인 상태 -->  블록 return
         hasCheckedLogin.current = true;
@@ -92,7 +94,7 @@ export default function PaymentSuccess() {
                     </li>
                     <li>
                         <span className='payment-success-detail-label'>주소</span>
-                        <span className='payment-success-detail-desc'>{member.address}</span>
+                        <span className='payment-success-detail-desc'>{member.address} {member.extra_address}</span>
                     </li>
                     <li>
                         <span className='payment-success-detail-label'>연락처</span>

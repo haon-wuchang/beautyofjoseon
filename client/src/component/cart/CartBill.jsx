@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CartBill() {
     const navigate = useNavigate();
-    const { totalPrice, cids } = useContext(CartContext);
+    const { totalPrice, cids, selectPrice } = useContext(CartContext);
     const { orderType, setOrderType } = useContext(OrderContext);
     const { getSelectItemPrice, getCartList } = useCart();
 
@@ -20,14 +20,12 @@ export default function CartBill() {
         localStorage.getItem("ORDERTYPE") && localStorage.removeItem("ORDERTYPE");
         
         if (type === "all") {
-            // setOrderType("all");
             localStorage.setItem("ORDERTYPE", "all");
             navigate("/payment");
         } else { //선택상품 주문
             if (cids.length > 0) {
                 const arr = cids.map(item => item.cid).join();
                 localStorage.setItem("cids", arr);
-                // setOrderType("select");
                 localStorage.setItem("ORDERTYPE", "select");
                 navigate("/payment");
             } else {
@@ -45,17 +43,17 @@ export default function CartBill() {
                             <p>
                                 <span>총 상품금액</span>
                                 <br />
-                                <span>{totalPrice.toLocaleString()}원</span>
+                                <span>{selectPrice.toLocaleString()}원</span>
                             </p>
                             <p>
                                 <span>총 배송비</span>
                                 <br />
-                                <span>+ {totalPrice >= 20000 ? "0" : "3,000"}원</span>
+                                <span>+ {selectPrice >= 20000 ? "0" : "3,000"}원</span>
                             </p>
                             <p>
                                 <span>결제예정금액</span>
                                 <br />
-                                <span>= {totalPrice >= 20000 ? `${totalPrice.toLocaleString()}` : `${(totalPrice + 3000).toLocaleString()}`}원</span>
+                                <span>= {selectPrice >= 20000 ? `${selectPrice.toLocaleString()}` : `${(selectPrice + 3000).toLocaleString()}`}원</span>
                             </p>
                         </div>
                         <div className='cart-bill-block-right'>

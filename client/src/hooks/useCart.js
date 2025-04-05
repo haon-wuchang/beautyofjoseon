@@ -5,7 +5,7 @@ import { OrderContext } from "../context/orderContext.js";
 
 
 export function useCart() {
-    const { setCartList, cartCount, setCartCount, setTotalPrice, setSelectItems } = useContext(CartContext);
+    const { setCartList, cartCount, setCartCount, setTotalPrice, setSelectItems, setSelectPrice } = useContext(CartContext);
     const { orderList } = useContext(OrderContext);
 
 
@@ -96,7 +96,12 @@ export function useCart() {
     const getSelectItemPrice = async(cids) => {
         const result = await axios.post("http://localhost:9000/cart/selectItems", {"cids": cids});
         setSelectItems(result.data);
-        calculateTotalPrice(result.data);
+        // calculateTotalPrice(result.data);
+
+        const cartList = result.data;
+        const totalPrice = cartList.reduce((sum, item) => sum + item.discount_price * item.qty, 0);
+        setSelectPrice(totalPrice);
+        return totalPrice;
     }
 
     /********************************************

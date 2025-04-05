@@ -9,7 +9,7 @@ import { FaCheck } from "react-icons/fa6";
 
 export default function CartTable() {
     const navigate = useNavigate();
-    const { updateCartList, deleteCartItem, clearCart } = useCart();
+    const { updateCartList, deleteCartItem, clearCart, getSelectItemPrice } = useCart();
     const { cartList, totalPrice, cids, setCids } = useContext(CartContext);
     const [allSelect, setAllSelect] = useState(false); // 장바구니 아이템 전체 선택 버튼 활성화 여부
 
@@ -23,10 +23,6 @@ export default function CartTable() {
     const clickAllDelete = () => {
         const select = window.confirm("전체 상품을 삭제하시겠습니까?");
         select && clearCart();
-        // if (select) {
-        //     clearCart();
-        //     getCartList();
-        // }
     }
 
     // 장바구니 아이템 전체 선택 버튼 클릭 시 발생되는 이벤트
@@ -53,6 +49,12 @@ export default function CartTable() {
         } else {
             setCids([...cids, {"cid":cid}]);
         }
+    }
+    
+    // 수량 변경 시 이벤트
+    const handleQty = (cid) => {
+        const isChecked = cids.find((cids) => cids.cid === cid);
+        isChecked && getSelectItemPrice(cids);
     }
 
     // 장바구니 아이템 개별 주문하기 클릭 이벤트
@@ -103,10 +105,22 @@ export default function CartTable() {
                                     <td>{item.pname}</td>
                                     <td>
                                         <div>
+                                            <button onClick={() => {
+                                                item.qty > 1 && updateCartList(item.cid, "decrease", 1);
+                                                handleQty(item.cid);
+                                            }}><FiMinus /></button>
+                                            <span>{item.qty}</span>
+                                            <button onClick={
+                                                () => {
+                                                    updateCartList(item.cid, "increase", 1);
+                                                    handleQty(item.cid);
+                                            }}><FiPlus /></button>
+                                        </div>
+                                        {/* <div>
                                             <button onClick={() => updateCartList(item.cid, "decrease", 1)}><FiMinus /></button>
                                             <span>{item.qty}</span>
                                             <button onClick={() => updateCartList(item.cid, "increase", 1)}><FiPlus /></button>
-                                        </div>
+                                        </div> */}
                                         <div>
                                             {/* <button>변경</button> */}
                                         </div>
