@@ -1,6 +1,9 @@
 import {db} from './db.js';
 
-export const registerProduct = async(formData) => {      
+export const registerProduct = async(formData) => {    
+      console.log(formData.upload_file);
+      console.log(formData.upload_file[0]);
+      
     const sql = `
                  insert into product(
                     category_id, 
@@ -14,7 +17,7 @@ export const registerProduct = async(formData) => {
                         slide_origin_image,                        
                          pdate  
                           )
-                     values(?,?,?,?,?,json_array(?),json_array(?),json_array(?),json_array(?),now())
+                          values(?,?,?,?,?,json_array(?),json_array(?),?,?,now())                     
                 `;
     const values = [
         formData.category,
@@ -26,7 +29,6 @@ export const registerProduct = async(formData) => {
         formData.source_file[0] || null,
         formData.upload_file  || null,
         formData.source_file  || null,
-        // formData.upload_file  || null,
     ];
     
     const [result] = await db.execute(sql,values);   
@@ -37,8 +39,8 @@ export const registerProduct = async(formData) => {
 export const registerProductDesc = async(formData) => {   
   const sql = `
    update product    
-         set desc_image = json_array(?) , 
-         desc_origin_image = json_array(?)
+         set desc_image = ? , 
+         desc_origin_image = ?
             where pid = ?
               `;
   const [result] = await db.execute(sql,[formData.upload_file,formData.source_file,formData.pid]);
