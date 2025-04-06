@@ -139,7 +139,7 @@
 ## 프로젝트 시연 
 
 시연 영상 링크 :
-[![시연영상](https://github.com/user-attachments/assets/e1164fb6-8cd2-4bf4-8df3-4a9a908d9bd6)](https://youtu.be/KgK-92H-4kg?si=_RSJDlTBZowQY604)
+[![시연영상](https://github.com/user-attachments/assets/d4c52d8d-87c9-49cf-89e2-19c272ac95ec)](https://youtu.be/KgK-92H-4kg?si=_RSJDlTBZowQY604)
 
 
 <br>
