@@ -138,14 +138,11 @@
 
 ## 프로젝트 시연 
 
-시연 영상 링크 :
+시연 영상 링크 : <BR>
 [![시연영상](https://github.com/user-attachments/assets/d4c52d8d-87c9-49cf-89e2-19c272ac95ec)](https://youtu.be/KgK-92H-4kg?si=_RSJDlTBZowQY604)
 
 
 <br>
-
-## ✨ Notice
-
 <br><br><br>
     
   
