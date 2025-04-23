@@ -8,8 +8,6 @@ import { useProduct } from "../hooks/useProduct.js"
 import { FiPlus, FiMinus } from "react-icons/fi";
 import axios from 'axios';
 import '../style/product.scss';
-
-// 하위 컴포넌트
 import ProductSlider from '../component/product/ProductSlider.jsx'; // slick슬라이더
 import DetailImages from '../component/product/DetailImages.jsx'; // 상세이미지 map
 import Review from '../component/product/Review.jsx'; // 리뷰
@@ -84,6 +82,7 @@ export default function ProductDetail() {
         setProduct(data);
         setSlideImgList(data.SlideImgList);
         setDetailImgList(data.descImgList);
+        
 
         let price = data.price;
         if (data.discount_rate) {
@@ -214,7 +213,7 @@ export default function ProductDetail() {
             <button className='b-btn' onClick={addCartItem}>Add to Cart</button>
           </div>
 
-          <OtherPay className='product-detail-payments' />
+          {/* <OtherPay className='product-detail-payments' /> */}
           <Notice isToggled={isToggled} clickDetailToggle={clickDetailToggle} />
 
           <ul className='product-detail-bottom-notice'>

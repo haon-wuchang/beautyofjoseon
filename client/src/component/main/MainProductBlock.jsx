@@ -1,16 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../auth/AuthContext.js';
+import { useProduct } from '../../hooks/useProduct.js';
+import axios from 'axios';
 import Slider from "react-slick";
 import '../slider/slick-theme.css';
 import '../slider/slick.css';
 import { PrevArrow, NextArrow } from './Arrows.jsx';
-import { GoHeart } from "react-icons/go";
-import { Link } from 'react-router-dom';
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 
 export default function MainProductBlock({ bestList, className }) {
-    // 슬라이드 바 설정
+    const navigate = useNavigate();
+    const { isLoggedIn } = useContext(AuthContext);
+    const { getWishList } = useProduct();
+    const [wishList, setWishList] = useState([]);
+
     const [progress, setProgress] = useState(0);
     const totalSlides = bestList.length; // 전체 슬라이드 갯수
     const slidesToShow = 4; //한 번에 보여줄 슬라이드 갯수
+
+    // 위시리스트 불러오기
+    useEffect(() => {
+        const fetchWishList = async () => {
+            const id = localStorage.getItem("user_id");
+            if (!id) return;
+
+            try {
+                const wish = await getWishList();
+                setWishList(wish);
+            } catch (err) {
+                console.error("위시리스트 불러오기 실패", err);
+                setWishList([]);
+            }
+        };
+        fetchWishList();
+    }, []);
+
+    // 위시리스트 토글
+    const toggleWish = async (pid) => {
+        if (!isLoggedIn) {
+            alert("로그인 후에 사용할 수 있는 서비스입니다.");
+            return navigate("/login");
+        }
+
+        const id = localStorage.getItem("user_id");
+        const isWished = wishList.includes(pid);
+        const newWish = isWished
+            ? wishList.filter(item => item !== pid)
+            : [...wishList, pid];
+
+        try {
+            await axios.post("http://localhost:9000/mypage/updateWishList", {
+                id,
+                newWishList: newWish,
+            });
+            setWishList(newWish);
+            if (!isWished) alert("위시리스트에 추가되었습니다.");
+        } catch (err) {
+            console.error("위시리스트 업데이트 실패", err);
+        }
+    };
 
     const settings = {
         className: "center",
@@ -27,14 +76,12 @@ export default function MainProductBlock({ bestList, className }) {
         prevArrow: <PrevArrow />,
         centerMode: true,
         centerPadding: "60px",
-        beforeChange: (oldIndex, newIndex) => {
+        beforeChange: (newIndex) => {
             // 슬라이드 변경 시 진행 바 업데이트
             const newProgress = ((newIndex + slidesToShow) / totalSlides) * 100;
             setProgress(newProgress);
         }
     };
-
-    // className="main-contents-best-products"
 
     return (
         <div className={`${className}-wrap`}>
@@ -58,8 +105,13 @@ export default function MainProductBlock({ bestList, className }) {
                                                 </>
                                         }
                                     </div>
-                                    <div className={`${className}-like`}>
-                                        <GoHeart />
+                                    <div className={`${className}-like`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            toggleWish(item.pid);
+                                        }}
+                                    >
+                                        {wishList.includes(item.pid) ? <FaHeart color="red" /> : <FaRegHeart />}
                                     </div>
                                 </li>
                             </Link>

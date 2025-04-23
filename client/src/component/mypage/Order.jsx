@@ -100,18 +100,6 @@ export default function Order() {
                     <option value="교환">교환</option>
                     <option value="반품">반품</option>
                 </select>
-                {/* <ul>
-                    <li onClick={() => { setDate('today') }}
-                        className={date === 'today' && 'active-order-date'}>오늘</li>
-                    <li onClick={() => { setDate('week') }}
-                        className={date === 'week' && 'active-order-date'}>1주일</li>
-                    <li onClick={() => { setDate('month') }}
-                        className={date === 'month' && 'active-order-date'}>1개월</li>
-                    <li onClick={() => { setDate('3month') }}
-                        className={date === '3month' && 'active-order-date'}>3개월</li>
-                    <li onClick={() => { setDate('6month') }}
-                        className={date === '6month' && 'active-order-date'}>6개월</li>
-                </ul> */}
                 <div>
                     <input type="date" onChange={checkOrderDate} name='start_date' />
                     <span>~</span>

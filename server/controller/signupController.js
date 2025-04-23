@@ -4,8 +4,7 @@ import * as repository from '../repository/signupRepository.js';
 /*************************** 
  *  아이디 중복체크 
 ***************************/
-export const getIdCheck = async(req, res) => {
-  
+export const getIdCheck = async(req, res) => {  
   const result = await repository.getIdCheck(req.body);
   res.json(result);
   res.end();

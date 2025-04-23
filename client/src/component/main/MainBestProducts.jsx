@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MainTitleBlock from '../../component/MainTitleBlock';
 import MainProductBlock from './MainProductBlock.jsx';
 import axios from 'axios';
-import { motion } from 'framer-motion'; // 스크롤 애니메이션 라이브러리
+import { motion } from 'framer-motion'; 
 
 export default function MainBestProducts() {
     const [bestList, setBestList] = useState([]);

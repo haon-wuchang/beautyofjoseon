@@ -1,7 +1,6 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs'; 
-import * as repository from '../repository/adminRepository.js';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -26,20 +25,16 @@ export const fileUpload = (req,res) => {
             if(fs.existsSync(oldFilePath)){
               try{
                 fs.unlinkSync(oldFilePath);
-                // console.log('이전파일 삭제완료',oldFilePath); 
               }catch(error){
                 console.error('이전파일 삭제실패',error);
               }
             }
           }
-
             res.json({ 
                 "uploadFileName" : res.req.file.path,  
                  "sourceFileName" : req.file.originalname, 
                   "oldFile": res.req.file.filename 
                    }); 
-            // console.log('테스트',req.file);
-            // console.log(req.body.oldFile);
         }
     });
 }

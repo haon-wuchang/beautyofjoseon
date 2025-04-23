@@ -36,22 +36,46 @@ export const getSelectItems = async(formData) => {
     return result;
 }
 
+
+/********************************************
+    결제 페이지 배송지 수정
+    사용처 : payment
+    작성자 : 김유나
+********************************************/
+export const updateDelivery = async(formData) => {
+    const sql = `
+        update customer
+        set name = ?,
+            phone = ?,
+            email = ?,
+            zipcode = ?,
+            address = ?,
+            extra_address = ?
+        where id = ?
+    `;
+
+    const values = [
+        formData.name,
+        formData.phone,
+        formData.email,
+        formData.zipcode,
+        formData.address,
+        formData.extra,
+        formData.id
+    ];
+
+    const [result] = await db.execute(sql, values);
+
+    return {"result_rows": result.affectedRows}
+}
+
+
 /********************************************
     구매 상품 주문 테이블에 저장
     사용처 : Payment
     작성자 : 김유나
 ********************************************/
 export const saveToOrder = async(formData) => {
-    // 날짜 생성(order_number 랜덤하게 생성하기 위해 사용)
-    // const dateNumber = () => {
-    //     const date = new Date();
-    //     const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, "");
-    //     const randomNumber = Math.floor(10000 + Math.random() * 90000);
-    //     return `${formattedDate}-${randomNumber}`;
-    // }
-
-    // const orderNumber = dateNumber();
-
     const result = await Promise.all(
         formData.orderList.map(async(item) => {
             const values = [
@@ -72,7 +96,6 @@ export const saveToOrder = async(formData) => {
             return {"result_rows": result.affectedRows};
         })
     )
-    console.log("repository saveToOrder 확인 --> ", result[0].result_rows);
     return {"result_rows": result[0].result_rows};
 }
 
@@ -86,8 +109,6 @@ export const deleteItems = async(data) => {
     const sql = `
         delete from cart where cid in (${cids})
     `;
-
-    // console.log("cids 확인 --> ", cids);
 
     const [result] = await db.execute(sql);
 
@@ -113,7 +134,6 @@ export const getBill = async(formData) => {
     `;
     
     const [result] = await db.execute(sql, [id]);
-    console.log("getBill 확인 --> ", result);
     return result;
 }
 

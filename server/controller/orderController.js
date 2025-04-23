@@ -25,6 +25,18 @@ export const getSelectItems = async(req, res) => {
 
 
 /********************************************
+    결제 페이지 배송지 수정
+    사용처 : payment
+    작성자 : 김유나
+********************************************/
+export const updateDelivery = async(req, res) => {
+    const result = await repository.updateDelivery(req.body);
+    res.json(result);
+    res.end();
+}
+
+
+/********************************************
     구매 상품 주문 테이블에 저장
     사용처 : Payment
     작성자 : 김유나
@@ -58,4 +70,3 @@ export const getBill = async(req, res) => {
     res.json(result);
     res.end();
 }
-

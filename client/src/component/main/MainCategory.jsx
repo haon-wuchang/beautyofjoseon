@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion'; // 스크롤 애니메이션 라이브러리
+import { ProductContext } from '../../context/productContext.js';
+import { useProduct } from '../../hooks/useProduct.js';
 
 export default function MainCategory() {
+    const navigate = useNavigate();
+    const { selectedCategory, setSelectedCategory } = useContext(ProductContext);
+    const { getCategoryItems } = useProduct();
     const [categoryList, setCategoryList] = useState([]);
 
     useEffect(() => {
@@ -11,6 +16,12 @@ export default function MainCategory() {
             .then(res => setCategoryList(res.data.mainCategory))
             .catch(err => console.log(err));
     }, []);
+
+    const clickCategory = (id) => {
+        console.log("확인 --> ", id);
+        getCategoryItems(id);
+        navigate("/product/list");
+    }
 
     return (
         <div className='main-contents-category-wrap'>
@@ -48,12 +59,10 @@ export default function MainCategory() {
                     <ul className='main-contents-category-list'>
                         {
                             categoryList && categoryList.map((list) => 
-                                <Link>
-                                    <li>
-                                        <img src={list.img} alt="" />
-                                        <p>{list.title}</p>
-                                    </li>
-                                </Link>
+                                <li onClick={() => clickCategory(list.id)}>
+                                    <img src={list.img} alt="" />
+                                    <p>{list.title}</p>
+                                </li>
                             )
                         }
                     </ul>

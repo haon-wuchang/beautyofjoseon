@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthContext.js';
+import { ProductContext } from '../context/productContext.js';
 import { MypageContext } from '../context/MypageContext.js';
 import { CartContext } from '../context/cartContext.js';
+import { useProduct } from '../hooks/useProduct.js';
 import { useLogin } from '../hooks/useLogin.js';
 import { useMypage } from '../hooks/useMypage.js';
 import { useCart } from '../hooks/useCart.js';
@@ -22,9 +24,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Header() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { selectedCategory } = useContext(ProductContext);
     const { isLoggedIn } = useContext(AuthContext);
     const { myinfo } = useContext(MypageContext);
     const { cartCount } = useContext(CartContext);
+    const { getCategoryItems } = useProduct();
     const { getMyinfo } = useMypage();
     const { handleLogin } = useLogin();
     const { getCartList } = useCart();
@@ -32,10 +37,21 @@ export default function Header() {
     const [ searchModalOpen, setSearchModalOpen ] = useState(false);  // 검색 모달창 상태 관리
 
     useEffect(() => {
-        console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
+        // console.log("Header 컴포넌트에서 isLoggedIn 상태 변경 감지:", isLoggedIn);
         getMyinfo();
         getCartList(); // Header 장바구니 아이콘에 아이템 갯수 표시 위해 실행
     }, [isLoggedIn]); // 🔥 상태 변경될 때마다 실행  
+
+    /* PROUDCT 버튼 클릭 이벤트 */
+    const clickProduct = () => {
+        getCategoryItems('all');
+        // if (location !== 'product/list') {
+        //     getCategoryItems('all');
+        //     navigate('/product/list');
+        // } else {
+        //     getCategoryItems(selectedCategory);
+        // }
+    }
 
     /* 로그아웃 버튼 클릭 이벤트 */
     const logout = () => {
@@ -114,7 +130,11 @@ export default function Header() {
                     <div className='header-bottom-right'>
                         <nav className='header-bottom-right-nav'>
                             <Link to="/">HOME</Link>
-                            <Link to="/product/list">PRODUCT</Link>
+                            <Link to="/product/list"
+                                    onClick={clickProduct}
+                            >
+                                PRODUCT
+                            </Link>
                             <Link to="/">BRAND STORY</Link>
                             <Link to="/">MEMBERSHIP</Link>
                             <Link to="/">PRESS</Link>
@@ -159,7 +179,7 @@ export default function Header() {
                 </div>
 
                 {/* 헤더 토글 버튼 클릭시 나오는 컴포넌트 */}
-                <HeaderToggle toggleOpen={toggleOpen} /> 
+                <HeaderToggle toggleOpen={toggleOpen} setToggleOpen={setToggleOpen} /> 
             </div>
         </div>
     );

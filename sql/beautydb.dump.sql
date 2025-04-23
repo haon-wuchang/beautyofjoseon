@@ -1,3 +1,4 @@
+drop database beautydb;
 CREATE DATABASE  IF NOT EXISTS `beautydb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `beautydb`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
@@ -34,7 +35,7 @@ CREATE TABLE `cart` (
   KEY `id_fk1` (`id`),
   CONSTRAINT `id_fk1` FOREIGN KEY (`id`) REFERENCES `customer` (`id`),
   CONSTRAINT `pid_fk1` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +44,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (1,3,'agikim',1),(3,1,'agikim',1);
+INSERT INTO `cart` VALUES (2,4,'agikim',1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +105,10 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('agikim','agikim','김아기','010-9603-8126','agi.kim@gmail.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1972-05-18','2025-03-24 09:23:14','Family','c','[3]',NULL),('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL);
+INSERT INTO `customer` 
+VALUES ('agikim','agikim','김아기','010-9603-1234','agi.kim@gmail.com','06242','서울 강남구 강남대로78길 8','한국빌딩 4층 404호','F','1972-05-18','2025-03-24 09:23:14','Family','c','[3, 4]',NULL),
+('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL),
+('admin','admin','관리자','010-5972-8213','doeof@naver.com','34825','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +133,7 @@ CREATE TABLE `orders` (
   KEY `id_fk2` (`id`),
   CONSTRAINT `id_fk2` FOREIGN KEY (`id`) REFERENCES `customer` (`id`),
   CONSTRAINT `pid_fk2` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,7 +142,11 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'agikim',4,'20250328-68859',1,16000,'2025-03-29','배송준비중');
+INSERT INTO `orders` VALUES (1,'agikim',4,'20250328-68859',1,16000,'2025-04-29','배송준비중'),
+(2,'agikim',1,'20250331-74641',1,36000,'2025-03-31','배송준비중'),
+(3,'agikim',3,'20250331-74641',1,16000,'2025-03-31','배송준비중'),
+(4,'agikim',4,'20250328-68859',1,16000,'2025-04-29','배송완료'),
+(5,'agikim',2,'20250328-68859',1,16000,'2025-04-28','배송완료');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +250,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'agikim',1,'너무 좋아요','잘 쓰고 있습니다~~ 제품도 좋고 패키지도 예뻐요','["review_sample1.png","review_sample2.png","review_sample3.png"]','2025-03-29 21:19:56',0,NULL);
+INSERT INTO `review` VALUES (1,'agikim',3,'테스트','테스트','[]','2025-03-24 18:44:45',0,'[]'),(2,'agikim',3,'테스트2','테스트','[\"1742809504063-3541-25.jpg\"]','2025-03-24 18:45:05',0,'[\"25.jpg\"]');
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,7 +404,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_bill_list` AS select `o`.`oid` AS `oid`,`o`.`order_number` AS `order_number`,`c`.`name` AS `name`,`c`.`phone` AS `phone`,`c`.`email` AS `email`,concat(`c`.`zipcode`,' ',`c`.`address`,' ',`c`.`extra_address`) AS `address`,`o`.`id` AS `id`,`p`.`pname` AS `pname`,ifnull(round(((`p`.`price` - (`p`.`price` / ifnull(`p`.`discount_rate`,0))) * `o`.`qty`),-(3)),`p`.`price`) AS `product_price`,`o`.`qty` AS `qty`,`p`.`main_image` AS `main_image` from ((`orders` `o` join `product` `p`) join `customer` `c`) where ((`o`.`pid` = `p`.`pid`) and (`o`.`id` = `c`.`id`)) */;
+/*!50001 VIEW `view_bill_list` AS select `o`.`oid` AS `oid`,`o`.`order_number` AS `order_number`,`c`.`name` AS `name`,`c`.`phone` AS `phone`,`c`.`email` AS `email`,concat(`c`.`zipcode`,' ',`c`.`address`,' ',`c`.`extra_address`) AS `address`,`o`.`id` AS `id`,`p`.`pname` AS `pname`,(`p`.`price` - floor((((`p`.`price` * `p`.`discount_rate`) * `o`.`qty`) / 100))) AS `product_price`,`o`.`qty` AS `qty`,`p`.`main_image` AS `main_image` from ((`orders` `o` join `product` `p`) join `customer` `c`) where ((`o`.`pid` = `p`.`pid`) and (`o`.`id` = `c`.`id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -468,7 +476,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `view_payment_list` AS select `ca`.`cid` AS `cid`,`cu`.`id` AS `id`,`cu`.`name` AS `name`,`cu`.`address` AS `address`,`cu`.`extra_address` AS `extra_address`,`cu`.`zipcode` AS `zipcode`,`cu`.`phone` AS `phone`,`cu`.`email` AS `email`,`ca`.`pid` AS `pid`,`pd`.`pname` AS `pname`,`ca`.`qty` AS `qty`,ifnull(round((`pd`.`price` - (`pd`.`price` / ifnull(`pd`.`discount_rate`,0))),-(3)),`pd`.`price`) AS `discount_price`,`pd`.`main_image` AS `main_image` from ((`customer` `cu` join `cart` `ca`) join `product` `pd`) where ((`cu`.`id` = `ca`.`id`) and (`ca`.`pid` = `pd`.`pid`)) order by `ca`.`cid` */;
+/*!50001 VIEW `view_payment_list` AS select `ca`.`cid` AS `cid`,`cu`.`id` AS `id`,`cu`.`name` AS `name`,`cu`.`address` AS `address`,`cu`.`extra_address` AS `extra_address`,`cu`.`zipcode` AS `zipcode`,`cu`.`phone` AS `phone`,`cu`.`email` AS `email`,`ca`.`pid` AS `pid`,`pd`.`pname` AS `pname`,`ca`.`qty` AS `qty`,((`pd`.`price` - floor(((`pd`.`price` * `pd`.`discount_rate`) / 100))) * `ca`.`qty`) AS `discount_price`,`pd`.`main_image` AS `main_image` from ((`customer` `cu` join `cart` `ca`) join `product` `pd`) where ((`cu`.`id` = `ca`.`id`) and (`ca`.`pid` = `pd`.`pid`)) order by `ca`.`cid` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -482,4 +490,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-31  9:53:05
+-- Dump completed on 2025-04-01 15:36:40

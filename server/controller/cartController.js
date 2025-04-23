@@ -10,37 +10,26 @@ export const getItems = async (req, res) => {
         res.json(result)
         res.end();
 };
-
-
-
-
 /********************************************
         장바구니 새로운 아이템 저장
         사용처 : ProductDetail
         작성자 : 정서령
 ********************************************/
 export const addCart = async (req, res) => {
-        console.log('req.body 확인', req.body);
         const result = await repository.addCart(req.body);
         res.json(result)
         res.end();
 };
-
-
-
 /********************************************
         장바구니 아이템 수량 업데이트
         사용처 : ProductDetail, Cart
         작성자 : 정서령
 ********************************************/
-
 export const updateQty = async (req, res) => {
-        console.log("🔍 updateQty - req.body 확인:", req.body);
         const result = await repository.updateQty(req.body);
         res.json(result);
         res.end();
 };
-
 /********************************************
         장바구니 아이템 개별 삭제
         사용처 : Cart
@@ -51,7 +40,6 @@ export const deleteCartItem = async(req, res) => {
         res.json(result);
         res.end();
 }
-
 /********************************************
         장바구니 아이템 전체 삭제
         사용처 : Cart
@@ -62,7 +50,6 @@ export const clearCart = async(req, res) => {
         res.json(result);
         res.end();
 }
-
 /********************************************
         장바구니에서 선택한 상품의 가격만 계산
         사용처 : Cart

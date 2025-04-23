@@ -17,7 +17,6 @@ export default function OtherPay({className}) {
                 </div>
                     <span className='kakao-img'></span>
                 <div>
-                    {/* <svg src="/images/kakaopay.svg" style={{width:"100px"}}></svg> */}
                     <button className='w-btn2'>찜</button>
                 </div>
             </li>

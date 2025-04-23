@@ -5,13 +5,14 @@
 
 import React, { useEffect, useState, useContext } from 'react';
 import '../style/product.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../auth/AuthContext.js";
 import { ProductContext } from '../context/productContext.js';
 import { useProduct } from "../hooks/useProduct.js";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 
 // 하위 컴포넌트
 import ProductListItem from "../component/product/ProductListItem.jsx"; // 상품 아이템
@@ -19,11 +20,11 @@ import CategoryTabs from "../component/product/CategoryTabs.jsx"; // 카테고�
 import SortDropdown from "../component/product/SortDropdown.jsx";  // 유형별 정렬
 import GridSelector from "../component/product/GridSelector.jsx"; // 2,3,4열 grid
 
-export default function Products() {
+export default function SubProducts() {
     const navigate = useNavigate();
     const { isLoggedIn } = useContext(AuthContext);
-    const { products, selectedCategory, setSelectedCategory } = useContext(ProductContext);
-    const { getWishList, getCategoryItems } = useProduct();
+    const { products, selectedSubCate, setSelectedSubCate, subCateList } = useContext(ProductContext);
+    const { getWishList, getSubCateItems } = useProduct();
 
     const [list, setList] = useState([]);
     const [wishList, setWishList] = useState([]);
@@ -31,20 +32,26 @@ export default function Products() {
     const [sortType, setSortType] = useState("default");
     const [gridClass, setGridClass] = useState("product-grid-3");
     const [itemOffset, setItemOffset] = useState(0);
+    const [subCategoryList, setSubCategoryList] = useState([]);
 
     // 전체 상품 불러오기
     useEffect(() => {
         axios.post('http://localhost:9000/product/list')
             .then(res => setList(res.data))
             .catch((error) => console.log(error));
-        // if (selectedCategory !== 'all') {
-        //     setSelectedCategory('all');
-        // }
+    }, []);
+
+    // 카테고리 목록 탭 생성
+    useEffect(() => {
+        axios.get("/data/main.json")
+            .then(res => setSubCategoryList(res.data.subCategory))
+            .catch(err => console.log(err));
     }, []);
 
     // 카테고리 클릭 시 해당 상품만 불러오기
-    const handleCategoryClick = (category) => {
-        getCategoryItems(category);
+    const handleCategoryClick = (id) => {
+        setSelectedSubCate(id);
+        getSubCateItems(id);
         setItemOffset(0);
     };
 
@@ -104,25 +111,34 @@ export default function Products() {
 
     // 페이지네이션
     const itemsPerPage = 20;
-    const currentList = selectedCategory === 'all' ? list : products;
+    const currentList = subCateList;
     const endOffset = itemOffset + itemsPerPage;
     const currentItems = currentList.slice(itemOffset, endOffset);
     const sortedItems = sortProducts(currentItems, sortType);
-    const pageCount = Math.ceil(currentList.length / itemsPerPage);
+    const pageCount = Math.ceil(subCateList.length / itemsPerPage);
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * itemsPerPage) % currentList.length;
         setItemOffset(newOffset);
     };
 
+    console.log(selectedSubCate);
+
     return (
         <div className='p-common products-content'>
             <div className='product-all-top'>
                 <h5 className='f18'>SHOP ALL</h5>
-                <CategoryTabs
-                    selectedCategory={selectedCategory}
-                    handleCategoryClick={handleCategoryClick}
-                />
+                <ul className='flex list-none w500'>
+                    {
+                        subCategoryList && subCategoryList.map((list) => 
+                            <li onClick={() => handleCategoryClick(list.id)}
+                                className={selectedSubCate === list.id ? 'active' : ''}
+                            >
+                                {list.title}
+                            </li>
+                            )
+                    }
+                </ul>
             </div>
 
             <div className='product-all-bottom space-between'>

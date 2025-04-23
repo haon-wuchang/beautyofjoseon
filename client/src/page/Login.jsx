@@ -7,7 +7,7 @@ import { AuthContext } from '../auth/AuthContext.js';
 import { useContext } from 'react';
 
 export default function Login() {
-    const {isLoggedIn,setIsLoggedIn} = useContext(AuthContext);
+    const {setIsLoggedIn} = useContext(AuthContext);
     const [formData, setFormData] = useState({ 'id': '', 'pwd': '' });
     const navigate = useNavigate();
     const [error, setError] = useState({'id':'', 'pwd':''});
@@ -46,7 +46,6 @@ export default function Login() {
                 .then(res => {
                     console.log('ddd',res.data.result);
                     if(res.data.result === 1){
-                        alert('로그인 성공');
                         localStorage.setItem('token',res.data.token);
                         localStorage.setItem('user_id',formData.id); 
                         setIsLoggedIn(true);
@@ -58,6 +57,7 @@ export default function Login() {
                         pwdRef.current.value = '';
                         pwdMsgRef.current.style.setProperty('color', 'white');
                         idRef.current.focus();
+                        navigate('/signup');
                     }
                 })
                 .catch(error => {
