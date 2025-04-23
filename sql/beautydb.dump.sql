@@ -1,3 +1,4 @@
+drop database beautydb;
 CREATE DATABASE  IF NOT EXISTS `beautydb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `beautydb`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
@@ -104,7 +105,10 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES ('agikim','agikim','김아기','010-9603-1234','agi.kim@gmail.com','06242','서울 강남구 강남대로78길 8','한국빌딩 4층 404호','F','1972-05-18','2025-03-24 09:23:14','Family','c','[3, 4]',NULL),('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL);
+INSERT INTO `customer` 
+VALUES ('agikim','agikim','김아기','010-9603-1234','agi.kim@gmail.com','06242','서울 강남구 강남대로78길 8','한국빌딩 4층 404호','F','1972-05-18','2025-03-24 09:23:14','Family','c','[3, 4]',NULL),
+('agoh','agoh','오암기','010-5972-8213','memoryoh@naver.com','12345','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL),
+('admin','admin','관리자','010-5972-8213','doeof@naver.com','34825','서울시 강남구 서초대로 11-22길','101동 101호','F','1994-04-06','2025-03-24 09:23:14',NULL,'a',NULL,NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +142,11 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'agikim',4,'20250328-68859',1,16000,'2025-03-29','배송준비중'),(2,'agikim',1,'20250331-74641',1,36000,'2025-03-31','배송준비중'),(3,'agikim',3,'20250331-74641',1,16000,'2025-03-31','배송준비중');
+INSERT INTO `orders` VALUES (1,'agikim',4,'20250328-68859',1,16000,'2025-04-29','배송준비중'),
+(2,'agikim',1,'20250331-74641',1,36000,'2025-03-31','배송준비중'),
+(3,'agikim',3,'20250331-74641',1,16000,'2025-03-31','배송준비중'),
+(4,'agikim',4,'20250328-68859',1,16000,'2025-04-29','배송완료'),
+(5,'agikim',2,'20250328-68859',1,16000,'2025-04-28','배송완료');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -74,7 +74,7 @@ export default function Payment() {
                     </div>
                 </div>
             </div>
-
+{/* 
             <div className='payment-discount'>
                 <div className='payment-block-title'>
                     <span>할인/부가결제</span>
@@ -105,7 +105,7 @@ export default function Payment() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className='payment-detail'>
                 <div className='payment-block-title'>
@@ -161,7 +161,7 @@ export default function Payment() {
                 </div>
             </div>
 
-            <div className='payment-benefit'>
+            {/* <div className='payment-benefit'>
                 <div>
                     <span>적립 혜택</span>
                     <div>
@@ -180,7 +180,7 @@ export default function Payment() {
                         <span>{Math.trunc(Number(orderPrice) * 0.01)}원</span>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <button className='payment-button'
                     onClick={clickPaymentBtn}
             >

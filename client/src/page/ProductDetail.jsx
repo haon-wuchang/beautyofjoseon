@@ -213,7 +213,7 @@ export default function ProductDetail() {
             <button className='b-btn' onClick={addCartItem}>Add to Cart</button>
           </div>
 
-          <OtherPay className='product-detail-payments' />
+          {/* <OtherPay className='product-detail-payments' /> */}
           <Notice isToggled={isToggled} clickDetailToggle={clickDetailToggle} />
 
           <ul className='product-detail-bottom-notice'>
