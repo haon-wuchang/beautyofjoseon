@@ -9,8 +9,8 @@ export const snsLoginCallback = async(req, res) =>{
       const tokenRes = await axios.post('https://nid.naver.com/oauth2.0/token', null,{
                                           params: {
                                             grant_type: 'authorization_code',
-                                            client_id: 'nd3jd_Q53Vfna4fdLlgx',
-                                            client_secret: 'FAXVytxIqG',
+                                            client_id: 'Aot8PsS2gfh4PzSET5k5',
+                                            client_secret: 'P14D84tYvl',
                                             code,
                                             state,
                                           },
