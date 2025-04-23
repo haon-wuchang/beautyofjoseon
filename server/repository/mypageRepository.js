@@ -92,7 +92,7 @@ export const getMyOrder = async ({ id }) => {
             concat('http://localhost:9000/',main_image->>'$[0]') as main_image,
             delivery_status,
             pname
-        from view_myOrder
+        from view_myorder
         where id = ?
                 `;
     const [result] = await db.execute(sql, [id]);
