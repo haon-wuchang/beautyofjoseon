@@ -5,7 +5,7 @@
 
 ## 프로젝트 소개
 - 조선미녀 팀 프로젝트 <br>
-- 배포링크 : http://beauty-client.s3-website.ap-northeast-2.amazonaws.com/  <br>
+- 배포링크 : http://joseon-client.s3-website.ap-northeast-2.amazonaws.com/  <br>
  <br>
  
 ### 📚기술 스택
